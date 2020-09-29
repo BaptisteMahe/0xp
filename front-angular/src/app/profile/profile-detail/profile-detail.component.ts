@@ -24,10 +24,10 @@ export class ProfileDetailComponent implements OnInit {
   currentUser: Observable<any>;;
 
   constructor(private userService: UserService,
-              private offerViewService: OfferViewService) {
-                this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
-                this.currentUser = this.currentUserSubject.asObservable();
-               }
+    private offerViewService: OfferViewService) {
+    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
   ngOnInit() {
     this.isEdition = false;
@@ -67,12 +67,12 @@ export class ProfileDetailComponent implements OnInit {
   }
 
   formatDateFromBase(dateBase) {
-    const date = dateBase.split("/");
-    return date[2] + "-" + date[1] + "-" + date[0];
+    const date = dateBase.split('/');
+    return date[2] + '-' + date[1] + '-' + date[0];
   }
   formatDateToBase(date) {
-    const dateBase = date.split("-");
-    return dateBase[2] + "/" + dateBase[1] + "/" + dateBase[0];
+    const dateBase = date.split('-');
+    return dateBase[2] + '/' + dateBase[1] + '/' + dateBase[0];
   }
 
 }
