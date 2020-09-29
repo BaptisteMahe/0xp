@@ -1,7 +1,5 @@
 import { OfferViewService } from 'src/app/offers/offerView.service';
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { GlobalService } from './global.service';
 import { NotificationsService } from './profile/notification/notifications.service';
 
 @Component({
@@ -12,7 +10,7 @@ import { NotificationsService } from './profile/notification/notifications.servi
 export class AppComponent implements OnInit {
   title = 'zero-xp';
 
-  constructor(private offerViewService : OfferViewService, private notificationsService : NotificationsService) {}
+  constructor(private offerViewService: OfferViewService, private notificationsService: NotificationsService) { }
 
   ngOnInit() {
   }

@@ -1,4 +1,4 @@
-import { CompanyService } from './../../company.service';
+import { CompanyService } from './../../services/company.service';
 import { UserCompany } from './../../../models/userCompany';
 import { UserStudent } from './../../../models/userStudent';
 import { Injectable } from '@angular/core';
@@ -19,8 +19,8 @@ export class AuthenticationService {
     public currentUserCompany;
 
     constructor(private http: HttpClient,
-                private router: Router,
-                private companyService: CompanyService) {
+        private router: Router,
+        private companyService: CompanyService) {
         this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -40,8 +40,8 @@ export class AuthenticationService {
             }));
     }
 
-    saveUser(user){
-        if (this.currentUser){
+    saveUser(user) {
+        if (this.currentUser) {
             localStorage.setItem('currentUser', JSON.stringify(user));
             this.currentUserSubject.next(user);
         }

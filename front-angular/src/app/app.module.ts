@@ -46,8 +46,8 @@ import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.co
 import { AddCompanyComponent } from './entreprises/add-company/add-company.component';
 import { ListCompanyComponent } from './entreprises/list-company/list-company.component';
 
-import { GlobalService } from './global.service';
-import { CompanyService } from './company.service';
+import { GlobalService } from './services/global.service';
+import { CompanyService } from './services/company.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

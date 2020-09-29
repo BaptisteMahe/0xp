@@ -4,8 +4,8 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class GlobalService {
 
-    isProfilOpen: Boolean = false;
-    isProfilOpenSubject = new Subject<Boolean>();
+    isProfilOpen = false;
+    isProfilOpenSubject = new Subject<boolean>();
 
     constructor() { }
 
@@ -13,7 +13,7 @@ export class GlobalService {
         this.isProfilOpenSubject.next(this.isProfilOpen);
     }
 
-    switchIsProfilOpen(isProfilOpen: Boolean) {
+    switchIsProfilOpen(isProfilOpen: boolean) {
         this.isProfilOpen = isProfilOpen;
         this.emitIsProfilOpenSubject();
     }

@@ -1,7 +1,7 @@
 import { Company } from 'src/models';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CompanyService } from 'src/app/company.service';
+import { CompanyService } from '../../services/company.service';
 
 @Component({
   selector: 'app-company',
@@ -13,16 +13,16 @@ export class DetailCompanyComponent implements OnInit {
   companyId: string;
   company: Company;
   constructor(private route: ActivatedRoute,
-              public companyService: CompanyService) { }
+    public companyService: CompanyService) { }
 
   ngOnInit() {
     this.companyId = this.route.snapshot.params.id;
     this.companyService.getById(this.companyId).subscribe(
       value => {
-          this.company = value;
+        this.company = value;
       },
       error => {
-          console.log('Erreur ! : ' + error);
+        console.log('Erreur ! : ' + error);
       }
     );
 
