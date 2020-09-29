@@ -12,7 +12,7 @@ cd 0xp/back-node
 Installer les packages et lancer le server
 ~~~shell
 npm install
-node server.js
+npm run dev
 ~~~
 
 Dans une autre console
