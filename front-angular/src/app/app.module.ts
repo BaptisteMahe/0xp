@@ -1,59 +1,58 @@
-import { UserService } from './logging/services/user.service';
-import { ErrorInterceptor } from './logging/helpers/error.interceptor';
-import { JwtInterceptor } from './logging/helpers/jwt.interceptor';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-import { MatSelectModule } from '@angular/material';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material';
-import { MatSliderModule } from '@angular/material/slider';
-import { SelectAutocompleteModule } from 'mat-select-autocomplete';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr');
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
 import { HomeComponent } from './home/home.component';
-import { OffersComponent } from './offers/offers.component';
+
+import { NavbarComponent } from './navbar/navbar.component';
+
+import { AlertComponent } from './alert/alert.component';
+
+import { ProfileAdminComponent } from './admin/profile-admin/profile-admin.component';
+
+import { FaqComponent } from './faq/faq.component';
+import { FaqQuestionComponent } from './faq/faq-question/faq-question.component';
+
 import { LoggingComponent } from './logging/logging.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ErrorInterceptor } from './logging/helpers/error.interceptor';
+import { JwtInterceptor } from './logging/helpers/jwt.interceptor';
+import { RegisterFormComponent } from './logging/register-form/register-form.component';
+import { UserService } from './logging/services/user.service';
+
+import { OffersComponent } from './offers/offers.component';
 import { FilterComponent } from './offers/filter/filter.component';
 import { OfferPreviewComponent } from './offers/offer-preview/offer-preview.component';
 import { OfferDetailComponent } from './offers/offer-detail/offer-detail.component';
-import { RegisterFormComponent } from './logging/register-form/register-form.component';
+import { OfferViewService } from './offers/offerView.service';
+
+import { ProfileComponent } from './profile/profile.component';
 import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
 import { NotificationComponent } from './profile/notification/notification.component';
 import { OfferSquareComponent } from './profile/application/offer-square/offer-square.component';
 import { OfferCompanyComponent } from './profile/application/offer-company/offer-company.component';
-import { AlertComponent } from './alert/alert.component';
-
-import { GlobalService } from './global.service';
-import { OfferViewService } from './offers/offerView.service';
-import { CompanyService } from './company.service';
+import { AddOfferComponent } from './profile/application/offer-company/add-offer/add-offer.component';
 import { NotificationsService } from './profile/notification/notifications.service';
 
-import { FaqComponent } from './faq/faq.component';
-import { AddOfferComponent } from './profile/application/offer-company/add-offer/add-offer.component';
-
-import { registerLocaleData } from '@angular/common';
-import localeFr from '@angular/common/locales/fr';
-registerLocaleData(localeFr, 'fr');
-import { LOCALE_ID } from '@angular/core';
-import { FaqQuestionComponent } from './faq/faq-question/faq-question.component';
 import { EntreprisesComponent } from './entreprises/entreprises.component';
 import { DetailCompanyComponent } from './entreprises/detail-company/detail-company.component';
 import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.component';
-import { ProfileAdminComponent } from './admin/profile-admin/profile-admin.component';
 import { AddCompanyComponent } from './entreprises/add-company/add-company.component';
 import { ListCompanyComponent } from './entreprises/list-company/list-company.component';
-import {MatTabsModule} from '@angular/material';
 
+import { GlobalService } from './global.service';
+import { CompanyService } from './company.service';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+import { MaterialModule } from './modules/material.module';
 
 @NgModule({
   declarations: [
@@ -85,20 +84,12 @@ import {MatTabsModule} from '@angular/material';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    MatButtonToggleModule,
-    MatSlideToggleModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatSliderModule,
-    SelectAutocompleteModule,
+    MaterialModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CKEditorModule,
-    MatTabsModule
+    CKEditorModule
   ],
   exports: [OfferDetailComponent],
   providers: [GlobalService, OfferViewService, CompanyService, UserService, NotificationsService,
