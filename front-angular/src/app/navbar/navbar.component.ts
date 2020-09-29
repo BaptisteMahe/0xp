@@ -12,20 +12,24 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
   currentUser: User;
-  isProfilOpen: Boolean;
+  isProfilOpen: boolean;
   isProfilOpenSubscription: Subscription;
   nbrNotif: number;
   nbrNotifSubscription: Subscription;
-  constructor(private authenticationService: AuthenticationService, private globalService: GlobalService, private notificationsService: NotificationsService
-  ) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  constructor(private authenticationService: AuthenticationService,
+    private globalService: GlobalService,
+    private notificationsService: NotificationsService) {
+    this.authenticationService.currentUser.subscribe(
+      (currentUser: User) => {
+        this.currentUser = currentUser;
+      });
   }
 
   ngOnInit() {
     this.nbrNotif = this.notificationsService.nbrNotif;
     this.isProfilOpen = this.globalService.isProfilOpen;
     this.isProfilOpenSubscription = this.globalService.isProfilOpenSubject.subscribe(
-      (isProfilOpen: Boolean) => {
+      (isProfilOpen: boolean) => {
         this.isProfilOpen = isProfilOpen;
       }
     );
