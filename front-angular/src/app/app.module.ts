@@ -13,8 +13,6 @@ import { HomeComponent } from './home/home.component';
 
 import { NavbarComponent } from './navbar/navbar.component';
 
-import { AlertComponent } from './alert/alert.component';
-
 import { ProfileAdminComponent } from './admin/profile-admin/profile-admin.component';
 
 import { FaqComponent } from './faq/faq.component';
@@ -70,7 +68,6 @@ import { MaterialModule } from './modules/material.module';
     NotificationComponent,
     OfferSquareComponent,
     OfferCompanyComponent,
-    AlertComponent,
     FaqComponent,
     AddOfferComponent,
     FaqQuestionComponent,

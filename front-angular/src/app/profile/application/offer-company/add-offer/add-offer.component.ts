@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { OfferViewService } from 'src/app/offers/offerView.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Offer } from 'src/models/Offer';
@@ -70,13 +71,13 @@ export class AddOfferComponent implements OnInit {
   listDomains: SelectOption[];
   domainsForm: FormGroup;
   modalSave = false;
-  errorOnForm = false;
 
   currentUser: any;
   constructor(private offerViewService: OfferViewService,
     private authenticationService: AuthenticationService,
     private companyService: CompanyService,
-    private router: Router) {
+    private router: Router,
+    private matSnackBar: MatSnackBar) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -142,7 +143,7 @@ export class AddOfferComponent implements OnInit {
       this.offerOnForm.created_date = '' + (new Date()).getTime(); //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
       this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
       if (!this.offerOnForm.isValid()) {
-        this.errorOnForm = true;
+        this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });
         return;
       }
       this.offerViewService.addOffer(this.offerOnForm);
@@ -150,7 +151,7 @@ export class AddOfferComponent implements OnInit {
       this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
       this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
       if (!this.offerOnForm.isValid()) {
-        this.errorOnForm = true;
+        this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });
         return;
       }
       this.offerViewService.editOffer(this.offerOnForm);

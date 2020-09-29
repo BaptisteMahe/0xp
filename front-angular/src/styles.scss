@@ -6,113 +6,113 @@
 //MADE Evolv Sans
 
 @font-face {
-    font-family: 'MadeBold';
-    src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Bold.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'MadeBold';
+  src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Bold.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'MadeLight';
-    src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Light.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'MadeLight';
+  src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Light.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'MadeMedium';
-    src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Medium.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'MadeMedium';
+  src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Medium.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'MadeRegular';
-    src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Regular.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'MadeRegular';
+  src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Regular.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'MadeThin';
-    src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Thin.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'MadeThin';
+  src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Thin.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 // Foro Font
 
 @font-face {
-    font-family: 'ForoBlack';
-    src: url('/assets/fonts/Conduit/ForoBla.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ForoBlack';
+  src: url('/assets/fonts/Conduit/ForoBla.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'ForoBold';
-    src: url('/assets/fonts/Conduit/ForoBol.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ForoBold';
+  src: url('/assets/fonts/Conduit/ForoBol.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'ForoMed';
-    src: url('/assets/fonts/Conduit/ForoMed.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ForoMed';
+  src: url('/assets/fonts/Conduit/ForoMed.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'ForoReg';
-    src: url('/assets/fonts/Conduit/ForoReg.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ForoReg';
+  src: url('/assets/fonts/Conduit/ForoReg.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'ForoThi';
-    src: url('/assets/fonts/Conduit/ForoThi.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ForoThi';
+  src: url('/assets/fonts/Conduit/ForoThi.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'ForoIta';
-    src: url('/assets/fonts/Conduit/ForoIta.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ForoIta';
+  src: url('/assets/fonts/Conduit/ForoIta.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* STYLES */
 
 body {
-    margin: 0;
-    margin-top: 60px;
+  margin: 0;
+  margin-top: 60px;
 }
 
 h1, h2, h3 {
-    font-family: MadeBold, Calibri;
+  font-family: MadeBold, Calibri;
 }
 
 h4 {
-    font-family: MadeMedium, Calibri;
+  font-family: MadeMedium, Calibri;
 }
 
 h5, td {
-    font-family: MadeRegular, Calibri;
+  font-family: MadeRegular, Calibri;
 }
 
 h6 {
-    font-family: MadeLight, Calibri;
+  font-family: MadeLight, Calibri;
 }
 
 p, a, label, button, span {
-    font-family: MadeRegular, Calibri;
+  font-family: MadeRegular, Calibri;
 }
 
 ul li{
-    font-family: MadeLight, Calibri;
+  font-family: MadeLight, Calibri;
 }
 
 body::-webkit-scrollbar-track 
@@ -138,50 +138,64 @@ body::-webkit-scrollbar-thumb
 //Container
 
 .flexRow {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .flexCol {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .flexRow-spaceBet {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 //Text
 .noSpace {
-    margin-block-start: 0em;
-    margin-block-end: 0em;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
 }
 
 .smallSpace {
-    margin-block-start: 0.5em;
-    margin-block-end: 0.5em;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
 }
 
-.color-blue-light{
-    color:var(--color-blue-light);
+.color-blue-light {
+  color:var(--color-blue-light);
 }
 
-.color-blue-medium{
-    color:var(--color-blue-medium);
+.color-blue-medium {
+  color:var(--color-blue-medium);
 }
 
 //Style général
 
 //Materials
-input{
-    border:0px;
-    &:focus{
-        outline: none;
-    }
+input {
+  border:0px;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .button:hover{
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.snack-bar {
+
+  &-sucess {
+    background-color: transparentize(green, 0.3);
+    color: white;
+  }
+
+  &-error {
+    background-color: transparentize(red, 0.3);
+    color: white;
+  }
 }

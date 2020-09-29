@@ -9,37 +9,38 @@
         <label for="firstName">Prénom</label>
         <input type="text" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
         <div *ngIf="submitted && f.firstName.errors">
-          <div *ngIf="f.firstName.errors.required">Le prénom est obligatoire</div>
-      </div>
-  </div>
-  <div *ngIf="isStudent" class="form-group">
-      <label for="name">Nom</label>
-      <input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-      <div *ngIf="submitted && f.name.errors">
-          <div *ngIf="f.name.errors.required">Le nom est obligatoire</div>
-      </div>
-  </div>
-  <div *ngIf="!isStudent" class="form-group">
-    <label for="name">Nom de l'entreprise</label>
-    <input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-    <div *ngIf="submitted && f.name.errors">
-        <div *ngIf="f.name.errors.required">Le nom est obligatoire</div>
+            <div *ngIf="f.firstName.errors.required">Le prénom est obligatoire</div>
+        </div>
     </div>
-</div>
-  <div class="form-group">
-      <label for="username">Utilisateur</label>
-      <input type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-      <div *ngIf="submitted && f.username.errors">
-          <div *ngIf="f.username.errors.required">L'utilisateur est obligatoire</div>
-      </div>
-  </div>
-  <div class="form-group">
-      <label for="password">Mot de passe</label>
-      <input type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-      <div *ngIf="submitted && f.password.errors">
-          <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
-          <div *ngIf="f.password.errors.minlength">Le mot de passe doit contenir au moins 6 caractères</div>
-      </div>
+    <div *ngIf="isStudent" class="form-group">
+        <label for="name">Nom</label>
+        <input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+        <div *ngIf="submitted && f.name.errors">
+            <div *ngIf="f.name.errors.required">Le nom est obligatoire</div>
+        </div>
+    </div>
+    <div *ngIf="!isStudent" class="form-group">
+        <label for="name">Nom de l'entreprise</label>
+        <input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+        <div *ngIf="submitted && f.name.errors">
+            <div *ngIf="f.name.errors.required">Le nom est obligatoire</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="username">Utilisateur</label>
+        <input type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+        <div *ngIf="submitted && f.username.errors">
+            <div *ngIf="f.username.errors.required">L'utilisateur est obligatoire</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" formControlName="password"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors">
+            <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
+            <div *ngIf="f.password.errors.minlength">Le mot de passe doit contenir au moins 6 caractères</div>
+        </div>
     </div>
 
     <div *ngIf="isStudent" class="form-group">
@@ -51,14 +52,15 @@
     </div>
     <div *ngIf="!isStudent" class="form-group">
         <label for="date_of_creation">Date de création</label>
-        <input type="date" formControlName="date_of_creation" [ngClass]="{ 'is-invalid': submitted && f.date_of_creation.errors }" />
+        <input type="date" formControlName="date_of_creation"
+            [ngClass]="{ 'is-invalid': submitted && f.date_of_creation.errors }" />
         <div *ngIf="submitted && f.date_of_creation.errors">
             <div *ngIf="f.date_of_creation.errors.required">La date de création est obligatoire</div>
         </div>
     </div>
     <div *ngIf="isStudent" class="form-group">
         <label for="contactMail">Email</label>
-        <input type="email" formControlName="contactMail"/>
+        <input type="email" formControlName="contactMail" />
     </div>
     <div *ngIf="isStudent" class="form-group">
         <label for="contactTel">Numéro de téléphone</label>
@@ -73,7 +75,8 @@
     </div>
     <div *ngIf="!isStudent" class="form-group">
         <label for="description">Description</label>
-        <textarea type="text" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" ></textarea>
+        <textarea type="text" formControlName="description"
+            [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
         <div *ngIf="submitted && f.description.errors">
             <div *ngIf="f.description.errors.required">La description est obligatoire</div>
         </div>
@@ -95,7 +98,7 @@
         <label for="srcImage">Url Image logo</label>
         <input type="text" formControlName="srcImage" [ngClass]="{ 'is-invalid': submitted && f.srcImage.errors }" />
     </div>
-    
+
     <div class="form-buttons">
         <button [disabled]="loading">
             <span *ngIf="loading"></span>
@@ -104,4 +107,3 @@
         <a routerLink="/login">Annuler</a>
     </div>
 </form>
-<app-alert></app-alert>

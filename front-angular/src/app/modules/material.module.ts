@@ -8,6 +8,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 import { SelectAutocompleteModule } from 'mat-select-autocomplete';
 
@@ -21,7 +23,8 @@ import { SelectAutocompleteModule } from 'mat-select-autocomplete';
         MatInputModule,
         MatSliderModule,
         MatTabsModule,
-        SelectAutocompleteModule
+        SelectAutocompleteModule,
+        MatSnackBarModule
     ]
 })
 export class MaterialModule { }
