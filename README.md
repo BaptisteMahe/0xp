@@ -24,4 +24,10 @@ Installer les packages et serve le fron
 npm install
 ng serve --open
 ~~~
+
+Note bonne pratique:
+On va toujours préférer rebase plutôt que simplement pull les branch pour cela :
+~~~shell
+git config --global pull.rebase merges
+~~~
 Code for Centrale's option "Digital.e" : 0xp website, find your first xp
