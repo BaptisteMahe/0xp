@@ -21,7 +21,7 @@ export class ProfileDetailComponent implements OnInit {
   editor = ClassicEditor;
   softSkillsList: SelectOption[]
   private currentUserSubject: BehaviorSubject<any>;
-  currentUser: Observable<any>;;
+  currentUser: Observable<any>;
 
   constructor(private userService: UserService,
     private offerViewService: OfferViewService) {
@@ -42,7 +42,7 @@ export class ProfileDetailComponent implements OnInit {
       });
   }
 
-  editionOn() {
+  enableEdition() {
     this.isEdition = true;
     this.profileEdit = Object.assign({}, this.details);
     if (!this.type) {
@@ -50,7 +50,7 @@ export class ProfileDetailComponent implements OnInit {
     }
   }
 
-  editionOff() {
+  disableEdition() {
     this.isEdition = false;
     localStorage.setItem('currentUser', JSON.stringify(this.details));
     this.currentUserSubject.next(this.details);
@@ -63,7 +63,7 @@ export class ProfileDetailComponent implements OnInit {
       this.details.date_of_creation = this.formatDateToBase(this.profileEdit.date_of_creation);
     }
     this.userService.update(this.details);
-    this.editionOff();
+    this.disableEdition();
   }
 
   formatDateFromBase(dateBase) {
