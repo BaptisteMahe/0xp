@@ -14,7 +14,6 @@ import { default as _rollupMoment, Moment } from 'moment';
 import { MatDatepicker } from '@angular/material';
 import { SelectOption } from 'src/models/SelectOption';
 import { AuthenticationService } from 'src/app/logging/services';
-import { User } from 'src/models/user';
 import { CompanyService } from '../../../../services/company.service';
 import { Company } from 'src/models';
 const moment = _rollupMoment || _moment;

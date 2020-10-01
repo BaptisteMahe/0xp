@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Filter } from 'src/models/Filter';
-import { User } from 'src/models';
 import { AuthenticationService } from 'src/app/logging/services';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -28,9 +27,9 @@ export class NotificationsService {
   }
 
   searchForNotifications() {
-    console.log("%c Searching for notification","color:orange")
+    console.log("%c Searching for notification", "color:orange")
     this.nbrNotif = 0;
-    if (this.currentUser && this.currentUser.notifications){
+    if (this.currentUser && this.currentUser.notifications) {
       this.currentUser.notifications.forEach((notif) => {
         if (!notif.isRead) {
           this.nbrNotif += 1;
@@ -76,7 +75,7 @@ export class NotificationsService {
     this.emitNbrNotifSubject();
     // On met toutes les notifications en lues
     console.log(user)
-    if (user.notifications){
+    if (user.notifications) {
       user.notifications.forEach((notif) => {
         notif.isRead = true;
       });
