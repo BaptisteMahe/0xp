@@ -24,7 +24,7 @@ export class AddCompanyComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       isStudent: [false],
-      date_of_creation: ['', Validators.required],
+      creationDate: ['', Validators.required],
       description: ['', Validators.required],
       taille: ['', Validators.required],
       location: ['', Validators.required],

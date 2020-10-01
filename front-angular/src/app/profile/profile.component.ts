@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   showProfile: boolean;
   showCandidatures: boolean;
   showNotifs: boolean;
-  profile: any;
+  profileDetails: any;
 
   constructor(private authenticationService: AuthenticationService, private globalService: GlobalService,
     private router: Router) {
@@ -49,12 +49,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.showProfile = true;
     this.showCandidatures = false;
     this.showNotifs = false;
-    this.profile = this.currentUser;
-    if (!this.profile.isStudent || this.profile.isStudent === 'false') {
-      const date = new Date(this.profile.date_of_creation);
-      this.profile.date_of_creation = date.toLocaleDateString();
+    this.profileDetails = this.currentUser;
+    if (!this.profileDetails.isStudent || this.profileDetails.isStudent === 'false') {
+      const date = new Date(this.profileDetails.creationDate);
+      this.profileDetails.creationDate = date.toLocaleDateString();
     }
-    this.profile.photo = this.currentUser.srcImage;
+    this.profileDetails.photo = this.currentUser.srcImage;
     this.globalService.switchIsProfilOpen(true);
   }
 

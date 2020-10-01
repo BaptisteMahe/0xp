@@ -12,14 +12,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ProfileDetailComponent implements OnInit {
 
-  @Input() details: any;
-  @Input() type: boolean;
+  @Input() profileDetails: any;
 
   profileEdit: any;
-  isStudent: boolean;
   isEdition: boolean;
   editor = ClassicEditor;
-  softSkillsList: SelectOption[]
+  softSkillsList: SelectOption[];
   private currentUserSubject: BehaviorSubject<any>;
   currentUser: Observable<any>;
 
@@ -31,7 +29,6 @@ export class ProfileDetailComponent implements OnInit {
 
   ngOnInit() {
     this.isEdition = false;
-    this.isStudent = this.details.isStudent;
 
     fetch(this.offerViewService.apiUrl + '/select/softskills')
       .then(response => {
@@ -44,25 +41,25 @@ export class ProfileDetailComponent implements OnInit {
 
   enableEdition() {
     this.isEdition = true;
-    this.profileEdit = Object.assign({}, this.details);
-    if (!this.type) {
-      this.profileEdit.date_of_creation = this.formatDateFromBase(this.details.date_of_creation)
+    this.profileEdit = Object.assign({}, this.profileDetails);
+    if (!this.profileDetails.isStudent) {
+      this.profileEdit.creationDate = this.formatDateFromBase(this.profileDetails.creationDate);
     }
   }
 
   disableEdition() {
     this.isEdition = false;
-    localStorage.setItem('currentUser', JSON.stringify(this.details));
-    this.currentUserSubject.next(this.details);
+    localStorage.setItem('currentUser', JSON.stringify(this.profileDetails));
+    this.currentUserSubject.next(this.profileDetails);
     window.location.reload();
   }
 
   updateProfile() {
-    this.details = Object.assign({}, this.profileEdit);
-    if (!this.type) {
-      this.details.date_of_creation = this.formatDateToBase(this.profileEdit.date_of_creation);
+    this.profileDetails = Object.assign({}, this.profileEdit);
+    if (!this.profileDetails.isStudent) {
+      this.profileDetails.creationDate = this.formatDateToBase(this.profileEdit.creationDate);
     }
-    this.userService.update(this.details);
+    this.userService.update(this.profileDetails);
     this.disableEdition();
   }
 

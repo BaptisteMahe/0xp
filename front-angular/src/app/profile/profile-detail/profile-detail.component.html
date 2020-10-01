@@ -5,27 +5,28 @@
 <br />
 
 <!--Eleve-->
-<div *ngIf="type">
+<div *ngIf="profileDetails.isStudent">
+
   <div *ngIf="!isEdition">
     <div class="bloc">
       <h2>Informations Générales</h2>
-      <p><span class="label">Nom : </span>{{details.firstName}} {{details.name}}</p>
-      <p><span class="label">Date de naissance : </span>{{details.dateBirth}}</p>
+      <p><span class="label">Nom : </span>{{profileDetails.firstName}} {{profileDetails.name}}</p>
+      <p><span class="label">Date de naissance : </span>{{profileDetails.dateBirth}}</p>
     </div>
     <div class="bloc">
       <h2>Contact</h2>
-      <p><span class="label">Email : </span>{{details.contactMail}}</p>
-      <p><span class="label">Numéro de téléphone : </span>{{details.contactTel}}</p>
-      <p><span class="label">Localisation : </span>{{details.location}}</p>
+      <p><span class="label">Email : </span>{{profileDetails.contactMail}}</p>
+      <p><span class="label">Numéro de téléphone : </span>{{profileDetails.contactTel}}</p>
+      <p><span class="label">Localisation : </span>{{profileDetails.location}}</p>
     </div>
     <div class="bloc">
       <h2>Soft Skills</h2>
-      <div *ngIf="details.softSkills != null">
-        <ul *ngFor="let skill of details.softSkills">
+      <div *ngIf="profileDetails.softSkills != null">
+        <ul *ngFor="let skill of profileDetails.softSkills">
           <li>{{skill}}</li>
         </ul>
       </div>
-      <div *ngIf="details.softSkills == null" class="flexRow messageProfil">
+      <div *ngIf="!profileDetails.softSkills" class="flexRow messageProfil">
         <img src="https://image.flaticon.com/icons/svg/1636/1636062.svg" />
         <p class="information">Vous n'avez pas sélectionné de soft skills...</p>
       </div>
@@ -83,19 +84,19 @@
 </div>
 
 <!--Entreprise-->
-<div *ngIf="!type">
+<div *ngIf="!profileDetails.isStudent">
   <div *ngIf="!isEdition">
     <div class="bloc">
       <h3>Informations générales</h3>
-      <p><span class="label">Nom de l'entreprise : </span>{{details.name}}</p>
-      <p><span class="label">Date de création : </span>{{details.date_of_creation}}</p>
-      <p><span class="label">Taille : </span>{{details.taille}}</p>
-      <p><span class="label">Localisation : </span>{{details.location}}</p>
+      <p><span class="label">Nom de l'entreprise : </span>{{profileDetails.name}}</p>
+      <p><span class="label">Date de création : </span>{{profileDetails.creationDate}}</p>
+      <p><span class="label">Taille : </span>{{profileDetails.taille}}</p>
+      <p><span class="label">Localisation : </span>{{profileDetails.location}}</p>
     </div>
     <div class="bloc">
       <h3>Informations complémentaires</h3>
-      <p><span class="label">Description : </span>{{details.description}}</p>
-      <p><span class="label">Contact : </span>{{details.contact}}</p>
+      <p><span class="label">Description : </span>{{profileDetails.description}}</p>
+      <p><span class="label">Contact : </span>{{profileDetails.contact}}</p>
     </div>
 
   </div>
@@ -113,14 +114,14 @@
       </div>
       <div class="center">
         <mat-form-field class="center">
-          <input type="date" matInput placeholder="Date de création" [(ngModel)]="profileEdit.date_of_creation">
+          <input type="date" matInput placeholder="Date de création" [(ngModel)]="profileEdit.creationDate">
         </mat-form-field>
         <mat-form-field class="center">
           <mat-select matNativeControl [(ngModel)]="profileEdit.taille">
             <mat-option value="1-10">1-10</mat-option>
             <mat-option value="11-100">11-100</mat-option>
             <mat-option value="101-1 000">101-1000</mat-option>
-            <mat-option value="1 001-1 0000">101-1000</mat-option>
+            <mat-option value="1 001-1 0000">1001-10 000</mat-option>
             <mat-option value="+10 000">+10 000</mat-option>
           </mat-select>
         </mat-form-field>

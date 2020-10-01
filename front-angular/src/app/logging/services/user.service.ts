@@ -2,35 +2,35 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-import { UserCompany, UserStudent } from '../../../models';
+import { UserStudent } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl;
 
-    getAll() {
-        return this.http.get<UserStudent[]>(this.apiUrl + '/users');
-    }
+  getAll() {
+    return this.http.get<UserStudent[]>(this.apiUrl + '/users');
+  }
 
-    register(user: UserStudent) {
-        return this.http.post(this.apiUrl + '/users/register', user);
-    }
+  register(user: UserStudent) {
+    return this.http.post(this.apiUrl + '/users/register', user);
+  }
 
-    delete(id: string) {
-        return this.http.delete(this.apiUrl + '/users/' + id);
-    }
+  delete(id: string) {
+    return this.http.delete(this.apiUrl + '/users/' + id);
+  }
 
-    update(user: any){
-        console.log(user);
-        this.http.post<any>(this.apiUrl + '/users/update', {"user": user}).subscribe(
-            (response) => {
-              console.log('Profil modifié');
-            },
-            (error) => {
-              console.log('Erreur ! : ' + error);
-            }
-          );;
-    }
+  update(user: any) {
+    console.log(user);
+    this.http.post<any>(this.apiUrl + '/users/update', { user: user }).subscribe(
+      (response) => {
+        console.log('Profil modifié');
+      },
+      (error) => {
+        console.log('Erreur ! : ' + error);
+      }
+    );
+  }
 }
