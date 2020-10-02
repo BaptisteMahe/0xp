@@ -4,6 +4,7 @@ import { UserService } from 'src/app/logging/services';
 import { OfferViewService } from 'src/app/offers/offerView.service';
 import { SelectOption } from 'src/models/SelectOption';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from '../../../models';
 
 @Component({
   selector: 'app-profile-detail',
@@ -12,14 +13,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ProfileDetailComponent implements OnInit {
 
-  @Input() profileDetails: any;
+  @Input() profileDetails: User;
 
-  profileEdit: any;
+  profileEdit: User;
   isEdition: boolean;
   editor = ClassicEditor;
   softSkillsList: SelectOption[];
-  private currentUserSubject: BehaviorSubject<any>;
-  currentUser: Observable<any>;
+  private currentUserSubject: BehaviorSubject<User>;
+  currentUser: Observable<User>;
 
   constructor(private userService: UserService,
     private offerViewService: OfferViewService) {
