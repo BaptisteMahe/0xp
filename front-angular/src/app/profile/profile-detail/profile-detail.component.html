@@ -1,151 +1,150 @@
-<div *ngIf="!isEdition" class="button btn flexRow editProfile" (click)="editionOn()">
-    <p>Editer le profil</p>
-    <img class="modify" src="../../../assets/images/edit.svg">
+<div *ngIf="!isEdition" class="button btn flexRow editProfile" (click)="enableEdition()">
+  <p>Editer le profil</p>
+  <img class="modify" src="../../../assets/images/edit.svg">
 </div>
-<br/>
+<br />
 
 <!--Eleve-->
-<div *ngIf="type">
-    <div *ngIf="!isEdition">
-        <div class="bloc">
-            <h2>Informations Générales</h2>
-            <p><span class="label">Nom : </span>{{details.firstName}} {{details.name}}</p>
-            <p><span class="label">Date de naissance : </span>{{details.dateBirth}}</p>
-        </div>
-        <div class="bloc">
-            <h2>Contact</h2>
-            <p><span class="label">Email : </span>{{details.contactMail}}</p>
-            <p><span class="label">Numéro de téléphone : </span>{{details.contactTel}}</p>
-            <p><span class="label">Localisation : </span>{{details.location}}</p>
-        </div>
-        <div class="bloc">
-            <h2>Soft Skills</h2>
-            <div *ngIf="details.softSkills != null">
-                <ul *ngFor="let skill of details.softSkills">
-                    <li>{{skill}}</li>
-                </ul>
-            </div>
-            <div *ngIf="details.softSkills == null" class="flexRow messageProfil">
-                <img src="https://image.flaticon.com/icons/svg/1636/1636062.svg"/>
-                <p class="information">Vous n'avez pas sélectionné de soft skills...</p>
-            </div>
-        </div>        
+<div *ngIf="profileDetails.isStudent">
+
+  <div *ngIf="!isEdition">
+    <div class="bloc">
+      <h2>Informations Générales</h2>
+      <p><span class="label">Nom : </span>{{profileDetails.firstName}} {{profileDetails.name}}</p>
+      <p><span class="label">Date de naissance : </span>{{profileDetails.dateBirth}}</p>
     </div>
+    <div class="bloc">
+      <h2>Contact</h2>
+      <p><span class="label">Email : </span>{{profileDetails.contactMail}}</p>
+      <p><span class="label">Numéro de téléphone : </span>{{profileDetails.contactTel}}</p>
+      <p><span class="label">Localisation : </span>{{profileDetails.location}}</p>
+    </div>
+    <div class="bloc">
+      <h2>Soft Skills</h2>
+      <div *ngIf="profileDetails.softSkills != null">
+        <ul *ngFor="let skill of profileDetails.softSkills">
+          <li>{{skill}}</li>
+        </ul>
+      </div>
+      <div *ngIf="!profileDetails.softSkills" class="flexRow messageProfil">
+        <img src="https://image.flaticon.com/icons/svg/1636/1636062.svg" />
+        <p class="information">Vous n'avez pas sélectionné de soft skills...</p>
+      </div>
+    </div>
+  </div>
 
 
-    <div *ngIf="isEdition">
-        <img class="button closeLogo" (click)="editionOff()" src="../../../assets/images/cross-light.svg">
-        <h1 class="center">Edition du Profil</h1>
-        <br/>
-        <div class="bloc">
-            <h3 class="center">Informations générales</h3>
-            <div class="center">
-                <mat-form-field class="center">
-                    <input matInput placeholder="Prénom" [(ngModel)]="profileEdit.firstName">
-                </mat-form-field>
-                <mat-form-field class="center">
-                    <input matInput placeholder="Nom" [(ngModel)]="profileEdit.name">
-                </mat-form-field>
-                <mat-form-field class="center">
-                    <input type="date" matInput placeholder="Date de naissance" [(ngModel)]="profileEdit.dateBirth">    
-                </mat-form-field>
-            </div>
-            <div class="center">
-                <mat-form-field class="center">
-                    <input matInput placeholder="Localisation" [(ngModel)]="profileEdit.location">    
-                </mat-form-field>
-            </div>
-        </div>
-        
-        <div class="bloc">
-            <h3 class="center">Contact</h3>
-            <div class="center">
-                <mat-form-field class="center">
-                    <input matInput placeholder="E-mail" [(ngModel)]="profileEdit.contactMail">    
-                </mat-form-field>
-                <mat-form-field class="center">
-                    <input matInput placeholder="Téléphone" [(ngModel)]="profileEdit.contactTel">    
-                </mat-form-field>
-            </div>
-            <br/>
-        </div>
-        <div class="bloc">
-            <h3 class="center">Soft Skills</h3>
-            <mat-form-field>
-                <mat-label>Soft Skills</mat-label>
-                <mat-select [(ngModel)]="profileEdit.softSkills"  multiple>
-                  <mat-option *ngFor="let skill of softSkillsList" [value]="skill.value">{{skill.display}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <h3 class="button btn-success" (click)="updateProfile()" routerLink="/profile">Modifier</h3>
+  <div *ngIf="isEdition">
+    <img class="button closeLogo" (click)="disableEdition()" src="../../../assets/images/cross-light.svg">
+    <h1 class="center">Edition du Profil</h1>
+    <br />
+    <div class="bloc">
+      <h3 class="center">Informations générales</h3>
+      <div class="center">
+        <mat-form-field class="center">
+          <input matInput placeholder="Prénom" [(ngModel)]="profileEdit.firstName">
+        </mat-form-field>
+        <mat-form-field class="center">
+          <input matInput placeholder="Nom" [(ngModel)]="profileEdit.name">
+        </mat-form-field>
+        <mat-form-field class="center">
+          <input type="date" matInput placeholder="Date de naissance" [(ngModel)]="profileEdit.dateBirth">
+        </mat-form-field>
+      </div>
+      <div class="center">
+        <mat-form-field class="center">
+          <input matInput placeholder="Localisation" [(ngModel)]="profileEdit.location">
+        </mat-form-field>
+      </div>
     </div>
+
+    <div class="bloc">
+      <h3 class="center">Contact</h3>
+      <div class="center">
+        <mat-form-field class="center">
+          <input matInput placeholder="E-mail" [(ngModel)]="profileEdit.contactMail">
+        </mat-form-field>
+        <mat-form-field class="center">
+          <input matInput placeholder="Téléphone" [(ngModel)]="profileEdit.contactTel">
+        </mat-form-field>
+      </div>
+      <br />
+    </div>
+    <div class="bloc">
+      <h3 class="center">Soft Skills</h3>
+      <mat-form-field>
+        <mat-label>Soft Skills</mat-label>
+        <mat-select [(ngModel)]="profileEdit.softSkills" multiple>
+          <mat-option *ngFor="let skill of softSkillsList" [value]="skill.value">{{skill.display}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <h3 class="button btn-success" (click)="updateProfile()" routerLink="/profile">Modifier</h3>
+  </div>
 </div>
 
 <!--Entreprise-->
-<div *ngIf="!type">
-    <div *ngIf="!isEdition">
-        <div class="bloc">
-            <h3>Informations générales</h3>
-            <p><span class="label">Nom de l'entreprise : </span>{{details.name}}</p>
-            <p><span class="label">Date de création : </span>{{details.date_of_creation}}</p>
-            <p><span class="label">Taille : </span>{{details.taille}}</p>
-            <p><span class="label">Localisation : </span>{{details.location}}</p>
-        </div>
-        <div class="bloc">
-            <h3>Informations complémentaires</h3>
-            <p><span class="label">Description : </span>{{details.description}}</p>
-            <p><span class="label">Contact : </span>{{details.contact}}</p>
-        </div>    
-        
+<div *ngIf="!profileDetails.isStudent">
+  <div *ngIf="!isEdition">
+    <div class="bloc">
+      <h3>Informations générales</h3>
+      <p><span class="label">Nom de l'entreprise : </span>{{profileDetails.name}}</p>
+      <p><span class="label">Date de création : </span>{{profileDetails.creationDate}}</p>
+      <p><span class="label">Taille : </span>{{profileDetails.taille}}</p>
+      <p><span class="label">Localisation : </span>{{profileDetails.location}}</p>
     </div>
-    <div *ngIf="isEdition">
-        <img class="button closeLogo" (click)="editionOff()" src="../../../assets/images/cross-light.svg">
-        <h1 class="center">Edition du Profil</h1>
-        <br/>
-        <div class="bloc">
-            <h3 class="center">Informations générales</h3>
-            <br/>
-            <div class="center">
-                <mat-form-field class="center title">
-                    <input matInput placeholder="Nom de l'Entreprise" [(ngModel)]="profileEdit.name">
-                </mat-form-field>
-            </div>
-            <div class="center">
-                <mat-form-field class="center">
-                    <input type="date" matInput placeholder="Date de création" [(ngModel)]="profileEdit.date_of_creation">    
-                </mat-form-field>
-                <mat-form-field class="center">
-                    <mat-select matNativeControl [(ngModel)]="profileEdit.taille">                        
-                        <mat-option value="1-10">1-10</mat-option>
-                        <mat-option value="11-100">11-100</mat-option>
-                        <mat-option value="101-1 000">101-1000</mat-option>
-                        <mat-option value="1 001-1 0000">101-1000</mat-option>
-                        <mat-option value="+10 000">+10 000</mat-option>
-                     </mat-select> 
-                </mat-form-field>
-                <mat-form-field class="center">
-                    <input matInput placeholder="Localisation" [(ngModel)]="profileEdit.location">    
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="bloc">
-            <h3 class="center">Informations complémentaires</h3>
-            <br/>
-            <div class="center">
-                <mat-form-field class="center desc">
-                    <textarea matNativeControl placeholder="Description" [(ngModel)]="profileEdit.description"></textarea>
-                </mat-form-field>
-            </div>
-            <div class="center">
-                <mat-form-field class="center title">
-                    <input matInput placeholder="Contact" [(ngModel)]="profileEdit.contact">
-                </mat-form-field>
-            </div>
-        </div>
+    <div class="bloc">
+      <h3>Informations complémentaires</h3>
+      <p><span class="label">Description : </span>{{profileDetails.description}}</p>
+      <p><span class="label">Contact : </span>{{profileDetails.contact}}</p>
+    </div>
 
-        <h3 class="button btn-success" (click)="updateProfile()" routerLink="/profile">Modifier</h3>
+  </div>
+  <div *ngIf="isEdition">
+    <img class="button closeLogo" (click)="disableEdition()" src="../../../assets/images/cross-light.svg">
+    <h1 class="center">Edition du Profil</h1>
+    <br />
+    <div class="bloc">
+      <h3 class="center">Informations générales</h3>
+      <br />
+      <div class="center">
+        <mat-form-field class="center title">
+          <input matInput placeholder="Nom de l'Entreprise" [(ngModel)]="profileEdit.name">
+        </mat-form-field>
+      </div>
+      <div class="center">
+        <mat-form-field class="center">
+          <input type="date" matInput placeholder="Date de création" [(ngModel)]="profileEdit.creationDate">
+        </mat-form-field>
+        <mat-form-field class="center">
+          <mat-select matNativeControl [(ngModel)]="profileEdit.taille">
+            <mat-option value="1-10">1-10</mat-option>
+            <mat-option value="11-100">11-100</mat-option>
+            <mat-option value="101-1 000">101-1000</mat-option>
+            <mat-option value="1 001-1 0000">1001-10 000</mat-option>
+            <mat-option value="+10 000">+10 000</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="center">
+          <input matInput placeholder="Localisation" [(ngModel)]="profileEdit.location">
+        </mat-form-field>
+      </div>
     </div>
+    <div class="bloc">
+      <h3 class="center">Informations complémentaires</h3>
+      <br />
+      <div class="center">
+        <mat-form-field class="center desc">
+          <textarea matNativeControl placeholder="Description" [(ngModel)]="profileEdit.description"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="center">
+        <mat-form-field class="center title">
+          <input matInput placeholder="Contact" [(ngModel)]="profileEdit.contact">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <h3 class="button btn-success" (click)="updateProfile()" routerLink="/profile">Modifier</h3>
+  </div>
 </div>
-
-

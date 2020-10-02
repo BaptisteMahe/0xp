@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertService, UserCompanyService } from 'src/app/logging/services';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserCompanyService } from 'src/app/logging/services';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -16,19 +17,19 @@ export class AddCompanyComponent implements OnInit {
   submitted = false;
 
   constructor(private formBuilder: FormBuilder,
-              private alertService: AlertService,
-              private userCompanyService: UserCompanyService) { }
+    private matSnackBar: MatSnackBar,
+    private userCompanyService: UserCompanyService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       isStudent: [false],
-      date_of_creation: ['', Validators.required],
+      creationDate: ['', Validators.required],
       description: ['', Validators.required],
       taille: ['', Validators.required],
       location: ['', Validators.required],
       srcImage: [''],
-      isPartner:[]
+      isPartner: []
     });
   }
 
@@ -40,27 +41,25 @@ export class AddCompanyComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    // reset alerts on submit
-    this.alertService.clear();
 
     // stop here if form is invalid
     if (this.registerForm.invalid) {
-        return;
+      return;
     }
     this.loading = true;
     this.userCompanyService.registerByAdmin(this.registerForm.value)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.alertService.success('Registration successful', true);
-                this.openOrClose();
-                // TODO rafraichir juste le composant
-                window.location.reload();
-            },
-            error => {
-                this.alertService.error(error);
-                this.loading = false;
-            });
-      }
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-sucess'] });
+          this.openOrClose();
+          // TODO rafraichir juste le composant
+          window.location.reload();
+        },
+        error => {
+          this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
+          this.loading = false;
+        });
+  }
 
 }

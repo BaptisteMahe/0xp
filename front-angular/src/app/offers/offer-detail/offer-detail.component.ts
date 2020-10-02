@@ -4,7 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Offer } from 'src/models/Offer';
-import { CompanyService } from '../../company.service';
+import { CompanyService } from '../../services/company.service';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 import { Company } from 'src/models/Company';
 

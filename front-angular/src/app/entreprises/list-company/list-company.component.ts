@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Company } from 'src/models';
-import { CompanyService } from 'src/app/company.service';
+import { CompanyService } from '../../services/company.service';
 
 @Component({
   selector: 'app-list-company',
@@ -18,16 +18,16 @@ export class ListCompanyComponent implements OnInit {
     // TODO spinner
     this.companyService.getAll().subscribe(
       value => {
-          this.companiesList = value;
-          this.unfilteredCompaniesList = value;
+        this.companiesList = value;
+        this.unfilteredCompaniesList = value;
       },
       error => {
-          console.log('Erreur ! : ' + error);
+        console.log('Erreur ! : ' + error);
       }
     );
   }
 
-  filter(input){
+  filter(input) {
     this.companiesList = this.unfilteredCompaniesList;
     const requete = input.target.value;
     let list = this.unfilteredCompaniesList.filter((el) => {

@@ -1,23 +1,23 @@
 <div class="company-detail">
-    <div class="banner">
-        <h2><img style="max-width:15vw; max-height: 15vw;" src="{{company.srcImage}}" alt="logo company"/></h2>
-        <h2>{{company.name}}</h2><br/>
-    </div> 
-    <div class="bg">
-        <img style="width:100%;"src="../../../assets/images/background-test.jpg" alt="banner"/>
-    </div>
-    <div class="offer-sheet">
-            <p><span class="label">Date de création : </span>{{company.date_of_creation}}</p>
-            <p><span class="label">Localisation : </span>{{company.location}}</p>
-            <p><span class="label">Taille de l'entreprise : </span>{{company.taille}}</p>
-            <p><span class="label">Description : </span>{{company.description}}</p>
-            <p><span class="label">Contact : </span>{{company.contact}}</p>
-    </div>
+  <div class="banner">
+    <h2><img style="max-width:15vw; max-height: 15vw;" src="{{company.srcImage}}" alt="logo company" /></h2>
+    <h2>{{company.name}}</h2><br />
+  </div>
+  <div class="bg">
+    <img style="width:100%;" src="../../../assets/images/background-test.jpg" alt="banner" />
+  </div>
+  <div class="offer-sheet">
+    <p><span class="label">Date de création : </span>{{company.creationDate}}</p>
+    <p><span class="label">Localisation : </span>{{company.location}}</p>
+    <p><span class="label">Taille de l'entreprise : </span>{{company.taille}}</p>
+    <p><span class="label">Description : </span>{{company.description}}</p>
+    <p><span class="label">Contact : </span>{{company.contact}}</p>
+  </div>
 </div>
 
 
 
 <div class="avis">
-    <h1>Avis</h1>
-    <app-avis-company [idCompany] ="company._id"></app-avis-company>
+  <h1>Avis</h1>
+  <app-avis-company [idCompany]="company._id"></app-avis-company>
 </div>

@@ -1,40 +1,11 @@
-.onBackground {
-    //filter: blur(2px);
-}
-
-.modalForLogging {
-    position: absolute;
-    top: 25vh;
-    left: 25vw;
-    border: 1px solid black;
-    width: 50vw;
-    height: 50vh;
-}
-
-.alert-success{
-    text-align: center;
-    padding: 20px;
-    background-color: #d4edda;
-    color: #155724;
-    width: max-content;
-    margin-right: auto;
-    margin-left: auto;
-    border-radius: 10px;
-    -webkit-animation-name: appear; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
-    -webkit-animation-direction: reverse; /* Safari 4.0 - 8.0 */
-    animation-name: appear;
-    animation-duration: 0.5s;
-    animation-direction: reverse; 
-}
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes appear {
-    0%   {opacity:0}
-    100% {opacity:1}
-  }
+  0%   {opacity:0}
+  100% {opacity:1}
+}
   
-  /* Standard syntax */
-  @keyframes appear {
-    0%   {opacity:0}
-    100% {opacity:1}
-  }
+/* Standard syntax */
+@keyframes appear {
+  0%   {opacity:0}
+  100% {opacity:1}
+}

@@ -1,10 +1,10 @@
-import { AlertService } from './services/alert.service';
 import { AuthenticationService } from './services/authentication.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { GlobalService } from '../global.service';
+import { GlobalService } from '../services/global.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -23,8 +23,8 @@ export class LoggingComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService,
         private globalService: GlobalService,
+        private matSnackBar: MatSnackBar
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -51,7 +51,6 @@ export class LoggingComponent implements OnInit, OnDestroy {
 
     onSubmit() {
         this.submitted = true;
-        this.alertService.clear();
         if (this.loginForm.invalid) {
             return;
         }
@@ -61,10 +60,11 @@ export class LoggingComponent implements OnInit, OnDestroy {
             .pipe(first())
             .subscribe(
                 data => {
+                    this.matSnackBar.open('Login successful', null, { duration: 3000, panelClass: ['snack-bar-sucess'] });
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
                     this.loading = false;
                 });
     }

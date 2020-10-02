@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { OfferViewService } from 'src/app/offers/offerView.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Offer } from 'src/models/Offer';
@@ -13,8 +14,7 @@ import { default as _rollupMoment, Moment } from 'moment';
 import { MatDatepicker } from '@angular/material';
 import { SelectOption } from 'src/models/SelectOption';
 import { AuthenticationService } from 'src/app/logging/services';
-import { User } from 'src/models/user';
-import { CompanyService } from 'src/app/company.service';
+import { CompanyService } from '../../../../services/company.service';
 import { Company } from 'src/models';
 const moment = _rollupMoment || _moment;
 
@@ -70,13 +70,13 @@ export class AddOfferComponent implements OnInit {
   listDomains: SelectOption[];
   domainsForm: FormGroup;
   modalSave = false;
-  errorOnForm = false;
 
   currentUser: any;
   constructor(private offerViewService: OfferViewService,
-              private authenticationService: AuthenticationService,
-              private companyService: CompanyService,
-              private router : Router) {
+    private authenticationService: AuthenticationService,
+    private companyService: CompanyService,
+    private router: Router,
+    private matSnackBar: MatSnackBar) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -116,10 +116,10 @@ export class AddOfferComponent implements OnInit {
     });
     this.companyService.getAll().subscribe(
       value => {
-          this.companiesList = value;
+        this.companiesList = value;
       },
       error => {
-          console.log('Erreur ! : ' + error);
+        console.log('Erreur ! : ' + error);
       }
     );
   }
@@ -141,16 +141,16 @@ export class AddOfferComponent implements OnInit {
       this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
       this.offerOnForm.created_date = '' + (new Date()).getTime(); //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
       this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
-      if (!this.offerOnForm.isValid()){
-        this.errorOnForm=true;
+      if (!this.offerOnForm.isValid()) {
+        this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });
         return;
       }
       this.offerViewService.addOffer(this.offerOnForm);
     } else {
       this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
       this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
-      if (!this.offerOnForm.isValid()){
-        this.errorOnForm=true;
+      if (!this.offerOnForm.isValid()) {
+        this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });
         return;
       }
       this.offerViewService.editOffer(this.offerOnForm);

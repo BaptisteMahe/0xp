@@ -1,107 +1,108 @@
 <h2>S'enregistrer</h2>
 <div class="bar-details">
-    <span>Je suis</span>
-    <a [className]="isStudent ? 'bar-button current':'bar-button'" (click)="registerStudent($event)">Un Etudiant</a>
-    <a [className]="isStudent ? 'bar-button':'bar-button current'" (click)="registerCompany($event)">Une Entreprise</a>
+  <span>Je suis</span>
+  <a [className]="isStudent ? 'bar-button current':'bar-button'" (click)="registerStudent($event)">Un Etudiant</a>
+  <a [className]="isStudent ? 'bar-button':'bar-button current'" (click)="registerCompany($event)">Une Entreprise</a>
 </div>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div *ngIf="isStudent" class="form-group">
-        <label for="firstName">Prénom</label>
-        <input type="text" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-        <div *ngIf="submitted && f.firstName.errors">
-          <div *ngIf="f.firstName.errors.required">Le prénom est obligatoire</div>
-      </div>
+  <div *ngIf="isStudent" class="form-group">
+    <label for="firstName">Prénom</label>
+    <input type="text" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+    <div *ngIf="submitted && f.firstName.errors">
+      <div *ngIf="f.firstName.errors.required">Le prénom est obligatoire</div>
+    </div>
   </div>
   <div *ngIf="isStudent" class="form-group">
-      <label for="name">Nom</label>
-      <input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-      <div *ngIf="submitted && f.name.errors">
-          <div *ngIf="f.name.errors.required">Le nom est obligatoire</div>
-      </div>
+    <label for="name">Nom</label>
+    <input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+    <div *ngIf="submitted && f.name.errors">
+      <div *ngIf="f.name.errors.required">Le nom est obligatoire</div>
+    </div>
   </div>
   <div *ngIf="!isStudent" class="form-group">
     <label for="name">Nom de l'entreprise</label>
     <input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
     <div *ngIf="submitted && f.name.errors">
-        <div *ngIf="f.name.errors.required">Le nom est obligatoire</div>
+      <div *ngIf="f.name.errors.required">Le nom est obligatoire</div>
     </div>
-</div>
-  <div class="form-group">
-      <label for="username">Utilisateur</label>
-      <input type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-      <div *ngIf="submitted && f.username.errors">
-          <div *ngIf="f.username.errors.required">L'utilisateur est obligatoire</div>
-      </div>
   </div>
   <div class="form-group">
-      <label for="password">Mot de passe</label>
-      <input type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-      <div *ngIf="submitted && f.password.errors">
-          <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
-          <div *ngIf="f.password.errors.minlength">Le mot de passe doit contenir au moins 6 caractères</div>
-      </div>
+    <label for="username">Utilisateur</label>
+    <input type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+    <div *ngIf="submitted && f.username.errors">
+      <div *ngIf="f.username.errors.required">L'utilisateur est obligatoire</div>
     </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Mot de passe</label>
+    <input type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+    <div *ngIf="submitted && f.password.errors">
+      <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
+      <div *ngIf="f.password.errors.minlength">Le mot de passe doit contenir au moins 6 caractères</div>
+    </div>
+  </div>
 
-    <div *ngIf="isStudent" class="form-group">
-        <label for="dateBirth">Date de naissance</label>
-        <input type="date" formControlName="dateBirth" [ngClass]="{ 'is-invalid': submitted && f.dateBirth.errors }" />
-        <div *ngIf="submitted && f.dateBirth.errors">
-            <div *ngIf="f.dateBirth.errors.required">La date de naissance est obligatoire</div>
-        </div>
+  <div *ngIf="isStudent" class="form-group">
+    <label for="dateBirth">Date de naissance</label>
+    <input type="date" formControlName="dateBirth" [ngClass]="{ 'is-invalid': submitted && f.dateBirth.errors }" />
+    <div *ngIf="submitted && f.dateBirth.errors">
+      <div *ngIf="f.dateBirth.errors.required">La date de naissance est obligatoire</div>
     </div>
-    <div *ngIf="!isStudent" class="form-group">
-        <label for="date_of_creation">Date de création</label>
-        <input type="date" formControlName="date_of_creation" [ngClass]="{ 'is-invalid': submitted && f.date_of_creation.errors }" />
-        <div *ngIf="submitted && f.date_of_creation.errors">
-            <div *ngIf="f.date_of_creation.errors.required">La date de création est obligatoire</div>
-        </div>
+  </div>
+  <div *ngIf="!isStudent" class="form-group">
+    <label for="creationDate">Date de création</label>
+    <input type="date" formControlName="creationDate"
+      [ngClass]="{ 'is-invalid': submitted && f.creationDate.errors }" />
+    <div *ngIf="submitted && f.creationDate.errors">
+      <div *ngIf="f.creationDate.errors.required">La date de création est obligatoire</div>
     </div>
-    <div *ngIf="isStudent" class="form-group">
-        <label for="contactMail">Email</label>
-        <input type="email" formControlName="contactMail"/>
+  </div>
+  <div *ngIf="isStudent" class="form-group">
+    <label for="contactMail">Email</label>
+    <input type="email" formControlName="contactMail" />
+  </div>
+  <div *ngIf="isStudent" class="form-group">
+    <label for="contactTel">Numéro de téléphone</label>
+    <input type="tel" formControlName="contactTel" />
+  </div>
+  <div class="form-group">
+    <label for="location">Localisation</label>
+    <input type="text" formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
+    <div *ngIf="submitted && f.location.errors">
+      <div *ngIf="f.location.errors.required">La localisation est obligatoire</div>
     </div>
-    <div *ngIf="isStudent" class="form-group">
-        <label for="contactTel">Numéro de téléphone</label>
-        <input type="tel" formControlName="contactTel" />
+  </div>
+  <div *ngIf="!isStudent" class="form-group">
+    <label for="description">Description</label>
+    <textarea type="text" formControlName="description"
+      [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+    <div *ngIf="submitted && f.description.errors">
+      <div *ngIf="f.description.errors.required">La description est obligatoire</div>
     </div>
-    <div class="form-group">
-        <label for="location">Localisation</label>
-        <input type="text" formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
-        <div *ngIf="submitted && f.location.errors">
-            <div *ngIf="f.location.errors.required">La localisation est obligatoire</div>
-        </div>
+  </div>
+  <div *ngIf="!isStudent" class="form-group">
+    <label for="taille">Taille</label>
+    <select type="text" formControlName="taille" [ngClass]="{ 'is-invalid': submitted && f.taille.errors }">
+      <option value="1-10">1-100</option>
+      <option value="11-100">11-100</option>
+      <option value="101-1 000">101-1 000</option>
+      <option value="1 001-10 000">1 001-10 000</option>
+      <option value="+10 000">+10 000</option>
+    </select>
+    <div *ngIf="submitted && f.taille.errors">
+      <div *ngIf="f.taille.errors.required">La taille est obligatoire</div>
     </div>
-    <div *ngIf="!isStudent" class="form-group">
-        <label for="description">Description</label>
-        <textarea type="text" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" ></textarea>
-        <div *ngIf="submitted && f.description.errors">
-            <div *ngIf="f.description.errors.required">La description est obligatoire</div>
-        </div>
-    </div>
-    <div *ngIf="!isStudent" class="form-group">
-        <label for="taille">Taille</label>
-        <select type="text" formControlName="taille" [ngClass]="{ 'is-invalid': submitted && f.taille.errors }">
-            <option value="1-10">1-100</option>
-            <option value="11-100">11-100</option>
-            <option value="101-1 000">101-1 000</option>
-            <option value="1 001-10 000">1 001-10 000</option>
-            <option value="+10 000">+10 000</option>
-        </select>
-        <div *ngIf="submitted && f.taille.errors">
-            <div *ngIf="f.taille.errors.required">La taille est obligatoire</div>
-        </div>
-    </div>
-    <div *ngIf="!isStudent" class="form-group">
-        <label for="srcImage">Url Image logo</label>
-        <input type="text" formControlName="srcImage" [ngClass]="{ 'is-invalid': submitted && f.srcImage.errors }" />
-    </div>
-    
-    <div class="form-buttons">
-        <button [disabled]="loading">
-            <span *ngIf="loading"></span>
-            S'enregistrer
-        </button>
-        <a routerLink="/login">Annuler</a>
-    </div>
+  </div>
+  <div *ngIf="!isStudent" class="form-group">
+    <label for="srcImage">Url Image logo</label>
+    <input type="text" formControlName="srcImage" [ngClass]="{ 'is-invalid': submitted && f.srcImage.errors }" />
+  </div>
+
+  <div class="form-buttons">
+    <button [disabled]="loading">
+      <span *ngIf="loading"></span>
+      S'enregistrer
+    </button>
+    <a routerLink="/login">Annuler</a>
+  </div>
 </form>
-<app-alert></app-alert>

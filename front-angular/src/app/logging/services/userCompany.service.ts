@@ -6,23 +6,23 @@ import { UserCompany, Company } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
 export class UserCompanyService {
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl;
 
-    getAll() {
-        return this.http.get<UserCompany[]>(this.apiUrl + '/users');
-    }
+  getAll() {
+    return this.http.get<UserCompany[]>(this.apiUrl + '/users');
+  }
 
-    register(user: UserCompany) {
-        return this.http.post(this.apiUrl + '/users/register', user);
-    }
+  register(user: UserCompany) {
+    return this.http.post(this.apiUrl + '/users/register', user);
+  }
 
-    registerByAdmin(company: Company){
-        return this.http.post<Company>(this.apiUrl + '/companies', company);
-    }
+  registerByAdmin(company: Company) {
+    return this.http.post<Company>(this.apiUrl + '/companies', company);
+  }
 
-    delete(id: string) {
-        return this.http.delete(this.apiUrl + '/users/' + id);
-    }
+  delete(id: string) {
+    return this.http.delete(this.apiUrl + '/users/' + id);
+  }
 }

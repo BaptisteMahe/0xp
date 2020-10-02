@@ -14,75 +14,77 @@
   </div>
 </div>
 
-<div *ngIf="currentUser.isStudent" class="form-avis boxContainer" >
+<div *ngIf="currentUser.isStudent" class="form-avis boxContainer">
   <h1>Donne ton avis</h1>
-  <br/>
-    <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="noteGenerale">Impression générale</label>
-          <select type="text" formControlName="noteGenerale" [ngClass]="{ 'is-invalid': submitted && f.noteGenerale.errors }" >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <label for="noteGenerale"> /5</label>
-          <div *ngIf="submitted && f.noteGenerale.errors">
-              <div *ngIf="f.noteGenerale.errors.required">La note est obligatoire</div>
-          </div>        
-        </div>
-        <div class="form-group">
-          <label for="noteInteret">Intérêt de la mission</label>
-          <select type="text" formControlName="noteInteret" [ngClass]="{ 'is-invalid': submitted && f.noteInteret.errors }" >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <label for="noteInteret"> /5</label>
-          <div *ngIf="submitted && f.noteInteret.errors">
-              <div *ngIf="f.noteInteret.errors.required">La note est obligatoire</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="noteAmbiance">Ambiance de travail</label>
-          <select type="text" formControlName="noteAmbiance" [ngClass]="{ 'is-invalid': submitted && f.noteAmbiance.errors }" >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <label for="noteAmbiance"> /5</label>
-          <div *ngIf="submitted && f.noteAmbiance.errors">
-              <div *ngIf="f.noteAmbiance.errors.required">La note est obligatoire</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="noteEncadrt">Encadrement</label>
-          <select type="text" formControlName="noteEncadrt" [ngClass]="{ 'is-invalid': submitted && f.noteEncadrt.errors }" >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <label for="noteEncadrt"> /5</label>
-          <div *ngIf="submitted && f.noteEncadrt.errors">
-              <div *ngIf="f.noteEncadrt.errors.required">La note est obligatoire</div>
-          </div>        
-        </div>
-        <div class="form-group">
-          <textarea type="text" formControlName="avis" placeholder="Commentaire" [ngClass]="{'is-invalid': submitted && f.avis.errors}">
+  <br />
+  <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="noteGenerale">Impression générale</label>
+      <select type="text" formControlName="noteGenerale"
+        [ngClass]="{ 'is-invalid': submitted && f.noteGenerale.errors }">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <label for="noteGenerale"> /5</label>
+      <div *ngIf="submitted && f.noteGenerale.errors">
+        <div *ngIf="f.noteGenerale.errors.required">La note est obligatoire</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="noteInteret">Intérêt de la mission</label>
+      <select type="text" formControlName="noteInteret" [ngClass]="{ 'is-invalid': submitted && f.noteInteret.errors }">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <label for="noteInteret"> /5</label>
+      <div *ngIf="submitted && f.noteInteret.errors">
+        <div *ngIf="f.noteInteret.errors.required">La note est obligatoire</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="noteAmbiance">Ambiance de travail</label>
+      <select type="text" formControlName="noteAmbiance"
+        [ngClass]="{ 'is-invalid': submitted && f.noteAmbiance.errors }">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <label for="noteAmbiance"> /5</label>
+      <div *ngIf="submitted && f.noteAmbiance.errors">
+        <div *ngIf="f.noteAmbiance.errors.required">La note est obligatoire</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="noteEncadrt">Encadrement</label>
+      <select type="text" formControlName="noteEncadrt" [ngClass]="{ 'is-invalid': submitted && f.noteEncadrt.errors }">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <label for="noteEncadrt"> /5</label>
+      <div *ngIf="submitted && f.noteEncadrt.errors">
+        <div *ngIf="f.noteEncadrt.errors.required">La note est obligatoire</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <textarea type="text" formControlName="avis" placeholder="Commentaire"
+        [ngClass]="{'is-invalid': submitted && f.avis.errors}">
           </textarea>
-          <div *ngIf="submitted && f.avis.errors" class="invalid-feedback">
-            <div *ngIf="f.avis.errors.required">Le commentaire est requis !</div>
-          </div>
-        </div>        
+      <div *ngIf="submitted && f.avis.errors" class="invalid-feedback">
+        <div *ngIf="f.avis.errors.required">Le commentaire est requis !</div>
+      </div>
+    </div>
 
-        <button>Ajouter un avis</button>
-        <app-alert></app-alert>
-      </form>
+    <button>Ajouter un avis</button>
+  </form>
 </div>
