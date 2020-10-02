@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-import { UserCompany, Company } from '../../../models';
+import { User, Company } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
 export class UserCompanyService {
@@ -11,10 +11,10 @@ export class UserCompanyService {
   apiUrl = environment.apiUrl;
 
   getAll() {
-    return this.http.get<UserCompany[]>(this.apiUrl + '/users');
+    return this.http.get<User[]>(this.apiUrl + '/users');
   }
 
-  register(user: UserCompany) {
+  register(user: User) {
     return this.http.post(this.apiUrl + '/users/register', user);
   }
 
