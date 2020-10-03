@@ -1,8 +1,8 @@
-<div *ngIf="!profileDetails.photo" class="img-bloc">
+<div *ngIf="!currentUser.srcImage" class="img-bloc">
   <img class="img-center" src="../../assets/images/0xpuser.png" />
 </div>
-<div *ngIf="profileDetails.photo" class="img-bloc co">
-  <img class="img-center" [src]="profileDetails.photo" />
+<div *ngIf="currentUser.srcImage" class="img-bloc co">
+  <img class="img-center" [src]="currentUser.srcImage" />
 </div>
 
 
@@ -10,36 +10,36 @@
   <a (click)="logout()">Deconnexion</a>
 </div>
 
-<div *ngIf="isStudent && profileDetails.softSkills == undefined" class="messageProfil flexRow">
+<div *ngIf="currentUser.isStudent && !currentUser.softSkills" class="messageProfil flexRow">
   <img src="https://image.flaticon.com/icons/svg/1636/1636062.svg" />
   <p class="information">Des informations manquent à votre profil</p>
 </div>
 
-<div class="profile-box" *ngIf="isStudent && profileDetails.username !== 'admin'">
+<div class="profile-box" *ngIf="currentUser.isStudent && currentUser.username !== 'admin'">
   <div class="bar-details">
     <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
     <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes favoris</a>
     <a class="bar-button" (click)="clicSection($event,'notif')">Mes notifications</a>
   </div>
   <div class="square-sections">
-    <app-profile-detail [profileDetails]="profileDetails" *ngIf="showProfile"></app-profile-detail>
+    <app-profile-detail [profileDetails]="currentUser" *ngIf="showProfile"></app-profile-detail>
     <app-offer-square *ngIf="showCandidatures"></app-offer-square>
     <app-notification *ngIf="showNotifs"></app-notification>
   </div>
 </div>
 
-<div class="profile-box" *ngIf="!isStudent && profileDetails.username !== 'admin'">
+<div class="profile-box" *ngIf="!currentUser.isStudent && currentUser.username !== 'admin'">
   <div class="bar-details">
     <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
     <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes offres</a>
   </div>
   <div class="square-sections">
-    <app-profile-detail [profileDetails]="profileDetails" *ngIf="showProfile"></app-profile-detail>
+    <app-profile-detail [profileDetails]="currentUser" *ngIf="showProfile"></app-profile-detail>
     <app-offer-company *ngIf="showCandidatures"></app-offer-company>
     <app-notification *ngIf="showNotifs"></app-notification>
   </div>
 </div>
 
-<div class="profile-box" *ngIf="profileDetails.username == 'admin'">
+<div class="profile-box" *ngIf="currentUser.username == 'admin'">
   <app-profile-admin></app-profile-admin>
 </div>

@@ -1,6 +1,6 @@
-//TODO : revoir cette classe
-export class User {
+export interface User {
   id: number;
+  idCompany: string;
   username: string;
   password: string;
   firstName: string;
@@ -9,7 +9,7 @@ export class User {
   contactMail: string;
   contactTel: string;
   location: string;
-  softSkills: string;
+  softSkills: string[];
   interestCompany: string;
   interestDomain: string;
   favoris: string;
@@ -19,4 +19,5 @@ export class User {
   contact: string;
   token: string;
   isStudent: boolean;
+  srcImage: string;
 }
