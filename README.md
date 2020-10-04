@@ -25,9 +25,15 @@ npm install
 ng serve --open
 ~~~
 
-Note bonne pratique:
+## Note bonne pratique
 On va toujours préférer rebase plutôt que simplement pull les branch pour cela :
 ~~~shell
 git config --global pull.rebase merges
 ~~~
 Code for Centrale's option "Digital.e" : 0xp website, find your first xp
+
+## Bien nommer ses branches et ses commits
+
+Pour une modification en relation au ticket ZXP-XX
+nom de la branche **monnom-ZXP-XX**
+message de commit **ZXP-XX monmessagedecommit**
