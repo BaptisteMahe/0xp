@@ -10,7 +10,7 @@
   <a routerLink="/login" *ngIf="!currentUser && !isProfilOpen">Se connecter</a>
   <div class="button profilBox" routerLink="/profile">
     <img src="../../assets/images/0xpuser.png" alt="Profile logo">
-    <div *ngIf="currentUser.isStudent && currentUser.softSkills == undefined">
+    <div *ngIf="currentUser && currentUser.isStudent && currentUser.softSkills == undefined">
       <div class="notifInfo">
         <p>!</p>
       </div>
@@ -19,5 +19,5 @@
       </div>
     </div>
   </div>
-  
+
 </mat-toolbar>
