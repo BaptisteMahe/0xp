@@ -1,46 +1,3 @@
-.navbar {
-    display: flex;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    align-items: center;
-    justify-content: space-around;
-    height: 60px;
-    margin: 0;
-    padding: 0;
-    background-color: #3e4259;
-    z-index: 1001;
-}
-
-.nav-left {
-    width: 70%
-}
-
-.nav-right {
-    width: 30%
-}   
-
-.nav-left ul {
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.nav-right ul {
-    justify-content: flex-end;
-    align-items: center;
-}
-
-ul {
-    display: flex;
-    width: 70%;
-    list-style-type: none;
-}
-
-ul li {
-    margin-left: 50px;
-    width: fit-content;
-}
-
 img {
     width: 60px;
     margin-top: 25px;
@@ -49,13 +6,11 @@ img {
 a {
     text-decoration: none;
     color: #FBFEF9;
-}
 
-a:hover {
-    color: #FBFEF9;
-    text-decoration: underline;
-    text-decoration-color: var(--color-blue-medium);
-    cursor: pointer;
+    &:hover {
+        color: var(--color-blue-medium);
+        cursor: pointer;
+    }
 }
 
 .profilBox {
@@ -67,8 +22,7 @@ a:hover {
     }
 }
 
-.notifInfo,
-.notifAlert {
+.notifInfo, .notifAlert {
     width: 20px;
     height: 20px;
     position: absolute;
@@ -96,3 +50,16 @@ a:hover {
 .notifAlert {
     background-color: red;
 }
+
+.mat-toolbar {
+    background-color: #3e4259;
+    margin-top: -60px;
+
+    a {
+        padding: 10px;
+    }
+}
+
+.navbar-spacer {
+    flex: 1 1 auto;
+  }

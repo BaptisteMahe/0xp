@@ -1,39 +1,23 @@
-<ul class="navbar">
-  <div class="nav-left">
-    <ul>
-      <li style="height: 70%">
-        <a routerLink="/">ACCUEIL</a>
-      </li>
-      <li *ngIf="currentUser">
-        <a routerLink="/offers">LES OFFRES</a>
-      </li>
-      <li *ngIf="currentUser && currentUser.isStudent">
-        <a routerLink="/companies">DONNER SON AVIS</a>
-      </li>
-      <li>
-        <a routerLink="/faq">FAQ</a>
-      </li>
-    </ul>
+<mat-toolbar>
+
+  <a routerLink="/">ACCUEIL</a>
+  <a routerLink="/offers" *ngIf="currentUser">LES OFFRES</a>
+  <a routerLink="/companies" *ngIf="currentUser && currentUser.isStudent" >DONNER SON AVIS</a>
+  <a routerLink="/faq">FAQ</a>
+
+  <span class="navbar-spacer"></span>
+
+  <a routerLink="/login" *ngIf="!currentUser && !isProfilOpen">Se connecter</a>
+  <div class="button profilBox" routerLink="/profile">
+    <img src="../../assets/images/0xpuser.png" alt="Profile logo">
+    <div *ngIf="currentUser && currentUser.isStudent && currentUser.softSkills == undefined">
+      <div class="notifInfo">
+        <p>!</p>
+      </div>
+      <div *ngIf="nbrNotif>0" class="notifAlert">
+        <p>{{nbrNotif}}</p>
+      </div>
+    </div>
   </div>
 
-  <div class="nav-right">
-    <ul>
-      <li *ngIf="!currentUser && !isProfilOpen">
-        <a routerLink="/login">Se connecter</a>
-      </li>
-      <li *ngIf="currentUser && !isProfilOpen">
-        <div class="button profilBox" routerLink="/profile">
-          <img src="../../assets/images/0xpuser.png" alt="Profile logo">
-          <div *ngIf="currentUser.isStudent && currentUser.softSkills == undefined">
-            <div class="notifInfo">
-              <p>!</p>
-            </div>
-            <div *ngIf="nbrNotif>0" class="notifAlert">
-              <p>{{nbrNotif}}</p>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-</ul>
+</mat-toolbar>
