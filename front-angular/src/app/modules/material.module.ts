@@ -10,7 +10,6 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
 
 import { SelectAutocompleteModule } from 'mat-select-autocomplete';
 
@@ -26,8 +25,7 @@ import { SelectAutocompleteModule } from 'mat-select-autocomplete';
         MatTabsModule,
         SelectAutocompleteModule,
         MatSnackBarModule,
-        MatToolbarModule,
-        MatIconModule
+        MatToolbarModule
     ]
 })
 export class MaterialModule { }
