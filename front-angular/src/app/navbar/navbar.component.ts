@@ -5,6 +5,7 @@ import { AuthenticationService } from '../logging/services';
 import { GlobalService } from '../services/global.service';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
