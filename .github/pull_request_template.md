@@ -15,13 +15,14 @@
 **What is the new behaviour?**
 
 
-
 **Does this PR introduce a breaking change?** (check one with "x")
 
 > - [ ] Yes
 > - [ ] No
+Explain how we can fix that change :
 
 
-If this PR contains a breaking change, please describe the impact and migration path for existing applications: ...
+**Link to open Jira ticket**:
+
 
 **Other information**:
