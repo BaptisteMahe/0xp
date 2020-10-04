@@ -9,23 +9,26 @@ import { MatInputModule } from '@angular/material';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 import { SelectAutocompleteModule } from 'mat-select-autocomplete';
 
 @NgModule({
-    exports: [
-        MatSelectModule,
-        MatAutocompleteModule,
-        MatButtonToggleModule,
-        MatSlideToggleModule,
-        MatDatepickerModule,
-        MatInputModule,
-        MatSliderModule,
-        MatTabsModule,
-        SelectAutocompleteModule,
-        MatSnackBarModule,
-        MatToolbarModule
-    ]
+  exports: [
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatButtonToggleModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatSliderModule,
+    MatTabsModule,
+    SelectAutocompleteModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatDialogModule
+  ]
 })
 export class MaterialModule { }
