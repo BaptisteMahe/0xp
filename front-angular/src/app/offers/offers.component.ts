@@ -17,13 +17,13 @@ export class OffersComponent implements OnInit {
   isLoadingSubscription: Subscription;
 
   isStudent: boolean;
-  sortedBy: String;
-  isSortingPopupOpen: Boolean = false;
+  sortedBy: string;
+  isSortingPopupOpen = false;
 
-  isNotifAdded: Boolean;
+  isNotifAdded: boolean;
   isNotifAddedSubscription: Subscription;
 
-  constructor(private offerViewService: OfferViewService,private notificationsService: NotificationsService) { }
+  constructor(private offerViewService: OfferViewService, private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;
@@ -41,7 +41,7 @@ export class OffersComponent implements OnInit {
       }
     );
     this.isNotifAddedSubscription = this.notificationsService.isNotifAddedSubject.subscribe(
-      (isNotifAdded: Boolean) => {
+      (isNotifAdded: boolean) => {
         this.isNotifAdded = isNotifAdded;
       }
     );
@@ -51,8 +51,8 @@ export class OffersComponent implements OnInit {
     this.isSortingPopupOpen = !this.isSortingPopupOpen;
   }
 
-  changeSortBy(key: String) {
-    if (key != this.sortedBy) {
+  changeSortBy(key: string) {
+    if (key !== this.sortedBy) {
       this.offerViewService.sortArray(this.filteredListOffers, key);
       this.sortedBy = key;
       this.isSortingPopupOpen = false;

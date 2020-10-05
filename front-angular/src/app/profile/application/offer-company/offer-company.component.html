@@ -1,7 +1,7 @@
-<div class="button flexRow addOffer" routerLink="/addOffer">
+<button mat-raised-button class="add-offer-button" routerLink="/addOffer">
   <p>Ajouter une offre</p>
-  <img class="modify" src="../../../../assets/images/btnAdd.svg">
-</div>
+  <mat-icon>add_circle</mat-icon>
+</button>
 
 <div *ngFor="let offre of listOfferCompany">
   <div class="offer-co-preview">
@@ -12,22 +12,16 @@
       </div>
       <p style="color:gray">{{offre.company}}</p>
     </div>
-    <p class="button modify" (click)="openEditModale(offre)"><img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="modify" class="logo-mod"/></p>
-    <p class="button delete" (click)="deleteElement(offre)"><img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del"/></p> 
+    <button mat-icon-button (click)="onEditClick(offre)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="onDeleteClick(offre)">
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
 </div>
 
-<div *ngIf="modalSwitch" class="modalDelete">
-  <h3>Êtes-vous sûr de vouloir supprimer cette offre ?</h3>
-  <h4>{{offreToBeDeleted.title}}</h4>
-  <br/>
-  <div style="display: flex; justify-content: space-evenly;">
-    <p class="button btn btn-delete" (click)="deleteItem()">Confirmer</p>
-    <p class="button btn" (click)="cancelDelete()">Annuler</p>
-  </div>
-</div>
-
-<div *ngIf="isEditingOffer" class="modaleEdition">
-  <img class="button closeLogo" (click)="closeEdition()" src="../../../../assets/images/cross-light.svg">
+<div *ngIf="isEditingOffer" class="modale-edition">
+  <img class="button close-logo" (click)="closeEdition()" src="../../../../assets/images/cross-light.svg">
   <app-add-offer [offreEdited]="offreToBeEdited"></app-add-offer>
 </div>
