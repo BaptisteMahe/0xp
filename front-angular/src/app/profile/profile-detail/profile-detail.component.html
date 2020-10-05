@@ -1,10 +1,8 @@
-<div *ngIf="!isEdition" class="button btn flexRow editProfile" (click)="enableEdition()">
+<button mat-raised-button class="edit-profile-button" (click)="enableEdition()">
   <p>Editer le profil</p>
-  <img class="modify" src="../../../assets/images/edit.svg">
-</div>
-<br />
+  <mat-icon>edit</mat-icon>
+</button>
 
-<!--Eleve-->
 <div *ngIf="profileDetails.isStudent">
 
   <div *ngIf="!isEdition">
@@ -83,7 +81,6 @@
   </div>
 </div>
 
-<!--Entreprise-->
 <div *ngIf="!profileDetails.isStudent">
   <div *ngIf="!isEdition">
     <div class="bloc">

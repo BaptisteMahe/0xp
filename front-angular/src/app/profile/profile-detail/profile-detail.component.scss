@@ -1,100 +1,81 @@
 .label{
-    font-family:MadeBold;
+  font-family:MadeBold;
 }
 
 .fiche
 {
-    padding-left:4vw;    
+  padding-left:4vw;    
 }
 
 
 .messageProfil {
 
-    width: 25vw;
-    align-items: center;
-    justify-content: space-evenly;
+  width: 25vw;
+  align-items: center;
+  justify-content: space-evenly;
 
-    img {
-        width: 30px;
-        height: 30px;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
+  img {
+      width: 30px;
+      height: 30px;
+      margin-left: 10px;
+      margin-right: 10px;
+  }
 
-    .information {
-        color: #ffc355;
-        text-align: center;
-    }
+  .information {
+      color: #ffc355;
+      text-align: center;
+  }
 }
 
-// Edition du profil
-.editProfile
-{
-    width:10vw;
-    align-items: center;
-    margin-right: 5vw;
-    margin-left: auto;
-    justify-content: space-between;
-    padding-left: 2vw;
-    padding-right: 2vw;
-
-    .modify
-    {
-        height:5vh;
-        width:5vh;
-        justify-items: center;
-    }
+.edit-profile-button {
+  display: flex;
+  margin: 15px auto;
 }
 
-.bloc
-    {
-        background-color: white;
-        padding:2vh 2vw;
-        box-shadow: #00000448 0px 0px 4px;
-        border-radius: 1vw;
-        width:80%;
-        margin:auto;
-        margin-bottom: 2vh;
-    }
-
-.center
-{
-    text-align: center;
-    padding-left:3vh;
-    padding-right:3vh;
-    margin:1vh;
-
-    .title
-    {
-        width:40%
-    }
-
-    .desc
-    {
-        width:80%
-    }
+.bloc {
+  background-color: white;
+  padding:2vh 2vw;
+  box-shadow: #00000448 0px 0px 4px;
+  border-radius: 1vw;
+  width:80%;
+  margin:auto;
+  margin-bottom: 2vh;
 }
 
-.closeLogo{
-    width: 1vw;
-    height: 1vw;
-    position: absolute;
-    right:16vw;
+.center {
+  text-align: center;
+  padding-left:3vh;
+  padding-right:3vh;
+  margin:1vh;
+
+  .title {
+    width:40%
+  }
+
+  .desc {
+    width:80%
+  }
 }
 
-.btn-success
-{
-    color:white;
-    background-color:#03C9D3;
-    border-color: transparent;
-    box-shadow: #0000047a 0px 0px 5px;
-    margin:auto;
-    height:5vh;
-    width:10vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5vh; 
-    border-color: transparent;  
+.closeLogo {
+  width: 1vw;
+  height: 1vw;
+  position: absolute;
+  right:16vw;
+}
+
+.btn-success {
+  color:white;
+  background-color:#03C9D3;
+  border-color: transparent;
+  box-shadow: #0000047a 0px 0px 5px;
+  margin:auto;
+  height:5vh;
+  width:10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5vh; 
+  border-color: transparent;  
 }
 
