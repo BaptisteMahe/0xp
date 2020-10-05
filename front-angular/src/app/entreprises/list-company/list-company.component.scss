@@ -1,55 +1,55 @@
-.filterText{
-    width: 54vw;
-    margin: auto;
-    margin-top: 8vh;
-    padding: 1vh 2vw 1vh 5vw;
-    border-radius:50px;
-    box-shadow: #00000447 0px 0px 4px;
+.filterText {
+  width: 54vw;
+  margin: auto;
+  margin-top: 8vh;
+  padding: 1vh 2vw 1vh 5vw;
+  border-radius: 50px;
+  box-shadow: #00000447 0px 0px 4px;
 }
 
-input{
-    height: 6vh;
-    width: 54vw;
-    font-family: MadeMedium;
-    font-size: medium;
+input {
+  height: 6vh;
+  width: 54vw;
+  font-family: MadeMedium;
+  font-size: medium;
 }
 
-.list-companies{
-    display:flex;
-    flex-wrap: wrap;
-    margin: auto;
-    position: relative;
-    justify-content: space-evenly;
-    margin: 5vw;
-    margin-top: 3vh;
+.list-companies {
+  display:flex;
+  flex-wrap: wrap;
+  margin: auto;
+  position: relative;
+  justify-content: space-evenly;
+  margin: 5vw;
+  margin-top: 3vh;
 }
 
-.company-box{
-    border: 0.5px #00000052 solid;
-    box-shadow: #00000447 0px 2px 3px;
-    border-radius: 5px;
-    min-width: max-content;
-    margin: 1vh;
-    margin-bottom:1vw;
-    padding: 5px;
-    min-width: 20%;
-    
-    &:hover {
-        transform: scale(1.005);
-        background-color: rgb(238, 250, 253);
-    }
+.company-box {
+  border: 0.5px #00000052 solid;
+  box-shadow: #00000447 0px 2px 3px;
+  border-radius: 5px;
+  min-width: max-content;
+  margin: 1vh;
+  margin-bottom:1vw;
+  padding: 5px;
+  min-width: 20%;
+  
+  &:hover {
+    transform: scale(1.005);
+    background-color: rgb(238, 250, 253);
+  }
 }
 
-img{
-    width: 6vw;
-    max-height: 6vw;
-    padding: 0.5vw;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+img {
+  width: 6vw;
+  max-height: 6vw;
+  padding: 0.5vw;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
-.company-name{
-    font-family: MadeMedium;
-    text-align: center;
+.company-name {
+  font-family: MadeMedium;
+  text-align: center;
 }
