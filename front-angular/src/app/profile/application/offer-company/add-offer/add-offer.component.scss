@@ -9,38 +9,6 @@
     z-index:-10;
 }
 
-.modalSave
-{
-    z-index: 10;
-    display: block;
-    box-shadow: var(--shadow-light);
-    background-color: white;
-    width: 30vw;
-    height: 15vh;
-    border-radius:10px;
-    text-align: center;
-    align-items: center;
-    margin: auto;
-    margin-top: -10vh; 
-    padding:2%;
-    position:fixed;
-    top:50vh;
-    left:35vw;
-
-    .btn
-    {
-        box-shadow: var(--shadow-light);
-        padding:3%; padding-right: 5%;padding-left: 5%;
-        border-radius: 30px;
-    }
-
-    .btn-delete
-    {
-        color:white;
-        background-color: red;
-    }
-}
-
 .offer-sheet
 {
     background-color: white;
