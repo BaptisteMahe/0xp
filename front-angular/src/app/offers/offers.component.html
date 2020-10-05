@@ -1,47 +1,50 @@
 <div style="padding-top: 8vh;">
-    <img class="logo" src="../../assets/images/logo_blue.svg" />
-    <h1 class="slogan">Naviguez parmi les offres et trouvez celle qui vous correspond !</h1>
-    <app-filter></app-filter>
+  <img class="logo" src="../../assets/images/logo_blue.svg" />
+  <h1 class="slogan">Naviguez parmi les offres et trouvez celle qui vous correspond !</h1>
+  <app-filter></app-filter>
 
-    <div class="loadingScreen" *ngIf="isLoading">
-        <div class="loader"></div>
-        <h1>Chargement des offres correspondant le plus à votre recherche !</h1>
+  <div class="loadingScreen" *ngIf="isLoading">
+    <div class="loader"></div>
+    <h1>Chargement des offres correspondant le plus à votre recherche !</h1>
+  </div>
+
+  <div *ngIf="!isLoading && filteredListOffers.length!=0" class="flexCol listOffers">
+    <button mat-icon-button (click)="openOrClosePopup()" class="logoSort">
+      <mat-icon>sort</mat-icon>
+    </button>
+    <div *ngIf="isSortingPopupOpen" class="choiceFilter">
+      <div [ngClass]="{'isSelectable':sortedBy!='matchingScore'}" (click)="changeSortBy('matchingScore')"
+        class="flexRow">
+        <p [ngStyle]="{'visibility':sortedBy=='matchingScore' ? 'visible' : 'hidden' }" class="check">✓</p>
+        <p>Taux de matching</p>
+      </div>
+      <div [ngClass]="{'isSelectable':sortedBy!='remuneration'}" (click)="changeSortBy('remuneration')" class="flexRow">
+        <p [ngStyle]="{'visibility':sortedBy=='remuneration' ? 'visible' : 'hidden' }" class="check">✓</p>
+        <p>Rémunération</p>
+      </div>
+      <div [ngClass]="{'isSelectable':sortedBy!='created_date'}" (click)="changeSortBy('created_date')" class="flexRow">
+        <p [ngStyle]="{'visibility':sortedBy=='created_date' ? 'visible' : 'hidden' }" class="check">✓</p>
+        <p>Date de publication</p>
+      </div>
     </div>
+    <app-offer-preview class="oneOffer button" *ngFor="let offer of filteredListOffers" [offer]="offer">
+    </app-offer-preview>
+  </div>
 
-    <div *ngIf="!isLoading && filteredListOffers.length!=0" class="flexCol listOffers">
-        <img class="button logoSort" (click)="openOrClosePopup()" src="../../assets/images/sort-logo.png" />
-        <div *ngIf="isSortingPopupOpen" class="choiceFilter">
-            <div [ngClass]="{'isSelectable':sortedBy!='matchingScore'}" (click)="changeSortBy('matchingScore')" class="flexRow">
-                <p [ngStyle]="{'visibility':sortedBy=='matchingScore' ? 'visible' : 'hidden' }" class="check">✓</p>
-                <p>Taux de matching</p>
-            </div>
-            <div [ngClass]="{'isSelectable':sortedBy!='remuneration'}" (click)="changeSortBy('remuneration')" class="flexRow">
-                <p [ngStyle]="{'visibility':sortedBy=='remuneration' ? 'visible' : 'hidden' }" class="check">✓</p>
-                <p>Rémunération</p>
-            </div>
-            <div [ngClass]="{'isSelectable':sortedBy!='created_date'}" (click)="changeSortBy('created_date')" class="flexRow">
-                <p [ngStyle]="{'visibility':sortedBy=='created_date' ? 'visible' : 'hidden' }" class="check">✓</p>
-                <p>Date de publication</p>
-            </div>
-        </div>
-        <app-offer-preview class="oneOffer button" *ngFor="let offer of filteredListOffers" [offer]="offer">
-        </app-offer-preview>
+  <div *ngIf="filteredListOffers.length===0" class="noOffersDiv">
+    <h4>Aucune offre ne semble correspondre à votre filtrage pour le moment...</h4>
+
+    <div *ngIf="isStudent">
+      <p style="text-align: center;">Vous pouvez ajouter une alerte qui vous notifiera si une offre correspondant
+        à ce filtrage est rajoutée</p>
+      <div class="button flexRow addNotif" *ngIf="!isNotifAdded" (click)="addAlert()">
+        <img src="https://image.flaticon.com/icons/svg/2489/2489081.svg" />
+        <p>Ajouter une alerte</p>
+      </div>
+
+      <div class="flexRow notifAdded" *ngIf="isNotifAdded">
+        <p>Alerte ajoutée</p>
+      </div>
     </div>
-
-    <div *ngIf="filteredListOffers.length===0" class="noOffersDiv">
-        <h4>Aucune offre ne semble correspondre à votre filtrage pour le moment...</h4>
-
-        <div *ngIf="isStudent">
-            <p style="text-align: center;">Vous pouvez ajouter une alerte qui vous notifiera si une offre correspondant
-                à ce filtrage est rajoutée</p>
-            <div class="button flexRow addNotif" *ngIf="!isNotifAdded" (click)="addAlert()">
-                <img src="https://image.flaticon.com/icons/svg/2489/2489081.svg" />
-                <p>Ajouter une alerte</p>
-            </div>
-
-            <div class="flexRow notifAdded" *ngIf="isNotifAdded">
-                <p>Alerte ajoutée</p>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
