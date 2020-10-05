@@ -3,6 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Offer } from 'src/models/Offer';
 import { OfferViewService } from 'src/app/offers/offerView.service';
+import { QuitEditionDialogContentComponent } from './add-offer/add-offer.component';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -59,9 +60,16 @@ export class OfferCompanyComponent implements OnInit {
     this.offreToBeEdited = offerToBeEdited;
   }
 
-  closeEdition() {
-    this.isEditingOffer = false;
-    this.offreToBeEdited = new Offer();
+  onCloseEditionClick() {
+    const dialogRef = this.matDialog.open(QuitEditionDialogContentComponent);
+
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.isEditingOffer = false;
+          this.offreToBeEdited = new Offer();
+        }
+      });
   }
 }
 
