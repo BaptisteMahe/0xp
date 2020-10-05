@@ -5,6 +5,7 @@ import { Filter } from 'src/models/Filter';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AuthenticationService } from '../logging/services';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class OfferViewService {
@@ -172,17 +173,9 @@ export class OfferViewService {
     }
 
 
-    deleteOffer(id: String) {
-        this.httpClient.delete<String>(this.apiUrl + '/offres/deleteById/' + id).subscribe(
-            (response) => {
-                console.log('Offre ' + id + ' supprimée')
-            },
-            (error) => {
-                console.log('Erreur ! : ' + error);
-            }
-        );
-
-    }
+  deleteOffer(id: string): Observable<any> {
+    return this.httpClient.delete<string>(this.apiUrl + '/offres/deleteById/' + id);
+  }
 
     editOffer(offer: Offer) {
         this.httpClient.post<Offer>(this.apiUrl + '/offres/update', offer).subscribe(

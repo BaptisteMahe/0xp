@@ -12,18 +12,10 @@
       </div>
       <p style="color:gray">{{offre.company}}</p>
     </div>
-    <p class="button modify" (click)="openEditModale(offre)"><img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="modify" class="logo-mod"/></p>
-    <p class="button delete" (click)="deleteElement(offre)"><img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del"/></p> 
-  </div>
-</div>
-
-<div *ngIf="modalSwitch" class="modalDelete">
-  <h3>Êtes-vous sûr de vouloir supprimer cette offre ?</h3>
-  <h4>{{offreToBeDeleted.title}}</h4>
-  <br/>
-  <div style="display: flex; justify-content: space-evenly;">
-    <p class="button btn btn-delete" (click)="deleteItem()">Confirmer</p>
-    <p class="button btn" (click)="cancelDelete()">Annuler</p>
+    <p class="button modify" (click)="onEditClick(offre)">
+      <img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="modify" class="logo-mod" /></p>
+    <p class="button delete" (click)="onDeleteClick(offre)">
+      <img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del" /></p>
   </div>
 </div>
 
