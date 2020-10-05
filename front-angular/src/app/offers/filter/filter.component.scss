@@ -1,152 +1,153 @@
-img{
-    align-self: center;
-    width: 3vh;
-    height: 3vh;
+img {
+  align-self: center;
+  width: 3vh;
+  height: 3vh;
 }
 
-.main-filter-text{
-    width: 60vw;
-    margin: auto;
-    margin-top: 8vh;
-    padding: 1vh 2vw 1vh 5vw;
-    border-radius:50px;
-    box-shadow: #00000447 0px 0px 4px;
-    position: relative;
-    
-    input{
-        height: 6vh;
-        font-family: MadeMedium;
-        font-size: medium;
-        width:95%;
-    }
-}
-
-.box-mandatory{
-    box-shadow: #00000447 0px 1px 2px;
-    border-radius: 5px;
-    width: 60vw;
-    margin:auto;
-    padding: 1vh;
-    position: relative;
-    margin-bottom: 2px;
-
-    h3{
-        text-align: center;
-    }
-    p{
-        color:#adadad;
-    }
-}
-
-.list-select{
-    width:90%;
-    margin:6vh auto -2vh auto;
-}
-
-::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
-    box-shadow: #00000447 0px 0px 5px;;        //TODO:revoir taille des box qui dépassent
-    border-radius: 50px;
-    padding: 0.5vh 1vw 0.5vh 1vw;
-    border-top: 0px;
-    p{
-        width:10vw;
-    }
-}
-
-::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline{
-    height:0px !important;
-}
-
-::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
-    transform:translateY(-1.68125em) scale(.75) perspective(100px) translateZ(.001px) !important;
-}
-
-::ng-deep .mat-form-field-label-wrapper{
-    overflow:visible !important;
-}
-
-::ng-deep .mat-form-field-ripple{
-    background-color:transparent !important;
-}
-
-::ng-deep .mat-select-value-text{
-    color:#adadad !important;
-}
-
-.text-open-more-criteria{
-    text-align: center;
-    margin-bottom:1vh;
-}
-
-.logo-show-more-criteria{
-    width: 6vh;
+.main-filter-text {
+  width: 60vw;
+  margin: auto;
+  margin-top: 8vh;
+  padding: 1vh 2vw 1vh 5vw;
+  border-radius: 50px;
+  box-shadow: #00000447 0px 0px 4px;
+  position: relative;
+  
+  input {
     height: 6vh;
-    transform: rotate(0deg);
-    display: block;
-    margin: -3vh auto 2vh auto;
-    transition-property: all;
-    transition-duration: 0.2s;
+    font-family: MadeMedium;
+    font-size: medium;
+    width: 95%;
+  }
 }
 
-.more-filter-div{
-    p{
-        color:#adadad;
-        margin-bottom: 0px;
-    }
+.box-mandatory {
+  box-shadow: #00000447 0px 1px 2px;
+  border-radius: 5px;
+  width: 60vw;
+  margin:auto;
+  padding: 1vh;
+  position: relative;
+  margin-bottom: 2px;
 
-    .form-line{
-        margin:auto;
-        justify-content: space-between;
-    }
+  h3 {
+    text-align: center;
+  }
 
-    .line1{
-        width:80%;
-        margin-bottom: 5vh;
-    }
-    .line2{
-        width:90%;
-    }
-    .line3{
-        width:60%;
-        text-align: center;
-    }
-
-    .slider-value{
-        width: 200px;
-        justify-content: space-between;
-    }
+  p {
+    color: #adadad;
+  }
 }
 
-.more-filter-openImg{
-    transform: rotate(180deg);
+.list-select {
+  width: 90%;
+  margin: 6vh auto -2vh auto;
 }
 
-::ng-deep .mat-form-field-infix{
-    padding-bottom: .5em;
-    padding-top: 0px;
-    border-top: 0px solid transparent;
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+  box-shadow: #00000447 0px 0px 5px;;        //TODO:revoir taille des box qui dépassent
+  border-radius: 50px;
+  padding: 0.5vh 1vw 0.5vh 1vw;
+  border-top: 0px;
+  p {
+    width: 10vw;
+  }
 }
 
-::ng-deep .mat-slide-toggle{
-    display: flex !important;
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  height: 0px !important;
+}
+
+::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  transform: translateY(-1.68125em) scale(.75) perspective(100px) translateZ(.001px) !important;
+}
+
+::ng-deep .mat-form-field-label-wrapper {
+  overflow: visible !important;
+}
+
+::ng-deep .mat-form-field-ripple {
+  background-color: transparent !important;
+}
+
+::ng-deep .mat-select-value-text {
+  color: #adadad !important;
+}
+
+.text-open-more-criteria {
+  text-align: center;
+  margin-bottom: 1vh;
+}
+
+.logo-show-more-criteria {
+  width: 6vh;
+  height: 6vh;
+  transform: rotate(0deg);
+  display: block;
+  margin: -3vh auto 2vh auto;
+  transition-property: all;
+  transition-duration: 0.2s;
+}
+
+.more-filter-div {
+  p {
+    color: #adadad;
+    margin-bottom: 0px;
+  }
+
+  .form-line {
     margin: auto;
-    width: fit-content;
-    padding: 0.5em;
+    justify-content: space-between;
+  }
+
+  .line1 {
+    width: 80%;
+    margin-bottom: 5vh;
+  }
+  .line2 {
+    width: 90%;
+  }
+  .line3 {
+    width: 60%;
+    text-align: center;
+  }
+
+  .slider-value {
+    width: 200px;
+    justify-content: space-between;
+  }
 }
 
-.notif-on-filter{
-    position: absolute;
-    right: -5vw;
-    width:2vw;
+.more-filter-openImg {
+  transform: rotate(180deg);
+}
+
+::ng-deep .mat-form-field-infix {
+  padding-bottom: .5em;
+  padding-top: 0px;
+  border-top: 0px solid transparent;
+}
+
+::ng-deep .mat-slide-toggle {
+  display: flex !important;
+  margin: auto;
+  width: fit-content;
+  padding: 0.5em;
+}
+
+.notif-on-filter {
+  position: absolute;
+  right: -5vw;
+  width: 2vw;
 }
 
 .btn {
-    border-radius: 25px;
-    width:10vw;
-    margin:4vh auto 4vh auto;
-    padding: 1vh 1vw;
-    text-align: center;
-    background-color: var(--color-blue-medium);
-    box-shadow: #00000447 0px 2px 3px;
-    color:white;
+  border-radius: 25px;
+  width: 10vw;
+  margin: 4vh auto 4vh auto;
+  padding: 1vh 1vw;
+  text-align: center;
+  background-color: var(--color-blue-medium);
+  box-shadow: #00000447 0px 2px 3px;
+  color: white;
 }
