@@ -49,8 +49,13 @@ h2,h3, h4, p {padding:0;margin:0;}
 
 .add-offer-button {
   display: flex;
-  flex-direction: row;
   margin: 15px auto;
+  padding: 5px 15px;
+
+  mat-icon {
+    margin-left: 8px;
+    height: 26px;
+  }
 }
 
 .modale-edition {

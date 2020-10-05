@@ -55,7 +55,7 @@ export class FilterComponent implements OnInit {
   sectorList: SelectOption[];
 
   // Pour le filtre avancé
-  salaireMax: Number;
+  salaireMax: number;
 
   isMoreFilterOpen = false;
   listOffersSubscription: Subscription;
@@ -72,9 +72,9 @@ export class FilterComponent implements OnInit {
   dateFromDate: Date = new Date();
   dateStart = new FormControl(moment());
 
-  isNotifAdded: Boolean;
+  isNotifAdded: boolean;
   isNotifAddedSubscription: Subscription;
-  isStudent: Boolean;
+  isStudent: boolean;
 
   constructor(private offerViewService: OfferViewService, private notificationsService: NotificationsService) { }
 
@@ -94,7 +94,7 @@ export class FilterComponent implements OnInit {
     this.dateFromDate.setDate(1);
 
     this.isNotifAddedSubscription = this.notificationsService.isNotifAddedSubject.subscribe(
-      (isNotifAdded: Boolean) => {
+      (isNotifAdded: boolean) => {
         this.isNotifAdded = isNotifAdded;
         if (this.isNotifAdded) {
           this.notificationsService.majFilterForNotif(this.currentFilter);
@@ -199,7 +199,7 @@ export class FilterComponent implements OnInit {
     this.dateFromDate.setMonth(this.dateStart.value._d.getMonth());
   }
 
-  getSelectedOptions(key: String, selected) {
+  getSelectedOptions(key: string, selected) {
     if (key === 'company') {
       this.currentFilter.company = selected;
     } else {

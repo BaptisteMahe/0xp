@@ -1,15 +1,17 @@
-<div class="mainFilterText flexRow-spaceBet">
-  <input type="text" placeholder="Rechercher" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput" />
-  <img class="button" src="https://image.flaticon.com/icons/svg/149/149309.svg"  (click)="filter()"/>
-  <img class="button notifOnFilter" *ngIf="!isNotifAdded && isStudent" (click)="addNotif()"
-    src="https://image.flaticon.com/icons/svg/2489/2489081.svg" />
-  <img class="button notifOnFilter" *ngIf="isNotifAdded && isStudent"
-    src="https://image.flaticon.com/icons/svg/845/845646.svg" />
+<div class="main-filter-text flexRow-spaceBet">
+  <input matInput type="text" placeholder="Rechercher" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput" />
+  <button mat-icon-button>
+    <mat-icon (click)="filter()">search</mat-icon>
+  </button>
+  <button mat-icon-button class="notif-on-filter" *ngIf="isStudent">
+    <mat-icon *ngIf="!isNotifAdded" (click)="addNotif()">add_alert</mat-icon>
+    <mat-icon *ngIf="isNotifAdded">notifications_active</mat-icon>
+  </button>
 </div>
 
-<div class="boxMandatory">
+<div class="box-mandatory">
   <h3 class="color-blue-medium">Critères principaux</h3>
-  <div class="flexRow-spaceBet listSelect">
+  <div class="flexRow-spaceBet list-select">
     <div>
       <mat-form-field>
         <mat-label>Type d'expérience</mat-label>
@@ -39,21 +41,20 @@
     </div>
   </div>
 
-  <!--Critères supplémentaires-->
-  
-  <div *ngIf="isMoreFilterOpen" class="moreFilterDiv">
+  <div *ngIf="isMoreFilterOpen" class="more-filter-div">
     <h3 class="color-blue-medium">Critères supplémentaires</h3>
-    <div class="flexRow formLine line1">
+    <div class="flexRow form-line line1">
       <div>
         <p>Lieu</p>
         <form [formGroup]="locationForm">
           <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listOfferLocation"
             [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
-            [formControl]="locationForm.controls['selected']" (selectionChange)="getSelectedOptions('location', $event)">
+            [formControl]="locationForm.controls['selected']"
+            (selectionChange)="getSelectedOptions('location', $event)">
           </mat-select-autocomplete>
         </form>
       </div>
-  
+
       <div>
         <p>Entreprise</p>
         <form [formGroup]="companyForm">
@@ -68,8 +69,8 @@
         <mat-slide-toggle [(ngModel)]="currentFilter.isPartner"></mat-slide-toggle>
       </div>
     </div>
-  
-    <div class="flexRow formLine line2">
+
+    <div class="flexRow form-line line2">
       <div>
         <mat-form-field>
           <mat-label>Date de publication</mat-label>
@@ -81,7 +82,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-  
+
       <div>
         <mat-form-field>
           <mat-label>Taille de l'entreprise</mat-label>
@@ -93,7 +94,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-  
+
       <div>
         <mat-form-field>
           <input matInput [matDatepicker]="dp" placeholder="Date de début souhaitée" [formControl]="dateStart">
@@ -104,11 +105,11 @@
         </mat-form-field>
       </div>
     </div>
-  
-    <div class="flexRow formLine line3">
+
+    <div class="flexRow form-line line3">
       <div>
         <p>Taux de matching minimum</p>
-        <div class="flexRow sliderValue">
+        <div class="flexRow slider-value">
           <p>0%</p>
           <mat-slider max="100" z min="0" thumbLabel="thumbLabel" tickInterval="1"
             [(ngModel)]="currentFilter.matchingMini">
@@ -118,7 +119,7 @@
       </div>
       <div>
         <p>Rémunération minimum</p>
-        <div class="flexRow sliderValue">
+        <div class="flexRow slider-value">
           <p>0€</p>
           <mat-slider max="1461" min="0" thumbLabel="thumbLabel" tickInterval="1" [(ngModel)]="currentFilter.remunMini">
           </mat-slider>
@@ -129,14 +130,12 @@
   </div>
 
   <h4 class="button btn" (click)="filter()">Rechercher</h4>
-  
-  <p *ngIf="!isMoreFilterOpen" class="noSpace textOpenMoreCriteria">Plus de critères</p>
-  <p *ngIf="isMoreFilterOpen" class="noSpace textOpenMoreCriteria">Moins de critères</p>
+
+  <p *ngIf="!isMoreFilterOpen" class="noSpace text-open-more-criteria">Plus de critères</p>
+  <p *ngIf="isMoreFilterOpen" class="noSpace text-open-more-criteria">Moins de critères</p>
 </div>
 
 <div>
-  <img class="logoShowMoreCriteria button" [ngClass]="{'moreFilterOpenImg':isMoreFilterOpen}"
-  (click)="manageMoreFilter()" src="assets/images/icon_arrowFilter.svg" />
+  <img class="logo-show-more-criteria button" [ngClass]="{'more-filter-openImg':isMoreFilterOpen}"
+    (click)="manageMoreFilter()" src="assets/images/icon_arrowFilter.svg" />
 </div>
-
-
