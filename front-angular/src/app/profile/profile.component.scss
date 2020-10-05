@@ -25,35 +25,6 @@ $details-width:70%;
     border: 2px solid var(--color-blue-dark);  
 }
 
-
-.bar-details {
-    background-color: #e4e4e4;
-    border-radius: 30px;
-    width: $details-width;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.bar-button {
-    width: 20vw;
-    text-align:center;
-    padding: 2vh 0 2vh 0;
-    border-radius: 30px;
-    color: #707070;
-    font-family: MadeBold;
-}
-
-.bar-button:hover {
-    cursor: pointer;
-}
-
-.current {
-    background-color: #03c9d3;
-    color: #ffffff;
-}
-
 .square-sections {
     width: $details-width;
     margin-left: auto;
