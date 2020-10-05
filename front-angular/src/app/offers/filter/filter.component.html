@@ -1,10 +1,12 @@
 <div class="main-filter-text flexRow-spaceBet">
-  <input type="text" placeholder="Rechercher" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput" />
-  <img class="button" src="https://image.flaticon.com/icons/svg/149/149309.svg" (click)="filter()" />
-  <img class="button notif-on-filter" *ngIf="!isNotifAdded && isStudent" (click)="addNotif()"
-    src="https://image.flaticon.com/icons/svg/2489/2489081.svg" />
-  <img class="button notif-on-filter" *ngIf="isNotifAdded && isStudent"
-    src="https://image.flaticon.com/icons/svg/845/845646.svg" />
+  <input matInput type="text" placeholder="Rechercher" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput" />
+  <button mat-icon-button>
+    <mat-icon (click)="filter()">search</mat-icon>
+  </button>
+  <button mat-icon-button class="notif-on-filter" *ngIf="isStudent">
+    <mat-icon *ngIf="!isNotifAdded" (click)="addNotif()">add_alert</mat-icon>
+    <mat-icon *ngIf="isNotifAdded">notifications_active</mat-icon>
+  </button>
 </div>
 
 <div class="box-mandatory">
