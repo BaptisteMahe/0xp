@@ -17,7 +17,7 @@
 
 <div class="profile-box" *ngIf="currentUser.isStudent && currentUser.username !== 'admin'">
   <div class="square-sections">
-    <mat-tab-group>
+    <mat-tab-group mat-stretch-tabs>
       <mat-tab label="Mon Profil">
         <app-profile-detail [profileDetails]="currentUser"></app-profile-detail>
       </mat-tab>
@@ -33,7 +33,7 @@
 
 <div class="profile-box" *ngIf="!currentUser.isStudent && currentUser.username !== 'admin'">
   <div class="square-sections">
-    <mat-tab-group>
+    <mat-tab-group mat-stretch-tabs>
       <mat-tab label="Mon Profil">
         <app-profile-detail [profileDetails]="currentUser"></app-profile-detail>
       </mat-tab>
