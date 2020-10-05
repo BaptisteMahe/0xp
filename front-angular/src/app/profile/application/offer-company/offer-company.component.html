@@ -1,7 +1,7 @@
-<div class="button flexRow addOffer" routerLink="/addOffer">
+<button mat-raised-button class="add-offer-button" routerLink="/addOffer">
   <p>Ajouter une offre</p>
-  <img class="modify" src="../../../../assets/images/btnAdd.svg">
-</div>
+  <mat-icon>add_circle</mat-icon>
+</button>
 
 <div *ngFor="let offre of listOfferCompany">
   <div class="offer-co-preview">
