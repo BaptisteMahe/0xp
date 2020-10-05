@@ -4,7 +4,7 @@ img{
     height: 3vh;
 }
 
-.mainFilterText{
+.main-filter-text{
     width: 60vw;
     margin: auto;
     margin-top: 8vh;
@@ -21,7 +21,7 @@ img{
     }
 }
 
-.boxMandatory{
+.box-mandatory{
     box-shadow: #00000447 0px 1px 2px;
     border-radius: 5px;
     width: 60vw;
@@ -38,7 +38,7 @@ img{
     }
 }
 
-.listSelect{
+.list-select{
     width:90%;
     margin:6vh auto -2vh auto;
 }
@@ -73,12 +73,12 @@ img{
     color:#adadad !important;
 }
 
-.textOpenMoreCriteria{
+.text-open-more-criteria{
     text-align: center;
     margin-bottom:1vh;
 }
 
-.logoShowMoreCriteria{
+.logo-show-more-criteria{
     width: 6vh;
     height: 6vh;
     transform: rotate(0deg);
@@ -88,13 +88,13 @@ img{
     transition-duration: 0.2s;
 }
 
-.moreFilterDiv{
+.more-filter-div{
     p{
         color:#adadad;
         margin-bottom: 0px;
     }
 
-    .formLine{
+    .form-line{
         margin:auto;
         justify-content: space-between;
     }
@@ -111,13 +111,13 @@ img{
         text-align: center;
     }
 
-    .sliderValue{
+    .slider-value{
         width: 200px;
         justify-content: space-between;
     }
 }
 
-.moreFilterOpenImg{
+.more-filter-openImg{
     transform: rotate(180deg);
 }
 
@@ -134,7 +134,7 @@ img{
     padding: 0.5em;
 }
 
-.notifOnFilter{
+.notif-on-filter{
     position: absolute;
     right: -5vw;
     width:2vw;
