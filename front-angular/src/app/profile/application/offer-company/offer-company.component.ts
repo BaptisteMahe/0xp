@@ -12,13 +12,14 @@ import { Subscription } from 'rxjs';
 })
 export class OfferCompanyComponent implements OnInit {
 
-  constructor(private offerViewService: OfferViewService,
-    private matDialog: MatDialog,
-    private matSnackBar: MatSnackBar) { }
   listOfferCompany: Offer[] = [];
   listOffersSubscription: Subscription;
   isEditingOffer = false;
   offreToBeEdited: Offer;
+
+  constructor(private offerViewService: OfferViewService,
+    private matDialog: MatDialog,
+    private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
 
@@ -43,8 +44,8 @@ export class OfferCompanyComponent implements OnInit {
   }
 
   deleteItem(offerToBeDeleted: Offer) {
-    const deleteofferObs = this.offerViewService.deleteOffer(offerToBeDeleted.id);
-    deleteofferObs.subscribe(
+    const deleteOfferObs = this.offerViewService.deleteOffer(offerToBeDeleted.id);
+    deleteOfferObs.subscribe(
       (response) => {
         this.listOfferCompany = this.listOfferCompany.filter(offer => offer !== offerToBeDeleted);
       }, (error) => {
