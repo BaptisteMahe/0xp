@@ -1,8 +1,6 @@
-<div class="boxContainer flexRow question button" (click) = "openOrClose()">
-    <p> {{ question }} </p>
-    <div><img class="arrow" src="../../../assets/images/icon_arrow_down.svg"/></div>
-</div>
-
-<div *ngIf="isAnswerOpen" class="boxContainer answer">
-    <p> {{ answer }} </p>
-</div>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title class="question"> {{ question }} </mat-panel-title>
+  </mat-expansion-panel-header>
+  <p class="answer" *ngFor="let answerLine of answerLines"> {{ answerLine }} </p>
+</mat-expansion-panel>
