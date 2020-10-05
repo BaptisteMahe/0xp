@@ -1,69 +1,27 @@
-.boxContainer {
-    height: max-content; //15vh;
-    padding: 1vh 3vw;
-    margin: auto;
-    box-shadow: #00000447 0px 2px 3px;
-    overflow: hidden;
-    border-radius: 10px;
-    align-items: center;
-    border: 0.5px #00000052 solid;
-    position: relative;
-
-    &:hover {
-        transform: scale(1.005);
-        background-color: rgb(238, 250, 253);
-    }
+.card:hover {
+  box-shadow: 0 1px 5px -1px rgba(0,0,0,.5), 
+    0 1px 1px 0 rgba(0,0,0,.3), 
+    0 1px 3px 0 rgba(0,0,0,.3);
 }
 
-.logo_com {
-    height: 16vh;
-    width: 8vw;
-    justify-content: center;
-
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
-img {
-    display: block;
-    max-height: 100%;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+.logo-company {
+  max-width: 100px;
+  max-height: 100px;
+  margin-right: 10px;
 }
 
-.previewInfos {
-    width: 73%;
-    margin-left: 1vw;
-
-    .infos {
-        p {
-            width: 20vw;
-            text-align: center;
-        }
-    }
-
+.footer {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 3px;
 }
 
-.createdString {
-    right: 10px;
-    bottom: 5px;
-    position: absolute;
-    margin: 0px;
-    color: gray;
-}
-
-.previewInfos h2,
-h3 {
-    margin: 0;
-    padding: 0;
-}
-
-.previewInfos p {
-    margin-bottom: 0;
-    margin-top: 2vh;
-}
-
-.percentageMatching {
-    font-size: 3em;
-    font-weight: bold;
-    letter-spacing: 1px;
+.matching-score {
+  font-size: bold;
 }
