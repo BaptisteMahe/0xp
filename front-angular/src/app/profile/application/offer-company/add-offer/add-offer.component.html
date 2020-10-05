@@ -1,16 +1,8 @@
 <div *ngIf="!isEdition"><img class="bg" src="../../../../../assets/images/background-test.jpg" /></div>
 
 <div class="offer-sheet">
-  <img class="button closeLogo" *ngIf="!isEdition" (click)="openOrCloseModalSave()"
+  <img class="button closeLogo" *ngIf="!isEdition" (click)="onCloseEditionClick()"
     src="../../../../assets/images/cross-light.svg">
-
-  <div class="modalSave" *ngIf="modalSave">
-    <h3>Voulez-vous vraiment abandonner l'édition de l'offre ?</h3>
-    <div style="display: flex; justify-content: space-evenly;">
-      <p class="button btn btn-delete" routerLink="/profile">Abandonner</p>
-      <p class="button btn" (click)="openOrCloseModalSave()">Retour</p>
-    </div>
-  </div>
 
   <h1 *ngIf="!isEdition" class="center">Ajouter une offre</h1>
   <h1 *ngIf="isEdition" class="center">Editer une offre</h1>

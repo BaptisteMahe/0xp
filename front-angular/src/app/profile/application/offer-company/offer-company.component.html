@@ -22,6 +22,6 @@
 </div>
 
 <div *ngIf="isEditingOffer" class="modale-edition">
-  <img class="button close-logo" (click)="closeEdition()" src="../../../../assets/images/cross-light.svg">
+  <img class="button close-logo" (click)="onCloseEditionClick()" src="../../../../assets/images/cross-light.svg">
   <app-add-offer [offreEdited]="offreToBeEdited"></app-add-offer>
 </div>
