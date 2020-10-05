@@ -52,6 +52,7 @@ export class OfferViewService {
     );
   }
 
+  // TODO : Refactor this function
   filterListOffers(currentFilter: Filter) {
     this.emitIsLoadingSubject(true);
     const query = currentFilter.toQuery();
@@ -120,6 +121,7 @@ export class OfferViewService {
     }
   }
 
+  // TODO : Refactor this function
   getListOfferByCompanyId() {
     if (this.currentUser.username === 'admin') {
       this.httpClient.get<any>(this.apiUrl + '/offres').subscribe(
@@ -156,31 +158,15 @@ export class OfferViewService {
     }
   }
 
-  addOffer(offer: Offer) {
-    this.httpClient.post<Offer>(this.apiUrl + '/offres/post', offer).subscribe(
-      (response) => {
-        console.log('offre ajoutée avec succès');
-      },
-      (error) => {
-        console.log('Erreur ! : ' + error);
-      }
-    );
-
+  addOffer(offer: Offer): Observable<any> {
+    return this.httpClient.post<Offer>(this.apiUrl + '/offres/post', offer);
   }
-
 
   deleteOffer(id: string): Observable<any> {
     return this.httpClient.delete<string>(this.apiUrl + '/offres/deleteById/' + id);
   }
 
-  editOffer(offer: Offer) {
-    this.httpClient.post<Offer>(this.apiUrl + '/offres/update', offer).subscribe(
-      (response) => {
-        console.log('Offre ' + offer.id + ' editée');
-      },
-      (error) => {
-        console.log('Erreur ! : ' + error);
-      }
-    );
+  editOffer(offer: Offer): Observable<any> {
+    return this.httpClient.post<Offer>(this.apiUrl + '/offres/update', offer);
   }
 }
