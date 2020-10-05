@@ -18,14 +18,10 @@
     <button mat-icon-button (click)="onDeleteClick(offre)">
       <mat-icon>delete</mat-icon>
     </button>
-    <!-- <p class="button modify" (click)="onEditClick(offre)">
-      <img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="modify" class="logo-mod" /></p>
-    <p class="button delete" (click)="onDeleteClick(offre)">
-      <img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del" /></p> -->
   </div>
 </div>
 
-<div *ngIf="isEditingOffer" class="modaleEdition">
-  <img class="button closeLogo" (click)="closeEdition()" src="../../../../assets/images/cross-light.svg">
+<div *ngIf="isEditingOffer" class="modale-edition">
+  <img class="button close-logo" (click)="closeEdition()" src="../../../../assets/images/cross-light.svg">
   <app-add-offer [offreEdited]="offreToBeEdited"></app-add-offer>
 </div>
