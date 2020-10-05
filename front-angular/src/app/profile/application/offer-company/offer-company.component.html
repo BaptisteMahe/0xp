@@ -12,10 +12,16 @@
       </div>
       <p style="color:gray">{{offre.company}}</p>
     </div>
-    <p class="button modify" (click)="onEditClick(offre)">
+    <button mat-icon-button (click)="onEditClick(offre)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="onDeleteClick(offre)">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <!-- <p class="button modify" (click)="onEditClick(offre)">
       <img src="https://image.flaticon.com/icons/svg/1159/1159633.svg" alt="modify" class="logo-mod" /></p>
     <p class="button delete" (click)="onDeleteClick(offre)">
-      <img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del" /></p>
+      <img src="https://image.flaticon.com/icons/svg/1656/1656830.svg" alt="delete" class="logo-del" /></p> -->
   </div>
 </div>
 
