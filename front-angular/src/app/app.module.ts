@@ -35,7 +35,7 @@ import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.
 import { NotificationComponent } from './profile/notification/notification.component';
 import { OfferSquareComponent } from './profile/application/offer-square/offer-square.component';
 import { OfferCompanyComponent, DeleteDialogContentComponent } from './profile/application/offer-company/offer-company.component';
-import { AddOfferComponent } from './profile/application/offer-company/add-offer/add-offer.component';
+import { AddOfferComponent, QuitEditionDialogContentComponent } from './profile/application/offer-company/add-offer/add-offer.component';
 import { NotificationsService } from './profile/notification/notifications.service';
 
 import { EntreprisesComponent } from './entreprises/entreprises.component';
@@ -77,7 +77,8 @@ import { MaterialModule } from './modules/material.module';
     ProfileAdminComponent,
     AddCompanyComponent,
     ListCompanyComponent,
-    DeleteDialogContentComponent
+    DeleteDialogContentComponent,
+    QuitEditionDialogContentComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +91,8 @@ import { MaterialModule } from './modules/material.module';
     CKEditorModule
   ],
   entryComponents: [
-    DeleteDialogContentComponent
+    DeleteDialogContentComponent,
+    QuitEditionDialogContentComponent
   ],
   exports: [OfferDetailComponent],
   providers: [GlobalService, OfferViewService, CompanyService, UserService, NotificationsService,

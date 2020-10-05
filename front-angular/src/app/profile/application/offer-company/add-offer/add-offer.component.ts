@@ -1,12 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { OfferViewService } from 'src/app/offers/offerView.service';
-import { Offer } from 'src/models/Offer';
+import { Offer, User } from 'src/models';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
@@ -69,14 +70,15 @@ export class AddOfferComponent implements OnInit {
 
   listDomains: SelectOption[];
   domainsForm: FormGroup;
-  modalSave = false;
 
-  currentUser: any;
+  currentUser: User;
+
   constructor(private offerViewService: OfferViewService,
     private authenticationService: AuthenticationService,
     private companyService: CompanyService,
     private router: Router,
-    private matSnackBar: MatSnackBar) {
+    private matSnackBar: MatSnackBar,
+    private matDialog: MatDialog) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -129,7 +131,7 @@ export class AddOfferComponent implements OnInit {
     if (this.currentUser.username !== 'admin') {
       this.offerOnForm.company = this.currentUser.name;
       this.offerOnForm.id_company = this.currentUser.idCompany;
-      this.offerOnForm.srcImgCompany = this.currentUser.photo;
+      this.offerOnForm.srcImgCompany = this.currentUser.srcImage;
     } else {
       const company = this.companiesList.find(x => x._id === this.offerOnForm.id_company);
       this.offerOnForm.company = company.name;
@@ -182,7 +184,29 @@ export class AddOfferComponent implements OnInit {
     }
   }
 
-  openOrCloseModalSave() {
-    this.modalSave = !this.modalSave;
+  onCloseEditionClick() {
+    const dialogRef = this.matDialog.open(QuitEditionDialogContentComponent);
+
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.router.navigate(['/profile']);
+        }
+      });
   }
+}
+
+@Component({
+  selector: 'app-delete-dialog-content',
+  template: `
+  <h3 mat-dialog-title>Voulez-vous vraiment abandonner l'édition de l'offre ?</h3>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true">Abandonner</button>
+    <button mat-button mat-dialog-close>Retour</button>
+  </div>
+  `,
+})
+export class QuitEditionDialogContentComponent {
+
+  constructor() { }
 }
