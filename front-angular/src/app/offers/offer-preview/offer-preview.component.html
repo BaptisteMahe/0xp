@@ -1,21 +1,16 @@
-<div class="flexRow-spaceBet boxContainer" [routerLink]="[offer.id]">
-  <div class="flexCol logo_com">
-    <img src="{{offer.srcImgCompany}}" />
-  </div>
-  <div class="previewInfos">
-    <h2>{{offer.title}}</h2>
-    <h3>{{offer.company}}</h3>
-
-    <div class="infos flexRow-spaceBet">
-      <p>{{offer.location}}</p>
-      <p>{{offer.type}}</p>
-      <p>{{offer.duration}}</p>
-      <p>{{offer.sector}}</p>
-    </div>
-  </div>
-
-  <p class="createdString">{{strDateCreated}}</p>
-
-  <h1 *ngIf="offer.matchingScore>=0" class="percentageMatching" [style]="colorScore">{{offer.matchingScore}}%</h1>
-  <h1 *ngIf="!(offer.matchingScore>=0)" class="percentageMatching">--%</h1>
-</div>
+<mat-card class="card" [routerLink]="[offer.id]">
+  <mat-card-header class="header">
+    <mat-card-title>{{ offer.title }}</mat-card-title>
+    <mat-card-subtitle>{{ offer.company }}</mat-card-subtitle>
+    <img class="logo-company" src="{{ offer.srcImgCompany }}" />
+  </mat-card-header>
+  <mat-card-footer class="footer">
+    <div>{{ offer.location }}</div>
+    <div>{{ offer.type }}</div>
+    <div>{{ offer.duration }}</div>
+    <div>{{ offer.sector }}</div>
+    <div>{{ strDateCreated }}</div>
+    <div *ngIf="offer.matchingScore>=0" class="matching-score" [style]="colorScore">{{ offer.matchingScore }}%</div>
+    <div *ngIf="!(offer.matchingScore>=0)" class="matching-score">--%</div>
+  </mat-card-footer>
+</mat-card>

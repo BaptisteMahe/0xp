@@ -21,6 +21,7 @@ export class OfferPreviewComponent implements OnInit {
     this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.defineColor(this.offer.matchingScore));
   }
 
+  // TODO : Remake that shit
   defineColor(percentage: number) {
     percentage = + percentage / 100;
     const percentColors = [
