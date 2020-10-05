@@ -16,27 +16,34 @@
 </div>
 
 <div class="profile-box" *ngIf="currentUser.isStudent && currentUser.username !== 'admin'">
-  <div class="bar-details">
-    <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
-    <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes favoris</a>
-    <a class="bar-button" (click)="clicSection($event,'notif')">Mes notifications</a>
-  </div>
   <div class="square-sections">
-    <app-profile-detail [profileDetails]="currentUser" *ngIf="showProfile"></app-profile-detail>
-    <app-offer-square *ngIf="showCandidatures"></app-offer-square>
-    <app-notification *ngIf="showNotifs"></app-notification>
+    <mat-tab-group>
+      <mat-tab label="Mon Profil">
+        <app-profile-detail [profileDetails]="currentUser"></app-profile-detail>
+      </mat-tab>
+      <mat-tab label="Mes favoris">
+        <app-offer-square></app-offer-square>
+      </mat-tab>
+      <mat-tab label="Mes notifications">
+        <app-notification></app-notification>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>
 
 <div class="profile-box" *ngIf="!currentUser.isStudent && currentUser.username !== 'admin'">
-  <div class="bar-details">
-    <a class="bar-button current" (click)="clicSection($event,'profil')">Mon Profil</a>
-    <a class="bar-button" (click)="clicSection($event,'candidatures')">Mes offres</a>
-  </div>
   <div class="square-sections">
-    <app-profile-detail [profileDetails]="currentUser" *ngIf="showProfile"></app-profile-detail>
-    <app-offer-company *ngIf="showCandidatures"></app-offer-company>
-    <app-notification *ngIf="showNotifs"></app-notification>
+    <mat-tab-group>
+      <mat-tab label="Mon Profil">
+        <app-profile-detail [profileDetails]="currentUser"></app-profile-detail>
+      </mat-tab>
+      <mat-tab label="Mes offres">
+        <app-offer-company></app-offer-company>
+      </mat-tab>
+      <mat-tab label="Mes notifications">
+        <app-notification></app-notification>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>
 
