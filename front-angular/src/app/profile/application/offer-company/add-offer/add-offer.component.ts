@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OfferViewService } from 'src/app/offers/offerView.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Offer } from 'src/models/Offer';
 
 import * as _moment from 'moment';
@@ -47,7 +47,7 @@ export const MY_FORMATS = {
 export class AddOfferComponent implements OnInit {
 
   @Input() offreEdited: Offer;
-  isEdition: Boolean = false;
+  isEdition = false;
 
   editor = ClassicEditor;
 
@@ -61,8 +61,8 @@ export class AddOfferComponent implements OnInit {
   offerOnForm: Offer = new Offer();
   dateFromDate: Date = new Date();
   dateStart = new FormControl(moment());
-  locationCountry: String;
-  locationCity: String;
+  locationCountry: string;
+  locationCity: string;
 
   listSoftSkills: SelectOption[];
   softSkillForm: FormGroup;
@@ -156,7 +156,7 @@ export class AddOfferComponent implements OnInit {
       this.offerViewService.editOffer(this.offerOnForm);
     }
 
-    this.router.navigate(["/profile"]);
+    this.router.navigate(['/profile']);
   }
 
   chosenYearHandler(normalizedYear: Moment) {
@@ -174,7 +174,7 @@ export class AddOfferComponent implements OnInit {
     this.dateFromDate.setMonth(this.dateStart.value._d.getMonth());
   }
 
-  getSelectedOptions(key: String, selected) {
+  getSelectedOptions(key: string, selected) {
     if (key === 'softskill') {
       this.offerOnForm.softSkills = selected;
     } else {
