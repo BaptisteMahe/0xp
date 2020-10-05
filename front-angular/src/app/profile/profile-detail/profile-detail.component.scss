@@ -30,6 +30,12 @@
 .edit-profile-button {
   display: flex;
   margin: 15px auto;
+  padding: 5px 15px;
+
+  mat-icon {
+    margin-left: 8px;
+    height: 30px;
+  }
 }
 
 .bloc {
