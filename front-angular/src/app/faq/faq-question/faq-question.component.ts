@@ -7,17 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FaqQuestionComponent implements OnInit {
 
-  isAnswerOpen = false;
   @Input() question: string;
   @Input() answer: string;
+
+  answerLines: string[];
 
   constructor() { }
 
   ngOnInit() {
+    this.answerLines = this.answer.split('\n');
   }
-
-  openOrClose() {
-    this.isAnswerOpen = !this.isAnswerOpen;
-  }
-
 }

@@ -1,36 +1,8 @@
-.boxContainer {
-    height: max-content; //15vh;
-    width: 70vw;
-    padding: 1vh 3vw;
-    margin: auto;
-    box-shadow: #00000447 0px 2px 3px;
-    overflow: hidden;
-    border-radius: 10px;
-    align-items: center;
-    border: 0.5px #00000052 solid;
-    position: relative;
-    justify-content: space-between;
-    justify-items: center;
-}
-
 .question {
-    font-weight: bold;
-
-    &:hover {
-        transform: scale(1.005);
-        background-color: rgb(238, 250, 253);
-    }
-    .arrow
-    {
-        width:3vh;
-        height:3vh;
-    }
+  font-size: large;
+  font-weight: bold;
 }
 
-.answer
-{
-    width:69vw;
-    border: none;
-    border-radius: 0;
-    box-shadow: #00000447 0px 2px 3px;
+.answer {
+  font-size: large;
 }
