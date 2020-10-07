@@ -1,4 +1,4 @@
-.filterText {
+.filter-text {
   width: 54vw;
   margin: auto;
   margin-top: 8vh;
@@ -7,49 +7,37 @@
   box-shadow: #00000447 0px 0px 4px;
 }
 
-input {
-  height: 6vh;
-  width: 54vw;
-  font-family: MadeMedium;
-  font-size: medium;
-}
-
-.list-companies {
-  display:flex;
+.list-company {
+  display: flex;
   flex-wrap: wrap;
-  margin: auto;
-  position: relative;
-  justify-content: space-evenly;
-  margin: 5vw;
-  margin-top: 3vh;
-}
-
-.company-box {
-  border: 0.5px #00000052 solid;
-  box-shadow: #00000447 0px 2px 3px;
-  border-radius: 5px;
-  min-width: max-content;
-  margin: 1vh;
-  margin-bottom:1vw;
-  padding: 5px;
-  min-width: 20%;
-  
-  &:hover {
-    transform: scale(1.005);
-    background-color: rgb(238, 250, 253);
-  }
-}
-
-img {
-  width: 6vw;
-  max-height: 6vw;
-  padding: 0.5vw;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+  justify-content: space-around;
+  margin-top: 20px;
 }
 
 .company-name {
   font-family: MadeMedium;
   text-align: center;
+}
+
+.company-card {
+  width: 20%;
+  margin: 10px 0;
+
+  &:hover {
+    box-shadow: 0 1px 5px -1px rgba(0,0,0,.5), 
+    0 1px 1px 0 rgba(0,0,0,.3), 
+    0 1px 3px 0 rgba(0,0,0,.3);
+  }
+}
+
+.company-image {
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.company-image-container {
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
