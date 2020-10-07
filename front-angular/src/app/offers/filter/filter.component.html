@@ -1,9 +1,12 @@
-<div class="main-filter-text flexRow-spaceBet">
-  <input matInput type="text" placeholder="Rechercher" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput" />
-  <button mat-icon-button>
-    <mat-icon (click)="filter()">search</mat-icon>
-  </button>
-  <button mat-icon-button class="notif-on-filter" *ngIf="isStudent">
+<div class="main-filter-container">
+  <mat-form-field class="main-filter-text">
+    <mat-label>Rechercher une offre</mat-label>
+    <input matInput type="text" placeholder="" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput" />
+    <button matSuffix mat-icon-button (click)="filter()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+  <button mat-icon-button *ngIf="isStudent" class="notification-button">
     <mat-icon *ngIf="!isNotifAdded" (click)="addNotif()">add_alert</mat-icon>
     <mat-icon *ngIf="isNotifAdded">notifications_active</mat-icon>
   </button>

@@ -5,20 +5,16 @@ img {
 }
 
 .main-filter-text {
-  width: 60vw;
-  margin: auto;
-  margin-top: 8vh;
-  padding: 1vh 2vw 1vh 5vw;
-  border-radius: 50px;
-  box-shadow: #00000447 0px 0px 4px;
-  position: relative;
-  
-  input {
-    height: 6vh;
-    font-family: MadeMedium;
-    font-size: medium;
-    width: 95%;
-  }
+  width: 50%;
+  margin-left: 25%;
+}
+
+.main-filter-container {
+  display: flex;
+}
+
+.notification-button {
+  margin-left: 10px;
 }
 
 .box-mandatory {
@@ -42,36 +38,6 @@ img {
 .list-select {
   width: 90%;
   margin: 6vh auto -2vh auto;
-}
-
-::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
-  box-shadow: #00000447 0px 0px 5px;;        //TODO:revoir taille des box qui dépassent
-  border-radius: 50px;
-  padding: 0.5vh 1vw 0.5vh 1vw;
-  border-top: 0px;
-  p {
-    width: 10vw;
-  }
-}
-
-::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
-  height: 0px !important;
-}
-
-::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
-  transform: translateY(-1.68125em) scale(.75) perspective(100px) translateZ(.001px) !important;
-}
-
-::ng-deep .mat-form-field-label-wrapper {
-  overflow: visible !important;
-}
-
-::ng-deep .mat-form-field-ripple {
-  background-color: transparent !important;
-}
-
-::ng-deep .mat-select-value-text {
-  color: #adadad !important;
 }
 
 .text-open-more-criteria {
@@ -133,12 +99,6 @@ img {
   margin: auto;
   width: fit-content;
   padding: 0.5em;
-}
-
-.notif-on-filter {
-  position: absolute;
-  right: -5vw;
-  width: 2vw;
 }
 
 .btn {
