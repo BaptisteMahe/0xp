@@ -30,11 +30,10 @@ export class ListCompanyComponent implements OnInit {
   filter(input) {
     this.companiesList = this.unfilteredCompaniesList;
     const requete = input.target.value;
-    let list = this.unfilteredCompaniesList.filter((el) => {
+    const list = this.unfilteredCompaniesList.filter((el) => {
       return el.name.toLowerCase().indexOf(requete.toLowerCase()) !== -1;
     });
     this.companiesList = list;
   }
-
 
 }
