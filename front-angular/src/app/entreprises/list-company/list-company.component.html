@@ -1,8 +1,7 @@
 <mat-form-field class="filter-company">
   <mat-label>Rechercher une entreprise</mat-label>
   <input matInput type="text" [(ngModel)]="companyTextQuery" (ngModelChange)="filter()">
-  <button mat-button *ngIf="companyTextQuery" matSuffix mat-icon-button aria-label="Clear"
-    (click)="companyTextQuery=''">
+  <button *ngIf="companyTextQuery" matSuffix mat-icon-button aria-label="Clear" (click)="resetQuery()">
     <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>

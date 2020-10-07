@@ -27,6 +27,11 @@ export class ListCompanyComponent implements OnInit {
     );
   }
 
+  resetQuery() {
+    this.companyTextQuery = '';
+    this.filter();
+  }
+
   filter() {
     this.companiesList = this.unfilteredCompaniesList;
     this.companiesList = this.unfilteredCompaniesList.filter((company) => {
