@@ -38,6 +38,8 @@ img {
 .list-select {
   width: 90%;
   margin: 6vh auto -2vh auto;
+  display: flex;
+  justify-content: space-around;
 }
 
 .text-open-more-criteria {
@@ -55,27 +57,22 @@ img {
   transition-duration: 0.2s;
 }
 
+.form-line {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  margin: 6vh auto -2vh auto;
+  margin-bottom: 20px;
+}
+
+.filter-element {
+  width: 25%;
+}
+
 .more-filter-div {
   p {
     color: #adadad;
     margin-bottom: 0px;
-  }
-
-  .form-line {
-    margin: auto;
-    justify-content: space-between;
-  }
-
-  .line1 {
-    width: 80%;
-    margin-bottom: 5vh;
-  }
-  .line2 {
-    width: 90%;
-  }
-  .line3 {
-    width: 60%;
-    text-align: center;
   }
 
   .slider-value {
@@ -101,7 +98,7 @@ img {
   padding: 0.5em;
 }
 
-.btn {
+.filter-button {
   border-radius: 25px;
   width: 10vw;
   margin: 4vh auto 4vh auto;

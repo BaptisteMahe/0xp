@@ -14,102 +14,85 @@
 
 <div class="box-mandatory">
   <h3 class="color-blue-medium">Critères principaux</h3>
-  <div class="flexRow-spaceBet list-select">
-    <div>
-      <mat-form-field>
-        <mat-label>Type d'expérience</mat-label>
-        <mat-select [(value)]="currentFilter.type">
-          <mat-option value="">--</mat-option>
-          <mat-option *ngFor="let type of typeList" [value]="type">{{type}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field>
-        <mat-label>Durée</mat-label>
-        <mat-select [(value)]="currentFilter.duration">
-          <mat-option value="">--</mat-option>
-          <mat-option *ngFor="let time of timeList" [value]="time">{{time}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field>
-        <mat-label>Secteur</mat-label>
-        <mat-select [(value)]="currentFilter.sector">
-          <mat-option value="">--</mat-option>
-          <mat-option *ngFor="let sector of sectorList" [value]="sector.value">{{sector.display}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+  <div class="list-select">
+    <mat-form-field class="filter-element">
+      <mat-label>Type d'expérience</mat-label>
+      <mat-select [(value)]="currentFilter.type">
+        <mat-option value="">--</mat-option>
+        <mat-option *ngFor="let type of typeList" [value]="type">{{type}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="filter-element">
+      <mat-label>Durée</mat-label>
+      <mat-select [(value)]="currentFilter.duration">
+        <mat-option value="">--</mat-option>
+        <mat-option *ngFor="let time of timeList" [value]="time">{{time}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="filter-element">
+      <mat-label>Secteur</mat-label>
+      <mat-select [(value)]="currentFilter.sector">
+        <mat-option value="">--</mat-option>
+        <mat-option *ngFor="let sector of sectorList" [value]="sector.value">{{sector.display}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div *ngIf="isMoreFilterOpen" class="more-filter-div">
     <h3 class="color-blue-medium">Critères supplémentaires</h3>
-    <div class="flexRow form-line line1">
-      <div>
-        <p>Lieu</p>
-        <form [formGroup]="locationForm">
-          <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listOfferLocation"
-            [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
-            [formControl]="locationForm.controls['selected']"
-            (selectionChange)="getSelectedOptions('location', $event)">
-          </mat-select-autocomplete>
-        </form>
-      </div>
 
-      <div>
-        <p>Entreprise</p>
-        <form [formGroup]="companyForm">
-          <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listOfferCompany"
-            [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
-            [formControl]="companyForm.controls['selected']" (selectionChange)="getSelectedOptions('company', $event)">
-          </mat-select-autocomplete>
-        </form>
+    <div class="form-line">
+      <div class="filter-element">
+        <p>Lieu</p>
+        <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listOfferLocation"
+          [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
+          [formControl]="locationForm.controls['selected']" (selectionChange)="getSelectedOptions('location', $event)">
+        </mat-select-autocomplete>
       </div>
-      <div>
+      <div class="filter-element">
+        <p>Entreprise</p>
+        <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listOfferCompany"
+          [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
+          [formControl]="companyForm.controls['selected']" (selectionChange)="getSelectedOptions('company', $event)">
+        </mat-select-autocomplete>
+      </div>
+      <div class="filter-element">
         <p style="text-align: center;">Partenaire seulement</p>
         <mat-slide-toggle [(ngModel)]="currentFilter.isPartner"></mat-slide-toggle>
       </div>
     </div>
 
-    <div class="flexRow form-line line2">
-      <div>
-        <mat-form-field>
-          <mat-label>Date de publication</mat-label>
-          <mat-select [(value)]="currentFilter.publicationDate">
-            <mat-option value="">--</mat-option>
-            <mat-option value="today">Aujourd'hui</mat-option>
-            <mat-option value="week">Cette semaine</mat-option>
-            <mat-option value="month">Ce mois</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+    <div class="form-line line-two">
+      <mat-form-field class="filter-element">
+        <mat-label>Date de publication</mat-label>
+        <mat-select [(value)]="currentFilter.publicationDate">
+          <mat-option value="">--</mat-option>
+          <mat-option value="today">Aujourd'hui</mat-option>
+          <mat-option value="week">Cette semaine</mat-option>
+          <mat-option value="month">Ce mois</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      <div>
-        <mat-form-field>
-          <mat-label>Taille de l'entreprise</mat-label>
-          <mat-select [(value)]="currentFilter.companySize">
-            <mat-option value="">--</mat-option>
-            <mat-option value="small">- 20 employés</mat-option>
-            <mat-option value="medium">- 200 employés</mat-option>
-            <mat-option value="large">+ 200 employés</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <mat-form-field class="filter-element">
+        <mat-label>Taille de l'entreprise</mat-label>
+        <mat-select [(value)]="currentFilter.companySize">
+          <mat-option value="">--</mat-option>
+          <mat-option value="small">- 20 employés</mat-option>
+          <mat-option value="medium">- 200 employés</mat-option>
+          <mat-option value="large">+ 200 employés</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      <div>
-        <mat-form-field>
-          <input matInput [matDatepicker]="dp" placeholder="Date de début souhaitée" [formControl]="dateStart">
-          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-          <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
-            (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
-          </mat-datepicker>
-        </mat-form-field>
-      </div>
+      <mat-form-field class="filter-element">
+        <input matInput [matDatepicker]="dp" placeholder="Date de début souhaitée" [formControl]="dateStart">
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+          (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+        </mat-datepicker>
+      </mat-form-field>
     </div>
 
-    <div class="flexRow form-line line3">
+    <div class="form-line line-three">
       <div>
         <p>Taux de matching minimum</p>
         <div class="flexRow slider-value">
@@ -132,7 +115,7 @@
     </div>
   </div>
 
-  <h4 class="button btn" (click)="filter()">Rechercher</h4>
+  <h4 class="button filter-button" (click)="filter()">Rechercher</h4>
 
   <p *ngIf="!isMoreFilterOpen" class="noSpace text-open-more-criteria">Plus de critères</p>
   <p *ngIf="isMoreFilterOpen" class="noSpace text-open-more-criteria">Moins de critères</p>
