@@ -4,6 +4,9 @@
   <button *ngIf="companyTextQuery" matSuffix mat-icon-button aria-label="Clear" (click)="resetQuery()">
     <mat-icon>close</mat-icon>
   </button>
+  <button *ngIf="!companyTextQuery" matSuffix mat-icon-button>
+    <mat-icon>search</mat-icon>
+  </button>
 </mat-form-field>
 <div class="list-company">
   <mat-card *ngFor="let company of companiesList" class="company-card" routerLink="/companies/{{ company._id }}">
