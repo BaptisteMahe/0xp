@@ -18,70 +18,52 @@
   <h1>Donne ton avis</h1>
   <br />
   <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="noteGenerale">Impression générale</label>
-      <select type="text" formControlName="noteGenerale"
-        [ngClass]="{ 'is-invalid': submitted && f.noteGenerale.errors }">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <label for="noteGenerale"> /5</label>
-      <div *ngIf="submitted && f.noteGenerale.errors">
-        <div *ngIf="f.noteGenerale.errors.required">La note est obligatoire</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="noteInteret">Intérêt de la mission</label>
-      <select type="text" formControlName="noteInteret" [ngClass]="{ 'is-invalid': submitted && f.noteInteret.errors }">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <label for="noteInteret"> /5</label>
-      <div *ngIf="submitted && f.noteInteret.errors">
-        <div *ngIf="f.noteInteret.errors.required">La note est obligatoire</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="noteAmbiance">Ambiance de travail</label>
-      <select type="text" formControlName="noteAmbiance"
-        [ngClass]="{ 'is-invalid': submitted && f.noteAmbiance.errors }">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <label for="noteAmbiance"> /5</label>
-      <div *ngIf="submitted && f.noteAmbiance.errors">
-        <div *ngIf="f.noteAmbiance.errors.required">La note est obligatoire</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="noteEncadrt">Encadrement</label>
-      <select type="text" formControlName="noteEncadrt" [ngClass]="{ 'is-invalid': submitted && f.noteEncadrt.errors }">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <label for="noteEncadrt"> /5</label>
-      <div *ngIf="submitted && f.noteEncadrt.errors">
-        <div *ngIf="f.noteEncadrt.errors.required">La note est obligatoire</div>
-      </div>
-    </div>
+    <mat-form-field class="form-element">
+      <mat-label for="noteGenerale">Impression générale</mat-label>
+      <mat-select type="text" formControlName="noteGenerale">
+        <mat-option value="1">1</mat-option>
+        <mat-option value="2">2</mat-option>
+        <mat-option value="3">3</mat-option>
+        <mat-option value="4">4</mat-option>
+        <mat-option value="5">5</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="form-element">
+      <mat-label for="noteInteret">Intérêt de la mission</mat-label>
+      <mat-select type="text" formControlName="noteInteret">
+        <mat-option value="1">1</mat-option>
+        <mat-option value="2">2</mat-option>
+        <mat-option value="3">3</mat-option>
+        <mat-option value="4">4</mat-option>
+        <mat-option value="5">5</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="form-element">
+      <mat-label for="noteAmbiance">Ambiance de travail</mat-label>
+      <mat-select type="text" formControlName="noteAmbiance">
+        <mat-option value="1">1</mat-option>
+        <mat-option value="2">2</mat-option>
+        <mat-option value="3">3</mat-option>
+        <mat-option value="4">4</mat-option>
+        <mat-option value="5">5</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="form-element">
+      <mat-label for="noteEncadrt">Encadrement</mat-label>
+      <mat-select type="text" formControlName="noteEncadrt">
+        <mat-option value="1">1</mat-option>
+        <mat-option value="2">2</mat-option>
+        <mat-option value="3">3</mat-option>
+        <mat-option value="4">4</mat-option>
+        <mat-option value="5">5</mat-option>
+      </mat-select>
+    </mat-form-field>
     <div class="form-group">
       <textarea type="text" formControlName="avis" placeholder="Commentaire"
-        [ngClass]="{'is-invalid': submitted && f.avis.errors}">
+        [ngClass]="{'is-invalid': avisForm.controls.avis.errors}">
           </textarea>
-      <div *ngIf="submitted && f.avis.errors" class="invalid-feedback">
-        <div *ngIf="f.avis.errors.required">Le commentaire est requis !</div>
+      <div *ngIf="avisForm.controls.avis.errors" class="invalid-feedback">
+        <div *ngIf="avisForm.controls.avis.errors.required">Le commentaire est requis !</div>
       </div>
     </div>
 

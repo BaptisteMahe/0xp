@@ -1,4 +1,4 @@
-<button mat-raised-button class="edit-profile-button" (click)="enableEdition()">
+<button *ngIf="!isEdition" mat-raised-button class="edit-profile-button" (click)="enableEdition()">
   Editer le profil <mat-icon>edit</mat-icon>
 </button>
 

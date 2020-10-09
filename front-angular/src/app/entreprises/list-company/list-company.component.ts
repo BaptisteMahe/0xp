@@ -11,11 +11,11 @@ export class ListCompanyComponent implements OnInit {
 
   companiesList: Company[];
   unfilteredCompaniesList: Company[];
+  companyTextQuery: string;
+
   constructor(public companyService: CompanyService) { }
 
   ngOnInit() {
-
-    // TODO spinner
     this.companyService.getAll().subscribe(
       value => {
         this.companiesList = value;
@@ -27,13 +27,16 @@ export class ListCompanyComponent implements OnInit {
     );
   }
 
-  filter(input) {
+  resetQuery() {
+    this.companyTextQuery = '';
+    this.filter();
+  }
+
+  filter() {
     this.companiesList = this.unfilteredCompaniesList;
-    const requete = input.target.value;
-    const list = this.unfilteredCompaniesList.filter((el) => {
-      return el.name.toLowerCase().indexOf(requete.toLowerCase()) !== -1;
+    this.companiesList = this.unfilteredCompaniesList.filter((company) => {
+      return company.name.toLowerCase().indexOf(this.companyTextQuery.toLowerCase()) !== -1;
     });
-    this.companiesList = list;
   }
 
 }

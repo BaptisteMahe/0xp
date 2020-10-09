@@ -2,7 +2,7 @@ import { User } from './../../../models/user';
 import { AuthenticationService } from './../../logging/services/authentication.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AvisService } from '../avis.service';
 import { first } from 'rxjs/operators';
@@ -19,20 +19,18 @@ export class AvisCompanyComponent implements OnInit {
   @Input() idCompany;
   avisForm: FormGroup;
   loading = false;
-  submitted = false;
   returnUrl: string;
   avisList: Avis[];
   currentUser: User;
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private matSnackBar: MatSnackBar,
     private avisService: AvisService,
     private authenticationService: AuthenticationService
   ) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.authenticationService.currentUser.subscribe(user => this.currentUser = user);
   }
   // TODO : étoiles au lieu de l'input, ou au moins un select plus propre.
   ngOnInit() {
@@ -44,7 +42,39 @@ export class AvisCompanyComponent implements OnInit {
       noteEncadrt: ['', Validators.required]
     });
     this.returnUrl = this.router.url;
+    this.loadAllAvis();
+  }
 
+  onSubmit() {
+    if (this.avisForm.invalid) {
+      return;
+    }
+
+    this.avisService.add(this.avisForm.controls, this.idCompany)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.loadAllAvis();
+          this.resetForm();
+        },
+        error => {
+          this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
+          this.loading = false;
+        });
+  }
+
+  resetForm() {
+    this.avisForm.reset();
+    this.cleanValidators();
+  }
+
+  cleanValidators() {
+    Object.keys(this.avisForm.controls).forEach(key => {
+      this.avisForm.controls[key].setErrors(null);
+    });
+  }
+
+  loadAllAvis() {
     this.avisService.getAllByCompanyId(this.idCompany).subscribe(
       value => {
         this.avisList = value;
@@ -53,28 +83,6 @@ export class AvisCompanyComponent implements OnInit {
         console.log('Erreur ! : ' + error);
       }
     );
-  }
-
-  get f() { return this.avisForm.controls; }
-
-  onSubmit() {
-    this.submitted = true;
-    if (this.avisForm.invalid) {
-      return;
-    }
-
-    this.avisService.add(this.f, this.idCompany)
-      .pipe(first())
-      .subscribe(
-        data => {
-          //this.router.navigate([this.returnUrl]);
-          // TODO rafraichir juste le composant
-          window.location.reload();
-        },
-        error => {
-          this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
-          this.loading = false;
-        });
   }
 
 }

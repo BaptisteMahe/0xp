@@ -199,3 +199,8 @@ input {
     color: white;
   }
 }
+
+// TODO: Check if no other options
+.filter-element mat-select-autocomplete .mat-form-field {
+    width: 100%;
+}

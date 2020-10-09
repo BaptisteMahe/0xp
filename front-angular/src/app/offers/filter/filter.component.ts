@@ -118,7 +118,7 @@ export class FilterComponent implements OnInit {
     this.offerViewService.filter(this.currentFilter);
     this.isMoreFilterOpen = false;
 
-    this.isNotifAdded = false;
+    this.isNotifAdded = false; // TODO : Should check if notif already exists
     this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
   }
 
