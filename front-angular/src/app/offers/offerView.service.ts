@@ -5,7 +5,14 @@ import { Filter } from 'src/models/Filter';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AuthenticationService } from '../logging/services';
+
 import { Observable } from 'rxjs';
+
+export enum SortCategory {
+  matchingScore,
+  remuneration,
+  created_date
+}
 
 @Injectable()
 export class OfferViewService {
@@ -31,6 +38,7 @@ export class OfferViewService {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
+  // TODO : Refactor this function
   fillListOffers() {
     this.emitIsLoadingSubject(true);
     this.httpClient.post<any>(this.apiUrl + '/offres', this.currentUser).subscribe(
@@ -80,12 +88,12 @@ export class OfferViewService {
   }
 
   emitListOffersSubject() {
-    this.sortArray(this.listOffers, 'matchingScore');
+    this.sortArray(this.listOffers, SortCategory.matchingScore);
     this.listOffersSubject.next(this.listOffers.length !== 0 ? this.listOffers.slice() : []);
   }
 
   emitFilteredListOffersSubject() {
-    this.sortArray(this.filteredListOffers, 'matchingScore');
+    this.sortArray(this.filteredListOffers, SortCategory.matchingScore);
     this.filteredListOffersSubject.next(this.filteredListOffers.length !== 0 ? this.filteredListOffers.slice() : []);
   }
 
@@ -105,16 +113,16 @@ export class OfferViewService {
     }
   }
 
-  sortArray(array: Offer[], key: string) {
-    if (key === 'matchingScore') {
+  sortArray(array: Offer[], key: SortCategory) {
+    if (key === SortCategory.matchingScore) {
       array.sort((a: Offer, b: Offer) => {
         return +b.matchingScore - +a.matchingScore;
       });
-    } else if (key === 'remuneration') {
+    } else if (key === SortCategory.remuneration) {
       array.sort((a: Offer, b: Offer) => {
         return +b.remuneration - +a.remuneration;
       });
-    } else if (key === 'created_date') {
+    } else if (key === SortCategory.created_date) {
       array.sort((a: Offer, b: Offer) => {
         return +b.created_date - +a.created_date;
       });

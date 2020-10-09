@@ -9,24 +9,25 @@
   </div>
 
   <div *ngIf="!isLoading && filteredListOffers.length!=0" class="flexCol listOffers">
-    <button mat-icon-button (click)="openOrClosePopup()" class="logoSort">
+    <button mat-icon-button [matMenuTriggerFor]="sortMenu" class="logoSort">
       <mat-icon>sort</mat-icon>
     </button>
-    <div *ngIf="isSortingPopupOpen" class="choiceFilter">
-      <div [ngClass]="{'isSelectable':sortedBy!='matchingScore'}" (click)="changeSortBy('matchingScore')"
-        class="flexRow">
-        <p [ngStyle]="{'visibility':sortedBy=='matchingScore' ? 'visible' : 'hidden' }" class="check">✓</p>
-        <p>Taux de matching</p>
-      </div>
-      <div [ngClass]="{'isSelectable':sortedBy!='remuneration'}" (click)="changeSortBy('remuneration')" class="flexRow">
-        <p [ngStyle]="{'visibility':sortedBy=='remuneration' ? 'visible' : 'hidden' }" class="check">✓</p>
-        <p>Rémunération</p>
-      </div>
-      <div [ngClass]="{'isSelectable':sortedBy!='created_date'}" (click)="changeSortBy('created_date')" class="flexRow">
-        <p [ngStyle]="{'visibility':sortedBy=='created_date' ? 'visible' : 'hidden' }" class="check">✓</p>
-        <p>Date de publication</p>
-      </div>
-    </div>
+
+    <mat-menu #sortMenu>
+      <button mat-menu-item class="sort-menu-item" (click)="changeSortBy(sortStatus.matchingScore)">
+        <mat-icon *ngIf="sortedBy === sortStatus.matchingScore">check</mat-icon>
+        <span>Taux de matching</span>
+      </button>
+      <button mat-menu-item class="sort-menu-item" (click)="changeSortBy(sortStatus.remuneration)">
+        <mat-icon *ngIf="sortedBy === sortStatus.remuneration">check</mat-icon>
+        <span>Rémunération</span>
+      </button>
+      <button mat-menu-item class="sort-menu-item" (click)="changeSortBy(sortStatus.created_date)">
+        <mat-icon *ngIf="sortedBy === sortStatus.created_date">check</mat-icon>
+        <span>Date de publication</span>
+      </button>
+    </mat-menu>
+
     <app-offer-preview class="oneOffer button" *ngFor="let offer of filteredListOffers" [offer]="offer">
     </app-offer-preview>
   </div>

@@ -4,6 +4,11 @@ h1 {
     color: var(--color-blue-medium);
 }
 
+.sort-menu-item {
+  display: flex;
+  align-items: center;
+}
+
 .listOffers {
     width: 75vw;
     margin: auto;
@@ -11,32 +16,6 @@ h1 {
 
     .logoSort {
         align-self: flex-end;
-    }
-
-    .choiceFilter {
-        position: absolute;
-        background-color: white;
-        padding: 0px 1.5vw;
-        box-shadow: var(--shadow-light);
-        right: -5px;
-        top: 1.5vw;
-        z-index: 1;
-
-        .check {
-            margin-right: 15px;
-            font-weight: bold;
-            color: green;
-        }
-
-        .isSelectable {
-            cursor: pointer;
-
-            &:hover {
-                p {
-                    text-decoration: underline;
-                }
-            }
-        }
     }
 
     .oneOffer {

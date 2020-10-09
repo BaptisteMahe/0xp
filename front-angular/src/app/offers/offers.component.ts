@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Offer } from '../../models/Offer';
-import { OfferViewService } from './offerView.service';
+import { OfferViewService, SortCategory } from './offerView.service';
 import { Subscription } from 'rxjs';
 import { NotificationsService } from '../profile/notification/notifications.service';
 
@@ -17,17 +17,19 @@ export class OffersComponent implements OnInit {
   isLoadingSubscription: Subscription;
 
   isStudent: boolean;
-  sortedBy: string;
-  isSortingPopupOpen = false;
+
+  sortStatus: typeof SortCategory = SortCategory;
+  sortedBy: SortCategory;
 
   isNotifAdded: boolean;
   isNotifAddedSubscription: Subscription;
 
-  constructor(private offerViewService: OfferViewService, private notificationsService: NotificationsService) { }
+  constructor(private offerViewService: OfferViewService,
+    private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;
-    this.sortedBy = 'matchingScore';
+    this.sortedBy = SortCategory.matchingScore;
     this.offerViewService.fillListOffers();
     this.filteredListOffersSubscription = this.offerViewService.filteredListOffersSubject.subscribe(
       (listOffers: any[]) => {
@@ -47,17 +49,13 @@ export class OffersComponent implements OnInit {
     );
   }
 
-  openOrClosePopup() {
-    this.isSortingPopupOpen = !this.isSortingPopupOpen;
-  }
-
-  changeSortBy(key: string) {
-    if (key !== this.sortedBy) {
-      this.offerViewService.sortArray(this.filteredListOffers, key);
-      this.sortedBy = key;
-      this.isSortingPopupOpen = false;
+  changeSortBy(sortKey: SortCategory) {
+    if (sortKey !== this.sortedBy) {
+      this.offerViewService.sortArray(this.filteredListOffers, sortKey);
+      this.sortedBy = sortKey;
     }
   }
+
   addAlert() {
     this.isNotifAdded = true;
     this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
