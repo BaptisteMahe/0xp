@@ -43,6 +43,7 @@ import { DetailCompanyComponent } from './entreprises/detail-company/detail-comp
 import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.component';
 import { AddCompanyComponent } from './entreprises/add-company/add-company.component';
 import { ListCompanyComponent } from './entreprises/list-company/list-company.component';
+import { AvisOverviewComponent } from './src/app/entreprises/avis-company/avis-overview/avis-overview.component';
 
 import { GlobalService } from './services/global.service';
 import { CompanyService } from './services/company.service';
@@ -78,7 +79,8 @@ import { MaterialModule } from './modules/material.module';
     AddCompanyComponent,
     ListCompanyComponent,
     DeleteDialogContentComponent,
-    QuitEditionDialogContentComponent
+    QuitEditionDialogContentComponent,
+    AvisOverviewComponent
   ],
   imports: [
     BrowserModule,
