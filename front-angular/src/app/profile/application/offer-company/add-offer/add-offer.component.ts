@@ -12,7 +12,7 @@ import { Offer, User } from 'src/models';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
-import { MatDatepicker } from '@angular/material';
+import { MatDatepicker } from '@angular/material/datepicker';
 import { SelectOption } from 'src/models/SelectOption';
 import { AuthenticationService } from 'src/app/logging/services';
 import { CompanyService } from '../../../../services/company.service';

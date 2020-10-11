@@ -14,7 +14,7 @@ import { SelectOption } from 'src/models/SelectOption';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
-import { MatDatepicker } from '@angular/material';
+import { MatDatepicker } from '@angular/material/datepicker';
 const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
