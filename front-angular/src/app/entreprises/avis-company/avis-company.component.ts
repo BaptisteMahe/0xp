@@ -76,7 +76,7 @@ export class AvisCompanyComponent implements OnInit {
 
   loadAllAvis() {
     this.avisService.getAllByCompanyId(this.idCompany).subscribe(
-      value => {
+      (value: Avis[]) => {
         this.avisList = value;
       },
       error => {
