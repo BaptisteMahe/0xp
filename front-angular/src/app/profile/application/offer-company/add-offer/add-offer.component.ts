@@ -168,14 +168,6 @@ export class AddOfferComponent implements OnInit {
     this.dateFromDate.setMonth(this.dateStart.value._d.getMonth());
   }
 
-  getSelectedOptions(key: string, selected) {
-    if (key === 'softskill') {
-      this.offerOnForm.softSkills = selected;
-    } else {
-      this.offerOnForm.domains = selected;
-    }
-  }
-
   onCloseEditionClick() {
     const dialogRef = this.matDialog.open(QuitEditionDialogContentComponent);
 
