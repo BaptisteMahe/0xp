@@ -9,13 +9,12 @@ import { OfferViewService } from '../offerView.service';
 
 import { Filter } from 'src/models/Filter';
 import { Offer } from 'src/models/Offer';
-
+import { SelectOption } from 'src/models/SelectOption';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
 import { MatDatepicker } from '@angular/material';
-import { SelectOption } from 'src/models/SelectOption';
 const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
@@ -60,15 +59,9 @@ export class FilterComponent implements OnInit {
   isMoreFilterOpen = false;
   listOffersSubscription: Subscription;
 
-  listOfferLocation: any[] = [];
-  locationForm = new FormGroup({
-    selected: new FormControl()
-  });
+  listOfferLocation: SelectOption[] = [];
+  listOfferCompany: SelectOption[] = [];
 
-  listOfferCompany: any[] = [];
-  companyForm = new FormGroup({
-    selected: new FormControl()
-  });
   dateFromDate: Date = new Date();
   dateStart = new FormControl(moment());
 
@@ -80,6 +73,7 @@ export class FilterComponent implements OnInit {
 
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;
+    // WTF ?
     this.currentFilter.textInput = '';
     this.currentFilter.type = '';
     this.currentFilter.duration = '';
@@ -122,6 +116,7 @@ export class FilterComponent implements OnInit {
     this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
   }
 
+  // TODO : Refactor that function
   manageMoreFilter() {
     this.isMoreFilterOpen = !this.isMoreFilterOpen;
     const setVille = new Set([]);
@@ -139,7 +134,7 @@ export class FilterComponent implements OnInit {
                 {
                   display: offer.location,
                   value: offer.location
-                }
+                } as SelectOption
               );
             }
           });
@@ -197,14 +192,6 @@ export class FilterComponent implements OnInit {
     this.dateStart.setValue(ctrlValue);
     datepicker.close();
     this.dateFromDate.setMonth(this.dateStart.value._d.getMonth());
-  }
-
-  getSelectedOptions(key: string, selected) {
-    if (key === 'company') {
-      this.currentFilter.company = selected;
-    } else {
-      this.currentFilter.location = selected;
-    }
   }
 
   addNotif() {

@@ -42,20 +42,24 @@
     <h3 class="color-blue-medium">Critères supplémentaires</h3>
 
     <div class="form-line">
-      <div class="filter-element">
-        <p>Lieu</p>
-        <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listOfferLocation"
-          [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
-          [formControl]="locationForm.controls['selected']" (selectionChange)="getSelectedOptions('location', $event)">
-        </mat-select-autocomplete>
-      </div>
-      <div class="filter-element">
-        <p>Entreprise</p>
-        <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listOfferCompany"
-          [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
-          [formControl]="companyForm.controls['selected']" (selectionChange)="getSelectedOptions('company', $event)">
-        </mat-select-autocomplete>
-      </div>
+      <mat-form-field class="filter-element">
+        <mat-label>Lieu</mat-label>
+        <mat-select [(value)]="currentFilter.location" [multiple]='true'>
+          <mat-option value="">--</mat-option>
+          <mat-option *ngFor="let location of listOfferLocation" [value]="location">{{location.display}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="filter-element">
+        <mat-label>Entreprise</mat-label>
+        <mat-select [(value)]="currentFilter.company" [multiple]='true'>
+          <mat-option value="">--</mat-option>
+          <mat-option *ngFor="let company of listOfferCompany" [value]="company">{{company.display}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <div class="filter-element">
         <p style="text-align: center;">Partenaire seulement</p>
         <mat-slide-toggle [(ngModel)]="currentFilter.isPartner"></mat-slide-toggle>

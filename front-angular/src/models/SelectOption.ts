@@ -1,5 +1,5 @@
 export class SelectOption {
-  id: string;
+  id?: string;
   value: string;
   display: string;
 }
