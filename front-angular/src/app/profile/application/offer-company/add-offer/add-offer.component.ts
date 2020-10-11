@@ -56,7 +56,6 @@ export class AddOfferComponent implements OnInit {
 
   typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
   timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
-  sectorList: SelectOption[];
   listCountries: string[] = ['France', 'Espagne', 'Angleterre', 'Inde', 'Chine'];
 
   offerOnForm: Offer = new Offer();
@@ -66,10 +65,8 @@ export class AddOfferComponent implements OnInit {
   locationCity: string;
 
   listSoftSkills: SelectOption[];
-  softSkillForm: FormGroup;
-
   listDomains: SelectOption[];
-  domainsForm: FormGroup;
+  sectorList: SelectOption[];
 
   currentUser: User;
 
@@ -110,12 +107,6 @@ export class AddOfferComponent implements OnInit {
             this.listDomains = data.slice();
           });
       });
-    this.softSkillForm = new FormGroup({
-      selected: new FormControl(this.listSoftSkills)
-    });
-    this.domainsForm = new FormGroup({
-      selected: new FormControl(this.listSoftSkills)
-    });
     this.companyService.getAll().subscribe(
       value => {
         this.companiesList = value;
@@ -126,6 +117,7 @@ export class AddOfferComponent implements OnInit {
     );
   }
 
+  // TODO : Refactor that function
   addOrEditOffer() {
 
     if (this.currentUser.username !== 'admin') {
