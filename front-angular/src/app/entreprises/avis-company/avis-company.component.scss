@@ -1,64 +1,44 @@
-.boxContainer {
-    height: max-content; //15vh;
-    padding: 1vh 3vw;
-    margin: auto;
-    box-shadow: #00000447 0px 2px 3px;
-    overflow: hidden;
-    border-radius: 10px;
-    align-items: center;
-    border: 0.5px #00000052 solid;
-    position: relative;
-    width: max-content;
-    border-top: 2vh;
+.form-element {
+  padding: 10px;
+  text-align: left;
 }
 
-.form-element{
-    padding:10px;
-    text-align: left;
+.avis-preview {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5vh 8vw 0 8vw;
 }
 
-.avis-preview{
-    display:flex;
-    margin:5vh 8vw 0 8vw;
-
-    .noteGlobale
-    {
-        align-items: flex-end;
-    }
-
-    h3
-    {
-        font-style: oblique;
-        color:gray;
-        margin-top: 0;
-    }
+.avis-box {
+  margin: 2vw;
 }
 
-.avis-box{
-    margin:2vw;
-    ul {
-        list-style-type: none;
-        padding-left: 0;
-        margin-top:0;
-    }
-}
-
-.form-avis
-{
-    margin-bottom : 5vh;
-    text-align: center;
+.form-avis {
+  margin-bottom: 5vh;
+  text-align: center;
+  height: max-content; //15vh;
+  padding: 1vh 3vw;
+  margin: auto;
+  box-shadow: #00000447 0px 2px 3px;
+  overflow: hidden;
+  border-radius: 10px;
+  align-items: center;
+  border: 0.5px #00000052 solid;
+  position: relative;
+  width: max-content;
+  border-top: 2vh;
 }
 
 button {
-    padding: 1vh 1.5vw;
-    background-color: var(--color-blue-medium);
-    color:white;
-    margin: 2vh;
-    font-size:16px;
+  padding: 1vh 1.5vw;
+  background-color: var(--color-blue-medium);
+  color: white;
+  margin: 2vh;
+  font-size: 16px;
 }
 
-textarea{
-    min-height: 20vh;
-    min-width: 30vw;
-    font-family: MadeRegular, Calibri;
+textarea {
+  min-height: 20vh;
+  min-width: 30vw;
+  font-family: MadeRegular, Calibri;
 }

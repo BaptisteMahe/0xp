@@ -1,20 +1,11 @@
 <div class="avis-preview">
-  <div *ngFor="let avis of avisList" class="avis-box boxContainer">
-    <div class="flexRow noteGlobale">
-      <h1>5</h1>
-      <h5>/20</h5>
-    </div>
-    <h3>"{{avis.description}}"</h3>
-    <ul>
-      <li>Note générale : <strong>{{avis.noteGenerale}}/5</strong></li>
-      <li>Intérêt de la mission : <strong>{{avis.noteInteret}}/5</strong></li>
-      <li>Ambiance de travail : <strong>{{avis.noteAmbiance}}/5</strong></li>
-      <li>Encadrement : <strong>{{avis.noteEncadrt}}/5</strong></li>
-    </ul>
+  <div *ngFor="let avis of avisList" class="avis-box">
+    <app-avis-overview [avis]="avis"></app-avis-overview>
   </div>
+
 </div>
 
-<div *ngIf="currentUser.isStudent" class="form-avis boxContainer">
+<div *ngIf="currentUser.isStudent" class="form-avis">
   <h1>Donne ton avis</h1>
   <br />
   <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">
