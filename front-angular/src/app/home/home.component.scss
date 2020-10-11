@@ -1,78 +1,78 @@
 * {
-    text-align: center;
-    margin: auto;
+  text-align: center;
+  margin: auto;
 }
 
-h1, h2{
-    color:gray;
+h1,
+h2 {
+  color: gray;
 }
 
 .logo-header {
-    display: flex;
-    flex-direction: column;
-    margin-top: 30vh;
-    margin-bottom: 20vh;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10vh;
 }
 
 .logo-image {
-    width: 330px;
+  width: 330px;
 }
 
 .button1 {
-    border: none;
-    border-radius: 25px;
-    padding: 10px 20px;
-    margin-top: 5vh;
-    background-color: var(--color-blue-medium);
-    box-shadow: #00000447 0px 2px 3px;
-    color:white;
-    cursor:pointer;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  margin-top: 5vh;
+  background-color: var(--color-blue-medium);
+  box-shadow: #00000447 0px 2px 3px;
+  color: white;
+  cursor: pointer;
 }
 
-button a, .footer a{
-    text-decoration: none;
-    color:white;
-    font-size:large;
+button a,
+.footer a {
+  text-decoration: none;
+  color: white;
+  font-size: large;
 }
-
 
 .grid-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-bottom: 12vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 12vh;
 }
 
 .grid-title {
-    color: var(--color-blue-medium);
+  color: var(--color-blue-medium);
 }
 
 .grid {
-    display: flex;
-    justify-content: space-around;
-    width: 75vw;
-    margin-top: 5vh;
+  display: flex;
+  justify-content: space-around;
+  width: 75vw;
+  margin-top: 5vh;
 }
 
 .grid-item {
-    max-width: 22vw;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
+  max-width: 22vw;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
 }
 
 .item {
-    margin: 0;
+  margin: 0;
 }
 
 .illustration {
-    height: 20vh;
-    margin: 3vh;
+  height: 20vh;
+  margin: 3vh;
 }
 
 .footer {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-bottom: 7vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 7vh;
 }
