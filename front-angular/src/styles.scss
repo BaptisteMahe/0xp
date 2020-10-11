@@ -1,41 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 /* FONTS */
 
 //MADE Evolv Sans
 
 @font-face {
-  font-family: 'MadeBold';
-  src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Bold.otf');
+  font-family: "MadeBold";
+  src: url("/assets/fonts/MadeEvolvSans/MADE Evolve Sans Bold.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'MadeLight';
-  src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Light.otf');
+  font-family: "MadeLight";
+  src: url("/assets/fonts/MadeEvolvSans/MADE Evolve Sans Light.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'MadeMedium';
-  src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Medium.otf');
+  font-family: "MadeMedium";
+  src: url("/assets/fonts/MadeEvolvSans/MADE Evolve Sans Medium.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'MadeRegular';
-  src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Regular.otf');
+  font-family: "MadeRegular";
+  src: url("/assets/fonts/MadeEvolvSans/MADE Evolve Sans Regular.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'MadeThin';
-  src: url('/assets/fonts/MadeEvolvSans/MADE Evolve Sans Thin.otf');
+  font-family: "MadeThin";
+  src: url("/assets/fonts/MadeEvolvSans/MADE Evolve Sans Thin.otf");
   font-weight: normal;
   font-style: normal;
 }
@@ -43,43 +43,43 @@
 // Foro Font
 
 @font-face {
-  font-family: 'ForoBlack';
-  src: url('/assets/fonts/Conduit/ForoBla.otf');
+  font-family: "ForoBlack";
+  src: url("/assets/fonts/Conduit/ForoBla.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'ForoBold';
-  src: url('/assets/fonts/Conduit/ForoBol.otf');
+  font-family: "ForoBold";
+  src: url("/assets/fonts/Conduit/ForoBol.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'ForoMed';
-  src: url('/assets/fonts/Conduit/ForoMed.otf');
+  font-family: "ForoMed";
+  src: url("/assets/fonts/Conduit/ForoMed.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'ForoReg';
-  src: url('/assets/fonts/Conduit/ForoReg.otf');
+  font-family: "ForoReg";
+  src: url("/assets/fonts/Conduit/ForoReg.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'ForoThi';
-  src: url('/assets/fonts/Conduit/ForoThi.otf');
+  font-family: "ForoThi";
+  src: url("/assets/fonts/Conduit/ForoThi.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'ForoIta';
-  src: url('/assets/fonts/Conduit/ForoIta.otf');
+  font-family: "ForoIta";
+  src: url("/assets/fonts/Conduit/ForoIta.otf");
   font-weight: normal;
   font-style: normal;
 }
@@ -91,7 +91,9 @@ body {
   margin-top: 60px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: MadeBold, Calibri;
 }
 
@@ -99,7 +101,8 @@ h4 {
   font-family: MadeMedium, Calibri;
 }
 
-h5, td {
+h5,
+td {
   font-family: MadeRegular, Calibri;
 }
 
@@ -107,32 +110,33 @@ h6 {
   font-family: MadeLight, Calibri;
 }
 
-p, a, label, button, span {
+p,
+a,
+label,
+button,
+span {
   font-family: MadeRegular, Calibri;
 }
 
-ul li{
+ul li {
   font-family: MadeLight, Calibri;
 }
 
-body::-webkit-scrollbar-track 
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	border-radius: 10px;
-	background-color: #F5F5F5;
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
 }
 
-body::-webkit-scrollbar
-{
-	width: 8px;
-	background-color: #F5F5F5;
+body::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
 }
 
-body::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: #000000bf;
+body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #000000bf;
 }
 
 //Container
@@ -165,30 +169,29 @@ body::-webkit-scrollbar-thumb
 }
 
 .color-blue-light {
-  color:var(--color-blue-light);
+  color: var(--color-blue-light);
 }
 
 .color-blue-medium {
-  color:var(--color-blue-medium);
+  color: var(--color-blue-medium);
 }
 
 //Style général
 
 //Materials
 input {
-  border:0px;
+  border: 0px;
 
   &:focus {
     outline: none;
   }
 }
 
-.button:hover{
+.button:hover {
   cursor: pointer;
 }
 
 .snack-bar {
-
   &-sucess {
     background-color: transparentize(green, 0.3);
     color: white;
@@ -198,9 +201,4 @@ input {
     background-color: transparentize(red, 0.3);
     color: white;
   }
-}
-
-// TODO: Check if no other options
-.filter-element mat-select-autocomplete .mat-form-field {
-    width: 100%;
 }

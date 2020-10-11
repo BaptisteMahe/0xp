@@ -17,9 +17,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 
-
-import { SelectAutocompleteModule } from 'mat-select-autocomplete';
-
 @NgModule({
   exports: [
     MatSelectModule,
@@ -30,7 +27,6 @@ import { SelectAutocompleteModule } from 'mat-select-autocomplete';
     MatInputModule,
     MatSliderModule,
     MatTabsModule,
-    SelectAutocompleteModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatDialogModule,
