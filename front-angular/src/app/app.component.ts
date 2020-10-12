@@ -1,6 +1,4 @@
-import { OfferViewService } from 'src/app/offers/offerView.service';
 import { Component, OnInit } from '@angular/core';
-import { NotificationsService } from './profile/notification/notifications.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +6,9 @@ import { NotificationsService } from './profile/notification/notifications.servi
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'zero-xp';
+  title = 'ZeroXp';
 
-  constructor(private offerViewService: OfferViewService, private notificationsService: NotificationsService) { }
+  constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 }
