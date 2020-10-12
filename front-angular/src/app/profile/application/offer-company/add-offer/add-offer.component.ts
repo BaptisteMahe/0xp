@@ -12,7 +12,7 @@ import { Offer, User } from 'src/models';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
-import { MatDatepicker } from '@angular/material';
+import { MatDatepicker } from '@angular/material/datepicker';
 import { SelectOption } from 'src/models/SelectOption';
 import { AuthenticationService } from 'src/app/logging/services';
 import { CompanyService } from '../../../../services/company.service';
@@ -56,7 +56,6 @@ export class AddOfferComponent implements OnInit {
 
   typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
   timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
-  sectorList: SelectOption[];
   listCountries: string[] = ['France', 'Espagne', 'Angleterre', 'Inde', 'Chine'];
 
   offerOnForm: Offer = new Offer();
@@ -66,10 +65,8 @@ export class AddOfferComponent implements OnInit {
   locationCity: string;
 
   listSoftSkills: SelectOption[];
-  softSkillForm: FormGroup;
-
   listDomains: SelectOption[];
-  domainsForm: FormGroup;
+  sectorList: SelectOption[];
 
   currentUser: User;
 
@@ -110,12 +107,6 @@ export class AddOfferComponent implements OnInit {
             this.listDomains = data.slice();
           });
       });
-    this.softSkillForm = new FormGroup({
-      selected: new FormControl(this.listSoftSkills)
-    });
-    this.domainsForm = new FormGroup({
-      selected: new FormControl(this.listSoftSkills)
-    });
     this.companyService.getAll().subscribe(
       value => {
         this.companiesList = value;
@@ -126,6 +117,7 @@ export class AddOfferComponent implements OnInit {
     );
   }
 
+  // TODO : Refactor that function
   addOrEditOffer() {
 
     if (this.currentUser.username !== 'admin') {
@@ -174,14 +166,6 @@ export class AddOfferComponent implements OnInit {
     this.dateStart.setValue(ctrlValue);
     datepicker.close();
     this.dateFromDate.setMonth(this.dateStart.value._d.getMonth());
-  }
-
-  getSelectedOptions(key: string, selected) {
-    if (key === 'softskill') {
-      this.offerOnForm.softSkills = selected;
-    } else {
-      this.offerOnForm.domains = selected;
-    }
   }
 
   onCloseEditionClick() {

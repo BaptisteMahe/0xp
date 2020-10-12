@@ -89,28 +89,24 @@
     </mat-form-field>
   </div>
 
-
   <div class="center ligne">
-    <div>
-      <p>Soft Skills Recherchés</p>
-      <form [formGroup]="softSkillForm" class="qcm">
-        <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listSoftSkills"
-          [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
-          [formControl]="softSkillForm.controls['selected']"
-          (selectionChange)="getSelectedOptions('softskill', $event)">
-        </mat-select-autocomplete>
-      </form>
-    </div>
+    <mat-form-field>
+      <mat-label>Soft Skills Recherchés</mat-label>
+      <mat-select [(value)]="offerOnForm.softSkills" [multiple]='true'>
+        <mat-option value="">--</mat-option>
+        <mat-option *ngFor="let softskill of listSoftSkills" [value]="softskill">{{softskill.display}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <div>
-      <p>Domaines</p>
-      <form [formGroup]="domainsForm" class="qcm">
-        <mat-select-autocomplete [placeholder]="'--'" [selectPlaceholder]="'Rechercher'" [options]="listDomains"
-          [display]="'display'" [value]="'value'" [multiple]='true' name="optionsSelector" ngDefaultControl
-          [formControl]="domainsForm.controls['selected']" (selectionChange)="getSelectedOptions('domain', $event)">
-        </mat-select-autocomplete>
-      </form>
-    </div>
+    <mat-form-field>
+      <mat-label>Domaines</mat-label>
+      <mat-select [(value)]="offerOnForm.domains" [multiple]='true'>
+        <mat-option value="">--</mat-option>
+        <mat-option *ngFor="let domain of listDomains" [value]="domain">{{domain.display}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
   <br />
 
