@@ -10,11 +10,10 @@ import { AuthenticationService } from '../logging/services';
 export class HomeComponent implements OnInit {
   currentUser: User;
 
-  constructor(private authenticationService: AuthenticationService) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-   }
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.authenticationService.currentUser.subscribe((user: User) => this.currentUser = user);
   }
 
 }
