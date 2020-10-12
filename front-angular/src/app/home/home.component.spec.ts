@@ -1,19 +1,20 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { RouterModule } from '@angular/router';
+import { of } from 'rxjs';
+import { RouterModule, Router } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 import { AuthenticationService } from '../logging/services';
 import { mockStudentUser } from '../mock/user.mock';
-import { User } from 'src/models/user';
 
 
 
-fdescribe('HomeComponent', () => {
+
+describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let authenticationService: AuthenticationService;
+  let router: Router;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -34,6 +35,7 @@ fdescribe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     authenticationService = TestBed.inject(AuthenticationService);
+    router = TestBed.inject(Router);
     component = fixture.componentInstance;
   });
 
@@ -45,5 +47,65 @@ fdescribe('HomeComponent', () => {
     spyOnProperty(authenticationService, 'currentUser', 'get').and.returnValue(of(mockStudentUser));
     fixture.detectChanges();
     expect(component.currentUser).toBe(mockStudentUser);
+  });
+
+  describe('Header button', () => {
+
+    const buttonQuery = '.logo-header .redirect-button a';
+    let routerSpy: jasmine.Spy;
+
+    beforeEach(() => {
+      routerSpy = spyOn(router, 'navigateByUrl');
+    });
+
+    it('should redirect to /offers when user is logged in', () => {
+      spyOnProperty(authenticationService, 'currentUser', 'get').and.returnValue(of(mockStudentUser));
+      fixture.detectChanges();
+      fixture.nativeElement.querySelector(buttonQuery).click();
+
+      const url = routerSpy.calls.first().args[0];
+
+      expect(url.toString()).toBe('/offers');
+    });
+
+    it('should redirect to /login when user is not logged in', () => {
+      spyOnProperty(authenticationService, 'currentUser', 'get').and.returnValue(of(null));
+      fixture.detectChanges();
+      fixture.nativeElement.querySelector(buttonQuery).click();
+
+      const url = routerSpy.calls.first().args[0];
+
+      expect(url.toString()).toBe('/login');
+    });
+  });
+
+  describe('Footer button', () => {
+
+    const buttonQuery = '.footer .redirect-button';
+    let routerSpy: jasmine.Spy;
+
+    beforeEach(() => {
+      routerSpy = spyOn(router, 'navigateByUrl');
+    });
+
+    it('should redirect to /offers when user is logged in', () => {
+      spyOnProperty(authenticationService, 'currentUser', 'get').and.returnValue(of(mockStudentUser));
+      fixture.detectChanges();
+      fixture.nativeElement.querySelector(buttonQuery).click();
+
+      const url = routerSpy.calls.first().args[0];
+
+      expect(url.toString()).toBe('/offers');
+    });
+
+    it('should redirect to /login when user is not logged in', () => {
+      spyOnProperty(authenticationService, 'currentUser', 'get').and.returnValue(of(null));
+      fixture.detectChanges();
+      fixture.nativeElement.querySelector(buttonQuery).click();
+
+      const url = routerSpy.calls.first().args[0];
+
+      expect(url.toString()).toBe('/login');
+    });
   });
 });

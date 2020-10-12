@@ -3,7 +3,7 @@
   <h1>
     Simplifiez votre première fois !
   </h1>
-  <button class="button1" type="button">
+  <button class="redirect-button" type="button">
     <a *ngIf="currentUser" routerLink="/offers">Découvrir les offres</a>
     <a *ngIf="!currentUser" routerLink="/login">Connectez vous pour découvrir les offres</a>
   </button>
@@ -63,6 +63,6 @@
 </div>
 
 <div class="footer">
-  <a *ngIf="currentUser" class="button1" routerLink="/offers">Lancez-vous !</a>
-  <a *ngIf="!currentUser" class="button1" routerLink="/login">Lancez-vous !</a>
+  <a *ngIf="currentUser" class="redirect-button" routerLink="/offers">Lancez-vous !</a>
+  <a *ngIf="!currentUser" class="redirect-button" routerLink="/login">Lancez-vous !</a>
 </div>
