@@ -31,7 +31,7 @@
     "choices.js": "^9.0.1",
     "core-js": "^2.5.4",
     "moment": "^2.24.0",
-    "rxjs": "6.5.3",
+    "rxjs": "6.6.3",
     "rxjs-compat": "^6.5.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
