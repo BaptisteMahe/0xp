@@ -11,8 +11,10 @@ import { mockStudentUser } from '../mock/user.mock';
 
 
 describe('HomeComponent', () => {
-  let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+  let component: HomeComponent;
+  let element: any;
+
   let authenticationService: AuthenticationService;
   let router: Router;
 
@@ -34,9 +36,11 @@ describe('HomeComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    element = fixture.nativeElement;
+
     authenticationService = TestBed.inject(AuthenticationService);
     router = TestBed.inject(Router);
-    component = fixture.componentInstance;
   });
 
   it('should create the component', () => {
@@ -61,7 +65,7 @@ describe('HomeComponent', () => {
     it('should redirect to /offers when user is logged in', () => {
       spyOnProperty(authenticationService, 'currentUser', 'get').and.returnValue(of(mockStudentUser));
       fixture.detectChanges();
-      fixture.nativeElement.querySelector(buttonQuery).click();
+      element.querySelector(buttonQuery).click();
 
       const url = routerSpy.calls.first().args[0];
 
@@ -71,7 +75,7 @@ describe('HomeComponent', () => {
     it('should redirect to /login when user is not logged in', () => {
       spyOnProperty(authenticationService, 'currentUser', 'get').and.returnValue(of(null));
       fixture.detectChanges();
-      fixture.nativeElement.querySelector(buttonQuery).click();
+      element.querySelector(buttonQuery).click();
 
       const url = routerSpy.calls.first().args[0];
 
@@ -91,7 +95,7 @@ describe('HomeComponent', () => {
     it('should redirect to /offers when user is logged in', () => {
       spyOnProperty(authenticationService, 'currentUser', 'get').and.returnValue(of(mockStudentUser));
       fixture.detectChanges();
-      fixture.nativeElement.querySelector(buttonQuery).click();
+      element.querySelector(buttonQuery).click();
 
       const url = routerSpy.calls.first().args[0];
 
@@ -101,7 +105,7 @@ describe('HomeComponent', () => {
     it('should redirect to /login when user is not logged in', () => {
       spyOnProperty(authenticationService, 'currentUser', 'get').and.returnValue(of(null));
       fixture.detectChanges();
-      fixture.nativeElement.querySelector(buttonQuery).click();
+      element.querySelector(buttonQuery).click();
 
       const url = routerSpy.calls.first().args[0];
 
