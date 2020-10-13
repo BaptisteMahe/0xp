@@ -9,7 +9,7 @@ export const mockStudentUser = {
   dateBirth: '1997-11-11',
   contactMail: 'test@test.com',
   location: 'Marseille',
-  softSkills: ['patience', 'organisation', 'motivation', 'empathie'],
+  softSkills: [],
   interestCompany: 'Orange',
   interestDomain: 'Dev',
   favoris: '',

@@ -13,13 +13,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   currentUser: User;
 
-  constructor(private authenticationService: AuthenticationService, private globalService: GlobalService,
-    private router: Router) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-  }
-
+  constructor(private authenticationService: AuthenticationService,
+    private globalService: GlobalService,
+    private router: Router) { }
 
   ngOnInit() {
+    this.authenticationService.currentUser.subscribe((user: User) => this.currentUser = user);
     this.globalService.switchIsProfilOpen(true);
   }
 
