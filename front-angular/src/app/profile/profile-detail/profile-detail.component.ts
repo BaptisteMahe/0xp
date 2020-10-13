@@ -16,20 +16,18 @@ export class ProfileDetailComponent implements OnInit {
   @Input() profileDetails: User;
 
   profileEdit: User;
-  isEdition: boolean;
+  isEdition = false;
   editor = ClassicEditor;
   softSkillsList: SelectOption[];
   private currentUserSubject: BehaviorSubject<User>;
   currentUser: Observable<User>;
 
   constructor(private userService: UserService,
-    private offerViewService: OfferViewService) {
-    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
-  }
+    private offerViewService: OfferViewService) { }
 
   ngOnInit() {
-    this.isEdition = false;
+    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
 
     fetch(this.offerViewService.apiUrl + '/select/softskills')
       .then(response => {
