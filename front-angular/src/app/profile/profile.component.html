@@ -10,7 +10,7 @@
   <a (click)="logout()">Deconnexion</a>
 </div>
 
-<div *ngIf="currentUser.isStudent && !currentUser.softSkills" class="messageProfil flexRow">
+<div *ngIf="currentUser.isStudent && currentUser.softSkills.length === 0" class="messageProfil flexRow">
   <img src="https://image.flaticon.com/icons/svg/1636/1636062.svg" />
   <p class="information">Des informations manquent à votre profil</p>
 </div>
