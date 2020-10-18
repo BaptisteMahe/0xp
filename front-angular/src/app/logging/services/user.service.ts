@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 
+import { environment } from '../../../environments/environment';
 import { User } from '../../../models';
+import {SelectOption} from '../../../models/SelectOption';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  apiUrl = environment.apiUrl;
+  public apiUrl = environment.apiUrl;
 
   getAll() {
     return this.http.get<User[]>(this.apiUrl + '/users');
@@ -23,7 +24,6 @@ export class UserService {
   }
 
   update(user: any) {
-    console.log(user);
     this.http.post<any>(this.apiUrl + '/users/update', { user: user }).subscribe(
       (response) => {
         console.log('Profil modifié');
@@ -32,5 +32,9 @@ export class UserService {
         console.log('Erreur ! : ' + error);
       }
     );
+  }
+
+  getSoftSkillList() {
+    return this.http.get<SelectOption[]>(this.apiUrl + '/select/softSkills');
   }
 }
