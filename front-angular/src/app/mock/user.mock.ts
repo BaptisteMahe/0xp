@@ -1,4 +1,5 @@
-import { User } from '../../models/user';
+import { User } from '../../models';
+import {SelectOption} from '../../models/SelectOption';
 
 export const mockStudentUser = {
   id: '5f7207ee58e48426f8accbbb',
@@ -60,3 +61,13 @@ export const mockAdminUser = {
   isStudent: true,
   srcImage: '',
 } as User;
+
+export const mockSoftSkillList = [
+  {_id: '5e53b8431c9d4400004cf2af', display: 'Patience', value: 'patience'},
+  {_id: '5e53b8961c9d4400004cf2b1', display: 'Organisation', value: 'organisation'},
+  {_id: '5e53bb5f1c9d4400004cf2b2', display: 'Motivation', value: 'motivation'},
+  {_id: '5e6f8f5e1c9d44000087bc84', display: 'Empathie', value: 'empathie'},
+  {_id: '5e6f8fa51c9d44000087bc85', display: 'Gestion du stress', value: 'gestion du stress'},
+  {_id: '5e6f8fc11c9d44000087bc86', display: 'Sens du collectif', value: 'sens du collectif'},
+  {_id: '5e6f90151c9d44000087bc87', display: 'Curiosité', value: 'curiosité'}
+] as unknown as SelectOption[];

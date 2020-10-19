@@ -27,7 +27,6 @@ export class ProfileDetailComponent implements OnInit {
   ngOnInit() {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-
     this.userService.getSoftSkillList().subscribe((softSkillsList: SelectOption[]) => {
       this.softSkillsList = softSkillsList;
     });
