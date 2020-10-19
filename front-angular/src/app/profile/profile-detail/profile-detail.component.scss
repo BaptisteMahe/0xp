@@ -1,29 +1,26 @@
-.label{
-  font-family:MadeBold;
+.label {
+  font-family: MadeBold;
 }
 
-.fiche
-{
-  padding-left:4vw;    
+.fiche {
+  padding-left: 4vw;
 }
 
-
-.messageProfil {
-
+.message-profil {
   width: 25vw;
   align-items: center;
   justify-content: space-evenly;
 
   img {
-      width: 30px;
-      height: 30px;
-      margin-left: 10px;
-      margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .information {
-      color: #ffc355;
-      text-align: center;
+    color: #ffc355;
+    text-align: center;
   }
 }
 
@@ -40,48 +37,47 @@
 
 .bloc {
   background-color: white;
-  padding:2vh 2vw;
+  padding: 2vh 2vw;
   box-shadow: #00000448 0px 0px 4px;
   border-radius: 1vw;
-  width:80%;
-  margin:auto;
+  width: 80%;
+  margin: auto;
   margin-bottom: 2vh;
 }
 
 .center {
   text-align: center;
-  padding-left:3vh;
-  padding-right:3vh;
-  margin:1vh;
+  padding-left: 3vh;
+  padding-right: 3vh;
+  margin: 1vh;
 
   .title {
-    width:40%
+    width: 40%;
   }
 
   .desc {
-    width:80%
+    width: 80%;
   }
 }
 
-.closeLogo {
+.close-logo {
   width: 1vw;
   height: 1vw;
   position: absolute;
-  right:16vw;
+  right: 16vw;
 }
 
 .btn-success {
-  color:white;
-  background-color:#03C9D3;
+  color: white;
+  background-color: #03c9d3;
   border-color: transparent;
   box-shadow: #0000047a 0px 0px 5px;
-  margin:auto;
-  height:5vh;
-  width:10vw;
+  margin: auto;
+  height: 5vh;
+  width: 10vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5vh; 
-  border-color: transparent;  
+  border-radius: 5vh;
+  border-color: transparent;
 }
-

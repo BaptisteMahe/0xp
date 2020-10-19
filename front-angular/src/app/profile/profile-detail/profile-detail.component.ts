@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { UserService } from 'src/app/logging/services';
-import { OfferViewService } from 'src/app/offers/offerView.service';
-import { SelectOption } from 'src/models/SelectOption';
 import { BehaviorSubject, Observable } from 'rxjs';
+
+import { UserService } from 'src/app/logging/services';
+import { SelectOption } from 'src/models/SelectOption';
 import { User } from '../../../models';
 
 @Component({
@@ -16,28 +16,20 @@ export class ProfileDetailComponent implements OnInit {
   @Input() profileDetails: User;
 
   profileEdit: User;
-  isEdition: boolean;
+  isEdition = false;
   editor = ClassicEditor;
   softSkillsList: SelectOption[];
   private currentUserSubject: BehaviorSubject<User>;
   currentUser: Observable<User>;
 
-  constructor(private userService: UserService,
-    private offerViewService: OfferViewService) {
-    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
-  }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.isEdition = false;
-
-    fetch(this.offerViewService.apiUrl + '/select/softskills')
-      .then(response => {
-        response.json()
-          .then(data => {
-            this.softSkillsList = data.slice();
-          });
-      });
+    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+    this.userService.getSoftSkillList().subscribe((softSkillsList: SelectOption[]) => {
+      this.softSkillsList = softSkillsList;
+    });
   }
 
   enableEdition() {
