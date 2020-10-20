@@ -66,7 +66,7 @@ Cette action "pose" nos commits au sommet (HEAD) de la branche **dev**. ([plus d
 
 ## 4. On pousse nos **commits** locaux sur la **branche distante**
 
-On pousse la branche **loacle** monprenom-ZXP-XX sur la brance **distante** monprenom-ZXP-XX (elle sera créée automatiquement sur le repo distant) :
+On pousse la branche **locale** monprenom-ZXP-XX sur la brance **distante** monprenom-ZXP-XX (elle sera créée automatiquement sur le repo distant) :
 ```shell
 git push origin monprenom-ZXP-XX
 ```
