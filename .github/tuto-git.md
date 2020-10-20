@@ -80,7 +80,7 @@ On clique sur **Créer Pull Request**. \
 On choisit bien le repo **BaptisteMahe/0xp** (et non **atordjmann/0xp** comme indiqué par défaut). \
 On choisit bien la branche **dev** (et non **master** comme indiqué par défaut). \
 On remplit bien le formulaire de la Pull Request. \
-On clique sur **créer une Pull Request** en dessous. \
+On clique sur **créer une Pull Request** en dessous. 
 
 ## 6. C'est presque fini !
 
