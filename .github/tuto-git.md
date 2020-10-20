@@ -37,7 +37,7 @@ git add .
 
 On **commit** le contenu du stage sur la **branche locale** :
 ```shell 
-git commit -m "ZXP-XX 
+git commit -m "ZXP-XX courte description des modifications"
 ```
 
 ## 3. On mets à jour notre branche locale avec les potentielles modifications de la branche **dev**
