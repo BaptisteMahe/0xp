@@ -17,7 +17,7 @@ git pull
 
 Ensuite on créer la nouvelle branche **monprenom-ZXP-XX** depuis cette version de dev (et on passe sur cette branche) :
 ```shell
-git checkout monprenom-ZXP-XX
+git checkout -b monprenom-ZXP-XX
 ```
 
 ## 2. On fait nos modifications sur cette branche
