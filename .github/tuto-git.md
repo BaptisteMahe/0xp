@@ -1,6 +1,6 @@
 # Tuto d'utilisation de Git et GitHub
 
-Admettons que je sois le développeur **monprenom** avec la tâche **ZXP-XX** à faire.
+Admettons que l'on soit le développeur **monprenom** avec la tâche **ZXP-XX** (Cf [Jira](https://0xp.atlassian.net/secure/RapidBoard.jspa?rapidView=1&projectKey=ZXP&view=planning&selectedIssue=ZXP-17&issueLimit=100)) à faire.
 
 ## 1. On crée une nouvelle branche depuis la dernière version de la branche distante **dev**
 
