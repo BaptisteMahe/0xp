@@ -4,9 +4,10 @@ Admettons que je sois le développeur **monprenom** avec la tâche **ZXP-XX** à
 
 ## 1. On crée une nouvelle branche depuis la dernière version de la branche distante **dev**
 
-D'abord on met à jour notre branche **dev** locale avec la branche distante \
+D'abord on met à jour notre branche **dev** locale avec la branche distante.
+
 On va sur la branche locale dev :
-```git
+```shell
 git checkout dev 
 ```
 On update notre **dev locale** avec la **dev distante** :
@@ -56,16 +57,16 @@ On se replace sur notre branche monprenom-ZXP-XX :
 git checkout monprenom-ZXP-XX
 ```
 
-On mets à jours notre branche (avec ses modifications) avec la branche **dev** fraichement mise à jour :
+On met à jour notre branche (avec ses modifications) avec la branche **dev** fraichement mise à jour :
 ```shell
 git rebase dev
 ```
 
-Cette actions "pose" nos commits la branche **dev**. ([plus d'info sur le rebase ici](https://git-scm.com/docs/git-rebase))
+Cette action "pose" nos commits au sommet (HEAD) de la branche **dev**. ([plus d'info sur le rebase ici](https://git-scm.com/docs/git-rebase))
 
 ## 4. On pousse nos **commits** locaux sur la **branche distante**
 
-On pousse la branche **loacle** monprenom-ZXP-XX sur la brance **distante** monprenom-ZXP-XX (elle sera créée automatiquement sur le repo distant) 
+On pousse la branche **loacle** monprenom-ZXP-XX sur la brance **distante** monprenom-ZXP-XX (elle sera créée automatiquement sur le repo distant) :
 ```shell
 git push origin monprenom-ZXP-XX
 ```
@@ -75,10 +76,10 @@ git push origin monprenom-ZXP-XX
 On va sur le GitHub du projet : https://github.com/BaptisteMahe/0xp
 
 Une pop up apparait qui nous propose de créer une Pull Request avec la branche fraichement poussée. \
-On clique sur **Créer Pull Request** \
-On choisit bien le repo **BaptisteMahe/0xp** (et non **atordjmann/0xp** comme indiqué par défaut) \
-On choisit bien la branche **dev** (et non **master** comme indiqué par défaut) \
-On remplit bien le formulaire de la Pull Request \
+On clique sur **Créer Pull Request**. \
+On choisit bien le repo **BaptisteMahe/0xp** (et non **atordjmann/0xp** comme indiqué par défaut). \
+On choisit bien la branche **dev** (et non **master** comme indiqué par défaut). \
+On remplit bien le formulaire de la Pull Request. \
 On clique sur **créer une Pull Request** en dessous. \
 
 ## 6. C'est presque fini !
