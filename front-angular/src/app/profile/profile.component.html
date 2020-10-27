@@ -1,8 +1,8 @@
-<div *ngIf="!currentUser.srcImage" class="img-bloc">
+<div *ngIf="!currentUser?.srcImage" class="img-bloc">
   <img class="img-center" src="../../assets/images/0xpuser.png" />
 </div>
-<div *ngIf="currentUser.srcImage" class="img-bloc co">
-  <img class="img-center" [src]="currentUser.srcImage" />
+<div *ngIf="currentUser?.srcImage" class="img-bloc co">
+  <img class="img-center" [src]="currentUser?.srcImage" />
 </div>
 
 
@@ -10,12 +10,12 @@
   <a (click)="logout()">Deconnexion</a>
 </div>
 
-<div *ngIf="currentUser.isStudent && currentUser.softSkills.length === 0" class="messageProfil flexRow">
+<div *ngIf="currentUser?.softSkills?.length === 0" class="messageProfil flexRow">
   <img src="https://image.flaticon.com/icons/svg/1636/1636062.svg" />
   <p class="information">Des informations manquent à votre profil</p>
 </div>
 
-<div class="profile-box" *ngIf="currentUser.isStudent && currentUser.username !== 'admin'">
+<div class="profile-box" *ngIf="currentUser?.isStudent && currentUser?.username !== 'admin'">
   <div class="square-sections">
     <mat-tab-group mat-stretch-tabs>
       <mat-tab label="Mon Profil">
@@ -31,7 +31,7 @@
   </div>
 </div>
 
-<div class="profile-box" *ngIf="!currentUser.isStudent && currentUser.username !== 'admin'">
+<div class="profile-box" *ngIf="!currentUser?.isStudent && currentUser?.username !== 'admin'">
   <div class="square-sections">
     <mat-tab-group mat-stretch-tabs>
       <mat-tab label="Mon Profil">
@@ -47,6 +47,6 @@
   </div>
 </div>
 
-<div class="profile-box" *ngIf="currentUser.username == 'admin'">
+<div class="profile-box" *ngIf="currentUser?.username == 'admin'">
   <app-profile-admin></app-profile-admin>
 </div>

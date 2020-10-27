@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Offer } from '../../models/Offer';
-import { Subject } from 'rxjs/Subject';
-import { Filter } from 'src/models/Filter';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { AuthenticationService } from '../logging/services';
-
+import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs';
+
+import { Offer, User } from '../../models';
+import { Filter } from 'src/models/Filter';
+import { environment } from '../../environments/environment';
+import { UserService } from '../services';
 
 export enum SortCategory {
   matchingScore,
@@ -33,9 +33,13 @@ export class OfferViewService {
   customListOffersSubject = new Subject<Offer[]>();
 
   remunMax = 0;
-  currentUser: any;
-  constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  currentUser: User;
+
+  constructor(private httpClient: HttpClient,
+              private userService: UserService) {
+    this.userService.getCurrentUserObs().subscribe((user: User) => {
+      this.currentUser = user;
+    });
   }
 
   // TODO : Refactor this function

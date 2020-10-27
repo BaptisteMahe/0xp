@@ -1,11 +1,11 @@
-import { AuthenticationService } from './services/authentication.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
-import { GlobalService } from '../services/global.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { first } from 'rxjs/operators';
 
+import { GlobalService, AuthenticationService, UserService } from '../services';
+import { User } from '../../models';
 
 @Component({
     selector: 'app-logging',
@@ -23,11 +23,15 @@ export class LoggingComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
+        private userService: UserService,
         private globalService: GlobalService,
         private matSnackBar: MatSnackBar
     ) {
-        // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
+        let currentUser: User;
+        this.userService.getCurrentUserObs().subscribe((user: User) => {
+            currentUser = user;
+        });
+        if (currentUser) {
             this.router.navigate(['/']);
         }
     }
@@ -38,7 +42,6 @@ export class LoggingComponent implements OnInit, OnDestroy {
             password: ['', Validators.required]
         });
 
-        // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
         this.globalService.switchIsProfilOpen(true);
     }

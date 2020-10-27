@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthenticationService } from '../logging/services';
 import { Router } from '@angular/router';
-import { GlobalService } from '../services/global.service';
+
+import { UserService, GlobalService, AuthenticationService } from '../services';
 import { User } from '../../models';
 
 @Component({
@@ -11,14 +11,17 @@ import { User } from '../../models';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
-  currentUser: User;
+    currentUser: User;
 
-  constructor(private authenticationService: AuthenticationService,
-    private globalService: GlobalService,
-    private router: Router) { }
+  constructor(private userService: UserService,
+              private authenticationService: AuthenticationService,
+              private globalService: GlobalService,
+              private router: Router) { }
 
   ngOnInit() {
-    this.authenticationService.currentUser.subscribe((user: User) => this.currentUser = user);
+    this.userService.getCurrentUserObs().subscribe((user: User) => {
+      this.currentUser = user;
+    });
     this.globalService.switchIsProfilOpen(true);
   }
 

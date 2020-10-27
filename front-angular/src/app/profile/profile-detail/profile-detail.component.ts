@@ -1,10 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { BehaviorSubject, Observable } from 'rxjs';
 
-import { UserService } from 'src/app/logging/services';
-import { SelectOption } from 'src/models/SelectOption';
-import { User } from '../../../models';
+import { UserService } from '../../services';
+import { SelectOption, User } from '../../../models';
 
 @Component({
   selector: 'app-profile-detail',
@@ -13,20 +11,19 @@ import { User } from '../../../models';
 })
 export class ProfileDetailComponent implements OnInit {
 
-  @Input() profileDetails: User;
+  currentUser: User;
+  currentUserEdit: User;
 
-  profileEdit: User;
   isEdition = false;
   editor = ClassicEditor;
   softSkillsList: SelectOption[];
-  private currentUserSubject: BehaviorSubject<User>;
-  currentUser: Observable<User>;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
+    this.userService.getCurrentUserObs().subscribe((user: User) => {
+      this.currentUser = user;
+    });
     this.userService.getSoftSkillList().subscribe((softSkillsList: SelectOption[]) => {
       this.softSkillsList = softSkillsList;
     });
@@ -34,25 +31,24 @@ export class ProfileDetailComponent implements OnInit {
 
   enableEdition() {
     this.isEdition = true;
-    this.profileEdit = Object.assign({}, this.profileDetails);
-    if (!this.profileDetails.isStudent) {
-      this.profileEdit.creationDate = this.formatDateFromBase(this.profileDetails.creationDate);
+    this.currentUserEdit = Object.assign({}, this.currentUser);
+    if (!this.currentUser.isStudent) {
+      this.currentUserEdit.creationDate = this.formatDateFromBase(this.currentUser.creationDate);
     }
   }
 
   disableEdition() {
     this.isEdition = false;
-    localStorage.setItem('currentUser', JSON.stringify(this.profileDetails));
-    this.currentUserSubject.next(this.profileDetails);
+    localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
     window.location.reload();
   }
 
   updateProfile() {
-    this.profileDetails = Object.assign({}, this.profileEdit);
-    if (!this.profileDetails.isStudent) {
-      this.profileDetails.creationDate = this.formatDateToBase(this.profileEdit.creationDate);
+    this.currentUser = Object.assign({}, this.currentUserEdit);
+    if (!this.currentUser.isStudent) {
+      this.currentUser.creationDate = this.formatDateToBase(this.currentUserEdit.creationDate);
     }
-    this.userService.update(this.profileDetails);
+    this.userService.update(this.currentUser);
     this.disableEdition();
   }
 

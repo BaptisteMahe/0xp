@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 
 import { MaterialModule } from '../../modules/material.module';
 import { ProfileDetailComponent } from './profile-detail.component';
-import { UserService } from 'src/app/logging/services';
+import { UserService } from '../../services';
 import { mockStudentUser, mockSoftSkillList } from 'src/app/mock/user.mock';
 
 describe('ProfileDetailComponent', () => {
@@ -56,7 +56,7 @@ describe('ProfileDetailComponent', () => {
   });
 
   it('should create the component', () => {
-    component.profileDetails = mockStudentUser;
+    component.currentUser = mockStudentUser;
 
     fixture.detectChanges();
 
@@ -66,7 +66,7 @@ describe('ProfileDetailComponent', () => {
   describe('Student Profile Detail', () => {
 
     beforeEach(() => {
-      component.profileDetails = mockStudentUser;
+      component.currentUser = mockStudentUser;
       fixture.detectChanges();
     });
 
@@ -77,7 +77,7 @@ describe('ProfileDetailComponent', () => {
     it('should display a message only if no soft skill is set', () => {
       expect(element.querySelector('.message-profil')).toBeTruthy();
 
-      component.profileDetails = {...mockStudentUser, softSkills: mockSoftSkillList.map(softSkill => softSkill.value)};
+      component.currentUser = {...mockStudentUser, softSkills: mockSoftSkillList.map(softSkill => softSkill.value)};
       fixture.detectChanges();
       expect(element.querySelector('.message-profil')).toBeFalsy();
     });
@@ -109,43 +109,43 @@ describe('ProfileDetailComponent', () => {
       });
 
       it('should start from the current profile detail', () => {
-        expect(component.profileEdit).toEqual(component.profileDetails);
+        expect(component.currentUserEdit).toEqual(component.currentUser);
       });
 
       it('should edit first name', () => {
         injectInput('first-name-input', 'MockedFirstName');
         fixture.detectChanges();
-        expect(component.profileEdit.firstName).toBe('MockedFirstName');
+        expect(component.currentUserEdit.firstName).toBe('MockedFirstName');
       });
 
       it('should edit name', () => {
         injectInput('name-input', 'MockedName');
         fixture.detectChanges();
-        expect(component.profileEdit.name).toBe('MockedName');
+        expect(component.currentUserEdit.name).toBe('MockedName');
       });
 
       it('should edit date of birth', () => {
         injectInput('date-birth-input', '1997-11-11');
         fixture.detectChanges();
-        expect(component.profileEdit.dateBirth).toBe('1997-11-11');
+        expect(component.currentUserEdit.dateBirth).toBe('1997-11-11');
       });
 
       it('should edit location', () => {
         injectInput('location-input', 'Toulouse');
         fixture.detectChanges();
-        expect(component.profileEdit.location).toBe('Toulouse');
+        expect(component.currentUserEdit.location).toBe('Toulouse');
       });
 
       it('should contact mail', () => {
         injectInput('contact-mail-input', 'test@mail.com');
         fixture.detectChanges();
-        expect(component.profileEdit.contactMail).toBe('test@mail.com');
+        expect(component.currentUserEdit.email).toBe('test@mail.com');
       });
 
       it('should edit contact tel', () => {
         injectInput('contact-tel-input', '0682318704');
         fixture.detectChanges();
-        expect(component.profileEdit.contactTel).toBe('0682318704');
+        expect(component.currentUserEdit.telephone).toBe('0682318704');
       });
 
       it('should be able to edit soft skills', waitForAsync(() => {
@@ -155,7 +155,7 @@ describe('ProfileDetailComponent', () => {
           fixture.debugElement.query(By.css(`mat-option[ng-reflect-value="${softSkill}"]`)).nativeElement.click();
           fixture.detectChanges();
         });
-        expect(component.profileEdit.softSkills).toEqual(softSkills);
+        expect(component.currentUserEdit.softSkills).toEqual(softSkills);
       }));
 
       it('should update the Profile of the user ', waitForAsync(() => {
@@ -180,8 +180,8 @@ describe('ProfileDetailComponent', () => {
           name: 'MockedName',
           dateBirth: '1997-11-11',
           location: 'Toulouse',
-          contactMail: 'test@mail.com',
-          contactTel: '0682318704',
+          email: 'test@mail.com',
+          telephone: '0682318704',
           softSkills: ['patience', 'organisation', 'motivation', 'empathie', 'gestion du stress']
         });
         expect(component.isEdition).toBeFalsy();

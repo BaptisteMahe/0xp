@@ -23,11 +23,11 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    contactMail: {
+    email: {
         type: String,
         required: false
     },
-    contactTel: {
+    telephone: {
         type: String,
         required: false
     },

@@ -1,9 +1,9 @@
-import { NotificationsService } from './../profile/notification/notifications.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/models';
-import { AuthenticationService } from '../logging/services';
-import { GlobalService } from '../services/global.service';
 import { Subscription } from 'rxjs';
+
+import { GlobalService, UserService} from '../services';
+import { User } from 'src/models';
+import { NotificationsService } from '../profile/notification/notifications.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,18 +11,19 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
   currentUser: User;
   isProfilOpen: boolean;
   isProfilOpenSubscription: Subscription;
   nbrNotif: number;
   nbrNotifSubscription: Subscription;
-  constructor(private authenticationService: AuthenticationService,
-    private globalService: GlobalService,
-    private notificationsService: NotificationsService) {
-    this.authenticationService.currentUser.subscribe(
-      (currentUser: User) => {
-        this.currentUser = currentUser;
-      });
+
+  constructor(private globalService: GlobalService,
+              private userService: UserService,
+              private notificationsService: NotificationsService) {
+    this.userService.getCurrentUserObs().subscribe((user: User) => {
+      this.currentUser = user;
+    });
   }
 
   ngOnInit() {

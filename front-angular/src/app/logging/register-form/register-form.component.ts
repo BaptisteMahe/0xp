@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService, UserService, UserCompanyService } from '../services';
 import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { UserService } from '../../services';
+import { User } from '../../../models';
+
 
 @Component({
   selector: 'app-register-form',
@@ -11,26 +14,28 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./register-form.component.scss']
 })
 export class RegisterFormComponent implements OnInit {
+
   registerForm: FormGroup;
   loading = false;
   submitted = false;
   isStudent: boolean;
+  private currentUser: User;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authenticationService: AuthenticationService,
     private userService: UserService,
-    private userCompanyService: UserCompanyService,
-    private matSnackBar: MatSnackBar,
-  ) {
-    // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
+    private matSnackBar: MatSnackBar) {
+
+    this.userService.getCurrentUserObs().subscribe((user: User) => {
+      this.currentUser = user;
+    });
   }
 
   ngOnInit() {
+    if (this.currentUser) {
+      this.router.navigate(['/']);
+    }
     this.isStudent = true;
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -38,8 +43,8 @@ export class RegisterFormComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       dateBirth: ['', Validators.required],
-      contactMail: [''],
-      contactTel: [''],
+      email: [''],
+      telephone: [''],
       location: ['', Validators.required],
       softSkills: [''],
       interestCompany: [''],
@@ -59,8 +64,8 @@ export class RegisterFormComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       dateBirth: ['', Validators.required],
-      contactMail: [''],
-      contactTel: [''],
+      email: [''],
+      telephone: [''],
       location: ['', Validators.required],
       softSkills: [''],
       interestCompany: [''],
@@ -87,35 +92,20 @@ export class RegisterFormComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
     this.loading = true;
-    if (this.isStudent) {
-      this.userService.register(this.registerForm.value)
-        .pipe(first())
-        .subscribe(
-          data => {
-            this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-sucess'] });
-            this.router.navigate(['/login']);
-          },
-          error => {
-            this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
-            this.loading = false;
-          });
-    } else {
-      this.userCompanyService.register(this.registerForm.value)
-        .pipe(first())
-        .subscribe(
-          data => {
-            this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-sucess'] });
-            this.router.navigate(['/login']);
-          },
-          error => {
-            this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
-            this.loading = false;
-          });
-    }
+    this.userService.register(this.registerForm.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-sucess'] });
+          this.router.navigate(['/login']);
+        },
+        error => {
+          this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
+          this.loading = false;
+        });
   }
 }
