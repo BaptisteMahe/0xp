@@ -1,3 +1,4 @@
+<script src="../navbar/navbar.component.ts"></script>
 <div *ngIf="!currentUser?.srcImage" class="img-bloc">
   <img class="img-center" src="../../assets/images/0xpuser.png" />
 </div>
@@ -19,7 +20,7 @@
   <div class="square-sections">
     <mat-tab-group mat-stretch-tabs>
       <mat-tab label="Mon Profil">
-        <app-profile-detail [profileDetails]="currentUser"></app-profile-detail>
+        <app-profile-detail></app-profile-detail>
       </mat-tab>
       <mat-tab label="Mes favoris">
         <app-offer-square></app-offer-square>
@@ -35,7 +36,7 @@
   <div class="square-sections">
     <mat-tab-group mat-stretch-tabs>
       <mat-tab label="Mon Profil">
-        <app-profile-detail [profileDetails]="currentUser"></app-profile-detail>
+        <app-profile-detail></app-profile-detail>
       </mat-tab>
       <mat-tab label="Mes offres">
         <app-offer-company></app-offer-company>

@@ -18,12 +18,10 @@
     </div>
     <div class="bloc">
       <h2>Soft Skills</h2>
-      <div *ngIf="currentUser?.softSkills">
-        <ul *ngFor="let skill of currentUser.softSkills">
+        <ul *ngFor="let skill of currentUser?.softSkills">
           <li>{{skill}}</li>
         </ul>
-      </div>
-      <div *ngIf="currentUser.softSkills.length === 0" class="flexRow message-profil">
+      <div *ngIf="currentUser?.softSkills?.length === 0" class="flexRow message-profil">
         <img src="https://image.flaticon.com/icons/svg/1636/1636062.svg" />
         <p class="information">Vous n'avez pas sélectionné de soft skills...</p>
       </div>
