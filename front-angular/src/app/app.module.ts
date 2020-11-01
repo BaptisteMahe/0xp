@@ -43,7 +43,7 @@ import { AddCompanyComponent } from './entreprises/add-company/add-company.compo
 import { ListCompanyComponent } from './entreprises/list-company/list-company.component';
 import { AvisOverviewComponent } from './entreprises/avis-company/avis-overview/avis-overview.component';
 
-import { GlobalService, CompanyService, UserService } from './services';
+import { CompanyService, UserService } from './services';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -94,7 +94,7 @@ import { MaterialModule } from './modules/material.module';
     QuitEditionDialogContentComponent
   ],
   exports: [OfferDetailComponent],
-  providers: [GlobalService, OfferViewService, CompanyService, UserService, NotificationsService,
+  providers: [OfferViewService, CompanyService, UserService, NotificationsService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'fr' }],

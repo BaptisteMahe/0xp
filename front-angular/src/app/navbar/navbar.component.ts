@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Router , NavigationEnd  } from '@angular/router';
 
-import { GlobalService, UserService} from '../services';
+import { UserService} from '../services';
 import { User } from 'src/models';
 import { NotificationsService } from '../profile/notification/notifications.service';
 
@@ -13,32 +14,33 @@ import { NotificationsService } from '../profile/notification/notifications.serv
 export class NavbarComponent implements OnInit {
 
   currentUser: User;
+
   isProfilOpen: boolean;
-  isProfilOpenSubscription: Subscription;
+
   nbrNotif: number;
   nbrNotifSubscription: Subscription;
 
-  constructor(private globalService: GlobalService,
+  constructor(private router: Router,
               private userService: UserService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService) { }
+
+  ngOnInit() {
     this.userService.getCurrentUserObs().subscribe((user: User) => {
       this.currentUser = user;
     });
-  }
 
-  ngOnInit() {
     this.nbrNotif = this.notificationsService.nbrNotif;
-    this.isProfilOpen = this.globalService.isProfilOpen;
-    this.isProfilOpenSubscription = this.globalService.isProfilOpenSubject.subscribe(
-      (isProfilOpen: boolean) => {
-        this.isProfilOpen = isProfilOpen;
-      }
-    );
     this.nbrNotifSubscription = this.notificationsService.nbrNotifSubject.subscribe(
       (nbrNotif: number) => {
         this.nbrNotif = nbrNotif;
       }
     );
+
+    this.router.events.subscribe(event => {
+      if ( event instanceof NavigationEnd) {
+        this.isProfilOpen = event.url === '/profile';
+      }
+    });
   }
 
 }

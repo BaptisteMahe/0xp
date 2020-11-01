@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { first } from 'rxjs/operators';
 
-import { GlobalService, AuthenticationService, UserService } from '../services';
+import { AuthenticationService, UserService } from '../services';
 import { User } from '../../models';
 
 @Component({
@@ -12,7 +12,7 @@ import { User } from '../../models';
     templateUrl: './logging.component.html',
     styleUrls: ['./logging.component.scss']
 })
-export class LoggingComponent implements OnInit, OnDestroy {
+export class LoggingComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
@@ -24,7 +24,6 @@ export class LoggingComponent implements OnInit, OnDestroy {
         private router: Router,
         private authenticationService: AuthenticationService,
         private userService: UserService,
-        private globalService: GlobalService,
         private matSnackBar: MatSnackBar
     ) {
         let currentUser: User;
@@ -43,11 +42,6 @@ export class LoggingComponent implements OnInit, OnDestroy {
         });
 
         this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-        this.globalService.switchIsProfilOpen(true);
-    }
-
-    ngOnDestroy() {
-        this.globalService.switchIsProfilOpen(false);
     }
 
     get f() { return this.loginForm.controls; }

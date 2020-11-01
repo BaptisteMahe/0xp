@@ -5,7 +5,6 @@ import { RouterModule, Router } from '@angular/router';
 
 import { ProfileComponent } from './profile.component';
 import { AuthenticationService } from '../services';
-import { GlobalService } from '../services';
 import { mockStudentUser, mockCompanyUser, mockAdminUser } from '../mock/user.mock';
 
 
@@ -15,7 +14,6 @@ describe('ProfileComponent', () => {
   let element: any;
 
   let authenticationService: AuthenticationService;
-  let globalService: GlobalService;
   let router: Router;
   let routerSpy: jasmine.Spy;
 
@@ -29,8 +27,7 @@ describe('ProfileComponent', () => {
       ],
       providers: [
         HttpClient,
-        HttpHandler,
-        GlobalService
+        HttpHandler
       ]
     })
       .compileComponents();
@@ -42,7 +39,6 @@ describe('ProfileComponent', () => {
     element = fixture.nativeElement;
 
     authenticationService = TestBed.inject(AuthenticationService);
-    globalService = TestBed.inject(GlobalService);
     router = TestBed.inject(Router);
     routerSpy = spyOn(router, 'navigateByUrl');
   });

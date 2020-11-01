@@ -13,7 +13,7 @@ a {
     }
 }
 
-.profilBox {
+.profil-box {
     position: relative;
 
     filter: drop-shadow(#00000447 0px 2px 3px);
@@ -22,7 +22,7 @@ a {
     }
 }
 
-.notifInfo, .notifAlert {
+.notif-info, .notif-alert {
     width: 20px;
     height: 20px;
     position: absolute;
@@ -43,11 +43,11 @@ a {
     }
 }
 
-.notifInfo {
+.notif-info {
     background-color: orange;
 }
 
-.notifAlert {
+.notif-alert {
     background-color: red;
 }
 
