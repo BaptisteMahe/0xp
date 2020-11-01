@@ -19,10 +19,8 @@ import { FaqComponent } from './faq/faq.component';
 import { FaqQuestionComponent } from './faq/faq-question/faq-question.component';
 
 import { LoggingComponent } from './logging/logging.component';
-import { ErrorInterceptor } from './logging/helpers/error.interceptor';
-import { JwtInterceptor } from './logging/helpers/jwt.interceptor';
 import { RegisterFormComponent } from './logging/register-form/register-form.component';
-import { UserService } from './logging/services/user.service';
+import { ErrorInterceptor, JwtInterceptor } from './logging/helpers';
 
 import { OffersComponent } from './offers/offers.component';
 import { FilterComponent } from './offers/filter/filter.component';
@@ -45,8 +43,7 @@ import { AddCompanyComponent } from './entreprises/add-company/add-company.compo
 import { ListCompanyComponent } from './entreprises/list-company/list-company.component';
 import { AvisOverviewComponent } from './entreprises/avis-company/avis-overview/avis-overview.component';
 
-import { GlobalService } from './services/global.service';
-import { CompanyService } from './services/company.service';
+import { GlobalService, CompanyService, UserService } from './services';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

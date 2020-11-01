@@ -6,8 +6,8 @@ export interface User {
   firstName: string;
   name: string;
   dateBirth: string;
-  contactMail: string;
-  contactTel: string;
+  email: string;
+  telephone: string;
   location: string;
   softSkills?: string[];
   interestCompany?: string;
@@ -20,4 +20,5 @@ export interface User {
   token: string;
   isStudent: boolean;
   srcImage?: string;
+  notifications: any[];
 }

@@ -1,23 +1,20 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { OfferViewService } from 'src/app/offers/offerView.service';
-import { Offer, User } from 'src/models';
-
+import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
-import { MatDatepicker } from '@angular/material/datepicker';
-import { SelectOption } from 'src/models/SelectOption';
-import { AuthenticationService } from 'src/app/logging/services';
-import { CompanyService } from '../../../../services/company.service';
-import { Company } from 'src/models';
 const moment = _rollupMoment || _moment;
+
+import { UserService, CompanyService } from '../../../../services';
+import { OfferViewService } from 'src/app/offers/offerView.service';
+import { Offer, User, Company, SelectOption } from 'src/models';
 
 export const MY_FORMATS = {
   parse: {
@@ -71,12 +68,14 @@ export class AddOfferComponent implements OnInit {
   currentUser: User;
 
   constructor(private offerViewService: OfferViewService,
-    private authenticationService: AuthenticationService,
-    private companyService: CompanyService,
-    private router: Router,
-    private matSnackBar: MatSnackBar,
-    private matDialog: MatDialog) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+              private userService: UserService,
+              private companyService: CompanyService,
+              private router: Router,
+              private matSnackBar: MatSnackBar,
+              private matDialog: MatDialog) {
+    this.userService.getCurrentUserObs().subscribe((user: User) => {
+      this.currentUser = user;
+    });
   }
 
   ngOnInit() {
@@ -133,7 +132,7 @@ export class AddOfferComponent implements OnInit {
 
     if (!this.isEdition) {
       this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
-      this.offerOnForm.created_date = '' + (new Date()).getTime(); //TODO : Changer les types pour que rien soit cassé même si ça fonctionne
+      this.offerOnForm.created_date = '' + (new Date()).getTime(); // TODO : Changer les types pour que rien soit cassé même si ça fonctionne
       this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
       if (!this.offerOnForm.isValid()) {
         this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });

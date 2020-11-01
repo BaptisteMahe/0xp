@@ -4,8 +4,8 @@ import { of } from 'rxjs';
 import { RouterModule, Router } from '@angular/router';
 
 import { ProfileComponent } from './profile.component';
-import { AuthenticationService } from '../logging/services';
-import { GlobalService } from '../services/global.service';
+import { AuthenticationService } from '../services';
+import { GlobalService } from '../services';
 import { mockStudentUser, mockCompanyUser, mockAdminUser } from '../mock/user.mock';
 
 

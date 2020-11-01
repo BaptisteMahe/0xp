@@ -147,8 +147,8 @@ router.post('/update', function (req, res, next) {
         "name": user["name"],
         "dateBirth": user["dateBirth"],
         "location": user["location"],
-        "contactMail": user["contactMail"],
-        "contactTel": user["contactTel"],
+        "email": user["email"],
+        "telephone": user["telephone"],
         "softSkills": user["softSkills"]
       }
     })

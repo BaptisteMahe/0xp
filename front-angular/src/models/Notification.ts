@@ -1,5 +1,5 @@
 export class NotificationObj {
-    type: String = new String();
-    ts: Number;
-    isRead: Boolean;
+    type = '';
+    ts: number;
+    isRead: boolean;
 }

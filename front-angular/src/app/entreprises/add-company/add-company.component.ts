@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserCompanyService } from 'src/app/logging/services';
 import { first } from 'rxjs/operators';
+
+import { CompanyService } from '../../services';
 
 @Component({
   selector: 'app-add-company',
@@ -17,8 +18,8 @@ export class AddCompanyComponent implements OnInit {
   submitted = false;
 
   constructor(private formBuilder: FormBuilder,
-    private matSnackBar: MatSnackBar,
-    private userCompanyService: UserCompanyService) { }
+              private matSnackBar: MatSnackBar,
+              private companyService: CompanyService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -47,7 +48,7 @@ export class AddCompanyComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.userCompanyService.registerByAdmin(this.registerForm.value)
+    this.companyService.addCompany(this.registerForm.value)
       .pipe(first())
       .subscribe(
         data => {

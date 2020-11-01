@@ -1,42 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Filter } from 'src/models/Filter';
-import { AuthenticationService } from 'src/app/logging/services';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+
+import { Filter, User } from 'src/models';
+import { UserService } from '../../services';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class NotificationsService {
   apiUrl = environment.apiUrl;
 
-  currentUser: any;
+  currentUser: User;
 
   nbrNotif: number;
   nbrNotifSubject = new Subject<number>();
 
-  isNotifAdded: Boolean = false;
-  isNotifAddedSubject = new Subject<Boolean>();
+  isNotifAdded = false;
+  isNotifAddedSubject = new Subject<boolean>();
 
   currentFilterInOffer: Filter = new Filter();
 
-  constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
-    this.authenticationService.currentUser.subscribe(x => {
-      this.currentUser = x;
-      this.searchForNotifications();
+  constructor(private httpClient: HttpClient,
+              private userService: UserService) {
+    this.userService.getCurrentUserObs().subscribe((user: User) => {
+      this.currentUser = user;
     });
   }
 
   searchForNotifications() {
-    console.log("%c Searching for notification", "color:orange")
     this.nbrNotif = 0;
-    if (this.currentUser && this.currentUser.notifications) {
-      this.currentUser.notifications.forEach((notif) => {
-        if (!notif.isRead) {
-          this.nbrNotif += 1;
-        }
-      });
-      this.emitNbrNotifSubject();
-    }
+    this.currentUser?.notifications?.forEach((notif) => {
+      if (!notif.isRead) {
+        this.nbrNotif += 1;
+      }
+    });
+    this.emitNbrNotifSubject();
   }
 
   emitNbrNotifSubject() {
@@ -48,7 +46,7 @@ export class NotificationsService {
   }
 
 
-  switchIsNotifAdded(isNotifAdded: Boolean) {
+  switchIsNotifAdded(isNotifAdded: boolean) {
     this.isNotifAdded = isNotifAdded;
     this.emitIsNotifAddedSubject();
   }
@@ -73,8 +71,7 @@ export class NotificationsService {
   clearNotifications(user) {
     this.nbrNotif = 0;
     this.emitNbrNotifSubject();
-    // On met toutes les notifications en lues
-    console.log(user)
+
     if (user.notifications) {
       user.notifications.forEach((notif) => {
         notif.isRead = true;
@@ -82,7 +79,7 @@ export class NotificationsService {
       this.httpClient.post<any>(this.apiUrl + '/users/clearNotifications', { user }).subscribe(
         (response) => {
           console.log('Notifications marquées comme lues');
-          this.authenticationService.saveUser(user);
+          this.userService.update(user);
         },
         (error) => {
           console.log('Erreur ! : ' + error);

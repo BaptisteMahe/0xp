@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { RouterModule, Router } from '@angular/router';
 
 import { HomeComponent } from './home.component';
-import { AuthenticationService } from '../logging/services';
+import { AuthenticationService } from '../services';
 import { mockStudentUser } from '../mock/user.mock';
 
 

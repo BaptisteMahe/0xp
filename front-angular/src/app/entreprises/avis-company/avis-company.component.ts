@@ -1,12 +1,12 @@
-import { User } from './../../../models/user';
-import { AuthenticationService } from './../../logging/services/authentication.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AvisService } from '../avis.service';
 import { first } from 'rxjs/operators';
-import { Avis } from '../../../models';
+
+import { UserService } from '../../services';
+import { AvisService } from '../avis.service';
+import { Avis, User } from '../../../models';
 
 @Component({
   selector: 'app-avis-company',
@@ -28,9 +28,11 @@ export class AvisCompanyComponent implements OnInit {
     private router: Router,
     private matSnackBar: MatSnackBar,
     private avisService: AvisService,
-    private authenticationService: AuthenticationService
+    private userService: UserService
   ) {
-    this.authenticationService.currentUser.subscribe(user => this.currentUser = user);
+    this.userService.getCurrentUserObs().subscribe((user: User) => {
+      this.currentUser = user;
+    });
   }
   // TODO : étoiles au lieu de l'input, ou au moins un select plus propre.
   ngOnInit() {

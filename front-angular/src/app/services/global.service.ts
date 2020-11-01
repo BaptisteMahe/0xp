@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-
+// TODO remove that service
 @Injectable()
 export class GlobalService {
 
