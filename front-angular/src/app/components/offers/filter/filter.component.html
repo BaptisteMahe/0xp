@@ -1,0 +1,131 @@
+<div class="main-filter-container">
+  <mat-form-field class="main-filter-text">
+    <mat-label>Rechercher une offre</mat-label>
+    <input matInput type="text" placeholder="" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput" />
+    <button matSuffix mat-icon-button (click)="filter()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+  <button mat-icon-button *ngIf="isStudent" class="notification-button">
+    <mat-icon *ngIf="!isNotifAdded" (click)="addNotif()">add_alert</mat-icon>
+    <mat-icon *ngIf="isNotifAdded">notifications_active</mat-icon>
+  </button>
+</div>
+
+<div class="box-mandatory">
+  <h3 class="color-blue-medium">Critères principaux</h3>
+  <div class="list-select">
+    <mat-form-field class="filter-element">
+      <mat-label>Type d'expérience</mat-label>
+      <mat-select [(value)]="currentFilter.type">
+        <mat-option value="">--</mat-option>
+        <mat-option *ngFor="let type of typeList" [value]="type">{{type}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="filter-element">
+      <mat-label>Durée</mat-label>
+      <mat-select [(value)]="currentFilter.duration">
+        <mat-option value="">--</mat-option>
+        <mat-option *ngFor="let time of timeList" [value]="time">{{time}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="filter-element">
+      <mat-label>Secteur</mat-label>
+      <mat-select [(value)]="currentFilter.sector">
+        <mat-option value="">--</mat-option>
+        <mat-option *ngFor="let sector of sectorList" [value]="sector.value">{{sector.display}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="isMoreFilterOpen" class="more-filter-div">
+    <h3 class="color-blue-medium">Critères supplémentaires</h3>
+
+    <div class="form-line">
+      <mat-form-field class="filter-element">
+        <mat-label>Lieu</mat-label>
+        <mat-select [(value)]="currentFilter.location" [multiple]='true'>
+          <mat-option value="">--</mat-option>
+          <mat-option *ngFor="let location of listOfferLocation" [value]="location">{{location.display}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="filter-element">
+        <mat-label>Entreprise</mat-label>
+        <mat-select [(value)]="currentFilter.company" [multiple]='true'>
+          <mat-option value="">--</mat-option>
+          <mat-option *ngFor="let company of listOfferCompany" [value]="company">{{company.display}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="filter-element">
+        <p style="text-align: center;">Partenaire seulement</p>
+        <mat-slide-toggle [(ngModel)]="currentFilter.isPartner"></mat-slide-toggle>
+      </div>
+    </div>
+
+    <div class="form-line line-two">
+      <mat-form-field class="filter-element">
+        <mat-label>Date de publication</mat-label>
+        <mat-select [(value)]="currentFilter.publicationDate">
+          <mat-option value="">--</mat-option>
+          <mat-option value="today">Aujourd'hui</mat-option>
+          <mat-option value="week">Cette semaine</mat-option>
+          <mat-option value="month">Ce mois</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="filter-element">
+        <mat-label>Taille de l'entreprise</mat-label>
+        <mat-select [(value)]="currentFilter.companySize">
+          <mat-option value="">--</mat-option>
+          <mat-option value="small">- 20 employés</mat-option>
+          <mat-option value="medium">- 200 employés</mat-option>
+          <mat-option value="large">+ 200 employés</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="filter-element">
+        <input matInput [matDatepicker]="dp" placeholder="Date de début souhaitée" [formControl]="dateStart">
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+          (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="form-line line-three">
+      <div>
+        <p>Taux de matching minimum</p>
+        <div class="flexRow slider-value">
+          <p>0%</p>
+          <mat-slider max="100" z min="0" thumbLabel="thumbLabel" tickInterval="1"
+            [(ngModel)]="currentFilter.matchingMini">
+          </mat-slider>
+          <p>100%</p>
+        </div>
+      </div>
+      <div>
+        <p>Rémunération minimum</p>
+        <div class="flexRow slider-value">
+          <p>0€</p>
+          <mat-slider max="1461" min="0" thumbLabel="thumbLabel" tickInterval="1" [(ngModel)]="currentFilter.remunMini">
+          </mat-slider>
+          <p>{{salaireMax}}€</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h4 class="button filter-button" (click)="filter()">Rechercher</h4>
+
+  <p *ngIf="!isMoreFilterOpen" class="noSpace text-open-more-criteria">Plus de critères</p>
+  <p *ngIf="isMoreFilterOpen" class="noSpace text-open-more-criteria">Moins de critères</p>
+</div>
+
+<div>
+  <img class="logo-show-more-criteria button" [ngClass]="{'more-filter-openImg':isMoreFilterOpen}"
+    (click)="manageMoreFilter()" src="../../../../assets/images/icon_arrowFilter.svg" />
+</div>

@@ -9,39 +9,39 @@ registerLocaleData(localeFr, 'fr');
 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
 
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
-import { ProfileAdminComponent } from './admin/profile-admin/profile-admin.component';
+import { ProfileAdminComponent } from './components/admin/profile-admin/profile-admin.component';
 
-import { FaqComponent } from './faq/faq.component';
-import { FaqQuestionComponent } from './faq/faq-question/faq-question.component';
+import { FaqComponent } from './components/faq/faq.component';
+import { FaqQuestionComponent } from './components/faq/faq-question/faq-question.component';
 
-import { LoggingComponent } from './logging/logging.component';
-import { RegisterFormComponent } from './logging/register-form/register-form.component';
-import { ErrorInterceptor, JwtInterceptor } from './logging/helpers';
+import { LoggingComponent } from './components/logging/logging.component';
+import { RegisterFormComponent } from './components/logging/register-form/register-form.component';
+import { ErrorInterceptor, JwtInterceptor } from './components/logging/helpers';
 
-import { OffersComponent } from './offers/offers.component';
-import { FilterComponent } from './offers/filter/filter.component';
-import { OfferPreviewComponent } from './offers/offer-preview/offer-preview.component';
-import { OfferDetailComponent } from './offers/offer-detail/offer-detail.component';
-import { OfferViewService } from './offers/offerView.service';
+import { OffersComponent } from './components/offers/offers.component';
+import { FilterComponent } from './components/offers/filter/filter.component';
+import { OfferPreviewComponent } from './components/offers/offer-preview/offer-preview.component';
+import { OfferDetailComponent } from './components/offers/offer-detail/offer-detail.component';
+import { OfferViewService } from './components/offers/offerView.service';
 
-import { ProfileComponent } from './profile/profile.component';
-import { ProfileDetailComponent } from './profile/profile-detail/profile-detail.component';
-import { NotificationComponent } from './profile/notification/notification.component';
-import { OfferSquareComponent } from './profile/application/offer-square/offer-square.component';
-import { OfferCompanyComponent, DeleteDialogContentComponent } from './profile/application/offer-company/offer-company.component';
-import { AddOfferComponent, QuitEditionDialogContentComponent } from './profile/application/offer-company/add-offer/add-offer.component';
-import { NotificationsService } from './profile/notification/notifications.service';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileDetailComponent } from './components/profile/profile-detail/profile-detail.component';
+import { NotificationComponent } from './components/profile/notification/notification.component';
+import { OfferSquareComponent } from './components/profile/application/offer-square/offer-square.component';
+import { OfferCompanyComponent, DeleteDialogContentComponent } from './components/profile/application/offer-company/offer-company.component';
+import { AddOfferComponent, QuitEditionDialogContentComponent } from './components/profile/application/offer-company/add-offer/add-offer.component';
+import { NotificationsService } from './components/profile/notification/notifications.service';
 
-import { EntreprisesComponent } from './entreprises/entreprises.component';
-import { DetailCompanyComponent } from './entreprises/detail-company/detail-company.component';
-import { AvisCompanyComponent } from './entreprises/avis-company/avis-company.component';
-import { AddCompanyComponent } from './entreprises/add-company/add-company.component';
-import { ListCompanyComponent } from './entreprises/list-company/list-company.component';
-import { AvisOverviewComponent } from './entreprises/avis-company/avis-overview/avis-overview.component';
+import { EntreprisesComponent } from './components/entreprises/entreprises.component';
+import { DetailCompanyComponent } from './components/entreprises/detail-company/detail-company.component';
+import { AvisCompanyComponent } from './components/entreprises/avis-company/avis-company.component';
+import { AddCompanyComponent } from './components/entreprises/add-company/add-company.component';
+import { ListCompanyComponent } from './components/entreprises/list-company/list-company.component';
+import { AvisOverviewComponent } from './components/entreprises/avis-company/avis-overview/avis-overview.component';
 
 import { CompanyService, UserService } from './services';
 

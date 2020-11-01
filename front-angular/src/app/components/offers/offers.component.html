@@ -1,0 +1,51 @@
+<div style="padding-top: 8vh;">
+  <img class="logo" src="../../../assets/images/logo_blue.svg" />
+  <h1 class="slogan">Naviguez parmi les offres et trouvez celle qui vous correspond !</h1>
+  <app-filter></app-filter>
+
+  <div class="loadingScreen" *ngIf="isLoading">
+    <div class="loader"></div>
+    <h1>Chargement des offres correspondant le plus à votre recherche !</h1>
+  </div>
+
+  <div *ngIf="!isLoading && filteredListOffers.length!=0" class="flexCol listOffers">
+    <button mat-icon-button [matMenuTriggerFor]="sortMenu" class="logoSort">
+      <mat-icon>sort</mat-icon>
+    </button>
+
+    <mat-menu #sortMenu>
+      <button mat-menu-item class="sort-menu-item" (click)="changeSortBy(sortStatus.matchingScore)">
+        <mat-icon *ngIf="sortedBy === sortStatus.matchingScore">check</mat-icon>
+        <span>Taux de matching</span>
+      </button>
+      <button mat-menu-item class="sort-menu-item" (click)="changeSortBy(sortStatus.remuneration)">
+        <mat-icon *ngIf="sortedBy === sortStatus.remuneration">check</mat-icon>
+        <span>Rémunération</span>
+      </button>
+      <button mat-menu-item class="sort-menu-item" (click)="changeSortBy(sortStatus.created_date)">
+        <mat-icon *ngIf="sortedBy === sortStatus.created_date">check</mat-icon>
+        <span>Date de publication</span>
+      </button>
+    </mat-menu>
+
+    <app-offer-preview class="oneOffer button" *ngFor="let offer of filteredListOffers" [offer]="offer">
+    </app-offer-preview>
+  </div>
+
+  <div *ngIf="filteredListOffers.length===0" class="noOffersDiv">
+    <h4>Aucune offre ne semble correspondre à votre filtrage pour le moment...</h4>
+
+    <div *ngIf="isStudent">
+      <p style="text-align: center;">Vous pouvez ajouter une alerte qui vous notifiera si une offre correspondant
+        à ce filtrage est rajoutée</p>
+      <div class="button flexRow addNotif" *ngIf="!isNotifAdded" (click)="addAlert()">
+        <img src="https://image.flaticon.com/icons/svg/2489/2489081.svg" />
+        <p>Ajouter une alerte</p>
+      </div>
+
+      <div class="flexRow notifAdded" *ngIf="isNotifAdded">
+        <p>Alerte ajoutée</p>
+      </div>
+    </div>
+  </div>
+</div>
