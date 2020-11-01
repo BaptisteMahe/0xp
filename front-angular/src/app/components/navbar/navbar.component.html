@@ -1,0 +1,23 @@
+<mat-toolbar>
+
+  <a routerLink="/">ACCUEIL</a>
+  <a routerLink="/offers" *ngIf="currentUser">LES OFFRES</a>
+  <a routerLink="/companies" *ngIf="currentUser?.isStudent" >DONNER SON AVIS</a>
+  <a routerLink="/faq">FAQ</a>
+
+  <span class="navbar-spacer"></span>
+
+  <a routerLink="/login" *ngIf="!currentUser">Se connecter</a>
+  <div *ngIf="currentUser && !isProfilOpen" class="button profil-box" routerLink="/profile">
+    <img src="../../../assets/images/0xpuser.png" alt="Profile logo">
+    <div *ngIf="currentUser?.isStudent && currentUser?.softSkills == undefined">
+      <div class="notif-info">
+        <p>!</p>
+      </div>
+      <div *ngIf="nbrNotif > 0" class="notif-alert">
+        <p>{{nbrNotif}}</p>
+      </div>
+    </div>
+  </div>
+
+</mat-toolbar>

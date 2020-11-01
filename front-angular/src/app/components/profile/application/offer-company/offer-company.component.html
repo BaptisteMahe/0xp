@@ -1,0 +1,26 @@
+<button mat-raised-button class="add-offer-button" routerLink="/addOffer">
+  Ajouter une offre <mat-icon>add_circle</mat-icon>
+</button>
+
+<div *ngFor="let offre of listOfferCompany">
+  <div class="offer-co-preview">
+    <div class="infos">
+      <div class="title">
+        <h2>{{offre.title}}</h2>
+        <p>{{offre.type}} • {{offre.duration}} • Il y a 2 heures</p>
+      </div>
+      <p style="color:gray">{{offre.company}}</p>
+    </div>
+    <button mat-icon-button (click)="onEditClick(offre)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="onDeleteClick(offre)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="isEditingOffer" class="modale-edition">
+  <img class="button close-logo" (click)="onCloseEditionClick()" src="../../../../../assets/images/cross-light.svg">
+  <app-add-offer [offreEdited]="offreToBeEdited"></app-add-offer>
+</div>
