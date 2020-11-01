@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Offer } from '../../../models/Offer';
-import { OfferViewService, SortCategory } from './offerView.service';
 import { Subscription } from 'rxjs';
+
+import { Offer } from '../../../models';
+import { OfferViewService, SortCategory } from '../../services';
 import { NotificationsService } from '../profile/notification/notifications.service';
 
 @Component({

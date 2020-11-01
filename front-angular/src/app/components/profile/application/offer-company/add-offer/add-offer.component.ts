@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -7,13 +7,13 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDatepicker } from '@angular/material/datepicker';
+
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
 const moment = _rollupMoment || _moment;
 
-import { UserService, CompanyService } from '../../../../../services';
-import { OfferViewService } from 'src/app/components/offers/offerView.service';
+import { UserService, CompanyService, OfferViewService } from '../../../../../services';
 import { Offer, User, Company, SelectOption } from 'src/models';
 
 export const MY_FORMATS = {
@@ -46,6 +46,8 @@ export class AddOfferComponent implements OnInit {
 
   @Input() offreEdited: Offer;
   isEdition = false;
+
+  @Output() updatedEvent = new EventEmitter<any>();
 
   editor = ClassicEditor;
 
@@ -138,7 +140,13 @@ export class AddOfferComponent implements OnInit {
         this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });
         return;
       }
-      this.offerViewService.addOffer(this.offerOnForm);
+      this.offerViewService.addOffer(this.offerOnForm).subscribe(
+          sucess => {
+            this.router.navigate(['/profile']);
+          }, error => {
+            this.matSnackBar.open('Erreur avec le serveur : ' + error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
+          }
+      );
     } else {
       this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
       this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
@@ -146,10 +154,14 @@ export class AddOfferComponent implements OnInit {
         this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });
         return;
       }
-      this.offerViewService.editOffer(this.offerOnForm);
+      this.offerViewService.editOffer(this.offerOnForm).subscribe(
+          sucess => {
+            this.updatedEvent.emit();
+          }, error => {
+            this.matSnackBar.open('Erreur avec le serveur : ' + error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
+          }
+      );
     }
-
-    this.router.navigate(['/profile']);
   }
 
   chosenYearHandler(normalizedYear: Moment) {
