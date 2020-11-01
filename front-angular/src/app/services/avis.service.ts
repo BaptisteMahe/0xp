@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { Avis } from '../../../models';
+
+import { environment } from '../../environments/environment';
+import { Avis } from '../../models';
 
 @Injectable({ providedIn: 'root' })
 export class AvisService {
@@ -15,7 +16,7 @@ export class AvisService {
 
   // TODO : this function should only have an Avis in parameter
   add(form: any, idCompany: string) {
-    let avis = new Avis();
+    const avis = new Avis();
     avis.description = form.avis.value;
     avis.idCompany = idCompany;
     avis.noteGenerale = form.noteGenerale.value;
