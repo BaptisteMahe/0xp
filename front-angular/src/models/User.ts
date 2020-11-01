@@ -22,10 +22,3 @@ export interface User {
   srcImage?: string;
   notifications: any[];
 }
-
-export interface GenericUser {
-  id: string;
-  token: string;
-  username: string;
-  email: string;
-}
