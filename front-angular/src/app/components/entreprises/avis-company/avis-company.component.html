@@ -5,7 +5,7 @@
 
 </div>
 
-<div *ngIf="currentUser.isStudent" class="form-avis">
+<div *ngIf="currentUser?.isStudent" class="form-avis">
   <h1>Donne ton avis</h1>
   <br />
   <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">

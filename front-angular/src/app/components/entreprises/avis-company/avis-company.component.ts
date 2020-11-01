@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { first } from 'rxjs/operators';
 
-import { UserService } from '../../../services';
-import { AvisService } from '../avis.service';
+import { UserService, AvisService } from '../../../services';
 import { Avis, User } from '../../../../models';
 
 @Component({
@@ -15,27 +14,29 @@ import { Avis, User } from '../../../../models';
 })
 export class AvisCompanyComponent implements OnInit {
 
-  // TODO : seul un étudiant connecté peut déposer un avis
   @Input() idCompany;
-  avisForm: FormGroup;
-  loading = false;
-  returnUrl: string;
-  avisList: Avis[];
+
   currentUser: User;
+
+  avisForm: FormGroup;
+
+  avisList: Avis[];
+
+  loading = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private matSnackBar: MatSnackBar,
     private avisService: AvisService,
-    private userService: UserService
-  ) {
+    private userService: UserService) { }
+
+  // TODO : étoiles au lieu de l'input, ou au moins un select plus propre.
+  ngOnInit() {
     this.userService.getCurrentUserObs().subscribe((user: User) => {
       this.currentUser = user;
     });
-  }
-  // TODO : étoiles au lieu de l'input, ou au moins un select plus propre.
-  ngOnInit() {
+
     this.avisForm = this.formBuilder.group({
       avis: ['', Validators.required],
       noteGenerale: ['', Validators.required],
@@ -43,12 +44,11 @@ export class AvisCompanyComponent implements OnInit {
       noteAmbiance: ['', Validators.required],
       noteEncadrt: ['', Validators.required]
     });
-    this.returnUrl = this.router.url;
     this.loadAllAvis();
   }
 
   onSubmit() {
-    if (this.avisForm.invalid) {
+    if (this.avisForm.invalid || !this.currentUser) {
       return;
     }
 

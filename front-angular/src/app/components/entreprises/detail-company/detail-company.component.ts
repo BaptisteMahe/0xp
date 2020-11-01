@@ -1,7 +1,8 @@
-import { Company } from 'src/models';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CompanyService } from '../../../services/company.service';
+
+import { CompanyService } from '../../../services';
+import { Company } from '../../../../models';
 
 @Component({
   selector: 'app-company',
@@ -12,8 +13,9 @@ export class DetailCompanyComponent implements OnInit {
 
   companyId: string;
   company: Company;
+
   constructor(private route: ActivatedRoute,
-    public companyService: CompanyService) { }
+              public companyService: CompanyService) { }
 
   ngOnInit() {
     this.companyId = this.route.snapshot.params.id;
