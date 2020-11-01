@@ -1,12 +1,10 @@
-import { Subscription } from 'rxjs';
-import { OfferViewService } from '../offerView.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { Offer } from 'src/models/Offer';
-import { CompanyService } from '../../../services/company.service';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
-import { Company } from 'src/models/Company';
+import { Subscription } from 'rxjs';
+
+import { Offer, Company } from '../../../../models';
+import { OfferViewService, CompanyService } from '../../../services';
 
 @Component({
   selector: 'app-offer-detail',
@@ -21,9 +19,9 @@ export class OfferDetailComponent implements OnInit {
   offerSubscription: Subscription;
 
   constructor(private route: ActivatedRoute,
-    private offerViewService: OfferViewService,
-    private sanitizer: DomSanitizer,
-    private companyService: CompanyService) { }
+              private offerViewService: OfferViewService,
+              private sanitizer: DomSanitizer,
+              private companyService: CompanyService) { }
 
   isModalopen = false;
 
@@ -47,7 +45,7 @@ export class OfferDetailComponent implements OnInit {
         listOffers.forEach((offer) => {
           if (offer.id === idOffer) {
             this.offer = offer;
-            this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.defineColor(this.offer.matchingScore));
+            this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.offerViewService.defineColor(this.offer.matchingScore));
           }
         });
         this.companyService.getById(this.offer.id_company).subscribe(
@@ -66,32 +64,6 @@ export class OfferDetailComponent implements OnInit {
 
   openOrClose() {
     this.isModalopen = !this.isModalopen;
-  }
-
-  defineColor(percentage: Number) {
-    percentage = +percentage / 100;
-    const percentColors = [
-      { pct: 0.0, color: { r: 0xff, g: 0x00, b: 0 } },
-      { pct: 0.5, color: { r: 0xff, g: 0xff, b: 0 } },
-      { pct: 1.0, color: { r: 0x00, g: 0xff, b: 0 } }];
-
-    for (var i = 1; i < percentColors.length - 1; i++) {
-      if (percentage < percentColors[i].pct) {
-        break;
-      }
-    }
-    const lower = percentColors[i - 1];
-    const upper = percentColors[i];
-    const range = upper.pct - lower.pct;
-    const rangePct = (+percentage - lower.pct) / range;
-    const pctLower = 1 - rangePct;
-    const pctUpper = rangePct;
-    const color = {
-      r: Math.floor(lower.color.r * pctLower + upper.color.r * pctUpper),
-      g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
-      b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
-    };
-    return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
   }
 
 }

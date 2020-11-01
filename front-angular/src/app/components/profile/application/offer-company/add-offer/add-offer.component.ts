@@ -7,13 +7,13 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDatepicker } from '@angular/material/datepicker';
+
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
 const moment = _rollupMoment || _moment;
 
-import { UserService, CompanyService } from '../../../../../services';
-import { OfferViewService } from 'src/app/components/offers/offerView.service';
+import { UserService, CompanyService, OfferViewService } from '../../../../../services';
 import { Offer, User, Company, SelectOption } from 'src/models';
 
 export const MY_FORMATS = {

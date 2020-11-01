@@ -1,15 +1,13 @@
 import { NotificationsService } from '../../profile/notification/notifications.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-import { OfferViewService } from '../offerView.service';
+import { OfferViewService } from '../../../services';
 
-import { Filter } from 'src/models/Filter';
-import { Offer } from 'src/models/Offer';
-import { SelectOption } from 'src/models/SelectOption';
+import { Filter, Offer, SelectOption } from 'src/models';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports

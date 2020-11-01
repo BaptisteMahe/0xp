@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Offer } from 'src/models/Offer';
-import { OfferViewService } from 'src/app/components/offers/offerView.service';
-import { QuitEditionDialogContentComponent } from './add-offer/add-offer.component';
 import { Subscription } from 'rxjs';
+
+import { Offer } from '../../../../../models';
+import { OfferViewService } from '../../../../services';
+import { QuitEditionDialogContentComponent } from './add-offer/add-offer.component';
 
 @Component({
   selector: 'app-offer-company',
@@ -19,8 +20,8 @@ export class OfferCompanyComponent implements OnInit {
   offreToBeEdited: Offer;
 
   constructor(private offerViewService: OfferViewService,
-    private matDialog: MatDialog,
-    private matSnackBar: MatSnackBar) { }
+              private matDialog: MatDialog,
+              private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
 

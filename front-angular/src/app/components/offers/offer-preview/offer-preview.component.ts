@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-
-import { Offer } from '../../../../models/Offer';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
+
+import { Offer } from '../../../../models';
+import { OfferViewService } from '../../../services';
+
 
 @Component({
   selector: 'app-offer-preview',
@@ -13,40 +15,13 @@ export class OfferPreviewComponent implements OnInit {
   colorScore: SafeStyle;
   strDateCreated: string;
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer,
+              private offerViewService: OfferViewService) { }
 
   ngOnInit() {
     this.defineStrDateCreated();
     this.offer.matchingScore = Math.floor(this.offer.matchingScore);
-    this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.defineColor(this.offer.matchingScore));
-  }
-
-  // TODO : Remake that shit
-  defineColor(percentage: number) {
-    percentage = + percentage / 100;
-    const percentColors = [
-      { pct: 0.0, color: { r: 0xff, g: 0x00, b: 0 } },
-      { pct: 0.5, color: { r: 0xff, g: 0xff, b: 0 } },
-      { pct: 1.0, color: { r: 0x00, g: 0xff, b: 0 } }
-    ];
-
-    for (var i = 1; i < percentColors.length - 1; i++) {
-      if (percentage < percentColors[i].pct) {
-        break;
-      }
-    }
-    const lower = percentColors[i - 1];
-    const upper = percentColors[i];
-    const range = upper.pct - lower.pct;
-    const rangePct = (+percentage - lower.pct) / range;
-    const pctLower = 1 - rangePct;
-    const pctUpper = rangePct;
-    const color = {
-      r: Math.floor(lower.color.r * pctLower + upper.color.r * pctUpper),
-      g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
-      b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
-    };
-    return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
+    this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.offerViewService.defineColor(this.offer.matchingScore));
   }
 
   defineStrDateCreated() {

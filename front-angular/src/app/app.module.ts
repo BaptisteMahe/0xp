@@ -26,7 +26,7 @@ import { OffersComponent } from './components/offers/offers.component';
 import { FilterComponent } from './components/offers/filter/filter.component';
 import { OfferPreviewComponent } from './components/offers/offer-preview/offer-preview.component';
 import { OfferDetailComponent } from './components/offers/offer-detail/offer-detail.component';
-import { OfferViewService } from './components/offers/offerView.service';
+import { OfferViewService } from './services';
 
 import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileDetailComponent } from './components/profile/profile-detail/profile-detail.component';

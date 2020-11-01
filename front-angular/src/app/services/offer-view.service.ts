@@ -3,10 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs';
 
-import { Offer, User } from '../../../models';
-import { Filter } from 'src/models/Filter';
-import { environment } from '../../../environments/environment';
-import { UserService } from '../../services';
+import { Offer, User, Filter } from '../../models';
+import { environment } from '../../environments/environment';
+import { UserService } from './user.service';
 
 export enum SortCategory {
   matchingScore,
@@ -16,7 +15,6 @@ export enum SortCategory {
 
 @Injectable()
 export class OfferViewService {
-
 
   apiUrl = environment.apiUrl;
 
@@ -168,6 +166,33 @@ export class OfferViewService {
         }
       );
     }
+  }
+
+  // TODO : Remake that shit
+  defineColor(percentage: number) {
+    percentage = +percentage / 100;
+    const percentColors = [
+      { pct: 0.0, color: { r: 0xff, g: 0x00, b: 0 } },
+      { pct: 0.5, color: { r: 0xff, g: 0xff, b: 0 } },
+      { pct: 1.0, color: { r: 0x00, g: 0xff, b: 0 } }];
+
+    for (var i = 1; i < percentColors.length - 1; i++) {
+      if (percentage < percentColors[i].pct) {
+        break;
+      }
+    }
+    const lower = percentColors[i - 1];
+    const upper = percentColors[i];
+    const range = upper.pct - lower.pct;
+    const rangePct = (+percentage - lower.pct) / range;
+    const pctLower = 1 - rangePct;
+    const pctUpper = rangePct;
+    const color = {
+      r: Math.floor(lower.color.r * pctLower + upper.color.r * pctUpper),
+      g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
+      b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
+    };
+    return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
   }
 
   addOffer(offer: Offer): Observable<any> {
