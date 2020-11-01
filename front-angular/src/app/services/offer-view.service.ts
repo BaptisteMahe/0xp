@@ -152,7 +152,6 @@ export class OfferViewService {
       this.httpClient.get<any>(this.apiUrl + '/offres/byCompanyId?id=' + this.currentUser.idCompany).subscribe(
         (response) => {
           this.customListOffers = [];
-          console.log(this.currentUser.idCompany);
           console.log('Found ' + response.length + ' offers matching the company');
           response.forEach((offerJson) => {
             const offer = new Offer();

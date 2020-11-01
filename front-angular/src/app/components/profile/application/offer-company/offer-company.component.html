@@ -22,5 +22,5 @@
 
 <div *ngIf="isEditingOffer" class="modale-edition">
   <img class="button close-logo" (click)="onCloseEditionClick()" src="../../../../../assets/images/cross-light.svg">
-  <app-add-offer [offreEdited]="offreToBeEdited"></app-add-offer>
+  <app-add-offer (updatedEvent)="isEditingOffer = fasle" [offreEdited]="offreToBeEdited"></app-add-offer>
 </div>
