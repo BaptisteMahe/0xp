@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -105,6 +105,7 @@ export class AddOfferComponent implements OnInit {
       .then(response => {
         response.json()
           .then(data => {
+            console.log(data);
             this.listDomains = data.slice();
           });
       });

@@ -6,7 +6,6 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { OfferViewService } from '../../../services';
-
 import { Filter, Offer, SelectOption } from 'src/models';
 
 import * as _moment from 'moment';
@@ -45,7 +44,8 @@ export const MY_FORMATS = {
   ],
 })
 export class FilterComponent implements OnInit {
-  currentFilter: Filter = new Filter();
+
+  currentFilter: Filter;
 
   typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
   timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
@@ -71,18 +71,7 @@ export class FilterComponent implements OnInit {
 
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;
-    // WTF ?
-    this.currentFilter.textInput = '';
-    this.currentFilter.type = '';
-    this.currentFilter.duration = '';
-    this.currentFilter.sector = '';
-    this.currentFilter.company = [];
-    this.currentFilter.location = [];
-    this.currentFilter.companySize = '';
-    this.currentFilter.publicationDate = '';
-    this.currentFilter.isPartner = false;
-    this.currentFilter.matchingMini = 0;
-    this.currentFilter.remunMini = 0;
+    this.currentFilter = new Filter();
     this.dateFromDate.setDate(1);
 
     this.isNotifAddedSubscription = this.notificationsService.isNotifAddedSubject.subscribe(
@@ -104,7 +93,7 @@ export class FilterComponent implements OnInit {
   }
 
   filter() {
-
+    console.log(JSON.stringify(this.currentFilter));
     this.currentFilter.start_date = this.dateFromDate.getTime();
 
     this.offerViewService.filter(this.currentFilter);
