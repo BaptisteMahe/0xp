@@ -59,7 +59,43 @@ router.post('/filtered', function (req, res) {
         query["sector"] = new RegExp('^' + escapeStringRegexp(req.query["sector"]) + '$', 'i');
     }
 
-    /* FILTRE AVANCE EST UN FILTRE ACTIF */
+    /* FILTRES AVANCÉS */
+
+    /*if (Object.keys(req.query).indexOf("start_date") > -1) {
+        query["start_date"] = {
+            $gte: req.query["start_date"]
+        }
+    }
+    if (Object.keys(req.query).indexOf("remunMini") > -1) {
+        query["remuneration"] = {
+            $gte: +req.query["remunMini"]
+        }
+    }
+    if (Object.keys(req.query).indexOf("location") > -1) {
+        locations = req.query["location"].split(";")
+        locations.splice(-1, 1)
+        query["location"] = {
+            $in: locations
+        }
+    }
+    if (Object.keys(req.query).indexOf("company") > -1) {
+        companies = req.query["company"].split(";")
+        companies.splice(-1, 1)
+        query["company"] = {
+            $in: companies
+        }
+    }
+    if (Object.keys(req.query).indexOf("publicationDate") > -1) {
+        correspondance = {
+            "today": (new Date()).getTime() - 24 * 60 * 60 * 1000,
+            "week": (new Date()).getTime() - 7 * 24 * 60 * 60 * 1000,
+            "month": (new Date()).getTime() - 30 * 24 * 60 * 60 * 1000
+        }
+        //On cherche les offres dont la date de publication est en ts supÃ©rieure
+        query["created_date"] = {
+            $gte: '' + correspondance[req.query["publicationDate"]]
+        }
+    }*/
 
     db.collection('companies').find().toArray(function (err, resultsComp) {
         let companyDico = {};
@@ -75,7 +111,24 @@ router.post('/filtered', function (req, res) {
                 offre.srcImgCompany = company.srcImage;
                 offre.matchingScore = matchingModule.matchingWithUser(offre, req.body, company, filter);
 
-                /* FILTRE AVANCE EST UN FILTRE ACTIF */
+                /* FILTRES AVANCÉS */
+
+                /*if (Object.keys(req.query).indexOf("matchingMini") > -1) {
+                    if (offre.matchingScore < req.query["matchingMini"]) {
+                        isInFilter = false
+                    }
+                }
+                if (Object.keys(companyDico).indexOf("" + offre["id_company"]) == -1) {
+                    isInFilter = false
+                } else {
+                    if (Object.keys(req.query).indexOf("companySize") > -1 && "" + company["taille"] != "" + req.query["companySize"]) {
+                        isInFilter = false;
+                    }
+
+                    if (Object.keys(req.query).indexOf("isPartner") > -1 && !company["isPartner"]) {
+                        isInFilter = false;
+                    }
+                }*/
 
                 let isInFilter = true;
 
