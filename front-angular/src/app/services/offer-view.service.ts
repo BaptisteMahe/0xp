@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Offer, User, Filter } from '../../models';
 import { environment } from '../../environments/environment';
@@ -19,16 +18,16 @@ export class OfferViewService {
   apiUrl = environment.apiUrl;
 
   listOffers: Offer[] = [];
-  listOffersSubject = new Subject<Offer[]>();
+  listOffersSubject = new BehaviorSubject<Offer[]>(null);
 
   filteredListOffers: Offer[] = [];
-  filteredListOffersSubject = new Subject<Offer[]>();
+  filteredListOffersSubject = new BehaviorSubject<Offer[]>(null);
 
   isLoading = false;
-  isLoadingSubject = new Subject<boolean>();
+  isLoadingSubject = new BehaviorSubject<boolean>(null);
 
   customListOffers: Offer[] = [];
-  customListOffersSubject = new Subject<Offer[]>();
+  customListOffersSubject = new BehaviorSubject<Offer[]>(null);
 
   remunMax = 0;
   currentUser: User;
