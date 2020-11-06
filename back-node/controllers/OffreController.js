@@ -1,13 +1,11 @@
-var express = require('express');
-var app = express();
-var router = express.Router();
-var bodyParser = require('body-parser');
-var ObjectId = require('mongodb').ObjectID
+let express = require('express');
+let router = express.Router();
+let bodyParser = require('body-parser');
 router.use(bodyParser.json());
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
-var notificationModule = require('../modules/notificationModule.js')
-var matchingModule = require('../modules/matchingModule.js')
+let notificationModule = require('../modules/notificationModule.js')
+let matchingModule = require('../modules/matchingModule.js')
 
 const escapeStringRegexp = require('escape-string-regexp')
 
@@ -19,7 +17,7 @@ router.get('/', function (req, res) {
 
 
 router.post('/', function (req, res) {
-    const promiseGet = new Promise(function (resolve, reject) {
+    const promiseGet = new Promise(function (resolve) {
         db.collection('offers').find().toArray(function (err, results) {
             let cpt = 0;
             results.forEach((offer) => {
@@ -31,7 +29,7 @@ router.post('/', function (req, res) {
                         offer.srcImgCompany = company.srcImage;
                         offer.matchingScore = matchingModule.matchingWithUser(offer, req.body, company, {});
                         cpt++;
-                        if (cpt == results.length) {
+                        if (cpt === results.length) {
                             resolve(results);
                         }
                 });
@@ -48,7 +46,6 @@ router.post('/', function (req, res) {
 router.post('/filtered', function (req, res) {
     let query = { };
     let filter = req.query;
-    console.log(filter);
     if (Object.keys(req.query).indexOf("type") > -1) {
         query["type"] = new RegExp('^' + escapeStringRegexp(req.query["type"]) + '$', 'i');
     }
@@ -137,9 +134,8 @@ router.post('/filtered', function (req, res) {
                     if (!offre["title"].includes(textInput) && !offre["company"].includes(textInput) && !offre["type"].includes(textInput) && !offre["sector"].includes(textInput)){
                         let domainContain = false;
                         offre["domains"].forEach((domain) => {
-                            console.log(domain);
                             // TODO : Check the issue with the (new?) kind of domains being object and not strings
-                            if (domain.includes(textInput)){
+                            if (typeof domain === "string" && domain.includes(textInput)){
                                 domainContain = true;
                             }
                         })
