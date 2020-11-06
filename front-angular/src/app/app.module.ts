@@ -45,7 +45,7 @@ import { AvisOverviewComponent } from './components/entreprises/avis-company/avi
 
 import { CompanyService, UserService } from './services';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
 
 import { MaterialModule } from './modules/material.module';
