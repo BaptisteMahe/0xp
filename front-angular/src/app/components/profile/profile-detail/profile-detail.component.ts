@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Router } from '@angular/router';
 
 import { UserService } from '../../../services';
 import { SelectOption, User } from '../../../../models';
@@ -18,7 +19,8 @@ export class ProfileDetailComponent implements OnInit {
   editor = ClassicEditor;
   softSkillsList: SelectOption[];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private router: Router) { }
 
   ngOnInit() {
     this.userService.getCurrentUserObs().subscribe((user: User) => {
@@ -40,7 +42,8 @@ export class ProfileDetailComponent implements OnInit {
   disableEdition() {
     this.isEdition = false;
     localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-    window.location.reload();
+    // TODO : Only reload component
+    this.router.navigate(['/profile']);
   }
 
   updateProfile() {
