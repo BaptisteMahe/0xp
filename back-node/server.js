@@ -1,20 +1,9 @@
-/*var app = require('./app');
-var port = process.env.PORT || 3000;
+let express = require('express');
+let app = express();
+let http = require('http');
+let PORT = 3000;
 
-var server = app.listen(port, function() {
-    console.log('Express server listening on port ' + port);
-    const all_routes = require('express-list-endpoints');
-    console.log(all_routes(app));
-});*/
-
-var express = require('express');
-var app = express();
-var http = require('http');
-//var cors = require('cors')
-var bodyParser = require('body-parser');
-var PORT = 3000;
-
-const MongoClient = require('mongodb').MongoClient
+const MongoClient = require('mongodb').MongoClient;
 
 //CORS Middleware
 app.use(function (req, res, next) {
@@ -25,11 +14,11 @@ app.use(function (req, res, next) {
 });
 
 // custom routes
-var OffreController = require('./controllers/OffreController');
-var UserController = require('./controllers/UserController');
-var CompanyController = require('./controllers/CompanyController');
-var SelectController = require('./controllers/SelectController');
-var AvisController = require('./controllers/AvisController')
+let OffreController = require('./controllers/OffreController');
+let UserController = require('./controllers/UserController');
+let CompanyController = require('./controllers/CompanyController');
+let SelectController = require('./controllers/SelectController');
+let AvisController = require('./controllers/AvisController');
 
 // Set our routes
 app.use('/offres', OffreController);
@@ -40,7 +29,6 @@ app.use('/avis', AvisController);
 
 // Handle 404
 app.use(function (req, res) {
-    //res.send('404: Page not Found', 404);
     res.status(404).send({
         status: 404,
         message: '404 Not Found',
@@ -63,10 +51,8 @@ const client = new MongoClient(uri, {
     useNewUrlParser: true
 });
 client.connect(err => {
-    if (err) return console.log(err)
-    db = client.db('0xpDB')
-    var httpServer = http.createServer(app);
+    if (err) return console.log(err);
+    db = client.db('0xpDB');
+    let httpServer = http.createServer(app);
     httpServer.listen(PORT, () => console.log(`API running on localhost:${PORT}`));
-})
-/*var httpServer = http.createServer(app);
-httpServer.listen(PORT, () => console.log(`API running on localhost:${PORT}`));*/
+});

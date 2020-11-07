@@ -3,14 +3,14 @@ export class Filter {
   type = '';
   duration = '';
   sector = '';
-  location: string[];
-  company: string[];
+  location: string[] = [];
+  company: string[] = [];
   isPartner = false;
   publicationDate = '';
   companySize = '';
   start_date: number;
-  matchingMini: number;
-  remunMini: number;
+  matchingMini = 0;
+  remunMini = 0;
 
   toQuery() {
     let query = '';

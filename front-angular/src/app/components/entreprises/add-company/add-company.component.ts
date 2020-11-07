@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { CompanyService } from '../../../services';
@@ -19,7 +20,8 @@ export class AddCompanyComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private matSnackBar: MatSnackBar,
-              private companyService: CompanyService) { }
+              private companyService: CompanyService,
+              private router: Router) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -54,8 +56,7 @@ export class AddCompanyComponent implements OnInit {
         data => {
           this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-sucess'] });
           this.openOrClose();
-          // TODO rafraichir juste le composant
-          window.location.reload();
+          this.router.navigate(['/profile']);
         },
         error => {
           this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });

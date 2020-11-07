@@ -26,7 +26,7 @@ export class OffersComponent implements OnInit {
   isNotifAddedSubscription: Subscription;
 
   constructor(private offerViewService: OfferViewService,
-    private notificationsService: NotificationsService) { }
+              private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;
@@ -34,7 +34,7 @@ export class OffersComponent implements OnInit {
     this.offerViewService.fillListOffers();
     this.filteredListOffersSubscription = this.offerViewService.filteredListOffersSubject.subscribe(
       (listOffers: any[]) => {
-        this.filteredListOffers = listOffers.slice();
+        this.filteredListOffers = listOffers?.slice();
       }
     );
     this.offerViewService.emitListOffersSubject();
