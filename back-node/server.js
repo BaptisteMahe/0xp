@@ -1,7 +1,7 @@
 let express = require('express');
 let app = express();
 let http = require('http');
-let PORT = 3000;
+let PORT = process.argv[2];
 
 const MongoClient = require('mongodb').MongoClient;
 
