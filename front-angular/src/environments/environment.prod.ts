@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://0xp.com:3000'
+  apiUrl: 'http://node.persil.ovh1.ec-m.fr'
 };
