@@ -23,13 +23,22 @@ jobs:
           node-version: [14.12]
 
       steps:
+
       - uses: actions/checkout@v2
-      - uses: webfactory/ssh-agent@v0.4.1
+
+      - name: Sets up ssh configs
+        uses: webfactory/ssh-agent@v0.4.1
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
-      - run: ssh -o StrictHostKeyChecking=no persil@ovh1.ec-m.fr
-      - uses: actions/setup-node@v1
+        run: ssh -o StrictHostKeyChecking=no persil@ovh1.ec-m.fr
+
+      - name: Sets up Node environment
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: cd back-node && npm run deploy
-      - run: cd front-angular && npm run deploy
+
+      - name: Deploy BackeEnd
+        run: cd back-node && npm run deploy
+        
+      - name: Build & Deploy FrontEnd
+        run: cd front-angular && npm run deploy
