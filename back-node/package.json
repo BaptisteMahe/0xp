@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js 3000",
     "prod": "node server.js 10411",
-    "deploy": "../scripts/deploy-backend.sh"
+    "deploy": "bash ../scripts/deploy_backend.sh"
   },
   "author": "",
   "license": "ISC",
