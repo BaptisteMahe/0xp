@@ -1,5 +1,7 @@
 # 0xp
 
+Site Live at http://persil.ovh1.ec-m.fr/zero-xp/home
+
 ## Installation
 copier le repo
 ~~~shell
