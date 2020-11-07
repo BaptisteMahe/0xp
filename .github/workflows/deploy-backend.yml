@@ -1,0 +1,40 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches:
+      - dev
+    paths: 
+      - 'back-node/**'
+
+jobs:
+    deploy:
+
+      runs-on: ubuntu-latest
+
+      strategy:
+        matrix:
+          node-version:
+            - 14.12
+
+      steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Sets up SSH Agent
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+      - name: Add OVH to known_hosts
+        run: ssh -o StrictHostKeyChecking=no persil@${{ secrets.HOST }}
+
+      - name: Sets up Node environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Deploy BackeEnd
+        run: cd back-node && npm run deploy
+        
+      # - name: Build & Deploy FrontEnd
+      #   run: cd front-angular && npm run deploy
