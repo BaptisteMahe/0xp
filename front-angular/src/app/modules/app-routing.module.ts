@@ -13,8 +13,7 @@ import { OfferDetailComponent } from '../components/offers/offer-detail/offer-de
 import { AddOfferComponent } from '../components/profile/application/offer-company/add-offer/add-offer.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoggingComponent},
   { path: 'register', component: RegisterFormComponent},
   { path: 'offers', component: OffersComponent },
@@ -24,7 +23,7 @@ const routes: Routes = [
   { path: 'addOffer', component: AddOfferComponent },
   { path: 'companies', component: EntreprisesComponent},
   { path: 'companies/:id', component: DetailCompanyComponent},
-  { path: '**', redirectTo: 'home'}
+  { path: '**', redirectTo: ''}
 ];
 
 @NgModule({

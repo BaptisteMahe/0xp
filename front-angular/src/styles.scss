@@ -158,6 +158,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 //Text
+
 .noSpace {
   margin-block-start: 0em;
   margin-block-end: 0em;
@@ -176,9 +177,8 @@ body::-webkit-scrollbar-thumb {
   color: var(--color-blue-medium);
 }
 
-//Style général
-
 //Materials
+
 input {
   border: 0px;
 
@@ -201,4 +201,8 @@ input {
     background-color: transparentize(red, 0.3);
     color: white;
   }
+}
+
+.mat-tab-body-content {
+  overflow: hidden !important;
 }
