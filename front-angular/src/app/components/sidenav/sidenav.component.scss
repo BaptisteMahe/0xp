@@ -1,0 +1,19 @@
+a {
+    text-decoration: none;
+    color: #FBFEF9;
+
+    &:hover {
+        color: var(--color-blue-medium);
+        cursor: pointer;
+    }
+}
+
+.mat-drawer {
+    background-color: #3e4259;
+    padding: 20px;
+
+    a {
+        padding: 10px 10px;
+        display: block
+    }
+}

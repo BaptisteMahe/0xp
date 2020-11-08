@@ -10,7 +10,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 })
 export class SidenavComponent implements OnInit{
 
-  @ViewChild('drawer', { static: true }) drawer: ElementRef;
+  @ViewChild('drawer') drawer: ElementRef;
 
   constructor(){
   }
