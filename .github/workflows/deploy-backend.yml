@@ -35,6 +35,3 @@ jobs:
 
       - name: Deploy BackeEnd
         run: cd back-node && npm run deploy
-        
-      # - name: Build & Deploy FrontEnd
-      #   run: cd front-angular && npm run deploy
