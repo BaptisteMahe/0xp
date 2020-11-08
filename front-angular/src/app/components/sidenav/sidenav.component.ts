@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 
 /**
  * @title Autosize sidenav
@@ -10,7 +11,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 })
 export class SidenavComponent implements OnInit{
 
-  @ViewChild('drawer') drawer: ElementRef;
+  @ViewChild('drawer') drawer: MatDrawer;
 
   constructor(){
   }
@@ -19,7 +20,6 @@ export class SidenavComponent implements OnInit{
   }
 
   onToggle() {
-    console.log("from sidenav");
     this.drawer.toggle();
   }
 
