@@ -12,6 +12,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -31,6 +32,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatTabsModule,
     MatSnackBarModule,
     MatToolbarModule,
+    MatSidenavModule,
     MatDialogModule,
     MatButtonModule,
     MatIconModule,

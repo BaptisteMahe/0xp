@@ -1,6 +1,5 @@
 img {
     width: 60px;
-    margin-top: 25px;
 }
 
 a {
@@ -14,8 +13,6 @@ a {
 }
 
 .profil-box {
-    position: relative;
-
     filter: drop-shadow(#00000447 0px 2px 3px);
     &:focus {
         outline: none;
@@ -27,7 +24,7 @@ a {
     height: 20px;
     position: absolute;
     right: 5px;
-    top: 75px;
+    top: 45px;
     border-radius: 100%;
     justify-content: center;
     display: flex;
@@ -52,11 +49,11 @@ a {
 }
 
 .mat-toolbar {
+    height: 70px;
     background-color: #3e4259;
-    margin-top: -60px;
 
     a {
-        padding: 10px;
+        padding: 0px 10px;
     }
 }
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,14 @@ export class AppComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() { }
+  @ViewChild(SidenavComponent)
+  private sidenavComponent: SidenavComponent;
+
+  ngOnInit() {
+  }
+
+  onToggle() {
+    this.sidenavComponent.onToggle()
+  }
+
 }

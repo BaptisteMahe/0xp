@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router , NavigationEnd  } from '@angular/router';
 
@@ -19,6 +19,8 @@ export class NavbarComponent implements OnInit {
 
   nbrNotif: number;
   nbrNotifSubscription: Subscription;
+
+  @Output() toggleEvent = new EventEmitter<boolean>();
 
   constructor(private router: Router,
               private userService: UserService,
@@ -41,6 +43,10 @@ export class NavbarComponent implements OnInit {
         this.isProfilOpen = event.url === '/profile';
       }
     });
+  }
+
+  toggleSidenav() {
+    this.toggleEvent.emit(true);
   }
 
 }

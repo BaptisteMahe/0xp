@@ -88,7 +88,6 @@
 
 body {
   margin: 0;
-  margin-top: 60px;
 }
 
 h1,
@@ -205,4 +204,8 @@ input {
 
 .mat-tab-body-content {
   overflow: hidden !important;
+}
+
+.mat-drawer-backdrop{
+  margin-top: 70px;
 }
