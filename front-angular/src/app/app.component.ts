@@ -7,18 +7,19 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'ZeroXp';
 
-  constructor() { }
+  title = 'ZeroXp';
 
   @ViewChild(SidenavComponent)
   private sidenavComponent: SidenavComponent;
+
+  constructor() { }
 
   ngOnInit() {
   }
 
   onToggle() {
-    this.sidenavComponent.onToggle()
+    this.sidenavComponent.onToggle();
   }
 
 }
