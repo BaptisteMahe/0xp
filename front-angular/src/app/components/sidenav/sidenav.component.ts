@@ -1,9 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Observable } from 'rxjs';
 
-/**
- * @title Autosize sidenav
- */
 @Component({
   selector: 'app-sidenav',
   templateUrl: 'sidenav.component.html',
@@ -11,14 +9,18 @@ import { MatDrawer } from '@angular/material/sidenav';
 })
 export class SidenavComponent implements OnInit{
 
-  @ViewChild('drawer') drawer: MatDrawer;
+  @Input()
+  toggleObs: Observable<void>;
+
+  @ViewChild('drawer')
+  drawer: MatDrawer;
 
   constructor(){ }
 
-  ngOnInit(){ }
-
-  onToggle() {
-    this.drawer.toggle();
+  ngOnInit(){
+    this.toggleObs.subscribe(() => {
+      this.drawer.toggle();
+    });
   }
 
 }

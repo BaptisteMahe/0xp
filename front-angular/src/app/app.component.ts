@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,7 @@ export class AppComponent implements OnInit {
 
   title = 'ZeroXp';
 
-  @ViewChild(SidenavComponent)
-  private sidenavComponent: SidenavComponent;
+  toggleSubject = new Subject<void>();
 
   constructor() { }
 
@@ -19,7 +18,7 @@ export class AppComponent implements OnInit {
   }
 
   onToggle() {
-    this.sidenavComponent.onToggle();
+    this.toggleSubject.next();
   }
 
 }

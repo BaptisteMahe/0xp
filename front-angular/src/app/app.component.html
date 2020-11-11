@@ -1,7 +1,7 @@
 <div>
   <title>{{ title }}</title>
   
-  <app-sidenav>
+  <app-sidenav [toggleObs]="toggleSubject.asObservable()">
     <app-navbar (toggleEvent)="onToggle()"></app-navbar>
     <router-outlet></router-outlet>
   </app-sidenav>
