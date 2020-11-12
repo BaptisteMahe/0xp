@@ -1,24 +1,28 @@
-<h2>Se connecter</h2>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="username">Utilisateur</label>
-    <input type="text" formControlName="username" [ngClass]="{'is-invalid': submitted && f.username.errors}">
-    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-      <div *ngIf="f.username.errors.required">L'utilisateur est requis</div>
+<div class="login-container">
+
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <h2>Se connecter</h2>
+
+    <mat-form-field class="login-field">
+      <mat-label>Utilisateur</mat-label>
+      <input matInput type="text" formControlName="username">
+    </mat-form-field>
+
+    <mat-form-field class="login-field">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+
+    <div class="form-buttons">
+      <button mat-raised-button class="login-button" type="submit">
+        Se connecter
+      </button>
+      <button mat-raised-button routerLink="/register" type="reset" class="register-button">
+        S'enregistrer
+      </button>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="username">Mot de passe</label>
-    <input type="password" formControlName="password" [ngClass]="{'is-invalid': submitted && f.password.errors}">
-    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-      <div *ngIf="f.password.errors.required">Le mot de passe est requis</div>
-    </div>
-  </div>
-  <div class="form-buttons">
-    <button [disabled]="loading">
-      <span *ngIf="loading"></span>
-      <a>Se connecter</a>
-    </button>
-    <a routerLink="/register">S'enregistrer</a>
-  </div>
-</form>
+
+  </form>
+
+</div>
