@@ -5,10 +5,25 @@
     justify-content: center;
 }
 
-button{
-    color: white;
-    border: none;
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 50px 40px 50px;
+
     border-radius: 20px;
+    background-color: #fcfcfc;
+    box-shadow: 0 0 10px 0 lightgrey;
+}
+
+.login-field {
+    margin: 20px 0;
+}
+
+.login-button {
+    color: white;
     background-color: var(--color-orange);
-    padding: 10px 20px;
+    margin: 10px;
 }
