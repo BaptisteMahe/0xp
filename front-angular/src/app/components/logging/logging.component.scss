@@ -1,31 +1,8 @@
-h2{
-    text-align:center;
-    margin-top:100px;
-    margin-bottom:30px;
-}
-
-form{
-    margin-left:35%;        //TODO: modifier
-    width:max-content;
-}
-
-.form-group{
-    margin:20px;
-}
-
-label{
-    padding:5px;
-    margin-right:10px;
-}
-
-input{
-    border-bottom:grey 1px solid;
-    padding:5px;
-}
-
-.form-buttons{
-    display:flex;
-    justify-content: space-evenly;
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 button{
@@ -34,11 +11,4 @@ button{
     border-radius: 20px;
     background-color: var(--color-orange);
     padding: 10px 20px;
-}
-
-a{
-    padding: 10px;
-    text-decoration: none;
-    color: inherit;
-    cursor:pointer;
 }

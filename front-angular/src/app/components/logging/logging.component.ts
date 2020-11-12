@@ -13,29 +13,25 @@ import { User } from '../../../models';
     styleUrls: ['./logging.component.scss']
 })
 export class LoggingComponent implements OnInit {
+
     loginForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private authenticationService: AuthenticationService,
-        private userService: UserService,
-        private matSnackBar: MatSnackBar
-    ) {
-        let currentUser: User;
-        this.userService.getCurrentUserObs().subscribe((user: User) => {
-            currentUser = user;
-        });
-        if (currentUser) {
-            this.router.navigate(['/']);
-        }
-    }
+    constructor(private formBuilder: FormBuilder,
+                private route: ActivatedRoute,
+                private router: Router,
+                private authenticationService: AuthenticationService,
+                private userService: UserService,
+                private matSnackBar: MatSnackBar) { }
 
     ngOnInit() {
+        this.userService.getCurrentUserObs().subscribe((user: User) => {
+            if (user) {
+                this.router.navigate(['/']);
+            }
+        });
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
@@ -44,8 +40,6 @@ export class LoggingComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
     }
 
-    get f() { return this.loginForm.controls; }
-
     onSubmit() {
         this.submitted = true;
         if (this.loginForm.invalid) {
@@ -53,7 +47,7 @@ export class LoggingComponent implements OnInit {
         }
 
         this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
+        this.authenticationService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
             .pipe(first())
             .subscribe(
                 data => {

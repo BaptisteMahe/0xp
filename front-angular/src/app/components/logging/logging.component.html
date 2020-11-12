@@ -1,24 +1,26 @@
-<h2>Se connecter</h2>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="username">Utilisateur</label>
-    <input type="text" formControlName="username" [ngClass]="{'is-invalid': submitted && f.username.errors}">
-    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-      <div *ngIf="f.username.errors.required">L'utilisateur est requis</div>
+<div class="login-container">
+  <h2 class="login-title">Se connecter</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Utilisateur</label>
+      <input type="text" formControlName="username" [ngClass]="{'is-invalid': submitted && this.loginForm.controls.username.errors}">
+      <div *ngIf="submitted && this.loginForm.controls.username.errors" class="invalid-feedback">
+        <div *ngIf="this.loginForm.controls.username.errors.required">L'utilisateur est requis</div>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="username">Mot de passe</label>
-    <input type="password" formControlName="password" [ngClass]="{'is-invalid': submitted && f.password.errors}">
-    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-      <div *ngIf="f.password.errors.required">Le mot de passe est requis</div>
+    <div class="form-group">
+      <label for="username">Mot de passe</label>
+      <input type="password" formControlName="password" [ngClass]="{'is-invalid': submitted && this.loginForm.controls.password.errors}">
+      <div *ngIf="submitted && this.loginForm.controls.password.errors" class="invalid-feedback">
+        <div *ngIf="this.loginForm.controls.password.errors.required">Le mot de passe est requis</div>
+      </div>
     </div>
-  </div>
-  <div class="form-buttons">
-    <button [disabled]="loading">
-      <span *ngIf="loading"></span>
-      <a>Se connecter</a>
-    </button>
-    <a routerLink="/register">S'enregistrer</a>
-  </div>
-</form>
+    <div class="form-buttons">
+      <button [disabled]="loading">
+        <span *ngIf="loading"></span>
+        <a>Se connecter</a>
+      </button>
+      <a routerLink="/register">S'enregistrer</a>
+    </div>
+  </form>
+</div>
