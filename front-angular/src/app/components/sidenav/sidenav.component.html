@@ -1,8 +1,8 @@
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="over">
     <a routerLink="/"><img class="logo-image" src="../../../assets/images/logo_blue.svg" /></a>
-    <a routerLink="/offers">LES OFFRES</a>
-    <a routerLink="/companies">DONNER SON AVIS</a>
+    <a routerLink="/offers" *ngIf="currentUser">LES OFFRES</a>
+    <a routerLink="/companies" *ngIf="currentUser?.isStudent" >DONNER SON AVIS</a>
     <a routerLink="/faq">FAQ</a>
   </mat-drawer>
 
