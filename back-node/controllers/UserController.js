@@ -1,6 +1,5 @@
 const config = require('../config.json');
 var express = require('express');
-var app = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
 router.use(bodyParser.json());
@@ -35,10 +34,13 @@ router.post('/register', function (req, res, next) {
     username: req.body.username
   }, function (error, countDocuments) {
     if (countDocuments == 0) {
-      let user = new Object();
+      let user;
+      let company;
       if (req.body.isStudent) {
+        req.body.dateBirth = req.body.dateBirth.substring(0,10); // TODO : refactor way handling dates FE and BE
         user = new UserStudent(req.body);
       } else {
+        req.body.dateBirth = req.body.creationDate.substring(0,10); // TODO : refactor way handling dates FE and BE
         user = new UserCompany(req.body)
         company = new Company(req.body)
       }

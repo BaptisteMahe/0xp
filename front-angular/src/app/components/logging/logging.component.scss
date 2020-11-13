@@ -11,10 +11,10 @@
     align-items: center;
     justify-content: center;
 
-    padding: 40px 50px 40px 50px;
+    padding: 40px 50px;
 
     border-radius: 20px;
-    background-color: #fcfcfc;
+    background-color: #fafafa;
     box-shadow: 0 0 10px 0 lightgrey;
 }
 
@@ -25,5 +25,8 @@
 .login-button {
     color: white;
     background-color: var(--color-orange);
+}
+
+.form-button {
     margin: 10px;
 }

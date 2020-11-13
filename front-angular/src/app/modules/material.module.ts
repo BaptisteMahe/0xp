@@ -6,6 +6,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -24,6 +25,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatButtonToggleModule,
     MatSlideToggleModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatInputModule,
     MatSliderModule,
     MatTabsModule,
