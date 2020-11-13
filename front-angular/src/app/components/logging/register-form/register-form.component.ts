@@ -19,7 +19,6 @@ export class RegisterFormComponent implements OnInit {
   studentRegisterForm: FormGroup;
   companyRegisterForm: FormGroup;
   loading = false;
-  submitted = false;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -34,6 +33,8 @@ export class RegisterFormComponent implements OnInit {
     });
     this.studentRegisterForm = this.formBuilder.group(studentRegisterForm);
     this.companyRegisterForm = this.formBuilder.group(companyRegisterForm);
+
+    this.activeRegisterForm = this.studentRegisterForm;
   }
 
   onSelectedTabChange(event) {
@@ -45,9 +46,6 @@ export class RegisterFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.activeRegisterForm.value);
-    this.submitted = true;
-
     if (this.activeRegisterForm.invalid) {
       return;
     }
