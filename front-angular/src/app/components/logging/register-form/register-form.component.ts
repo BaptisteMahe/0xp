@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UserService } from '../../../services';
-import { User } from '../../../../models';
+import { User, studentRegisterForm, companyRegisterForm } from '../../../../models';
 
 
 @Component({
@@ -15,88 +15,44 @@ import { User } from '../../../../models';
 })
 export class RegisterFormComponent implements OnInit {
 
-  registerForm: FormGroup;
+  activeRegisterForm: FormGroup;
+  studentRegisterForm: FormGroup;
+  companyRegisterForm: FormGroup;
   loading = false;
   submitted = false;
-  isStudent: boolean;
-  private currentUser: User;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private userService: UserService,
-    private matSnackBar: MatSnackBar) {
-
-    this.userService.getCurrentUserObs().subscribe((user: User) => {
-      this.currentUser = user;
-    });
-  }
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
+              private userService: UserService,
+              private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
-    if (this.currentUser) {
-      this.router.navigate(['/']);
+    this.userService.getCurrentUserObs().subscribe((user: User) => {
+      if (user) {
+        this.router.navigate(['/']);
+      }
+    });
+    this.studentRegisterForm = this.formBuilder.group(studentRegisterForm);
+    this.companyRegisterForm = this.formBuilder.group(companyRegisterForm);
+  }
+
+  onSelectedTabChange(event) {
+    if (event.index === 0) {
+      this.activeRegisterForm = this.studentRegisterForm;
+    } else if (event.index === 1) {
+      this.activeRegisterForm = this.companyRegisterForm;
     }
-    this.isStudent = true;
-    this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      name: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      dateBirth: ['', Validators.required],
-      email: [''],
-      telephone: [''],
-      location: ['', Validators.required],
-      softSkills: [''],
-      interestCompany: [''],
-      interestDomain: [''],
-      isStudent: [true]
-    });
-  }
-
-  // convenience getter for easy access to form fields
-  get f() { return this.registerForm.controls; }
-
-  registerStudent = (e) => {
-    this.isStudent = true;
-    this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      name: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      dateBirth: ['', Validators.required],
-      email: [''],
-      telephone: [''],
-      location: ['', Validators.required],
-      softSkills: [''],
-      interestCompany: [''],
-      interestDomain: [''],
-      isStudent: [true]
-    });
-  }
-
-  registerCompany = (e) => {
-    this.isStudent = false;
-    this.registerForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      isStudent: [false],
-      creationDate: ['', Validators.required],
-      description: ['', Validators.required],
-      taille: ['', Validators.required],
-      location: ['', Validators.required],
-      srcImage: ['']
-    });
   }
 
   onSubmit() {
+    console.log(this.activeRegisterForm.value);
     this.submitted = true;
 
-    if (this.registerForm.invalid) {
+    if (this.activeRegisterForm.invalid) {
       return;
     }
     this.loading = true;
-    this.userService.register(this.registerForm.value)
+    this.userService.register(this.activeRegisterForm.value)
       .pipe(first())
       .subscribe(
         data => {
