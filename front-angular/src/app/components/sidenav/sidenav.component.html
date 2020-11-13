@@ -1,0 +1,13 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer [autoFocus]="false" #drawer class="example-sidenav" mode="over">
+    <a routerLink="/"><img class="logo-image" src="../../../assets/images/logo_blue.svg" /></a>
+    <a routerLink="/offers" *ngIf="currentUser">LES OFFRES</a>
+    <a routerLink="/companies" *ngIf="currentUser?.isStudent" >DONNER SON AVIS</a>
+    <a routerLink="/faq">FAQ</a>
+  </mat-drawer>
+
+  <div>
+    <ng-content></ng-content>
+  </div>
+
+</mat-drawer-container>

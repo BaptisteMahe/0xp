@@ -1,9 +1,10 @@
 <mat-toolbar>
 
-  <a routerLink="/">ACCUEIL</a>
-  <a routerLink="/offers" *ngIf="currentUser">LES OFFRES</a>
-  <a routerLink="/companies" *ngIf="currentUser?.isStudent" >DONNER SON AVIS</a>
-  <a routerLink="/faq">FAQ</a>
+  <mat-icon class="menu-logo" (click)="toggleSidenav()">menu</mat-icon>
+  <a class="link" routerLink="/" >ACCUEIL</a>
+  <a class="link" routerLink="/offers" *ngIf="currentUser">LES OFFRES</a>
+  <a class="link" routerLink="/companies" *ngIf="currentUser?.isStudent" >DONNER SON AVIS</a>
+  <a class="link" routerLink="/faq">FAQ</a>
 
   <span class="navbar-spacer"></span>
 

@@ -1,6 +1,5 @@
 img {
     width: 60px;
-    margin-top: 25px;
 }
 
 a {
@@ -13,9 +12,16 @@ a {
     }
 }
 
-.profil-box {
-    position: relative;
+.menu-logo {
+    display: none;
+    color:var(--color-blue-medium);
 
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.profil-box {
     filter: drop-shadow(#00000447 0px 2px 3px);
     &:focus {
         outline: none;
@@ -27,7 +33,7 @@ a {
     height: 20px;
     position: absolute;
     right: 5px;
-    top: 75px;
+    top: 45px;
     border-radius: 100%;
     justify-content: center;
     display: flex;
@@ -52,14 +58,26 @@ a {
 }
 
 .mat-toolbar {
+    height: 10vh;
     background-color: #3e4259;
-    margin-top: -60px;
+    margin-bottom: 10vh;
+    padding: 0 3vw;
 
     a {
-        padding: 10px;
+        padding: 1em;
     }
 }
 
 .navbar-spacer {
     flex: 1 1 auto;
   }
+
+
+@media (max-width: 767px) {
+    .link {
+        display: none;
+    }
+    .menu-logo {
+        display: block;
+    }
+}

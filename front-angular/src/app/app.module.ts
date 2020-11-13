@@ -12,6 +12,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { HomeComponent } from './components/home/home.component';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 import { ProfileAdminComponent } from './components/admin/profile-admin/profile-admin.component';
 
@@ -54,6 +55,7 @@ import { MaterialModule } from './modules/material.module';
   declarations: [
     AppComponent,
     NavbarComponent,
+    SidenavComponent,
     HomeComponent,
     OffersComponent,
     LoggingComponent,

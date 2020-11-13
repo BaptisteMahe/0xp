@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
   title = 'ZeroXp';
+
+  toggleSidenavSubject = new Subject<void>();
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
+
+  onToggle() {
+    this.toggleSidenavSubject.next();
+  }
+
 }

@@ -1,9 +1,8 @@
 <div>
   <title>{{ title }}</title>
-  <app-navbar></app-navbar>
-
-  <div style="margin-top: 50px;">
+  
+  <app-sidenav [toggleSidenavObs]="toggleSidenavSubject.asObservable()">
+    <app-navbar (toggleSidenavEvent)="onToggle()"></app-navbar>
     <router-outlet></router-outlet>
-  </div>
-
+  </app-sidenav>
 </div>
