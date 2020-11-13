@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class SidenavComponent implements OnInit{
 
   @Input()
-  toggleObs: Observable<void>;
+  toggleSidenavObs: Observable<void>;
 
   @ViewChild('drawer')
   drawer: MatDrawer;
@@ -18,7 +18,7 @@ export class SidenavComponent implements OnInit{
   constructor(){ }
 
   ngOnInit(){
-    this.toggleObs.subscribe(() => {
+    this.toggleSidenavObs.subscribe(() => {
       this.drawer.toggle();
     });
   }

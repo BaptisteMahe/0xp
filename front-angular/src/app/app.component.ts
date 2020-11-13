@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
 
   title = 'ZeroXp';
 
-  toggleSubject = new Subject<void>();
+  toggleSidenavSubject = new Subject<void>();
 
   constructor() { }
 
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   }
 
   onToggle() {
-    this.toggleSubject.next();
+    this.toggleSidenavSubject.next();
   }
 
 }

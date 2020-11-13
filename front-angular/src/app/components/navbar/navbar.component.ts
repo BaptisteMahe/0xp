@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   nbrNotif: number;
   nbrNotifSubscription: Subscription;
 
-  @Output() toggleEvent = new EventEmitter<boolean>();
+  @Output() toggleSidenavEvent = new EventEmitter<boolean>();
 
   constructor(private router: Router,
               private userService: UserService,
@@ -46,7 +46,7 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleSidenav() {
-    this.toggleEvent.emit(true);
+    this.toggleSidenavEvent.emit(true);
   }
 
 }
