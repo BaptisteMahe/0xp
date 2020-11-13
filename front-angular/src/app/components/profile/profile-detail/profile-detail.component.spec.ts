@@ -26,7 +26,7 @@ describe('ProfileDetailComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot([]),
+        RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
