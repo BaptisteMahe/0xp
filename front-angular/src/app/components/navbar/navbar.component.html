@@ -1,6 +1,7 @@
 <mat-toolbar>
 
-  <button (click)="toggleSidenav()"> TOGGLE </button>
+  <mat-icon class="menu-logo" (click)="toggleSidenav()">menu</mat-icon>
+  <!-- <button (click)="toggleSidenav()"> TOGGLE </button> -->
   <a routerLink="/">ACCUEIL</a>
   <a routerLink="/offers" *ngIf="currentUser">LES OFFRES</a>
   <a routerLink="/companies" *ngIf="currentUser?.isStudent" >DONNER SON AVIS</a>

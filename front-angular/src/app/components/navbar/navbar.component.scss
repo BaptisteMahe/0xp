@@ -12,6 +12,15 @@ a {
     }
 }
 
+.menu-logo {
+    display: none;
+    color:var(--color-blue-medium);
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 .profil-box {
     filter: drop-shadow(#00000447 0px 2px 3px);
     &:focus {
@@ -49,15 +58,26 @@ a {
 }
 
 .mat-toolbar {
-    height: 70px;
+    height: 10vh;
     background-color: #3e4259;
     margin-bottom: 10vh;
+    padding: 0 3vw;
 
     a {
-        padding: 0px 10px;
+        padding: 3vw;
     }
 }
 
 .navbar-spacer {
     flex: 1 1 auto;
   }
+
+
+@media (max-width: 767px) {
+    a {
+        display: none;
+    }
+    .menu-logo {
+        display: block;
+    }
+}
