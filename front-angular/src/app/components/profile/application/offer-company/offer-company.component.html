@@ -2,19 +2,19 @@
   Ajouter une offre <mat-icon>add_circle</mat-icon>
 </button>
 
-<div *ngFor="let offre of listOfferCompany">
+<div *ngFor="let offer of listOfferCompany">
   <div class="offer-co-preview">
     <div class="infos">
       <div class="title">
-        <h2>{{offre.title}}</h2>
-        <p>{{offre.type}} • {{offre.duration}} • Il y a 2 heures</p>
+        <h2>{{offer.title}}</h2>
+        <p>{{offer.type}} • {{offer.duration}} • Il y a 2 heures</p>
       </div>
-      <p style="color:gray">{{offre.company}}</p>
+      <p style="color:gray">{{offer.company}}</p>
     </div>
-    <button mat-icon-button (click)="onEditClick(offre)">
+    <button mat-icon-button (click)="onEditClick(offer)">
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button (click)="onDeleteClick(offre)">
+    <button mat-icon-button (click)="onDeleteClick(offer)">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
@@ -22,5 +22,5 @@
 
 <div *ngIf="isEditingOffer" class="modale-edition">
   <img class="button close-logo" (click)="onCloseEditionClick()" src="../../../../../assets/images/cross-light.svg">
-  <app-add-offer (updatedEvent)="isEditingOffer = fasle" [offreEdited]="offreToBeEdited"></app-add-offer>
+  <app-add-offer (updatedEvent)="isEditingOffer = false" [offreEdited]="offreToBeEdited"></app-add-offer>
 </div>
