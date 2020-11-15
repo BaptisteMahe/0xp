@@ -40,7 +40,7 @@ router.post('/register', function (req, res, next) {
         req.body.dateBirth = req.body.dateBirth.substring(0,10); // TODO : refactor way handling dates FE and BE
         user = new UserStudent(req.body);
       } else {
-        req.body.dateBirth = req.body.creationDate.substring(0,10); // TODO : refactor way handling dates FE and BE
+        req.body.creationDate = req.body.creationDate.substring(0,10); // TODO : refactor way handling dates FE and BE
         user = new UserCompany(req.body)
         company = new Company(req.body)
       }
