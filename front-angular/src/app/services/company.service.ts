@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Company } from '../../models';
@@ -7,9 +7,10 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class CompanyService {
 
-    constructor(private http: HttpClient) { }
-
     apiUrl = environment.apiUrl;
+    newCompanyEvent = new EventEmitter<any>();
+
+    constructor(private http: HttpClient) { }
 
     getAll() {
         return this.http.get<Company[]>(this.apiUrl + '/companies');

@@ -40,9 +40,9 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (this.registerForm.invalid) {
-    //   return;
-    // }
+    if (this.registerForm.invalid) {
+      return;
+    }
     this.loading = true;
     this.companyService.addCompany(this.registerForm.value)
       .pipe(first())
@@ -50,7 +50,7 @@ export class AddCompanyComponent implements OnInit {
         data => {
           this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-sucess'] });
           this.openOrClose();
-          this.router.navigate(['/profile']);
+          this.companyService.newCompanyEvent.next();
         },
         error => {
           this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
