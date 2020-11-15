@@ -13,10 +13,9 @@ import { CompanyService } from '../../../services';
 })
 export class AddCompanyComponent implements OnInit {
 
-  isModalopen: boolean;
+  isModalOpen: boolean;
   registerForm: FormGroup;
   loading = false;
-  submitted = false;
 
   constructor(private formBuilder: FormBuilder,
               private matSnackBar: MatSnackBar,
@@ -37,18 +36,13 @@ export class AddCompanyComponent implements OnInit {
   }
 
   openOrClose() {
-    this.isModalopen = !this.isModalopen;
+    this.isModalOpen = !this.isModalOpen;
   }
 
-  get f() { return this.registerForm.controls; }
-
   onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.registerForm.invalid) {
-      return;
-    }
+    // if (this.registerForm.invalid) {
+    //   return;
+    // }
     this.loading = true;
     this.companyService.addCompany(this.registerForm.value)
       .pipe(first())
