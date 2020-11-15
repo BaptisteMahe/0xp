@@ -28,7 +28,6 @@ router.post('/', function (req, res, next) {
     }, function (error, countDocuments) {
         if (countDocuments === 0) {
             req.body.creationDate = req.body.creationDate.substring(0,10);
-            console.log(req.body);
             let company = new Company(req.body);
             db.collection('companies').insertOne(company).then(() => res.end())
                 .catch(err => next(err));
