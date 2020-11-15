@@ -1,10 +1,14 @@
-<mat-tab-group>
-    <mat-tab label = "Gestion des entreprises">
-        <app-add-company></app-add-company>
-    </mat-tab>
-    <mat-tab label="Gestion des offres">        
-        <div style="margin:4vh">
-            <app-offer-company></app-offer-company>
-        </div>
-    </mat-tab>
-</mat-tab-group>
+<div class="profile-container">
+    <mat-tab-group mat-stretch-tabs class="profile-tab-group">
+        <mat-tab label = "Gestion des entreprises">
+            <app-add-company></app-add-company>
+            <mat-divider></mat-divider>
+            <app-list-company></app-list-company>
+        </mat-tab>
+        <mat-tab label="Gestion des offres">
+            <div style="margin:4vh">
+                <app-offer-company></app-offer-company>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
