@@ -1,85 +1,67 @@
-<div style="margin:4vh;">
-  <div class="button flexRow addOffer" (click)="openOrClose()">
-    <p>Ajouter une entreprise</p>
-    <img class="modify" src="../../../../assets/images/btnAdd.svg">
-  </div>
+<div class="add-company-container">
+  <button mat-raised-button class="add-company-modal-button" (click)="openOrClose()">
+    Ajouter une entreprise <mat-icon>add_circle</mat-icon>
+  </button>
 
-  <div *ngIf="isModalopen" class="modal">
+  <div *ngIf="isModalOpen" class="modal">
 
-    <div class="modal-header">
-      <div class="cancel button" (click)="openOrClose()"><img src="https://image.flaticon.com/icons/svg/22/22108.svg">
-      </div>
-      <div class="modal-header-content">
-        <h1>Ajouter une entreprise</h1>
-      </div>
+    <div class="modal-header-content">
+      <h1>Ajouter une entreprise</h1>
     </div>
 
     <div class="modal-body">
-      <form id="formComp" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="name">Nom de l'entreprise</label>
-          <input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-          <div *ngIf="submitted && f.name.errors">
-            <div *ngIf="f.name.errors.required">Le nom est obligatoire</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="creationDate">Date de création</label>
-          <input type="date" formControlName="creationDate"
-            [ngClass]="{ 'is-invalid': submitted && f.creationDate.errors }" />
-          <div *ngIf="submitted && f.creationDate.errors">
-            <div *ngIf="f.creationDate.errors.required">La date de création est obligatoire</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="location">Localisation</label>
-          <input type="text" formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors }">
-          <div *ngIf="submitted && f.location.errors">
-            <div *ngIf="f.location.errors.required">La localisation est obligatoire</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="description">Description</label>
-          <textarea type="text" formControlName="description"
-            [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
-          <div *ngIf="submitted && f.description.errors">
-            <div *ngIf="f.description.errors.required">La description est obligatoire</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="taille">Taille</label>
-          <select type="text" formControlName="taille" [ngClass]="{ 'is-invalid': submitted && f.taille.errors }">
-            <option value="1-10">1-100</option>
-            <option value="11-100">11-100</option>
-            <option value="101-1 000">101-1000</option>
-            <option value="1 001-10 000">11-100</option>
-            <option value="+10 000">+10 000</option>
-          </select>
-          <div *ngIf="submitted && f.taille.errors">
-            <div *ngIf="f.taille.errors.required">La taille est obligatoire</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="srcImage">Url Image logo</label>
-          <textarea type="text" formControlName="srcImage"
-            [ngClass]="{ 'is-invalid': submitted && f.srcImage.errors }"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="isPartner">Entreprise partenaire</label>
-          <input type="checkbox" formControlName="isPartner"
-            [ngClass]="{ 'is-invalid': submitted && f.isPartner.errors }" />
-        </div>
+      <form class="add-company-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        <mat-form-field class="add-company-field">
+          <mat-label>Nom de l'Entreprise</mat-label>
+          <input matInput type="text" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field class="add-company-field">
+          <mat-label>Date de Création</mat-label>
+          <input matInput [matDatepicker]="creationDatePicker" formControlName="creationDate">
+          <mat-datepicker-toggle matSuffix [for]="creationDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #creationDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="add-company-field">
+          <mat-label>Description</mat-label>
+          <textarea matInput type="text" formControlName="description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="add-company-field">
+          <mat-label>Localisation</mat-label>
+          <input matInput type="text" formControlName="location">
+        </mat-form-field>
+
+        <mat-form-field class="add-company-field">
+          <mat-label>Taille</mat-label>
+          <mat-select formControlName="taille">
+            <mat-option value="1-10">1-100</mat-option>
+            <mat-option value="11-100">11-100</mat-option>
+            <mat-option value="101-1 000">101-1 000</mat-option>
+            <mat-option value="1 001-10 000">1 001-10 000</mat-option>
+            <mat-option value="+10 000">+10 000</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="add-company-field">
+          <mat-label>Logo Url</mat-label>
+          <input matInput type="text" formControlName="srcImage">
+        </mat-form-field>
+
+        <mat-checkbox class="add-company-field" formControlName="isPartner">Entreprise partenaire</mat-checkbox>
 
         <div class="form-buttons">
-          <button [disabled]="loading">
-            <span *ngIf="loading"></span>
-            Enregistrer
+          <button mat-raised-button class="add-company-button" type="submit" [disabled]="loading">
+            Ajouter
           </button>
-          <button class="button btn-close" (click)="openOrClose()">Annuler</button>
+          <button mat-raised-button class="reset-button" type="reset" (click)="openOrClose()">
+            Annuler
+          </button>
         </div>
+
       </form>
     </div>
   </div>
-
-  <app-list-company></app-list-company>
 </div>

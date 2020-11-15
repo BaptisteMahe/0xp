@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Company } from 'src/models';
-import { CompanyService } from '../../../services/company.service';
+import { CompanyService } from '../../../services';
 
 @Component({
   selector: 'app-list-company',
@@ -16,15 +17,10 @@ export class ListCompanyComponent implements OnInit {
   constructor(public companyService: CompanyService) { }
 
   ngOnInit() {
-    this.companyService.getAll().subscribe(
-      value => {
-        this.companiesList = value;
-        this.unfilteredCompaniesList = value;
-      },
-      error => {
-        console.log('Erreur ! : ' + error);
-      }
-    );
+    this.loadAllCompanies();
+    this.companyService.newCompanyEvent.subscribe(() => {
+      this.loadAllCompanies();
+    });
   }
 
   resetQuery() {
@@ -34,9 +30,20 @@ export class ListCompanyComponent implements OnInit {
 
   filter() {
     this.companiesList = this.unfilteredCompaniesList;
-    this.companiesList = this.unfilteredCompaniesList.filter((company) => {
+    this.companiesList = this.unfilteredCompaniesList.filter((company: Company) => {
       return company.name.toLowerCase().indexOf(this.companyTextQuery.toLowerCase()) !== -1;
     });
   }
 
+  loadAllCompanies() {
+    this.companyService.getAll().subscribe(
+        value => {
+          this.companiesList = value;
+          this.unfilteredCompaniesList = value;
+        },
+        error => {
+          console.log('Erreur ! : ' + error);
+        }
+    );
+  }
 }

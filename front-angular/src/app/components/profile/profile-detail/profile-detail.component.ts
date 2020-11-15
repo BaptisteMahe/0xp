@@ -42,8 +42,6 @@ export class ProfileDetailComponent implements OnInit {
   disableEdition() {
     this.isEdition = false;
     localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-    // TODO : Only reload component
-    this.router.navigate(['/profile']);
   }
 
   updateProfile() {
