@@ -1,8 +1,7 @@
-<div style="margin:4vh;">
-  <div class="button flexRow addOffer" (click)="openOrClose()">
-    <p>Ajouter une entreprise</p>
-    <img class="modify" src="../../../../assets/images/btnAdd.svg">
-  </div>
+<div class="add-company-container">
+  <button mat-raised-button class="add-company-button" (click)="openOrClose()">
+    Ajouter une entreprise <mat-icon>add_circle</mat-icon>
+  </button>
 
   <div *ngIf="isModalopen" class="modal">
 
@@ -80,6 +79,4 @@
       </form>
     </div>
   </div>
-
-  <app-list-company></app-list-company>
 </div>

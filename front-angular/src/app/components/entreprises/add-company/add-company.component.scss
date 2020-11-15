@@ -1,14 +1,20 @@
-.add-company{
-    background-color: var(--color-blue-medium);
-    color: white;
-    padding: 8px;
-    border-radius: 10px;
-    text-align: center;
-    border:none;
+.add-company-container {
+    margin: 1vh 0 4vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.add-company:hover, button:hover{
-    cursor: pointer;
+.add-company-button {
+    display: flex;
+    margin: 15px auto;
+    padding: 5px 15px;
+
+    mat-icon {
+        margin-left: 8px;
+        height: 26px;
+    }
 }
 
 .modal {
@@ -87,14 +93,6 @@ textarea{
     justify-content: space-evenly;
 }
 
-button{
-    color: white;
-    border: none;
-    border-radius: 20px;
-    background-color: var(--color-orange);
-    padding: 10px 20px;
-}
-
 a{
     padding: 10px;
     text-decoration: none;
@@ -135,16 +133,6 @@ select{
 
 form{
     margin-bottom:7vh;
-}
-
-.addOffer
-{
-    width:15%;
-    align-items: center;
-    margin-right: 8vw;
-    margin-left: auto;
-    justify-content: space-between;
-    margin-bottom: -5vh;
 }
 
 .modify
