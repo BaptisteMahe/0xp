@@ -1,13 +1,13 @@
 const config = require('../config.json');
-var express = require('express');
-var app = express();
-var router = express.Router();
-var bodyParser = require('body-parser');
+let express = require('express');
+let app = express();
+let router = express.Router();
+let bodyParser = require('body-parser');
 router.use(bodyParser.json());
 const Avis = require("./avis.model");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-var ObjectId = require('mongodb').ObjectId
+let ObjectId = require('mongodb').ObjectId
 
 const escapeStringRegexp = require('escape-string-regexp')
 
