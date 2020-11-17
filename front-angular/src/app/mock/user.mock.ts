@@ -1,5 +1,4 @@
-import { User } from '../../models';
-import {SelectOption} from '../../models/SelectOption';
+import { User, SelectOption } from '../../models';
 
 export const mockStudentUser = {
   id: '5f7207ee58e48426f8accbbb',
