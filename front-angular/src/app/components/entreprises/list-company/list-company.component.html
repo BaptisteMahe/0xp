@@ -12,6 +12,9 @@
   <mat-card *ngFor="let company of companiesList" class="company-card" routerLink="/companies/{{ company._id }}">
     <mat-card-header>
       <mat-card-title class="company-name">{{ company.name }}</mat-card-title>
+      <button class="remove-company-button" mat-icon-button (click)="onRemoveClick($event, company)">
+        <mat-icon *ngIf="deleteEnabled">close</mat-icon>
+      </button>
     </mat-card-header>
     <div class="company-image-container">
       <img class="company-image" src="{{ company.srcImage }}">

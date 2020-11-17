@@ -12,16 +12,6 @@ router.get('/', function (req, res, next) {
     })
 });
 
-
-router.get('/:id', function (req, res, next) {
-    const oid = new ObjectId(req.params.id)
-    db.collection('companies').findOne({
-            _id: oid
-        })
-        .then(company => company ? res.json(company) : res.sendStatus(404))
-        .catch(err => next(err));
-});
-
 router.post('/', function (req, res, next) {
     db.collection('companies').countDocuments({
         name: req.body.name
@@ -36,9 +26,29 @@ router.post('/', function (req, res, next) {
                 message: 'Le nom de l\'entreprise est déjà utilisé'
             });
         }
-
     });
+});
 
+router.get('/:id', function (req, res, next) {
+    const companyObjectId = new ObjectId(req.params.id)
+    db.collection('companies').findOne({
+        _id: companyObjectId
+    })
+        .then(company => company ? res.json(company) : res.sendStatus(404))
+        .catch(err => next(err));
+});
+
+router.delete('/:id', function (req, res, next) {
+    const companyObjectId = new ObjectId(req.params.id);
+    db.collection('companies').deleteOne({
+        _id: companyObjectId
+    }, function(error, obj) {
+        if (error) {
+            res.send(error);
+        } else {
+            res.end();
+        }
+    });
 });
 
 module.exports = router;

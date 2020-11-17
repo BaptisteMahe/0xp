@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Company } from 'src/models';
 import { CompanyService } from '../../../services';
@@ -10,15 +11,19 @@ import { CompanyService } from '../../../services';
 })
 export class ListCompanyComponent implements OnInit {
 
+  @Input() deleteEnabled = false;
+
   companiesList: Company[];
   unfilteredCompaniesList: Company[];
+
   companyTextQuery: string;
 
-  constructor(public companyService: CompanyService) { }
+  constructor(public companyService: CompanyService,
+              public matDialog: MatDialog) { }
 
   ngOnInit() {
     this.loadAllCompanies();
-    this.companyService.newCompanyEvent.subscribe(() => {
+    this.companyService.updateCompaniesEvent.subscribe(() => {
       this.loadAllCompanies();
     });
   }
@@ -46,4 +51,33 @@ export class ListCompanyComponent implements OnInit {
         }
     );
   }
+
+  onRemoveClick(event, company) {
+    event.stopPropagation();
+    const dialogRef = this.matDialog.open(DeleteCompanyComponent);
+
+    dialogRef.afterClosed().subscribe(
+        (result) => {
+          if (result) {
+            this.companyService.deleteById(company._id).subscribe(() => {
+              this.companyService.updateCompaniesEvent.next();
+            });
+          }
+        });
+  }
+}
+
+@Component({
+  selector: 'app-delete-company-dialog',
+  template: `
+  <h3 mat-dialog-title>Voulez-vous vraiment supprimer cette entreprise ?</h3>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true">Supprimer</button>
+    <button mat-button mat-dialog-close>Retour</button>
+  </div>
+  `,
+})
+export class DeleteCompanyComponent {
+
+  constructor() { }
 }

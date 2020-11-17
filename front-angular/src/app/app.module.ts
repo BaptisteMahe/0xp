@@ -41,7 +41,7 @@ import { EntreprisesComponent } from './components/entreprises/entreprises.compo
 import { DetailCompanyComponent } from './components/entreprises/detail-company/detail-company.component';
 import { AvisCompanyComponent } from './components/entreprises/avis-company/avis-company.component';
 import { AddCompanyComponent } from './components/entreprises/add-company/add-company.component';
-import { ListCompanyComponent } from './components/entreprises/list-company/list-company.component';
+import { ListCompanyComponent, DeleteCompanyComponent } from './components/entreprises/list-company/list-company.component';
 import { AvisOverviewComponent } from './components/entreprises/avis-company/avis-overview/avis-overview.component';
 
 import { CompanyService, UserService } from './services';
@@ -77,6 +77,7 @@ import { MaterialModule } from './modules/material.module';
     ProfileAdminComponent,
     AddCompanyComponent,
     ListCompanyComponent,
+    DeleteCompanyComponent,
     DeleteDialogContentComponent,
     QuitEditionDialogContentComponent,
     AvisOverviewComponent
@@ -93,7 +94,8 @@ import { MaterialModule } from './modules/material.module';
   ],
   entryComponents: [
     DeleteDialogContentComponent,
-    QuitEditionDialogContentComponent
+    QuitEditionDialogContentComponent,
+    DeleteCompanyComponent
   ],
   exports: [OfferDetailComponent],
   providers: [OfferViewService, CompanyService, UserService, NotificationsService,

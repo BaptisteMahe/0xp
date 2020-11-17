@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 export class CompanyService {
 
     apiUrl = environment.apiUrl;
-    newCompanyEvent = new EventEmitter<any>();
+    updateCompaniesEvent = new EventEmitter<any>();
 
     constructor(private http: HttpClient) { }
 
@@ -18,6 +18,10 @@ export class CompanyService {
 
     getById(id: any) {
         return this.http.get<Company>(this.apiUrl + '/companies/' + id);
+    }
+
+    deleteById(id: any) {
+        return this.http.delete<Company>(this.apiUrl + '/companies/' + id);
     }
 
     addCompany(company: Company) {

@@ -50,7 +50,7 @@ export class AddCompanyComponent implements OnInit {
         data => {
           this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-sucess'] });
           this.openOrClose();
-          this.companyService.newCompanyEvent.next();
+          this.companyService.updateCompaniesEvent.next();
         },
         error => {
           this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
