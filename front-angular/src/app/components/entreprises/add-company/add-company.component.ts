@@ -19,8 +19,7 @@ export class AddCompanyComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private matSnackBar: MatSnackBar,
-              private companyService: CompanyService,
-              private router: Router) { }
+              private companyService: CompanyService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -48,7 +47,7 @@ export class AddCompanyComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-sucess'] });
+          this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-success'] });
           this.openOrClose();
           this.companyService.updateCompaniesEvent.next();
         },
