@@ -1,3 +1,6 @@
+<button *ngIf="modifyEnabled" mat-raised-button class="add-company-modal-button" (click)="onAddCompanyClick()">
+  Ajouter une entreprise <mat-icon>add_circle</mat-icon>
+</button>
 <mat-form-field class="filter-company">
   <mat-label>Rechercher une entreprise</mat-label>
   <input matInput type="text" [(ngModel)]="companyTextQuery" (ngModelChange)="filter()">
@@ -12,6 +15,12 @@
   <mat-card *ngFor="let company of companiesList" class="company-card" routerLink="/companies/{{ company._id }}">
     <mat-card-header>
       <mat-card-title class="company-name">{{ company.name }}</mat-card-title>
+      <button *ngIf="modifyEnabled" class="edit-company-button" mat-icon-button (click)="onEditCompanyClick($event, company)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button *ngIf="modifyEnabled" class="remove-company-button" mat-icon-button (click)="onRemoveClick($event, company)">
+        <mat-icon>close</mat-icon>
+      </button>
     </mat-card-header>
     <div class="company-image-container">
       <img class="company-image" src="{{ company.srcImage }}">

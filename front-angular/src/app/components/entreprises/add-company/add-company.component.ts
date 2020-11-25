@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 
 import { CompanyService } from '../../../services';
+import { Company } from '../../../../models';
 
 @Component({
   selector: 'app-add-company',
@@ -13,49 +13,31 @@ import { CompanyService } from '../../../services';
 })
 export class AddCompanyComponent implements OnInit {
 
-  isModalOpen: boolean;
   registerForm: FormGroup;
-  loading = false;
 
-  constructor(private formBuilder: FormBuilder,
-              private matSnackBar: MatSnackBar,
-              private companyService: CompanyService,
-              private router: Router) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public companyToEdit: Company,
+              private formBuilder: FormBuilder,
+              private companyService: CompanyService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: [this.companyToEdit?.name, Validators.required],
       isStudent: [false],
-      creationDate: ['', Validators.required],
-      description: ['', Validators.required],
-      taille: ['', Validators.required],
-      location: ['', Validators.required],
-      srcImage: [''],
+      creationDate: [this.companyToEdit?.creationDate, Validators.required],
+      description: [this.companyToEdit?.description, Validators.required],
+      taille: [this.companyToEdit?.taille, Validators.required],
+      location: [this.companyToEdit?.location, Validators.required],
+      srcImage: [this.companyToEdit?.srcImage],
       isPartner: []
     });
   }
 
-  openOrClose() {
-    this.isModalOpen = !this.isModalOpen;
-  }
-
   onSubmit() {
-    if (this.registerForm.invalid) {
-      return;
+    if (this.companyToEdit) {
+      return this.companyService.editCompany({... this.registerForm.value, _id: this.companyToEdit._id}).pipe(first());
+    } else {
+      return this.companyService.addCompany(this.registerForm.value).pipe(first());
     }
-    this.loading = true;
-    this.companyService.addCompany(this.registerForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-sucess'] });
-          this.openOrClose();
-          this.companyService.newCompanyEvent.next();
-        },
-        error => {
-          this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
-          this.loading = false;
-        });
   }
 
 }

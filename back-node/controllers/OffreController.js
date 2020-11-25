@@ -176,7 +176,7 @@ router.post('/post', function (req, res) {
     res.send(req.body);
 });
 
-router.post('/update', function (req, res) {
+router.put('/update', function (req, res) {
     var idOffer = mongoose.Types.ObjectId(req.body["id"])
     delete req.body.id;
     delete req.body.matchingScore;

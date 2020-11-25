@@ -54,7 +54,7 @@ export class RegisterFormComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-sucess'] });
+          this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-success'] });
           this.router.navigate(['/login']);
         },
         error => {

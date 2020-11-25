@@ -17,15 +17,13 @@ export class OfferViewService {
 
   apiUrl = environment.apiUrl;
 
+  // TODO : remove those subjects and pass piped Obs from the http request
   listOffers: Offer[] = [];
   listOffersSubject = new BehaviorSubject<Offer[]>(null);
-
   filteredListOffers: Offer[] = [];
   filteredListOffersSubject = new BehaviorSubject<Offer[]>(null);
-
   isLoading = false;
   isLoadingSubject = new BehaviorSubject<boolean>(null);
-
   customListOffers: Offer[] = [];
   customListOffersSubject = new BehaviorSubject<Offer[]>(null);
 
@@ -39,19 +37,12 @@ export class OfferViewService {
     });
   }
 
-  // TODO : Refactor this function
   fillListOffers() {
     this.emitIsLoadingSubject(true);
-    this.httpClient.post<any>(this.apiUrl + '/offres', this.currentUser).subscribe(
+    this.getAllOffers().subscribe(
       (response) => {
-        this.listOffers = [];
-        response.forEach((offerJson) => {
-          const offer = new Offer();
-          offer.fromHashMap(offerJson);
-          this.listOffers.push(offer);
-        });
+        this.populateListOffers(response);
         this.filteredListOffers = this.listOffers;
-        this.emitListOffersSubject();
         this.emitFilteredListOffersSubject();
         this.emitIsLoadingSubject(false);
       },
@@ -61,49 +52,22 @@ export class OfferViewService {
     );
   }
 
-  // TODO : Refactor this function
   filterListOffers(currentFilter: Filter) {
     this.emitIsLoadingSubject(true);
     const query = currentFilter.toQuery();
     if (query === '') {
       this.emitIsLoadingSubject(false);
-      return;
+    } else {
+      this.getFilteredOffer(query).subscribe(
+          (response) => {
+            this.populateFilteredListOffers(response);
+            this.emitIsLoadingSubject(false);
+          },
+          (error) => {
+            console.log('Erreur ! : ' + error);
+          }
+      );
     }
-
-    this.httpClient.post<any>(this.apiUrl + '/offres/filtered?' + query, this.currentUser).subscribe(
-      (response) => {
-        this.filteredListOffers = [];
-        console.log('Found ' + response.length + ' offers matching the filter');
-        response.forEach((offerJson) => {
-          const offer = new Offer();
-          offer.fromHashMap(offerJson);
-          this.filteredListOffers.push(offer);
-        });
-        this.emitFilteredListOffersSubject();
-        this.emitIsLoadingSubject(false);
-      },
-      (error) => {
-        console.log('Erreur ! : ' + error);
-      }
-    );
-  }
-
-  emitListOffersSubject() {
-    this.sortArray(this.listOffers, SortCategory.matchingScore);
-    this.listOffersSubject.next(this.listOffers.length !== 0 ? this.listOffers.slice() : []);
-  }
-
-  emitFilteredListOffersSubject() {
-    this.sortArray(this.filteredListOffers, SortCategory.matchingScore);
-    this.filteredListOffersSubject.next(this.filteredListOffers.length !== 0 ? this.filteredListOffers.slice() : []);
-  }
-
-  emitIsLoadingSubject(isLoading: boolean) {
-    this.isLoadingSubject.next(isLoading);
-  }
-
-  emitCustomListOffersSubject() {
-    this.customListOffersSubject.next(this.customListOffers.length !== 0 ? this.customListOffers.slice() : []);
   }
 
   filter(currentFilter: Filter) {
@@ -114,56 +78,34 @@ export class OfferViewService {
     }
   }
 
-  sortArray(array: Offer[], key: SortCategory) {
-    if (key === SortCategory.matchingScore) {
-      array.sort((a: Offer, b: Offer) => {
-        return +b.matchingScore - +a.matchingScore;
-      });
-    } else if (key === SortCategory.remuneration) {
-      array.sort((a: Offer, b: Offer) => {
-        return +b.remuneration - +a.remuneration;
-      });
-    } else if (key === SortCategory.created_date) {
-      array.sort((a: Offer, b: Offer) => {
-        return +b.created_date - +a.created_date;
-      });
+  getListOfferByCompanyId() {
+    if (this.currentUser.username === 'admin') {
+      this.getAdminCustomListOffer();
+    } else {
+      this.getCompanyCustomListOffer();
     }
   }
 
-  // TODO : Refactor this function
-  getListOfferByCompanyId() {
-    if (this.currentUser.username === 'admin') {
-      this.httpClient.get<any>(this.apiUrl + '/offres').subscribe(
+  getAdminCustomListOffer() {
+    this.getAllOffers().subscribe(
         (response) => {
-          this.customListOffers = [];
-          response.forEach((offerJson) => {
-            const offer = new Offer();
-            offer.fromHashMap(offerJson);
-            this.customListOffers.push(offer);
-          });
-          this.emitCustomListOffersSubject();
+          this.populateCustomListOffer(response);
         },
         (error) => {
           console.log('Erreur ! : ' + error);
         }
-      );
-    } else {
-      this.httpClient.get<any>(this.apiUrl + '/offres/byCompanyId?id=' + this.currentUser.idCompany).subscribe(
+    );
+  }
+
+  getCompanyCustomListOffer() {
+    this.getAllOffersByCompanyId(this.currentUser.idCompany).subscribe(
         (response) => {
-          this.customListOffers = [];
-          console.log('Found ' + response.length + ' offers matching the company');
-          response.forEach((offerJson) => {
-            const offer = new Offer();
-            offer.fromHashMap(offerJson);
-            this.customListOffers.push(offer);
-          });
-          this.emitCustomListOffersSubject();
+          this.populateCustomListOffer(response);
         },
         (error) => {
           console.log('Erreur ! : ' + error);
         }
-      );
-    }
+    );
   }
 
   // TODO : Remake that shit
@@ -193,6 +135,83 @@ export class OfferViewService {
     return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
   }
 
+  sortArray(array: Offer[], key: SortCategory) {
+    if (key === SortCategory.matchingScore) {
+      array.sort((a: Offer, b: Offer) => {
+        return +b.matchingScore - +a.matchingScore;
+      });
+    } else if (key === SortCategory.remuneration) {
+      array.sort((a: Offer, b: Offer) => {
+        return +b.remuneration - +a.remuneration;
+      });
+    } else if (key === SortCategory.created_date) {
+      array.sort((a: Offer, b: Offer) => {
+        return +b.created_date - +a.created_date;
+      });
+    }
+  }
+
+  populateListOffers(offerListJson) {
+    this.listOffers = [];
+    offerListJson.forEach((offerJson) => {
+      const offer = new Offer();
+      offer.fromHashMap(offerJson);
+      this.listOffers.push(offer);
+    });
+    this.emitListOffersSubject();
+  }
+
+  populateFilteredListOffers(offerListJson) {
+    this.filteredListOffers = [];
+    offerListJson.forEach((offerJson) => {
+      const offer = new Offer();
+      offer.fromHashMap(offerJson);
+      this.filteredListOffers.push(offer);
+    });
+    this.emitFilteredListOffersSubject();
+  }
+
+  populateCustomListOffer(offerListJson) {
+    this.customListOffers = [];
+    offerListJson.forEach((offerJson) => {
+      const offer = new Offer();
+      offer.fromHashMap(offerJson);
+      this.customListOffers.push(offer);
+    });
+    this.emitCustomListOffersSubject();
+  }
+
+  emitListOffersSubject() {
+    this.sortArray(this.listOffers, SortCategory.matchingScore);
+    this.listOffersSubject.next(this.listOffers.length !== 0 ? this.listOffers.slice() : []);
+  }
+
+  emitFilteredListOffersSubject() {
+    this.sortArray(this.filteredListOffers, SortCategory.matchingScore);
+    this.filteredListOffersSubject.next(this.filteredListOffers.length !== 0 ? this.filteredListOffers.slice() : []);
+  }
+
+  emitIsLoadingSubject(isLoading: boolean) {
+    this.isLoadingSubject.next(isLoading);
+  }
+
+  emitCustomListOffersSubject() {
+    this.customListOffersSubject.next(this.customListOffers.length !== 0 ? this.customListOffers.slice() : []);
+  }
+
+  getFilteredOffer(query): Observable<any[]> {
+    // TODO : Change this request to get in BackEnd
+    return this.httpClient.post<any>(this.apiUrl + '/offres/filtered?' + query, this.currentUser);
+  }
+
+  getAllOffers(): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.apiUrl + '/offres');
+  }
+
+  getAllOffersByCompanyId(companyId: string): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.apiUrl + '/offres/byCompanyId?id=' + companyId);
+  }
+
   addOffer(offer: Offer): Observable<any> {
     return this.httpClient.post<Offer>(this.apiUrl + '/offres/post', offer);
   }
@@ -202,6 +221,6 @@ export class OfferViewService {
   }
 
   editOffer(offer: Offer): Observable<any> {
-    return this.httpClient.post<Offer>(this.apiUrl + '/offres/update', offer);
+    return this.httpClient.put<Offer>(this.apiUrl + '/offres/update', offer);
   }
 }

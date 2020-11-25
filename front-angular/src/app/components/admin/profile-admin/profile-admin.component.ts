@@ -9,7 +9,5 @@ export class ProfileAdminComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

@@ -1,3 +1,14 @@
+.add-company-modal-button {
+  display: flex;
+  margin: 15px auto;
+  padding: 5px 15px;
+
+  mat-icon {
+    margin-left: 8px;
+    height: 26px;
+  }
+}
+
 .filter-company {
   width: 50%;
   margin: 0 25%;
@@ -13,6 +24,18 @@
 .company-name {
   font-family: MadeMedium;
   text-align: center;
+}
+
+.edit-company-button {
+  position: absolute;
+  top: 0;
+  right: 40px;
+}
+
+.remove-company-button {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .company-card {

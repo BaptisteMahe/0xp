@@ -33,7 +33,7 @@ router.post('/register', function (req, res, next) {
   db.collection('users').countDocuments({
     username: req.body.username
   }, function (error, countDocuments) {
-    if (countDocuments == 0) {
+    if (countDocuments === 0) {
       let user;
       let company;
       if (req.body.isStudent) {
@@ -108,7 +108,7 @@ router.put('/:id', function (req, res, next) {
 });
 
 router.delete('/:id', function (req, res, next) {
-  db.collection('users').deletefindByIdAndRemove(req.params.id)
+  db.collection('users').findByIdAndRemove(req.params.id)
     .then(() => res.json({}))
     .catch(err => next(err));
 });
@@ -136,7 +136,7 @@ router.post('/clearNotifications', function (req, res, next) {
   res.send(req.body);
 });
 
-router.post('/update', function (req, res, next) {
+router.put('/update', function (req, res, next) {
   console.log("Request /users/update");
   let user = new Object();
   user = req.body["user"];

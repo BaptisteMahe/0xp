@@ -42,7 +42,7 @@ export class LoggingComponent implements OnInit {
                     data => {
                         this.matSnackBar.open('Login successful', null, {
                             duration: 3000,
-                            panelClass: ['snack-bar-sucess']
+                            panelClass: ['snack-bar-success']
                         });
                         this.router.navigate(['/']);
                     },
