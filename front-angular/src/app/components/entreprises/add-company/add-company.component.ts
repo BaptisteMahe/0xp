@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 
 import { CompanyService } from '../../../services';
+import { Company } from '../../../../models';
 
 @Component({
   selector: 'app-add-company',
@@ -13,29 +14,25 @@ import { CompanyService } from '../../../services';
 })
 export class AddCompanyComponent implements OnInit {
 
-  isModalOpen: boolean;
   registerForm: FormGroup;
   loading = false;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(@Inject(MAT_DIALOG_DATA) public company: Company,
+              private formBuilder: FormBuilder,
               private matSnackBar: MatSnackBar,
               private companyService: CompanyService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: [this.company?.name, Validators.required],
       isStudent: [false],
-      creationDate: ['', Validators.required],
-      description: ['', Validators.required],
-      taille: ['', Validators.required],
-      location: ['', Validators.required],
-      srcImage: [''],
+      creationDate: [this.company?.creationDate, Validators.required],
+      description: [this.company?.description, Validators.required],
+      taille: [this.company?.taille, Validators.required],
+      location: [this.company?.location, Validators.required],
+      srcImage: [this.company?.srcImage],
       isPartner: []
     });
-  }
-
-  openOrClose() {
-    this.isModalOpen = !this.isModalOpen;
   }
 
   onSubmit() {
@@ -48,7 +45,6 @@ export class AddCompanyComponent implements OnInit {
       .subscribe(
         data => {
           this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-success'] });
-          this.openOrClose();
           this.companyService.updateCompaniesEvent.next();
         },
         error => {

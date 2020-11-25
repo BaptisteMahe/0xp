@@ -1,41 +1,12 @@
 .add-company-container {
-    margin: 1vh 0 4vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.add-company-modal-button {
-    display: flex;
-    margin: 15px auto;
-    padding: 5px 15px;
-
-    mat-icon {
-        margin-left: 8px;
-        height: 26px;
-    }
-}
-
-.modal {
-    width: 76%;
-    margin: auto 12%;
-    height: auto;
-    background-color: white;
-    z-index: 3;
-    border-radius: 10px;
-    box-shadow: #0000047a 0 0 10px;
-    padding-top: 20px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    margin: 0 20px;
 }
 
 .modal-body {
-    width: 90%;
-    margin: auto;
     text-align: justify;
 }
 
@@ -47,7 +18,7 @@
 }
 
 .add-company-field {
-    width: 50%;
+    width: 100%;
     margin: 5px;
 }
 

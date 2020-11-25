@@ -1,67 +1,61 @@
 <div class="add-company-container">
-  <button mat-raised-button class="add-company-modal-button" (click)="openOrClose()">
-    Ajouter une entreprise <mat-icon>add_circle</mat-icon>
-  </button>
 
-  <div *ngIf="isModalOpen" class="modal">
+  <div class="modal-header-content">
+    <h1>Ajouter une entreprise</h1>
+  </div>
 
-    <div class="modal-header-content">
-      <h1>Ajouter une entreprise</h1>
-    </div>
+  <div class="modal-body">
+    <form class="add-company-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-    <div class="modal-body">
-      <form class="add-company-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="add-company-field">
+        <mat-label>Nom de l'Entreprise</mat-label>
+        <input matInput type="text" formControlName="name">
+      </mat-form-field>
 
-        <mat-form-field class="add-company-field">
-          <mat-label>Nom de l'Entreprise</mat-label>
-          <input matInput type="text" formControlName="name">
-        </mat-form-field>
+      <mat-form-field class="add-company-field">
+        <mat-label>Date de Création</mat-label>
+        <input matInput [matDatepicker]="creationDatePicker" formControlName="creationDate">
+        <mat-datepicker-toggle matSuffix [for]="creationDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #creationDatePicker></mat-datepicker>
+      </mat-form-field>
 
-        <mat-form-field class="add-company-field">
-          <mat-label>Date de Création</mat-label>
-          <input matInput [matDatepicker]="creationDatePicker" formControlName="creationDate">
-          <mat-datepicker-toggle matSuffix [for]="creationDatePicker"></mat-datepicker-toggle>
-          <mat-datepicker #creationDatePicker></mat-datepicker>
-        </mat-form-field>
+      <mat-form-field class="add-company-field">
+        <mat-label>Description</mat-label>
+        <textarea matInput type="text" formControlName="description"></textarea>
+      </mat-form-field>
 
-        <mat-form-field class="add-company-field">
-          <mat-label>Description</mat-label>
-          <textarea matInput type="text" formControlName="description"></textarea>
-        </mat-form-field>
+      <mat-form-field class="add-company-field">
+        <mat-label>Localisation</mat-label>
+        <input matInput type="text" formControlName="location">
+      </mat-form-field>
 
-        <mat-form-field class="add-company-field">
-          <mat-label>Localisation</mat-label>
-          <input matInput type="text" formControlName="location">
-        </mat-form-field>
+      <mat-form-field class="add-company-field">
+        <mat-label>Taille</mat-label>
+        <mat-select formControlName="taille">
+          <mat-option value="1-10">1-100</mat-option>
+          <mat-option value="11-100">11-100</mat-option>
+          <mat-option value="101-1 000">101-1 000</mat-option>
+          <mat-option value="1 001-10 000">1 001-10 000</mat-option>
+          <mat-option value="+10 000">+10 000</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-form-field class="add-company-field">
-          <mat-label>Taille</mat-label>
-          <mat-select formControlName="taille">
-            <mat-option value="1-10">1-100</mat-option>
-            <mat-option value="11-100">11-100</mat-option>
-            <mat-option value="101-1 000">101-1 000</mat-option>
-            <mat-option value="1 001-10 000">1 001-10 000</mat-option>
-            <mat-option value="+10 000">+10 000</mat-option>
-          </mat-select>
-        </mat-form-field>
+      <mat-form-field class="add-company-field">
+        <mat-label>Logo Url</mat-label>
+        <input matInput type="text" formControlName="srcImage">
+      </mat-form-field>
 
-        <mat-form-field class="add-company-field">
-          <mat-label>Logo Url</mat-label>
-          <input matInput type="text" formControlName="srcImage">
-        </mat-form-field>
+      <mat-checkbox class="add-company-field" formControlName="isPartner">Entreprise partenaire</mat-checkbox>
 
-        <mat-checkbox class="add-company-field" formControlName="isPartner">Entreprise partenaire</mat-checkbox>
+      <div class="form-buttons">
+        <button mat-raised-button mat-dialog-close class="add-company-button" type="submit" [disabled]="loading || registerForm.invalid">
+          Ajouter
+        </button>
+        <button mat-raised-button mat-dialog-close class="reset-button" type="reset">
+          Annuler
+        </button>
+      </div>
 
-        <div class="form-buttons">
-          <button mat-raised-button class="add-company-button" type="submit" [disabled]="loading">
-            Ajouter
-          </button>
-          <button mat-raised-button class="reset-button" type="reset" (click)="openOrClose()">
-            Annuler
-          </button>
-        </div>
-
-      </form>
-    </div>
+    </form>
   </div>
 </div>

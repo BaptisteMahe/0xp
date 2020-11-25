@@ -95,7 +95,8 @@ import { MaterialModule } from './modules/material.module';
   entryComponents: [
     DeleteDialogContentComponent,
     QuitEditionDialogContentComponent,
-    DeleteCompanyComponent
+    DeleteCompanyComponent,
+    AddCompanyComponent
   ],
   exports: [OfferDetailComponent],
   providers: [OfferViewService, CompanyService, UserService, NotificationsService,
