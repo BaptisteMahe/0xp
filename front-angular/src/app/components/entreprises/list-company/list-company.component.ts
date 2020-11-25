@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import {Component, OnInit, Input, Inject} from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Company } from 'src/models';
-import { CompanyService } from '../../../services';
+import { CompanyService, OfferViewService } from '../../../services';
 
 @Component({
   selector: 'app-list-company',
@@ -19,6 +19,7 @@ export class ListCompanyComponent implements OnInit {
   companyTextQuery: string;
 
   constructor(public companyService: CompanyService,
+              public offerViewService: OfferViewService,
               public matDialog: MatDialog) { }
 
   ngOnInit() {
@@ -54,30 +55,36 @@ export class ListCompanyComponent implements OnInit {
 
   onRemoveClick(event, company) {
     event.stopPropagation();
-    const dialogRef = this.matDialog.open(DeleteCompanyComponent);
 
-    dialogRef.afterClosed().subscribe(
-        (result) => {
-          if (result) {
-            this.companyService.deleteById(company._id).subscribe(() => {
-              this.companyService.updateCompaniesEvent.next();
-            });
-          }
-        });
+    this.offerViewService.getAllOffersByCompanyId(company._id).subscribe( response => {
+      const dialogRef = this.matDialog.open(DeleteCompanyComponent, {
+        data: response.length > 0
+      });
+      dialogRef.afterClosed().subscribe(
+          (result) => {
+            if (result) {
+              this.companyService.deleteById(company._id).subscribe(() => {
+                this.companyService.updateCompaniesEvent.next();
+              });
+            }
+          });
+    });
+
   }
 }
 
 @Component({
   selector: 'app-delete-company-dialog',
   template: `
-  <h3 mat-dialog-title>Voulez-vous vraiment supprimer cette entreprise ?</h3>
+  <h3 *ngIf="!isAnyOffer" mat-dialog-title>Voulez-vous vraiment supprimer cette entreprise ?</h3>
+  <h3 *ngIf="isAnyOffer" mat-dialog-title>Vous ne pouvez pas supprimer cette entreprise car elle possède encore des offres sur le site !</h3>
   <div mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true">Supprimer</button>
+    <button *ngIf="!isAnyOffer" mat-button [mat-dialog-close]="true">Supprimer</button>
     <button mat-button mat-dialog-close>Retour</button>
   </div>
   `,
 })
 export class DeleteCompanyComponent {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public isAnyOffer: boolean) { }
 }
