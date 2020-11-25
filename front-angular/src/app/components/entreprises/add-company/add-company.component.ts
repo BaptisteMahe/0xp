@@ -15,25 +15,29 @@ export class AddCompanyComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public company: Company,
+  constructor(@Inject(MAT_DIALOG_DATA) public companyToEdit: Company,
               private formBuilder: FormBuilder,
               private companyService: CompanyService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      name: [this.company?.name, Validators.required],
+      name: [this.companyToEdit?.name, Validators.required],
       isStudent: [false],
-      creationDate: [this.company?.creationDate, Validators.required],
-      description: [this.company?.description, Validators.required],
-      taille: [this.company?.taille, Validators.required],
-      location: [this.company?.location, Validators.required],
-      srcImage: [this.company?.srcImage],
+      creationDate: [this.companyToEdit?.creationDate, Validators.required],
+      description: [this.companyToEdit?.description, Validators.required],
+      taille: [this.companyToEdit?.taille, Validators.required],
+      location: [this.companyToEdit?.location, Validators.required],
+      srcImage: [this.companyToEdit?.srcImage],
       isPartner: []
     });
   }
 
   onSubmit() {
-    return this.companyService.addCompany(this.registerForm.value).pipe(first());
+    if (this.companyToEdit) {
+      return this.companyService.editCompany({... this.registerForm.value, _id: this.companyToEdit._id}).pipe(first());
+    } else {
+      return this.companyService.addCompany(this.registerForm.value).pipe(first());
+    }
   }
 
 }

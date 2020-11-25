@@ -1,7 +1,8 @@
 <div class="add-company-container">
 
   <div class="modal-header-content">
-    <h1>Ajouter une entreprise</h1>
+    <h1 *ngIf="!companyToEdit">Ajouter une entreprise</h1>
+    <h1 *ngIf="companyToEdit">Modifier une entreprise</h1>
   </div>
 
   <div class="modal-body">
@@ -50,7 +51,7 @@
       <div class="form-buttons">
         <button mat-raised-button [mat-dialog-close]="onSubmit()" class="add-company-button" type="submit"
                 [disabled]="registerForm.invalid">
-          Ajouter
+          {{this.companyToEdit ? 'Modifier' : 'Ajouter'}}
         </button>
         <button mat-raised-button mat-dialog-close class="reset-button" type="reset">
           Annuler

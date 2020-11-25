@@ -26,4 +26,8 @@ export class CompanyService {
     addCompany(company: Company) {
         return this.http.post<Company>(this.apiUrl + '/companies', company);
     }
+
+    editCompany(company: Company) {
+        return this.http.put<Company>(this.apiUrl + '/companies', company);
+    }
 }

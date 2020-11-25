@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 import { Company } from '../../../../models';
 import { CompanyService, OfferViewService } from '../../../services';
 import { AddCompanyComponent } from '../add-company/add-company.component';
+
 
 
 @Component({
@@ -54,30 +56,28 @@ export class ListCompanyComponent implements OnInit {
     );
   }
 
-  onAddCompanyModalClick() {
+  onAddCompanyClick() {
     const dialogRef = this.matDialog.open(AddCompanyComponent);
 
     dialogRef.afterClosed().subscribe(
         result => {
-          if (result) {
-            result.subscribe(
-                data => {
-                  this.matSnackBar.open('Registration successful', null, {
-                      duration: 3000,
-                      panelClass: ['snack-bar-success']
-                  });
-                  this.loadAllCompanies();
-                },
-                error => {
-                    this.matSnackBar.open(error, null, {duration: 3000, panelClass: ['snack-bar-error']});
-                });
-          }
+          this.handleModifyResult(result, 'Registration');
         }
     );
   }
 
-  onEditClick(event, company) {
+  onEditCompanyClick(event, company) {
     event.stopPropagation();
+
+    const dialogRef = this.matDialog.open(AddCompanyComponent, {
+      data: company
+    });
+
+    dialogRef.afterClosed().subscribe(
+        result => {
+          this.handleModifyResult(result, 'Modification');
+        }
+    );
   }
 
   onRemoveClick(event, company) {
@@ -96,7 +96,22 @@ export class ListCompanyComponent implements OnInit {
             }
           });
     });
+  }
 
+  handleModifyResult(result: Observable<any>, type: string) {
+    if (result) {
+      result.subscribe(
+          data => {
+            this.matSnackBar.open(type + ' successful', null, {
+              duration: 3000,
+              panelClass: ['snack-bar-success']
+            });
+            this.loadAllCompanies();
+          },
+          error => {
+            this.matSnackBar.open(error, null, {duration: 3000, panelClass: ['snack-bar-error']});
+          });
+    }
   }
 }
 
