@@ -221,6 +221,6 @@ export class OfferViewService {
   }
 
   editOffer(offer: Offer): Observable<any> {
-    return this.httpClient.post<Offer>(this.apiUrl + '/offres/update', offer);
+    return this.httpClient.put<Offer>(this.apiUrl + '/offres/update', offer);
   }
 }
