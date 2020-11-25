@@ -24,14 +24,13 @@ export class OfferCompanyComponent implements OnInit {
               private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
-
-    this.offerViewService.getListOfferByCompanyId();
-
     this.listOffersSubscription = this.offerViewService.customListOffersSubject.subscribe(
       (listOffers: Offer[]) => {
-        this.listOfferCompany = listOffers.slice();
+        this.listOfferCompany = listOffers?.slice();
       }
     );
+
+    this.offerViewService.getListOfferByCompanyId();
   }
 
   onDeleteClick(offerToBeDeleted: Offer) {
