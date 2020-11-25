@@ -42,8 +42,22 @@ router.delete('/:id', function (req, res, next) {
     const companyObjectId = new ObjectId(req.params.id);
     db.collection('companies').deleteOne({
         _id: companyObjectId
-    }, function(error, obj) {
+    }, function(error) {
         if (error) {
+            res.send(error);
+        } else {
+            res.end();
+        }
+    });
+});
+
+router.put('/update', function(req, res, next) {
+    req.body._id = new ObjectId(req.body._id);
+    db.collection('companies').update({
+        _id: req.body._id
+    }, req.body, (error) => {
+        if (error) {
+            console.log(error);
             res.send(error);
         } else {
             res.end();
