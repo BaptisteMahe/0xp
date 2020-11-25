@@ -17,15 +17,13 @@ export class OfferViewService {
 
   apiUrl = environment.apiUrl;
 
+  // TODO : remove those subjects and pass piped Obs from the http request
   listOffers: Offer[] = [];
   listOffersSubject = new BehaviorSubject<Offer[]>(null);
-
   filteredListOffers: Offer[] = [];
   filteredListOffersSubject = new BehaviorSubject<Offer[]>(null);
-
   isLoading = false;
   isLoadingSubject = new BehaviorSubject<boolean>(null);
-
   customListOffers: Offer[] = [];
   customListOffersSubject = new BehaviorSubject<Offer[]>(null);
 
@@ -39,7 +37,6 @@ export class OfferViewService {
     });
   }
 
-  // TODO : Refactor this function
   fillListOffers() {
     this.emitIsLoadingSubject(true);
     this.getAllOffers().subscribe(
@@ -55,7 +52,6 @@ export class OfferViewService {
     );
   }
 
-  // TODO : Refactor this function
   filterListOffers(currentFilter: Filter) {
     this.emitIsLoadingSubject(true);
     const query = currentFilter.toQuery();
@@ -82,7 +78,6 @@ export class OfferViewService {
     }
   }
 
-  // TODO : Refactor this function
   getListOfferByCompanyId() {
     if (this.currentUser.username === 'admin') {
       this.getAdminCustomListOffer();
@@ -103,7 +98,7 @@ export class OfferViewService {
   }
 
   getCompanyCustomListOffer() {
-    this.getAllOffersByCompaniId(this.currentUser.idCompany).subscribe(
+    this.getAllOffersByCompanyId(this.currentUser.idCompany).subscribe(
         (response) => {
           this.populateCustomListOffer(response);
         },
@@ -205,6 +200,7 @@ export class OfferViewService {
   }
 
   getFilteredOffer(query): Observable<any[]> {
+    // TODO : Change this request to get in BackEnd
     return this.httpClient.post<any>(this.apiUrl + '/offres/filtered?' + query, this.currentUser);
   }
 
@@ -212,7 +208,7 @@ export class OfferViewService {
     return this.httpClient.get<any[]>(this.apiUrl + '/offres');
   }
 
-  getAllOffersByCompaniId(companyId: string): Observable<any[]> {
+  getAllOffersByCompanyId(companyId: string): Observable<any[]> {
     return this.httpClient.get<any[]>(this.apiUrl + '/offres/byCompanyId?id=' + companyId);
   }
 
