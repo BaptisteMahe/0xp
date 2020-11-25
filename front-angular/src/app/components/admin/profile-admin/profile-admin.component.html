@@ -1,9 +1,6 @@
 <div class="profile-container">
     <mat-tab-group mat-stretch-tabs class="profile-tab-group">
         <mat-tab label = "Gestion des entreprises">
-            <button mat-raised-button class="add-company-modal-button" (click)="onOpenModalClick()">
-                Ajouter une entreprise <mat-icon>add_circle</mat-icon>
-            </button>
             <app-list-company [modifyEnabled]="true"></app-list-company>
         </mat-tab>
         <mat-tab label="Gestion des offres">

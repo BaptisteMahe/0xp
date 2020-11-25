@@ -1,8 +1,11 @@
-import {Component, OnInit, Input, Inject} from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Company } from 'src/models';
+import { Company } from '../../../../models';
 import { CompanyService, OfferViewService } from '../../../services';
+import { AddCompanyComponent } from '../add-company/add-company.component';
+
 
 @Component({
   selector: 'app-list-company',
@@ -20,13 +23,11 @@ export class ListCompanyComponent implements OnInit {
 
   constructor(public companyService: CompanyService,
               public offerViewService: OfferViewService,
-              public matDialog: MatDialog) { }
+              public matDialog: MatDialog,
+              private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.loadAllCompanies();
-    this.companyService.updateCompaniesEvent.subscribe(() => {
-      this.loadAllCompanies();
-    });
   }
 
   resetQuery() {
@@ -53,6 +54,28 @@ export class ListCompanyComponent implements OnInit {
     );
   }
 
+  onAddCompanyModalClick() {
+    const dialogRef = this.matDialog.open(AddCompanyComponent);
+
+    dialogRef.afterClosed().subscribe(
+        result => {
+          if (result) {
+            result.subscribe(
+                data => {
+                  this.matSnackBar.open('Registration successful', null, {
+                      duration: 3000,
+                      panelClass: ['snack-bar-success']
+                  });
+                  this.loadAllCompanies();
+                },
+                error => {
+                    this.matSnackBar.open(error, null, {duration: 3000, panelClass: ['snack-bar-error']});
+                });
+          }
+        }
+    );
+  }
+
   onEditClick(event, company) {
     event.stopPropagation();
   }
@@ -65,10 +88,10 @@ export class ListCompanyComponent implements OnInit {
         data: response.length > 0
       });
       dialogRef.afterClosed().subscribe(
-          (result) => {
+          result => {
             if (result) {
               this.companyService.deleteById(company._id).subscribe(() => {
-                this.companyService.updateCompaniesEvent.next();
+                this.loadAllCompanies();
               });
             }
           });

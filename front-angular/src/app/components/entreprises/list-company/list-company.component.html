@@ -1,3 +1,6 @@
+<button *ngIf="modifyEnabled" mat-raised-button class="add-company-modal-button" (click)="onAddCompanyModalClick()">
+  Ajouter une entreprise <mat-icon>add_circle</mat-icon>
+</button>
 <mat-form-field class="filter-company">
   <mat-label>Rechercher une entreprise</mat-label>
   <input matInput type="text" [(ngModel)]="companyTextQuery" (ngModelChange)="filter()">

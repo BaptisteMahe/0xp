@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Company } from '../../models';
@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
 export class CompanyService {
 
     apiUrl = environment.apiUrl;
-    updateCompaniesEvent = new EventEmitter<any>();
 
     constructor(private http: HttpClient) { }
 

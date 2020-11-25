@@ -5,7 +5,7 @@
   </div>
 
   <div class="modal-body">
-    <form class="add-company-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <form class="add-company-form" [formGroup]="registerForm">
 
       <mat-form-field class="add-company-field">
         <mat-label>Nom de l'Entreprise</mat-label>
@@ -48,7 +48,8 @@
       <mat-checkbox class="add-company-field" formControlName="isPartner">Entreprise partenaire</mat-checkbox>
 
       <div class="form-buttons">
-        <button mat-raised-button mat-dialog-close class="add-company-button" type="submit" [disabled]="registerForm.invalid">
+        <button mat-raised-button [mat-dialog-close]="onSubmit()" class="add-company-button" type="submit"
+                [disabled]="registerForm.invalid">
           Ajouter
         </button>
         <button mat-raised-button mat-dialog-close class="reset-button" type="reset">

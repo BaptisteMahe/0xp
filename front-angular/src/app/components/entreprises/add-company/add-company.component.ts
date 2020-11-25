@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 
@@ -18,7 +17,6 @@ export class AddCompanyComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public company: Company,
               private formBuilder: FormBuilder,
-              private matSnackBar: MatSnackBar,
               private companyService: CompanyService) { }
 
   ngOnInit() {
@@ -35,21 +33,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.registerForm.invalid) {
-      this.companyService.addCompany(this.registerForm.value)
-          .pipe(first())
-          .subscribe(
-              data => {
-                this.matSnackBar.open('Registration successful', null, {
-                  duration: 3000,
-                  panelClass: ['snack-bar-success']
-                });
-                this.companyService.updateCompaniesEvent.next();
-              },
-              error => {
-                this.matSnackBar.open(error, null, {duration: 3000, panelClass: ['snack-bar-error']});
-              });
-    }
+    return this.companyService.addCompany(this.registerForm.value).pipe(first());
   }
 
 }
