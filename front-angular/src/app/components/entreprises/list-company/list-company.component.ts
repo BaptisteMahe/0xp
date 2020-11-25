@@ -11,7 +11,7 @@ import { CompanyService, OfferViewService } from '../../../services';
 })
 export class ListCompanyComponent implements OnInit {
 
-  @Input() deleteEnabled = false;
+  @Input() modifyEnabled = false;
 
   companiesList: Company[];
   unfilteredCompaniesList: Company[];
@@ -51,6 +51,10 @@ export class ListCompanyComponent implements OnInit {
           console.log('Erreur ! : ' + error);
         }
     );
+  }
+
+  onEditClick(event, company) {
+    event.stopPropagation();
   }
 
   onRemoveClick(event, company) {
