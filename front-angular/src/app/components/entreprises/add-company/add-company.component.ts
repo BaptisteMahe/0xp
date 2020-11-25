@@ -15,7 +15,6 @@ import { Company } from '../../../../models';
 export class AddCompanyComponent implements OnInit {
 
   registerForm: FormGroup;
-  loading = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public company: Company,
               private formBuilder: FormBuilder,
@@ -36,21 +35,21 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.registerForm.invalid) {
-      return;
+    if (!this.registerForm.invalid) {
+      this.companyService.addCompany(this.registerForm.value)
+          .pipe(first())
+          .subscribe(
+              data => {
+                this.matSnackBar.open('Registration successful', null, {
+                  duration: 3000,
+                  panelClass: ['snack-bar-success']
+                });
+                this.companyService.updateCompaniesEvent.next();
+              },
+              error => {
+                this.matSnackBar.open(error, null, {duration: 3000, panelClass: ['snack-bar-error']});
+              });
     }
-    this.loading = true;
-    this.companyService.addCompany(this.registerForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.matSnackBar.open('Registration successful', null, { duration: 3000, panelClass: ['snack-bar-success'] });
-          this.companyService.updateCompaniesEvent.next();
-        },
-        error => {
-          this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
-          this.loading = false;
-        });
   }
 
 }
