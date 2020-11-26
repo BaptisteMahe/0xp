@@ -1,19 +1,22 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# compiled output
+# Compiled output
 front-angular/dist
 /tmp
 /out-tsc
 /e2e
+# Deployment temporary files
+*.tar
+*.gz
 # Only exists if Bazel was run
 /bazel-out
 
-# dependencies
+# Dependencies
 /node_modules
 /front-angular/node_modules
 /back-node/node_modules
 
-# profiling files
+# Profiling files
 chrome-profiler-events.json
 speed-measure-plugin.json
 
@@ -35,7 +38,7 @@ speed-measure-plugin.json
 !.vscode/extensions.json
 .history/*
 
-# misc
+# Misc
 /.sass-cache
 /connect.lock
 /coverage
