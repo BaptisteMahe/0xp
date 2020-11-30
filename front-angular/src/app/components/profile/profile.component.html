@@ -1,8 +1,5 @@
-<div *ngIf="!currentUser?.srcImage" class="img-bloc">
-  <img class="img-center" src="../../../assets/images/0xpuser.png" />
-</div>
-<div *ngIf="currentUser?.srcImage" class="img-bloc co">
-  <img class="img-center" [src]="currentUser?.srcImage" />
+<div class="img-bloc" [ngClass]="{'co': !!currentUser?.srcImage}">
+  <img class="img-center" [src]="currentUser?.srcImage || '../../../assets/images/0xpuser.png'" />
 </div>
 
 
