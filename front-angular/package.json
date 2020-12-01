@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "ngcc",
-    "deploy": "bash ../scripts/deploy_frontend.sh"
+    "deploy": "bash ../scripts/deploy_frontend.sh",
+    "deploy-marceau": "bash ../scripts/deploy_frontend_marceau.sh"
   },
   "private": true,
   "dependencies": {
