@@ -105,7 +105,6 @@ export class AddOfferComponent implements OnInit {
       .then(response => {
         response.json()
           .then(data => {
-            console.log(data);
             this.listDomains = data.slice();
           });
       });

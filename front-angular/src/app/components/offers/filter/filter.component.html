@@ -1,8 +1,8 @@
 <div class="main-filter-container">
   <mat-form-field class="main-filter-text">
     <mat-label>Rechercher une offre</mat-label>
-    <input matInput type="text" placeholder="" (keyup.enter)="filter()" [(ngModel)]="currentFilter.textInput" />
-    <button matSuffix mat-icon-button (click)="filter()">
+    <input matInput type="text" placeholder="" (keyup.enter)="onFilterClick()" [(ngModel)]="currentFilter.textInput" />
+    <button matSuffix mat-icon-button (click)="onFilterClick()">
       <mat-icon>search</mat-icon>
     </button>
   </mat-form-field>

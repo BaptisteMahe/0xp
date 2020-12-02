@@ -26,7 +26,6 @@ export class OfferDetailComponent implements OnInit {
 
   ngOnInit() {
     window.scroll(0, 0);
-    this.offerViewService.fillListOffers();
     const idOffer = this.router.url.replace('/offers/', '');
 
     this.offerViewService.getOfferById(idOffer).subscribe(offer => {
