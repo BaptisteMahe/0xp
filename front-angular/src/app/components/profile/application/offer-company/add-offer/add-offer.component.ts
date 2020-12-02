@@ -13,7 +13,7 @@ import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 const moment = _rollupMoment || _moment;
 
-import { UserService, CompanyService, OfferViewService } from '../../../../../services';
+import { UserService, CompanyService, OfferViewService, SelectService } from '../../../../../services';
 import { Offer, User, Company, SelectOption } from 'src/models';
 
 export const MY_FORMATS = {
@@ -72,6 +72,7 @@ export class AddOfferComponent implements OnInit {
   constructor(private offerViewService: OfferViewService,
               private userService: UserService,
               private companyService: CompanyService,
+              private selectService: SelectService,
               private router: Router,
               private matSnackBar: MatSnackBar,
               private matDialog: MatDialog) {
@@ -87,27 +88,17 @@ export class AddOfferComponent implements OnInit {
       this.locationCity = this.offerOnForm.location.split(',')[0];
       this.locationCountry = this.offerOnForm.location.split(',')[1].trim();
     }
-    fetch(this.offerViewService.apiUrl + '/select/sectors')
-      .then(response => {
-        response.json()
-          .then(data => {
-            this.sectorList = data.slice();
-          });
-      });
-    fetch(this.offerViewService.apiUrl + '/select/softskills')
-      .then(response => {
-        response.json()
-          .then(data => {
-            this.listSoftSkills = data.slice();
-          });
-      });
-    fetch(this.offerViewService.apiUrl + '/select/domaines')
-      .then(response => {
-        response.json()
-          .then(data => {
-            this.listDomains = data.slice();
-          });
-      });
+
+    this.selectService.getSectors().subscribe(sectors => {
+      this.sectorList = sectors;
+    });
+    this.selectService.getSoftSkills().subscribe(softSkills => {
+      this.listSoftSkills = softSkills;
+    });
+    this.selectService.getDomains().subscribe(domains => {
+      this.listDomains = domains;
+    });
+
     this.companyService.getAll().subscribe(
       value => {
         this.companiesList = value;

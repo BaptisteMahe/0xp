@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-import { NotificationsService } from '../../../services';
+import { NotificationsService, SelectService } from '../../../services';
 import { Filter, SelectOption } from '../../../../models';
 
 import * as _moment from 'moment';
@@ -66,7 +66,8 @@ export class FilterComponent implements OnInit {
   isNotifAddedSubscription: Subscription;
   isStudent: boolean;
 
-  constructor(private notificationsService: NotificationsService) { }
+  constructor(private notificationsService: NotificationsService,
+              private selectService: SelectService) { }
 
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;
@@ -82,13 +83,9 @@ export class FilterComponent implements OnInit {
       }
     );
 
-    fetch(this.notificationsService.apiUrl + '/select/sectors')
-      .then(response => {
-        response.json()
-          .then(data => {
-            this.sectorList = data.slice();
-          });
-      });
+    this.selectService.getSectors().subscribe(sectors => {
+      this.sectorList = sectors;
+    });
   }
 
   onFilterClick() {
