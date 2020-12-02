@@ -1,11 +1,11 @@
 import { Subscription } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-import { OfferViewService, NotificationsService } from '../../../services';
-import { Filter, Offer, SelectOption } from '../../../../models';
+import { NotificationsService } from '../../../services';
+import { Filter, SelectOption } from '../../../../models';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
@@ -45,6 +45,7 @@ export const MY_FORMATS = {
 export class FilterComponent implements OnInit {
 
   currentFilter: Filter;
+  @Output() filterEvent = new EventEmitter<Filter>();
 
   typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
   timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
@@ -54,10 +55,9 @@ export class FilterComponent implements OnInit {
   salaireMax: number;
 
   isMoreFilterOpen = false;
-  listOffersSubscription: Subscription;
 
-  listOfferLocation: SelectOption[] = [];
-  listOfferCompany: SelectOption[] = [];
+  listOfferLocation: SelectOption[] = []; // TODO: Get it from the BE
+  listOfferCompany: SelectOption[] = []; // TODO : Get it from the BE
 
   dateFromDate: Date = new Date();
   dateStart = new FormControl(moment());
@@ -66,8 +66,7 @@ export class FilterComponent implements OnInit {
   isNotifAddedSubscription: Subscription;
   isStudent: boolean;
 
-  constructor(private offerViewService: OfferViewService,
-              private notificationsService: NotificationsService) { }
+  constructor(private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;
@@ -83,7 +82,7 @@ export class FilterComponent implements OnInit {
       }
     );
 
-    fetch(this.offerViewService.apiUrl + '/select/sectors')
+    fetch(this.notificationsService.apiUrl + '/select/sectors')
       .then(response => {
         response.json()
           .then(data => {
@@ -92,79 +91,15 @@ export class FilterComponent implements OnInit {
       });
   }
 
-  filter() {
-    console.log(JSON.stringify(this.currentFilter));
+  onFilterClick() {
     this.currentFilter.start_date = this.dateFromDate.getTime();
 
-    this.offerViewService.filter(this.currentFilter);
+    this.filterEvent.emit(this.currentFilter);
     this.isMoreFilterOpen = false;
 
     this.isNotifAdded = false; // TODO : Should check if notif already exists
     this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
   }
-
-  // TODO : Refactor that function
-  manageMoreFilter() {
-    this.isMoreFilterOpen = !this.isMoreFilterOpen;
-    const setVille = new Set([]);
-    const setCompany = new Set([]);
-
-    if (this.listOfferLocation.length === 0) {
-      // On récupère le nom des villes pour lesquelles on a des stages
-      this.listOffersSubscription = this.offerViewService.listOffersSubject.subscribe(
-        (listOffers: Offer[]) => {
-          listOffers.forEach((offer) => {
-            if (!setVille.has(offer.location)) {
-              setVille.add(offer.location);
-
-              this.listOfferLocation.push(
-                {
-                  display: offer.location,
-                  value: offer.location
-                } as SelectOption
-              );
-            }
-          });
-        }
-      );
-    }
-
-    if (this.listOfferCompany.length === 0) {
-      // On récupère le nom des villes pour lesquelles on a des stages
-      this.listOffersSubscription = this.offerViewService.listOffersSubject.subscribe(
-        (listOffers: Offer[]) => {
-          listOffers.forEach((offer) => {
-            if (!setCompany.has(offer.company)) {
-              setCompany.add(offer.company);
-              this.listOfferCompany.push(
-                {
-                  display: offer.company,
-                  value: offer.company
-                }
-              );
-            }
-          });
-        }
-      );
-    }
-
-    if (!this.salaireMax) {
-      // On cherche la rémunération maximum
-      this.listOffersSubscription = this.offerViewService.listOffersSubject.subscribe(
-        (listOffers: Offer[]) => {
-          this.salaireMax = listOffers[0].remuneration;
-          listOffers.forEach((offer) => {
-            if (offer.remuneration) {
-              this.salaireMax = Math.max(+this.salaireMax, +offer.remuneration);
-            }
-          });
-        }
-      );
-    }
-    this.offerViewService.emitListOffersSubject();
-  }
-
-
 
   chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.dateStart.value;

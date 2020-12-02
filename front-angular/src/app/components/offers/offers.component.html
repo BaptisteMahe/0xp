@@ -1,14 +1,14 @@
 <div>
   <img class="logo" src="../../../assets/images/logo_blue.svg" />
   <h1 class="slogan">Naviguez parmi les offres et trouvez celle qui vous correspond !</h1>
-  <app-filter></app-filter>
+  <app-filter (filterEvent)="onFilterEvent($event)"></app-filter>
 
   <div class="loadingScreen" *ngIf="isLoading">
     <div class="loader"></div>
     <h1>Chargement des offres correspondant le plus à votre recherche !</h1>
   </div>
 
-  <div *ngIf="!isLoading && filteredListOffers.length!=0" class="flexCol listOffers">
+  <div *ngIf="!isLoading && offerList.length!=0" class="flexCol listOffers">
     <button mat-icon-button [matMenuTriggerFor]="sortMenu" class="logoSort">
       <mat-icon>sort</mat-icon>
     </button>
@@ -28,11 +28,11 @@
       </button>
     </mat-menu>
 
-    <app-offer-preview class="oneOffer button" *ngFor="let offer of filteredListOffers" [offer]="offer">
+    <app-offer-preview class="oneOffer button" *ngFor="let offer of offerList" [offer]="offer">
     </app-offer-preview>
   </div>
 
-  <div *ngIf="filteredListOffers?.length===0" class="noOffersDiv">
+  <div *ngIf="offerList?.length===0" class="noOffersDiv">
     <h4>Aucune offre ne semble correspondre à votre filtrage pour le moment...</h4>
 
     <div *ngIf="isStudent">

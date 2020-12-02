@@ -119,7 +119,7 @@
     </div>
   </div>
 
-  <h4 class="button filter-button" (click)="filter()">Rechercher</h4>
+  <h4 class="button filter-button" (click)="onFilterClick()">Rechercher</h4>
 
   <p *ngIf="!isMoreFilterOpen" class="noSpace text-open-more-criteria">Plus de critères</p>
   <p *ngIf="isMoreFilterOpen" class="noSpace text-open-more-criteria">Moins de critères</p>
@@ -127,5 +127,5 @@
 
 <div>
   <img class="logo-show-more-criteria button" [ngClass]="{'more-filter-openImg':isMoreFilterOpen}"
-    (click)="manageMoreFilter()" src="../../../../assets/images/icon_arrowFilter.svg" />
+       (click)="this.isMoreFilterOpen=!this.isMoreFilterOpen" src="../../../../assets/images/icon_arrowFilter.svg" />
 </div>
