@@ -48,7 +48,7 @@ export class OfferViewService {
     }
   }
 
-  getListOfferByCompanyId2(id: string): Observable<Offer[]> {
+  getListOfferByCompanyId(id: string): Observable<Offer[]> {
     return this.getAllOffersByCompanyId(id).pipe(
         map(listOfferJson => {
           return this.getOfferListFromHashMap(listOfferJson);

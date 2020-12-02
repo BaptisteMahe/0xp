@@ -29,7 +29,7 @@ export class OfferCompanyComponent implements OnInit {
           this.listOffer = listOffer;
         });
       } else {
-        this.offerViewService.getListOfferByCompanyId2(currentUser.idCompany).subscribe(listOffer => {
+        this.offerViewService.getListOfferByCompanyId(currentUser.idCompany).subscribe(listOffer => {
           this.listOffer = listOffer;
         });
       }
