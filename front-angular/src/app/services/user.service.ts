@@ -50,8 +50,4 @@ export class UserService {
       }
     );
   }
-
-  getSoftSkillList() {
-    return this.http.get<SelectOption[]>(this.apiUrl + '/select/softSkills');
-  }
 }

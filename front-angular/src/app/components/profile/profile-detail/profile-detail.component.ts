@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Router } from '@angular/router';
 
-import { UserService } from '../../../services';
+import { SelectService, UserService } from '../../../services';
 import { SelectOption, User } from '../../../../models';
 
 @Component({
@@ -20,13 +19,13 @@ export class ProfileDetailComponent implements OnInit {
   softSkillsList: SelectOption[];
 
   constructor(private userService: UserService,
-              private router: Router) { }
+              private selectService: SelectService) { }
 
   ngOnInit() {
     this.userService.getCurrentUserObs().subscribe((user: User) => {
       this.currentUser = user;
     });
-    this.userService.getSoftSkillList().subscribe((softSkillsList: SelectOption[]) => {
+    this.selectService.getSoftSkills().subscribe((softSkillsList: SelectOption[]) => {
       this.softSkillsList = softSkillsList;
     });
   }
