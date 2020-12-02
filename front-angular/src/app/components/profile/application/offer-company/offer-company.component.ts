@@ -1,10 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
 
 import { Offer } from '../../../../../models';
-import { OfferViewService } from '../../../../services';
+import { OfferViewService, UserService } from '../../../../services';
 import { QuitEditionDialogContentComponent } from './add-offer/add-offer.component';
 
 @Component({
@@ -14,23 +13,27 @@ import { QuitEditionDialogContentComponent } from './add-offer/add-offer.compone
 })
 export class OfferCompanyComponent implements OnInit {
 
-  listOfferCompany: Offer[] = [];
-  listOffersSubscription: Subscription;
+  listOffer: Offer[] = [];
   isEditingOffer = false;
   offreToBeEdited: Offer;
 
   constructor(private offerViewService: OfferViewService,
+              private userService: UserService,
               private matDialog: MatDialog,
               private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.listOffersSubscription = this.offerViewService.customListOffersSubject.subscribe(
-      (listOffers: Offer[]) => {
-        this.listOfferCompany = listOffers?.slice();
+    this.userService.getCurrentUserObs().subscribe(currentUser => {
+      if (currentUser.username === 'admin') {
+        this.offerViewService.getFullListOffer().subscribe(listOffer => {
+          this.listOffer = listOffer;
+        });
+      } else {
+        this.offerViewService.getListOfferByCompanyId2(currentUser.idCompany).subscribe(listOffer => {
+          this.listOffer = listOffer;
+        });
       }
-    );
-
-    this.offerViewService.getListOfferByCompanyId();
+    });
   }
 
   onDeleteClick(offerToBeDeleted: Offer) {
@@ -48,7 +51,7 @@ export class OfferCompanyComponent implements OnInit {
     const deleteOfferObs = this.offerViewService.deleteOffer(offerToBeDeleted.id);
     deleteOfferObs.subscribe(
       (response) => {
-        this.listOfferCompany = this.listOfferCompany.filter(offer => offer !== offerToBeDeleted);
+        this.listOffer = this.listOffer.filter(offer => offer !== offerToBeDeleted);
       }, (error) => {
         this.matSnackBar.open('Error deleting the offer', null, { duration: 3000, panelClass: ['snack-bar-error'] });
       }
