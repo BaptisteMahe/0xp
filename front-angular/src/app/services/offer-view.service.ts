@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Offer, User, Filter } from '../../models';
 import { environment } from '../../environments/environment';
 import { UserService } from './user.service';
+
 
 export enum SortCategory {
   matchingScore,
@@ -26,6 +28,7 @@ export class OfferViewService {
   isLoadingSubject = new BehaviorSubject<boolean>(null);
   customListOffers: Offer[] = [];
   customListOffersSubject = new BehaviorSubject<Offer[]>(null);
+  // END - Will be removed
 
   remunMax = 0;
   currentUser: User;
@@ -36,6 +39,47 @@ export class OfferViewService {
       this.currentUser = user;
     });
   }
+
+  getFullListOffer(): Observable<Offer[]> {
+    return this.getAllOffers().pipe(
+        map(listOfferJson => {
+          return this.getOfferListFromHashMap(listOfferJson);
+        })
+    );
+  }
+
+  getFilteredListOffer(filter: Filter): Observable<Offer[]> {
+    const query = filter.toQuery();
+    if (query) {
+      return this.getFilteredOffer(query).pipe(
+          map(listOfferJson => {
+            return this.getOfferListFromHashMap(listOfferJson);
+          })
+      );
+    } else {
+      return this.getFullListOffer();
+    }
+  }
+
+  getListOfferByCompanyId2(id: string): Observable<Offer[]> {
+    return this.getAllOffersByCompanyId(id).pipe(
+        map(listOfferJson => {
+          return this.getOfferListFromHashMap(listOfferJson);
+        })
+    );
+  }
+
+  getOfferListFromHashMap(listOfferJson): Offer[] {
+    const listOffer: Offer[] = [];
+    listOfferJson.forEach(offerJson => {
+      const offer = new Offer();
+      offer.fromHashMap(offerJson);
+      listOffer.push(offer);
+    });
+    return listOffer;
+  }
+
+  // START - Will be removed
 
   fillListOffers() {
     this.emitIsLoadingSubject(true);
@@ -108,6 +152,8 @@ export class OfferViewService {
     );
   }
 
+  // END - Will be removed
+
   // TODO : Remake that shit
   defineColor(percentage: number) {
     percentage = +percentage / 100;
@@ -150,6 +196,8 @@ export class OfferViewService {
       });
     }
   }
+
+  // START - Will be removed
 
   populateListOffers(offerListJson) {
     this.listOffers = [];
@@ -198,6 +246,8 @@ export class OfferViewService {
   emitCustomListOffersSubject() {
     this.customListOffersSubject.next(this.customListOffers.length !== 0 ? this.customListOffers.slice() : []);
   }
+
+  // END - Will be removed
 
   getFilteredOffer(query): Observable<any[]> {
     // TODO : Change this request to get in BackEnd
