@@ -258,6 +258,10 @@ export class OfferViewService {
     return this.httpClient.get<any[]>(this.apiUrl + '/offres');
   }
 
+  getOfferById(id: string): Observable<Offer> {
+    return this.httpClient.get<Offer>(this.apiUrl + '/offres/byId/' + id);
+  }
+
   getAllOffersByCompanyId(companyId: string): Observable<any[]> {
     return this.httpClient.get<any[]>(this.apiUrl + '/offres/byCompanyId?id=' + companyId);
   }

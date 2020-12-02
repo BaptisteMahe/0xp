@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
 
 import { Offer, Company } from '../../../../models';
 import { OfferViewService, CompanyService } from '../../../services';
@@ -14,52 +13,38 @@ import { OfferViewService, CompanyService } from '../../../services';
 export class OfferDetailComponent implements OnInit {
 
   offer: Offer = new Offer();
-  colorScore: SafeStyle;
   company: Company;
-  offerSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute,
+  colorScore: SafeStyle;
+
+  isModalopen = false;
+
+  constructor(private router: Router,
               private offerViewService: OfferViewService,
               private sanitizer: DomSanitizer,
               private companyService: CompanyService) { }
 
-  isModalopen = false;
-
-  public notNull(o) {
-    if (typeof o === 'undefined') {
-      return false;
-    } else if (o === null) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   ngOnInit() {
     window.scroll(0, 0);
     this.offerViewService.fillListOffers();
-    const idOffer = this.route.snapshot.params.id;
+    const idOffer = this.router.url.replace('/offers/', '');
 
-    this.offerSubscription = this.offerViewService.listOffersSubject.subscribe(
-      (listOffers: Offer[]) => {
-        listOffers.forEach((offer) => {
-          if (offer.id === idOffer) {
-            this.offer = offer;
-            this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.offerViewService.defineColor(this.offer.matchingScore));
-          }
-        });
+    this.offerViewService.getOfferById(idOffer).subscribe(offer => {
+      if (offer) {
+        this.offer = offer;
+        this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.offerViewService.defineColor(this.offer.matchingScore));
         this.companyService.getById(this.offer.id_company).subscribe(
-          company => {
-            this.company = company;
-          },
-          error => {
-            console.log('Erreur ! : ' + error);
-          }
+            company => {
+              this.company = company;
+            },
+            error => {
+              console.log('Erreur ! : ' + error);
+            }
         );
+      } else {
+        this.router.navigate(['/offers']);
       }
-    );
-
-    this.offerViewService.emitListOffersSubject();
+    });
   }
 
   openOrClose() {

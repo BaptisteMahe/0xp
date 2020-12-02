@@ -59,12 +59,12 @@
     <li>{{ offer.location }}</li>
     <li>{{ offer.type }} - {{ offer.duration }}</li>
     <li>{{ offer.sector }}</li>
-    <li *ngIf="notNull(offer.remuneration)">{{ offer.remuneration }} €</li>
+    <li *ngIf="!!(offer.remuneration)">{{ offer.remuneration }} €</li>
   </ul>
 
   <br />
 
-  <div *ngIf="notNull(offer.domains)">
+  <div *ngIf="!!(offer.domains)">
     <h1>Mots clés</h1>
     <ul>
       <li *ngFor="let domain of offer.domains">{{ domain }}</li>
