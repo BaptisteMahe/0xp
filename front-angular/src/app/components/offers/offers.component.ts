@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Offer } from '../../../models';
-import { OfferViewService, SortCategory } from '../../services';
-import { NotificationsService } from '../profile/notification/notifications.service';
+import { Offer, Filter } from '../../../models';
+import { OfferViewService, SortCategory, NotificationsService } from '../../services';
 
 @Component({
   selector: 'app-offers',
@@ -12,15 +11,13 @@ import { NotificationsService } from '../profile/notification/notifications.serv
 })
 export class OffersComponent implements OnInit {
 
-  filteredListOffers: Offer[] = [];
-  filteredListOffersSubscription: Subscription;
-  isLoading: boolean;
-  isLoadingSubscription: Subscription;
+  offerList: Offer[];
+  isLoading = true;
 
   isStudent: boolean;
 
   sortStatus: typeof SortCategory = SortCategory;
-  sortedBy: SortCategory;
+  sortedBy: SortCategory = SortCategory.matchingScore;
 
   isNotifAdded: boolean;
   isNotifAddedSubscription: Subscription;
@@ -30,19 +27,12 @@ export class OffersComponent implements OnInit {
 
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;
-    this.sortedBy = SortCategory.matchingScore;
-    this.offerViewService.fillListOffers();
-    this.filteredListOffersSubscription = this.offerViewService.filteredListOffersSubject.subscribe(
-      (listOffers: any[]) => {
-        this.filteredListOffers = listOffers?.slice();
-      }
-    );
-    this.offerViewService.emitListOffersSubject();
-    this.isLoadingSubscription = this.offerViewService.isLoadingSubject.subscribe(
-      (isLoading: boolean) => {
-        this.isLoading = isLoading;
-      }
-    );
+
+    this.offerViewService.getFullListOffer().subscribe(offerList => {
+      this.offerList = offerList;
+      this.isLoading = false;
+    });
+
     this.isNotifAddedSubscription = this.notificationsService.isNotifAddedSubject.subscribe(
       (isNotifAdded: boolean) => {
         this.isNotifAdded = isNotifAdded;
@@ -50,9 +40,17 @@ export class OffersComponent implements OnInit {
     );
   }
 
+  onFilterEvent(filter: Filter) {
+    this.isLoading = true;
+    this.offerViewService.getFilteredListOffer(filter).subscribe(filteredListOffer => {
+      this.offerList = filteredListOffer;
+      this.isLoading = false;
+    });
+  }
+
   changeSortBy(sortKey: SortCategory) {
     if (sortKey !== this.sortedBy) {
-      this.offerViewService.sortArray(this.filteredListOffers, sortKey);
+      this.offerViewService.sortArray(this.offerList, sortKey);
       this.sortedBy = sortKey;
     }
   }

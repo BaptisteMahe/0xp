@@ -196,5 +196,14 @@ router.delete('/deleteById/:id', function (req, res) {
     res.send(req.body);
 });
 
+router.get('/byId/:id', function (req, res, next) {
+    let id = mongoose.Types.ObjectId(req.params.id);
+
+    db.collection('offers').findOne({
+        _id: id
+    })
+        .then(offer => offer ? res.json(offer) : res.sendStatus(404))
+        .catch(err => next(err));
+});
 
 module.exports = router;
