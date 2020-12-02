@@ -32,7 +32,7 @@
     </app-offer-preview>
   </div>
 
-  <div *ngIf="filteredListOffers.length===0" class="noOffersDiv">
+  <div *ngIf="filteredListOffers?.length===0" class="noOffersDiv">
     <h4>Aucune offre ne semble correspondre à votre filtrage pour le moment...</h4>
 
     <div *ngIf="isStudent">

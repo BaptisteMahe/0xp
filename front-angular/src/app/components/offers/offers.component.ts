@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Offer } from '../../../models';
-import { OfferViewService, SortCategory } from '../../services';
-import { NotificationsService } from '../profile/notification/notifications.service';
+import { OfferViewService, SortCategory, NotificationsService } from '../../services';
 
 @Component({
   selector: 'app-offers',

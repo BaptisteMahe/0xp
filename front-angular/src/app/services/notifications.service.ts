@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
-import { Filter, User } from 'src/models';
-import { UserService } from '../../../services';
-import { environment } from 'src/environments/environment';
+import { Filter, User } from '../../models';
+import { UserService } from './user.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class NotificationsService {

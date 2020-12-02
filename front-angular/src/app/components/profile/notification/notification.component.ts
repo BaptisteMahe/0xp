@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { UserService } from '../../../services';
-import {NotificationObj, User} from 'src/models';
-import { NotificationsService } from './notifications.service';
+import { UserService, NotificationsService } from '../../../services';
+import { NotificationObj, User } from '../../../../models';
 
 @Component({
   selector: 'app-notification',

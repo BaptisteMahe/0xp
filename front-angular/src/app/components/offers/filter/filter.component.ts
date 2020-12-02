@@ -1,12 +1,11 @@
-import { NotificationsService } from '../../profile/notification/notifications.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-import { OfferViewService } from '../../../services';
-import { Filter, Offer, SelectOption } from 'src/models';
+import { OfferViewService, NotificationsService } from '../../../services';
+import { Filter, Offer, SelectOption } from '../../../../models';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
@@ -67,7 +66,8 @@ export class FilterComponent implements OnInit {
   isNotifAddedSubscription: Subscription;
   isStudent: boolean;
 
-  constructor(private offerViewService: OfferViewService, private notificationsService: NotificationsService) { }
+  constructor(private offerViewService: OfferViewService,
+              private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;

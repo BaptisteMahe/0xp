@@ -2,9 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router , NavigationEnd  } from '@angular/router';
 
-import { UserService} from '../../services';
-import { User } from 'src/models';
-import { NotificationsService } from '../profile/notification/notifications.service';
+import { UserService, NotificationsService} from '../../services';
+import { User } from '../../../models';
 
 @Component({
   selector: 'app-navbar',

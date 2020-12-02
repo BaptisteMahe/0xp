@@ -35,7 +35,7 @@ import { NotificationComponent } from './components/profile/notification/notific
 import { OfferSquareComponent } from './components/profile/application/offer-square/offer-square.component';
 import { OfferCompanyComponent, DeleteDialogContentComponent } from './components/profile/application/offer-company/offer-company.component';
 import { AddOfferComponent, QuitEditionDialogContentComponent } from './components/profile/application/offer-company/add-offer/add-offer.component';
-import { NotificationsService } from './components/profile/notification/notifications.service';
+import { NotificationsService } from './services/notifications.service';
 
 import { EntreprisesComponent } from './components/entreprises/entreprises.component';
 import { DetailCompanyComponent } from './components/entreprises/detail-company/detail-company.component';
