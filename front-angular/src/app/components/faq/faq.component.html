@@ -35,8 +35,8 @@
 </div>
 
 <div class="questions">
-    <h2>Général</h2>
-    <app-faq-question *ngFor="let el of general" [question]="el.quest" [answer]="el.answ"></app-faq-question>
+    <h2>{{faq.sections[0].title}}</h2>
+    <app-faq-question *ngFor="let el of faq.sections[0].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 
     <h2>Stages 1A</h2>
     <app-faq-question *ngFor="let el of stages1a" [question]="el.quest" [answer]="el.answ"></app-faq-question>

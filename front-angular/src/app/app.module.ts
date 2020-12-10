@@ -18,6 +18,7 @@ import { ProfileAdminComponent } from './components/admin/profile-admin/profile-
 
 import { FaqComponent } from './components/faq/faq.component';
 import { FaqQuestionComponent } from './components/faq/faq-question/faq-question.component';
+import { FaqService } from './services';
 
 import { LoggingComponent } from './components/logging/logging.component';
 import { RegisterFormComponent } from './components/logging/register-form/register-form.component';
@@ -99,7 +100,7 @@ import { MaterialModule } from './modules/material.module';
     AddCompanyComponent
   ],
   exports: [OfferDetailComponent],
-  providers: [OfferViewService, CompanyService, UserService, NotificationsService, SelectService,
+  providers: [OfferViewService, CompanyService, UserService, NotificationsService, SelectService, FaqService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'fr' }],
