@@ -83,9 +83,7 @@ export class FilterComponent implements OnInit {
       }
     );
 
-    this.selectService.getSectors().subscribe(sectors => {
-      this.sectorList = sectors;
-    });
+    this.getSelectOptions();
   }
 
   onFilterClick() {
@@ -118,5 +116,17 @@ export class FilterComponent implements OnInit {
     this.isNotifAdded = true;
     this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
     this.notificationsService.majFilterForNotif(this.currentFilter);
+  }
+
+  getSelectOptions() {
+    this.selectService.getSectors().subscribe(sectors => {
+      this.sectorList = sectors;
+    });
+    this.selectService.getCompaniesForSelect().subscribe(companies => {
+      this.listOfferCompany = companies;
+    });
+    this.selectService.getLocations().subscribe(locations => {
+      this.listOfferLocation = locations;
+    });
   }
 }

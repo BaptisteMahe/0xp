@@ -22,4 +22,12 @@ export class SelectService {
   getDomains(): Observable<any[]> {
     return this.httpClient.get<any[]>(this.apiUrl + '/select/domaines');
   }
+
+  getCompaniesForSelect(): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.apiUrl + '/select/companies');
+  }
+
+  getLocations(): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.apiUrl + '/select/locations');
+  }
 }
