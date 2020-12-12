@@ -38,18 +38,18 @@
     <h2>{{faq.sections[0].title}}</h2>
     <app-faq-question *ngFor="let el of faq.sections[0].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 
-    <h2>Stages 1A</h2>
-    <app-faq-question *ngFor="let el of stages1a" [question]="el.quest" [answer]="el.answ"></app-faq-question>
+    <h2>{{faq.sections[1].title}}</h2>
+    <app-faq-question *ngFor="let el of faq.sections[1].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 
-    <h2>Stages 2A</h2>
-    <app-faq-question *ngFor="let el of stages2a" [question]="el.quest" [answer]="el.answ"></app-faq-question>
+    <h2>{{faq.sections[2].title}}</h2>
+    <app-faq-question *ngFor="let el of faq.sections[2].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 
-    <h2>Stages TFE</h2>
-    <app-faq-question *ngFor="let el of stagestfe" [question]="el.quest" [answer]="el.answ"></app-faq-question>
+    <h2>{{faq.sections[3].title}}</h2>
+    <app-faq-question *ngFor="let el of faq.sections[3].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 
-    <h2>Double Diplôme sortant</h2>
-    <app-faq-question *ngFor="let el of ddsortants" [question]="el.quest" [answer]="el.answ"></app-faq-question>
+    <h2>{{faq.sections[4].title}}</h2>
+    <app-faq-question *ngFor="let el of faq.sections[4].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 
-    <h2>Stages en Césure</h2>
-    <app-faq-question *ngFor="let el of cesures" [question]="el.quest" [answer]="el.answ"></app-faq-question>
+    <h2>{{faq.sections[5].title}}</h2>
+    <app-faq-question *ngFor="let el of faq.sections[5].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
 </div>
