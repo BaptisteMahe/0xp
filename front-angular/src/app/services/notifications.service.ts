@@ -8,8 +8,8 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class NotificationsService {
-  apiUrl = environment.apiUrl;
 
+  private apiUrl = environment.apiUrl;
   currentUser: User;
 
   nbrNotif: number;

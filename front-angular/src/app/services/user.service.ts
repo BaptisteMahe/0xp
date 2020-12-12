@@ -10,7 +10,7 @@ import { SelectOption, User } from '../../models';
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-  public apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiUrl;
   private currentUser: User;
   private currentUserSub = new BehaviorSubject<User>(null);
 

@@ -6,9 +6,10 @@ import { Avis } from '../../models';
 
 @Injectable({ providedIn: 'root' })
 export class AvisService {
-  constructor(private http: HttpClient) { }
 
-  apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient) { }
 
   getAll() {
     return this.http.get<Avis[]>(this.apiUrl + '/avis');
