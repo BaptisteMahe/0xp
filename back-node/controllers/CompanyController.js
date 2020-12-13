@@ -2,65 +2,46 @@ let express = require('express');
 let router = express.Router();
 let bodyParser = require('body-parser');
 router.use(bodyParser.json());
-const Company = require("./company.model");
 let ObjectId = require('mongodb').ObjectId;
 
-router.get('/', function (req, res, next) {
-    db.collection('companies').find().toArray(function (err, results) {
-        console.log(results)
-        res.json(results);
-    })
+router.get('/', function (req, res) {
+    db.collection('companies').find().toArray()
+        .then(result => res.json(result))
+        .catch(err => {res.send(err)});
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
     req.body.creationDate = req.body.creationDate.substring(0,10);
-    let company = new Company(req.body);
-    db.collection('companies').insertOne(company).then(() => res.end())
+    db.collection('companies').insertOne(req.body)
+        .then(() => res.end())
         .catch(err => {
-            if (err.code = 11000) {
-                res.status(400).json({
-                    message: 'Le nom de l\'entreprise est déjà utilisé'
-                });
-            } else {
-                next(err)
-            }
+            if (err.code = 11000) {err.message = 'Le nom de l\'entreprise est déjà utilisé'}
+            res.send(err);
         });
 });
 
-router.get('/:id', function (req, res, next) {
+router.get('/:id', function (req, res) {
     const companyObjectId = new ObjectId(req.params.id)
-    db.collection('companies').findOne({
-        _id: companyObjectId
-    })
+    db.collection('companies').findOne({_id: companyObjectId})
         .then(company => company ? res.json(company) : res.sendStatus(404))
-        .catch(err => next(err));
+        .catch(err => res.send(err));
 });
 
-router.delete('/:id', function (req, res, next) {
+router.delete('/:id', function (req, res) {
     const companyObjectId = new ObjectId(req.params.id);
-    db.collection('companies').deleteOne({
-        _id: companyObjectId
-    }, function(error) {
-        if (error) {
-            res.send(error);
-        } else {
-            res.end();
-        }
-    });
+    db.collection('companies').deleteOne({_id: companyObjectId})
+        .then(() => res.end())
+        .catch(err => {res.send(err)});
 });
 
-router.put('/update', function(req, res, next) {
-    req.body._id = new ObjectId(req.body._id);
-    db.collection('companies').update({
-        _id: req.body._id
-    }, req.body, (error) => {
-        if (error) {
-            console.log(error);
-            res.send(error);
-        } else {
-            res.end();
-        }
-    });
+router.put('/:id', function(req, res) {
+    const companyObjectId = new ObjectId(req.params.id);
+    db.collection('companies').update({_id: companyObjectId}, {...req.body, _id: companyObjectId})
+        .then(() => res.end())
+        .catch(err => {
+            if (err.code = 11000) {err.message = 'Le nom de l\'entreprise est déjà utilisé'}
+            res.send(err);
+        });
 });
 
 module.exports = router;
