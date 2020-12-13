@@ -16,15 +16,11 @@ router.get('/', function (req, res, next) {
     .catch(next)
 });
 
-router.post('/authenticate', authenticate);
-
-function authenticate(req, res, next) {
+router.post('/authenticate', function (req, res, next) {
   toAuthenticate(req.body)
-    .then(user => user ? res.json(user) : res.status(400).json({
-      message: 'Username or password is incorrect'
-    }))
-    .catch(err => next(err));
-}
+    .then(user => user ? res.json(user) : res.status(400).json({message: 'Username or password is incorrect'})) //TODO : handle username incprrect
+    .catch(next);
+})
 
 router.post('/register', function (req, res, next) {
   db.collection('users').countDocuments({
