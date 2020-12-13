@@ -28,6 +28,6 @@ export class CompanyService {
     }
 
     editCompany(company: Company) {
-        return this.http.put<Company>(this.apiUrl + '/companies/update', company);
+        return this.http.put<Company>(this.apiUrl + '/companies/' + company._id, company);
     }
 }
