@@ -18,7 +18,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/authenticate', function (req, res, next) {
   toAuthenticate(req.body)
-    .then(user => user ? res.json(user) : res.status(400).json({message: 'Username or password is incorrect'})) //TODO : handle username incprrect
+    .then(user => user ? res.json(user) : res.status(400).json({message: 'Username or password is incorrect'})) //TODO : handle username incorrect
     .catch(next);
 })
 
@@ -63,12 +63,6 @@ router.post('/register', function (req, res, next) {
       })
     }
   })
-});
-
-router.get('/current', function (req, res, next) {
-  db.collection('users').findById(req.user.sub)
-    .then(user => user ? res.json(user) : res.sendStatus(404))
-    .catch(err => next(err));
 });
 
 router.get('/:id', function (req, res, next) {
