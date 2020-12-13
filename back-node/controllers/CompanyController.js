@@ -15,8 +15,11 @@ router.post('/', function (req, res) {
     db.collection('companies').insertOne(req.body)
         .then(() => res.end())
         .catch(err => {
-            if (err.code = 11000) {err.message = 'Le nom de l\'entreprise est déjà utilisé'}
-            res.send(err);
+            if (err.code = 11000) { // if there already exist a company in the company collection
+                res.status(400).json({...err,message: 'Le nom de l\'entreprise est déjà utilisé'});
+            } else {
+                res.send(err)
+            }
         });
 });
 
@@ -39,8 +42,11 @@ router.put('/:id', function(req, res) {
     db.collection('companies').update({_id: companyObjectId}, {...req.body, _id: companyObjectId})
         .then(() => res.end())
         .catch(err => {
-            if (err.code = 11000) {err.message = 'Le nom de l\'entreprise est déjà utilisé'}
-            res.send(err);
+            if (err.code = 11000) { // if there already exist a company in the company collection
+                res.status(400).json({...err,message: 'Le nom de l\'entreprise est déjà utilisé'});
+            } else {
+                res.send(err)
+            }
         });
 });
 
