@@ -3,11 +3,10 @@ let router = express.Router();
 let bodyParser = require('body-parser');
 router.use(bodyParser.json());
 let mongoose = require('mongoose');
+const ObjectId = require('mongodb').ObjectId;
 
 let notificationModule = require('../modules/notificationModule.js')
 let matchingModule = require('../modules/matchingModule.js')
-
-const escapeStringRegexp = require('escape-string-regexp')
 
 router.get('/', function (req, res) {
     db.collection('offers').find().toArray(function (err, results) {
@@ -67,6 +66,41 @@ function buildQuery(filter){
     primaryCriteriaArray.forEach(criteria => {
         addPrimaryCriteriaToQuery(criteria, query, filter);
     });
+
+    if (filter.location.length) {
+        let locationQuery = {$or: []};
+        filter.location.forEach(location => {
+            locationQuery.$or.push({location: location.value})
+        });
+        query.push(locationQuery);
+    }
+    if (filter.company.length) {
+        let companyQuery = {$or: []};
+        filter.company.forEach(company => {
+            companyQuery.$or.push({id_company: new ObjectId(company.id)})
+        });
+        query.push(companyQuery);
+    }
+
+    if (filter.isPartner) {
+        // TODO: Find a way to check partnership of company proposing offer
+    }
+
+    if (filter.publicationDate) {
+        // TODO: Remake Publication Date management
+    }
+
+    if (filter.companySize) {
+        // TODO: Find a way to check size of company proposing offer
+    }
+
+    if (filter.matchingMini) {
+        // TODO: Find a way to check matching score of offer with currentUser
+    }
+
+    if (filter.remunMini) {
+        query.push({remuneration: {$gte: filter.remunMini}});
+    }
 
     return query.length ? {$and: query} : {};
 }
