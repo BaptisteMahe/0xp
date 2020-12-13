@@ -10,10 +10,10 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const ObjectId = require('mongodb').ObjectId;
 
-router.get('/', function (req, res) {
-  db.collection('users').find().toArray(function (err, results) {
-    res.json(results);
-  })
+router.get('/', function (req, res, next) {
+  db.collection('users').find().toArray()
+    .then(results => res.json(results))
+    .catch(next)
 });
 
 router.post('/authenticate', authenticate);
