@@ -56,8 +56,8 @@ export class FilterComponent implements OnInit {
 
   isMoreFilterOpen = false;
 
-  listOfferLocation: SelectOption[] = []; // TODO: Get it from the BE
-  listOfferCompany: SelectOption[] = []; // TODO : Get it from the BE
+  listOfferLocation: SelectOption[] = [];
+  listOfferCompany: SelectOption[] = [];
 
   dateFromDate: Date = new Date();
   dateStart = new FormControl(moment());
