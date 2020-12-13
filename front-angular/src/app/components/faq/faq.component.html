@@ -35,21 +35,8 @@
 </div>
 
 <div class="questions">
-    <h2>{{faq.sections[0].title}}</h2>
-    <app-faq-question *ngFor="let el of faq.sections[0].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
-
-    <h2>{{faq.sections[1].title}}</h2>
-    <app-faq-question *ngFor="let el of faq.sections[1].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
-
-    <h2>{{faq.sections[2].title}}</h2>
-    <app-faq-question *ngFor="let el of faq.sections[2].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
-
-    <h2>{{faq.sections[3].title}}</h2>
-    <app-faq-question *ngFor="let el of faq.sections[3].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
-
-    <h2>{{faq.sections[4].title}}</h2>
-    <app-faq-question *ngFor="let el of faq.sections[4].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
-
-    <h2>{{faq.sections[5].title}}</h2>
-    <app-faq-question *ngFor="let el of faq.sections[5].QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
+    <div *ngFor="let section of faq.sections">
+        <h2>{{section.title}}</h2>
+        <app-faq-question *ngFor="let el of section.QRs" [question]="el.quest" [answer]="el.answ"></app-faq-question>
+    </div>
 </div>

@@ -8,5 +8,4 @@ router.get('/', function (req, res, next) {
     res.json(faq);
 });
 
-
 module.exports = router;
