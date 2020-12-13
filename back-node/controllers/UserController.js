@@ -16,6 +16,12 @@ router.get('/', function (req, res, next) {
     .catch(next)
 });
 
+router.get('/:id', function (req, res, next) {
+  db.collection('users').findOne({_id: ObjectId(req.params.id)})
+    .then(user => user ? res.json(user) : res.sendStatus(404))
+    .catch(next);
+});
+
 router.post('/authenticate', function (req, res, next) {
   toAuthenticate(req.body)
     .then(user => user ? res.json(user) : res.status(400).json({message: 'Username or password is incorrect'})) //TODO : handle username incorrect
@@ -63,14 +69,6 @@ router.post('/register', function (req, res, next) {
       })
     }
   })
-});
-
-router.get('/:id', function (req, res, next) {
-  db.collection('users').findOne({
-    _id: ObjectId(req.params.id)
-  })
-    .then(user => user ? res.json(user) : res.sendStatus(404))
-    .catch(err => next(err));
 });
 
 router.put('/:id', function (req, res, next) {
