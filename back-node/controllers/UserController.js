@@ -10,9 +10,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const ObjectId = require('mongodb').ObjectId;
 
-
-const escapeStringRegexp = require('escape-string-regexp')
-
 router.get('/', function (req, res) {
   db.collection('users').find().toArray(function (err, results) {
     res.json(results);
