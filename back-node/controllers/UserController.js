@@ -22,6 +22,13 @@ router.get('/:id', function (req, res, next) {
     .catch(next);
 });
 
+router.delete('/:id', function (req, res, next) {
+  console.log(req.params.id)
+  db.collection('users').findOneAndDelete({_id: ObjectId(req.params.id)})
+    .then(() => res.json({}))
+    .catch(next)
+});
+
 router.post('/authenticate', function (req, res, next) {
   toAuthenticate(req.body)
     .then(user => user ? res.json(user) : res.status(400).json({message: 'Username or password is incorrect'})) //TODO : handle username incorrect
@@ -90,12 +97,6 @@ router.put('/:id', function (req, res, next) {
   Object.assign(user, req.body);
 
   user.save();
-});
-
-router.delete('/:id', function (req, res, next) {
-  db.collection('users').findByIdAndRemove(req.params.id)
-    .then(() => res.json({}))
-    .catch(err => next(err));
 });
 
 router.post('/addAlert', function (req, res, next) {
