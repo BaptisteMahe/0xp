@@ -20,12 +20,12 @@ client.connect(err => {
     if (err) return console.log(err);
     db = client.db('0xpDB');
     setup(db)
+    console.log("done")
 });
 
 let setup = (db) => {
     // TODO enter all the setup to generate the mongodb instance
     // create collections
-    // apply the different indexes for primary keys in collections
     // apply validators
-    return 0
+    db.collection('companies').createIndex({"name": 1},{unique: true})
 }
