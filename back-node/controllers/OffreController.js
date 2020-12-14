@@ -42,15 +42,14 @@ router.post('/', function (req, res) {
 
 });
 
-router.post('/filtered', function (req, res) {
+router.post('/filter', function (req, res, next) {
     let query = buildQuery(req.body.filter);
-    db.collection('offers').find(query).toArray(function (err, results) {
-        res.json(results);
-    });
+    db.collection('offers').find(query).toArray()
+        .then(results => res.json(results))
+        .catch(next);
 });
 
 function buildQuery(filter){
-    console.log(filter);
     let query = [];
 
     if (filter.textInput) {

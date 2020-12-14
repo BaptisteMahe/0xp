@@ -62,7 +62,7 @@ export class OfferViewService {
   }
 
   getFilteredOffer(filter: Filter): Observable<any[]> {
-    return this.httpClient.post<any>(this.apiUrl + '/offres/filtered', { user: this.currentUser, filter });
+    return this.httpClient.post<any>(this.apiUrl + '/offres/filter', { user: this.currentUser, filter });
   }
 
   getAllOffers(): Observable<any[]> {
