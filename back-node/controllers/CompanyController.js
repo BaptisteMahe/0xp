@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
     req.body.creationDate = req.body.creationDate.substring(0,10);
     db.collection('companies').insertOne(req.body)
-        .then(() => res.end())
+        .then(() => res.json({_id: req.body._id}))
         .catch(err => {
             if (err.code = 11000) { // if there already exist a company in the company collection
                 res.status(400).json({...err,message: 'Le nom de l\'entreprise est déjà utilisé'});
