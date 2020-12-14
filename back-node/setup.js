@@ -28,4 +28,5 @@ let setup = (db) => {
     // create collections
     // apply validators
     db.collection('companies').createIndex({"name": 1},{unique: true})
+    db.collection('users').createIndex({"username": 1},{unique: true})
 }
