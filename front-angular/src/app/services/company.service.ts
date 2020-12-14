@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class CompanyService {
 
-    apiUrl = environment.apiUrl;
+    private apiUrl = environment.apiUrl;
 
     constructor(private http: HttpClient) { }
 

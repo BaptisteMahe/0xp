@@ -10,7 +10,7 @@ import { User } from '../../models';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
-  apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiUrl;
   private currentUserSub = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient,

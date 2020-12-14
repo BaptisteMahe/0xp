@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class SelectService {
 
-  apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -21,5 +21,13 @@ export class SelectService {
 
   getDomains(): Observable<any[]> {
     return this.httpClient.get<any[]>(this.apiUrl + '/select/domaines');
+  }
+
+  getCompaniesForSelect(): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.apiUrl + '/select/companies');
+  }
+
+  getLocations(): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.apiUrl + '/select/locations');
   }
 }

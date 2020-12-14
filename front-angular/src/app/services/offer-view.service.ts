@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Offer, User, Filter } from '../../models';
@@ -17,8 +17,8 @@ export enum SortCategory {
 @Injectable()
 export class OfferViewService {
 
-  apiUrl = environment.apiUrl;
-  currentUser: User;
+  private apiUrl = environment.apiUrl;
+  private currentUser: User;
 
   constructor(private httpClient: HttpClient,
               private userService: UserService) {
@@ -36,16 +36,11 @@ export class OfferViewService {
   }
 
   getFilteredListOffer(filter: Filter): Observable<Offer[]> {
-    const query = filter.toQuery();
-    if (query) {
-      return this.getFilteredOffer(query).pipe(
-          map(listOfferJson => {
-            return this.getOfferListFromHashMap(listOfferJson);
-          })
-      );
-    } else {
-      return this.getFullListOffer();
-    }
+    return this.getFilteredOffer(filter).pipe(
+        map(listOfferJson => {
+          return this.getOfferListFromHashMap(listOfferJson);
+        })
+    );
   }
 
   getListOfferByCompanyId(id: string): Observable<Offer[]> {
@@ -58,7 +53,7 @@ export class OfferViewService {
 
   getOfferListFromHashMap(listOfferJson): Offer[] {
     const listOffer: Offer[] = [];
-    listOfferJson.forEach(offerJson => {
+    listOfferJson?.forEach(offerJson => {
       const offer = new Offer();
       offer.fromHashMap(offerJson);
       listOffer.push(offer);
@@ -66,9 +61,8 @@ export class OfferViewService {
     return listOffer;
   }
 
-  getFilteredOffer(query): Observable<any[]> {
-    // TODO : Change this request to get in BackEnd
-    return this.httpClient.post<any>(this.apiUrl + '/offres/filtered?' + query, this.currentUser);
+  getFilteredOffer(filter: Filter): Observable<any[]> {
+    return this.httpClient.post<any>(this.apiUrl + '/offres/filter', { user: this.currentUser, filter });
   }
 
   getAllOffers(): Observable<any[]> {

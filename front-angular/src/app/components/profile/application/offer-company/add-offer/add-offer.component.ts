@@ -51,7 +51,7 @@ export class AddOfferComponent implements OnInit {
 
   editor = ClassicEditor;
 
-  companiesList: Company[];
+  companiesList: Company[]; // TODO : Should be SelectOption and got from the SelectServices
 
   typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
   timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
