@@ -22,7 +22,6 @@ export class AddCompanyComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       name: [this.companyToEdit?.name, Validators.required],
-      isStudent: [false],
       creationDate: [this.companyToEdit?.creationDate, Validators.required],
       description: [this.companyToEdit?.description, Validators.required],
       taille: [this.companyToEdit?.taille, Validators.required],
