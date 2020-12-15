@@ -23,7 +23,6 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.delete('/:id', function (req, res, next) {
-  console.log(req.params.id)
   db.collection('users').findOneAndDelete({_id: ObjectId(req.params.id)})
     .then(() => res.json({}))
     .catch(next)
@@ -80,26 +79,20 @@ router.post('/register', function (req, res, next) {
   })
 });
 
-router.put('/:id', function (req, res, next) {
-  const user = db.collection('users').findOne({
-    _id: ObjectId(req.params.id)
-  });
-  // validate
-  if (!user) throw 'User not found';
-  if (user.username !== req.body.username && db.collection('users').findOne({
-    username: req.body.username
-  })) {
-    throw 'Username "' + req.body.username + '" is already taken';
-  }
-  // hash password if it was entered
-  if (req.body.password) {
-    req.body.hash = bcrypt.hashSync(req.body.password, 10);
-  }
-  // copy userParam properties to user
-  Object.assign(user, req.body);
-
-  user.save();
+router.put('/:id', function(req, res) {
+  const userObjectId = new ObjectId(req.params.id);
+  delete req.body.token;
+  db.collection('users').updateOne({_id: userObjectId}, {$set: {...req.body, _id: userObjectId}})
+      .then(() => res.end())
+      .catch(err => {
+          if (err.code = 11000) { // if there already exist a company in the company collection
+              res.status(400).json({...err,message: "Le nom d'utilisateur est déjà utilisé"});
+          } else {
+              res.send(err)
+          }
+      });
 });
+
 
 router.post('/addAlert', function (req, res, next) {
   db.collection('users').update({
