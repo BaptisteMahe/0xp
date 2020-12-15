@@ -35,6 +35,7 @@ router.post('/authenticate', function (req, res, next) {
     .catch(next);
 })
 
+
 router.post('/register', function (req, res, next) {
   db.collection('users').countDocuments({
     username: req.body.username
@@ -121,46 +122,6 @@ router.post('/clearNotifications', function (req, res, next) {
     }
   })
   res.send(req.body);
-});
-
-router.put('/update', function (req, res, next) {
-  let user = new Object();
-  user = req.body["user"];
-  if (user["isStudent"]) {
-    db.collection('users').updateOne({
-      _id: ObjectId(user["_id"])
-    }, {
-      $set: {
-        "firstName": user["firstName"],
-        "name": user["name"],
-        "dateBirth": user["dateBirth"],
-        "location": user["location"],
-        "email": user["email"],
-        "telephone": user["telephone"],
-        "softSkills": user["softSkills"]
-      }
-    })
-  } else {
-    db.collection('users').updateOne({
-      _id: ObjectId(user["_id"])
-    }, {
-      $set: {
-        "name": user["name"],
-      }
-    })
-    db.collection('companies').updateOne({
-      _id: ObjectId(user["idCompany"])
-    }, {
-      $set: {
-        "name": user["name"],
-        "creationDate": user["creationDate"],
-        "description": user["description"],
-        "taille": user["taille"],
-        "location": user["location"],
-        "contact": user["contact"],
-      }
-    })
-  }
 });
 
 async function toAuthenticate({
