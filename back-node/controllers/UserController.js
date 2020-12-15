@@ -60,18 +60,19 @@ router.post('/register', function (req, res, next) {
           if (err) return;
           // Object inserted successfully.
           user.idCompany = new ObjectId(company._id);
-          db.collection('users').insertOne(user).then(() => res.json({}))
-            .catch(err => next(err));
+          db.collection('users').insertOne(user).then(() => res.json({_id: req.body._id}))
+            .catch(next);
         })
         //.then(() => res.json({}))
         //.catch(err => next(err));
 
       } else {
-        db.collection('users').insertOne(user).then(() => res.json({}))
-          .catch(err => next(err));;
+        db.collection('users').insertOne(user).then((results) => res.json({_id: results.insertedId}))
+          .catch(next);;
       }
     } else {
       res.status(400).json({
+        _id: req.body._id,
         message: 'Le nom d\'utilisateur existe déjà'
       })
     }
@@ -123,7 +124,6 @@ router.post('/clearNotifications', function (req, res, next) {
 });
 
 router.put('/update', function (req, res, next) {
-  console.log("Request /users/update");
   let user = new Object();
   user = req.body["user"];
   if (user["isStudent"]) {
