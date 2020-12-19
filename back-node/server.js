@@ -47,7 +47,8 @@ app.use(function (err, req, res) {
 //listen
 const uri = config.mongoUri;
 const client = new MongoClient(uri, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 client.connect(err => {
     if (err) return console.log(err);
