@@ -10,3 +10,5 @@ SectorModel = {
         }
     }
 };
+
+module.exports = SectorModel;

@@ -100,3 +100,5 @@ OfferModel = {
         }
     }
 };
+
+module.exports = OfferModel;

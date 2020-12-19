@@ -38,3 +38,5 @@ AvisModel = {
         }
     }
 };
+
+module.exports = AvisModel;

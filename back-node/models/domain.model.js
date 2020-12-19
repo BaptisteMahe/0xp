@@ -10,3 +10,5 @@ DomainModel = {
         }
     }
 };
+
+module.exports = DomainModel;

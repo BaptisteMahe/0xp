@@ -38,3 +38,5 @@ CompanyModel = {
         }
     }
 };
+
+module.exports = CompanyModel;

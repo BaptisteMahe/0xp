@@ -114,3 +114,5 @@ UserAdminModel = {
         }
     }
 };
+
+module.exports = {UserStudentModel, UserCompanyModel, UserAdminModel};

@@ -10,3 +10,5 @@ SoftSkillModel = {
         }
     }
 };
+
+module.exports = SoftSkillModel;
