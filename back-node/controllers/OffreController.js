@@ -9,9 +9,9 @@ let notificationModule = require('../modules/notificationModule.js')
 let matchingModule = require('../modules/matchingModule.js')
 
 router.get('/', function (req, res) {
-    db.collection('offers').find().toArray(function (err, results) {
-        res.json(results);
-    });
+    db.collection('offers').find().toArray()
+        .then(results => res.json(results))
+        .catch(next);
 });
 
 
