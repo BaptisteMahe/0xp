@@ -3,9 +3,6 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 router.use(bodyParser.json());
-const UserStudent = require("./userStudent.model");
-const UserCompany = require("./userCompany.model");
-const Company = require("./company.model");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const ObjectId = require('mongodb').ObjectId;
@@ -34,62 +31,42 @@ router.post('/authenticate', function (req, res, next) {
     .catch(next);
 })
 
-
 router.post('/register', function (req, res, next) {
-  db.collection('users').countDocuments({
-    username: req.body.username
-  }, function (error, countDocuments) {
-    if (countDocuments === 0) {
-      let user;
-      let company;
-      if (req.body.isStudent) {
-        req.body.dateBirth = req.body.dateBirth.substring(0,10); // TODO : refactor way handling dates FE and BE
-        user = new UserStudent(req.body);
-      } else {
-        req.body.creationDate = req.body.creationDate.substring(0,10); // TODO : refactor way handling dates FE and BE
-        user = new UserCompany(req.body)
-        company = new Company(req.body)
-      }
-      // hash password
-      if (req.body.password) {
-        user.hash = bcrypt.hashSync(req.body.password, 10);
-      }
-      // save user
-      if (!req.body.isStudent) {
-        db.collection('companies').insertOne(company, function (err) {
-          if (err) return;
-          // Object inserted successfully.
-          user.idCompany = new ObjectId(company._id);
-          db.collection('users').insertOne(user).then(() => res.json({_id: req.body._id}))
-            .catch(next);
-        })
-        //.then(() => res.json({}))
-        //.catch(err => next(err));
-
-      } else {
-        db.collection('users').insertOne(user).then((results) => res.json({_id: results.insertedId}))
-          .catch(next);;
-      }
-    } else {
-      res.status(400).json({
-        _id: req.body._id,
-        message: 'Le nom d\'utilisateur existe déjà'
+  let {user, company} = splitUserCompany(req.body);
+  if (user.isStudent) {
+    db.collection('users').insertOne(user)
+    .then((results) => res.json({_id: results.insertedId}))
+    .catch(err => {
+      next({...err, message: "Le nom d'utilisateur est déjà utilisé"})
+    });
+  } else {
+    db.collection('companies').insertOne(company)
+      .then((companiesResult) => {
+        user.idCompany = companiesResult.insertedId;
+        db.collection('users').insertOne(user)
+          .then((usersResults) => res.json({_id: usersResults.insertedId}))
+          .catch(err => {
+            db.collection('companies').findOneAndDelete({_id: company._id})
+              .then(() => next({... err, message:"Le nom d'utilisateur est déjà utilisé"}))
+              .catch(next)
+          });
       })
-    }
-  })
+      .catch(err => {
+        next({... err, message:"Le nom d'entreprise est déjà utilisé"})
+      });
+  }
 });
 
-router.put('/:id', function(req, res) {
+router.put('/:id', function(req, res, next) {
   const userObjectId = new ObjectId(req.params.id);
   delete req.body.token;
   db.collection('users').updateOne({_id: userObjectId}, {$set: {...req.body, _id: userObjectId}})
-      .then(() => res.end())
+      .then(() => res.json({_id: req.params.id}))
       .catch(err => {
           if (err.code = 11000) { // if there already exist a company in the company collection
-              res.status(400).json({...err,message: "Le nom d'utilisateur est déjà utilisé"});
-          } else {
-              res.send(err)
+            err.message = "Le nom d'utilisateur est déjà utilisé";
           }
+          next(err)
       });
 });
 
@@ -117,39 +94,34 @@ router.post('/clearNotifications', function (req, res, next) {
   res.send(req.body);
 });
 
-async function toAuthenticate({
-  username,
-  password
-}) {
-  let user = await db.collection('users').findOne({
-    username
-  });
+async function toAuthenticate({username, password}) {
+  let user = await db.collection('users').findOne({ username });
   if (!user.isStudent) {
-    const oid = new ObjectId(user.idCompany)
-    const company = await db.collection('companies').findOne({
-      _id: oid
-    });
-    user.creationDate = company.creationDate;
-    user.description = company.description;
-    user.taille = company.taille;
-    user.contact = company.contact;
-    user.location = company.location;
-    user.srcImage = company.srcImage;
-    user.isPartner = company.isPartner;
+    const company = await db.collection('companies').findOne({ _id: ObjectId(user.idCompany) });
+    user = {...user, ...company}
   }
   if (user && bcrypt.compareSync(password, user.hash)) {
-    const {
-      hash,
-      ...userWithoutHash
-    } = user;
-    const token = jwt.sign({
-      sub: user.id
-    }, config.secret);
-    return {
-      ...userWithoutHash,
-      token
-    };
+    const { hash, ...userWithoutHash } = user;
+    const token = jwt.sign({ sub: user.id }, config.secret);
+    return { ...userWithoutHash, token };
   }
+}
+
+function splitUserCompany(body) {
+  let user, company = {};
+  const {firstName, name, username, password, dateBirth, email, creationDate, telephone, isStudent, description, taille, location, srcImage} = body;
+  user = {name, username, isStudent};
+  user.creationDate = Date.now();
+  console.log(password)
+  user.hash = bcrypt.hashSync(password, 10);
+  if (user.isStudent) {
+    user = {...user, firstName, email, telephone}
+    user.dateBirth = dateBirth.substring(0,10);
+  } else {
+    company = {name, description, taille, location, srcImage}
+    company.creationDate = creationDate.substring(0,10);
+  }
+  return {user, company};
 }
 
 module.exports = router;
