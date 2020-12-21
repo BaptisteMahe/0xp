@@ -2,16 +2,58 @@ let express = require('express');
 let router = express.Router();
 let bodyParser = require('body-parser');
 router.use(bodyParser.json());
-let mongoose = require('mongoose');
 const ObjectId = require('mongodb').ObjectId;
 
 let notificationModule = require('../modules/notificationModule.js')
-let matchingModule = require('../modules/matchingModule.js')
 
 router.get('/', function (req, res, next) {
     db.collection('offers').find().toArray()
         .then(results => res.json(results))
         .catch(next);
+});
+
+router.post('/', function (req, res, next) {
+    req.body.id_company = ObjectId(req.body.id_company)
+    db.collection('offers').insertOne(req.body)
+        .then(() => {
+            db.collection('companies').findOne({ _id: req.body.id_company })
+                .then((company) => {
+                    notificationModule.checkNotifForAllUsers(req.body, company);
+                    res.send(req.body)
+                })
+                .catch(next);
+        })
+        .catch(next)
+});
+
+router.get('/:id', function (req, res, next) {
+    db.collection('offers').findOne({ _id: ObjectId(req.params.id) })
+        .then(offer => res.json(offer))
+        .catch(next)
+});
+
+router.put('/:id', function (req, res, next) {
+    delete req.body.id;
+    delete req.body.matchingScore;
+    req.body.id_company = ObjectId(req.body.id_company)
+    db.collection('offers').update({ "_id": ObjectId(req.params.id) }, req.body)
+        .then(() => {
+            notificationModule.checkNotifForAllUsers(req.body)
+            res.json(req.body);
+        })
+        .catch(next)
+});
+
+router.delete('/:id', function (req, res, next) {
+    db.collection('offers').remove({ _id: ObjectId(req.params.id) })
+        .then(() => res.send(req.body))
+        .catch(next)
+});
+
+router.get('/byCompanyId/:id', function (req, res, next) {
+    db.collection('offers').find({ "id_company":  ObjectId(req.params.id) }).toArray() 
+        .then(results => res.json(results))
+        .catch(next)
 });
 
 router.post('/filter', function (req, res, next) {
@@ -81,49 +123,5 @@ function addPrimaryCriteriaToQuery(criteria, query, filter) {
         query.push({[criteria]: filter[criteria]});
     }
 }
-
-router.get('/byCompanyId/:id', function (req, res, next) {
-    db.collection('offers').find({ "id_company":  ObjectId(req.params.id) }).toArray() 
-        .then(results => res.json(results))
-        .catch(next)
-});
-
-router.post('/', function (req, res, next) {
-    req.body.id_company = ObjectId(req.body.id_company)
-    db.collection('offers').insertOne(req.body)
-        .then(() => {
-            db.collection('companies').findOne({ _id: req.body.id_company })
-                .then((company) => {
-                    notificationModule.checkNotifForAllUsers(req.body, company);
-                    res.send(req.body)
-                })
-                .catch(next);
-        })
-        .catch(next)
-});
-
-router.put('/:id', function (req, res, next) {
-    delete req.body.id;
-    delete req.body.matchingScore;
-    req.body.id_company = ObjectId(req.body.id_company)
-    db.collection('offers').update({ "_id": ObjectId(req.params.id) }, req.body)
-        .then(() => {
-            notificationModule.checkNotifForAllUsers(req.body)
-            res.json(req.body);
-        })
-        .catch(next)
-});
-
-router.delete('/:id', function (req, res, next) {
-    db.collection('offers').remove({ _id: ObjectId(req.params.id) })
-        .then(() => res.send(req.body))
-        .catch(next)
-});
-
-router.get('/:id', function (req, res, next) {
-    db.collection('offers').findOne({ _id: ObjectId(req.params.id) })
-        .then(offer => res.json(offer))
-        .catch(next)
-});
 
 module.exports = router;
