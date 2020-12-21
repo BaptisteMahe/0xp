@@ -102,17 +102,16 @@ router.post('/', function (req, res, next) {
         .catch(next)
 });
 
-router.put('/update', function (req, res) {
-    var idOffer = mongoose.Types.ObjectId(req.body["id"])
+router.put('/:id', function (req, res, next) {
     delete req.body.id;
     delete req.body.matchingScore;
-    req.body.id_company = mongoose.Types.ObjectId(req.body.id_company)
-    db.collection('offers').update({
-        "_id": idOffer
-    }, req.body);
-    //On check si quelqu'un attendait une offre de ce type
-    notificationModule.checkNotifForAllUsers(req.body)
-    res.send(req.body);
+    req.body.id_company = ObjectId(req.body.id_company)
+    db.collection('offers').update({ "_id": ObjectId(req.params.id) }, req.body)
+        .then(() => {
+            notificationModule.checkNotifForAllUsers(req.body)
+            res.json(req.body);
+        })
+        .catch(next)
 });
 
 router.delete('/:id', function (req, res, next) {
