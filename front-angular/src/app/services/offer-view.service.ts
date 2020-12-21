@@ -82,7 +82,7 @@ export class OfferViewService {
   }
 
   deleteOffer(id: string): Observable<any> {
-    return this.httpClient.delete<string>(this.apiUrl + '/offres/deleteById/' + id);
+    return this.httpClient.delete<string>(this.apiUrl + '/offres/' + id);
   }
 
   editOffer(offer: Offer): Observable<any> {

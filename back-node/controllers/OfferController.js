@@ -115,11 +115,10 @@ router.put('/update', function (req, res) {
     res.send(req.body);
 });
 
-router.delete('/deleteById/:id', function (req, res) {
-    let id = mongoose.Types.ObjectId(req.params.id);
-
-    db.collection('offers').remove({ _id: id });
-    res.send(req.body);
+router.delete('/:id', function (req, res, next) {
+    db.collection('offers').remove({ _id: ObjectId(req.params.id) })
+        .then(() => res.send(req.body))
+        .catch(next)
 });
 
 router.get('/byId/:id', function (req, res, next) {
