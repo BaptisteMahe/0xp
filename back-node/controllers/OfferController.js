@@ -121,14 +121,10 @@ router.delete('/:id', function (req, res, next) {
         .catch(next)
 });
 
-router.get('/byId/:id', function (req, res, next) {
-    let id = mongoose.Types.ObjectId(req.params.id);
-
-    db.collection('offers').findOne({
-        _id: id
-    })
-        .then(offer => offer ? res.json(offer) : res.sendStatus(404))
-        .catch(err => next(err));
+router.get('/:id', function (req, res, next) {
+    db.collection('offers').findOne({ _id: ObjectId(req.params.id) })
+        .then(offer => res.json(offer))
+        .catch(next)
 });
 
 module.exports = router;

@@ -70,7 +70,7 @@ export class OfferViewService {
   }
 
   getOfferById(id: string): Observable<Offer> {
-    return this.httpClient.get<Offer>(this.apiUrl + '/offres/byId/' + id);
+    return this.httpClient.get<Offer>(this.apiUrl + '/offres/' + id);
   }
 
   getAllOffersByCompanyId(companyId: string): Observable<any[]> {
