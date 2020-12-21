@@ -110,15 +110,12 @@ function addPrimaryCriteriaToQuery(criteria, query, filter) {
     }
 }
 
-router.get('/byCompanyId', function (req, res) {
-    let id = mongoose.Types.ObjectId(req.query["id"]);
-
-    db.collection('offers').find({ "id_company": id })
-        .toArray(function (err, results) {
-        res.json(results);
-    });
+router.get('/byCompanyId', function (req, res, next) {
+    console.log("azt")
+    db.collection('offers').find({ "id_company":  ObjectId(req.query.id) }).toArray()
+        .then(results => res.json(results))
+        .catch(next)
 });
-
 
 router.post('/post', function (req, res) {
     req.body.id_company = mongoose.Types.ObjectId(req.body.id_company);
