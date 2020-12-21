@@ -8,38 +8,10 @@ const ObjectId = require('mongodb').ObjectId;
 let notificationModule = require('../modules/notificationModule.js')
 let matchingModule = require('../modules/matchingModule.js')
 
-router.get('/', function (req, res) {
+router.get('/', function (req, res, next) {
     db.collection('offers').find().toArray()
         .then(results => res.json(results))
         .catch(next);
-});
-
-
-router.post('/', function (req, res) {
-    const promiseGet = new Promise(function (resolve) {
-        db.collection('offers').find().toArray(function (err, results) {
-            let cpt = 0;
-            results.forEach((offer) => {
-                // Company associated to the offer
-                db.collection('companies').findOne({ "_id": offer.id_company },
-                    function (err, company) {
-                    //Matching
-                        offer.company = company.name;
-                        offer.srcImgCompany = company.srcImage;
-                        offer.matchingScore = matchingModule.matchingWithUser(offer, req.body, company, {});
-                        cpt++;
-                        if (cpt === results.length) {
-                            resolve(results);
-                        }
-                });
-            });
-        });
-    });
-
-    promiseGet.then(function (results) {
-        res.json(results);
-    });
-
 });
 
 router.post('/filter', function (req, res, next) {
@@ -111,21 +83,23 @@ function addPrimaryCriteriaToQuery(criteria, query, filter) {
 }
 
 router.get('/byCompanyId/:id', function (req, res, next) {
-    db.collection('offers').find({ "id_company":  ObjectId(req.params.id) }).toArray()
+    db.collection('offers').find({ "id_company":  ObjectId(req.params.id) }).toArray() 
         .then(results => res.json(results))
         .catch(next)
 });
 
-router.post('/post', function (req, res) {
-    req.body.id_company = mongoose.Types.ObjectId(req.body.id_company);
-    db.collection('offers').insertOne(req.body);
-    db.collection('companies').findOne({ _id: req.body.id_company },
-        function (findErr, company) {
-            //On check si quelqu'un attendait une offre de ce type
-            notificationModule.checkNotifForAllUsers(req.body, company);
-        }
-    );
-    res.send(req.body);
+router.post('/', function (req, res, next) {
+    req.body.id_company = ObjectId(req.body.id_company)
+    db.collection('offers').insertOne(req.body)
+        .then(() => {
+            db.collection('companies').findOne({ _id: req.body.id_company })
+                .then((company) => {
+                    notificationModule.checkNotifForAllUsers(req.body, company);
+                    res.send(req.body)
+                })
+                .catch(next);
+        })
+        .catch(next)
 });
 
 router.put('/update', function (req, res) {

@@ -78,7 +78,7 @@ export class OfferViewService {
   }
 
   addOffer(offer: Offer): Observable<any> {
-    return this.httpClient.post<Offer>(this.apiUrl + '/offres/post', offer);
+    return this.httpClient.post<Offer>(this.apiUrl + '/offres/', offer);
   }
 
   deleteOffer(id: string): Observable<any> {
