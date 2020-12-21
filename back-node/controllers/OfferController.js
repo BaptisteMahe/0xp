@@ -110,9 +110,8 @@ function addPrimaryCriteriaToQuery(criteria, query, filter) {
     }
 }
 
-router.get('/byCompanyId', function (req, res, next) {
-    console.log("azt")
-    db.collection('offers').find({ "id_company":  ObjectId(req.query.id) }).toArray()
+router.get('/byCompanyId/:id', function (req, res, next) {
+    db.collection('offers').find({ "id_company":  ObjectId(req.params.id) }).toArray()
         .then(results => res.json(results))
         .catch(next)
 });
@@ -126,7 +125,6 @@ router.post('/post', function (req, res) {
             notificationModule.checkNotifForAllUsers(req.body, company);
         }
     );
-
     res.send(req.body);
 });
 
