@@ -14,14 +14,14 @@ app.use(function (req, res, next) {
 });
 
 // custom routes
-let OffreController = require('./controllers/OffreController');
+let OfferController = require('./controllers/OfferController');
 let UserController = require('./controllers/UserController');
 let CompanyController = require('./controllers/CompanyController');
 let SelectController = require('./controllers/SelectController');
 let AvisController = require('./controllers/AvisController');
 
 // Set our routes
-app.use('/offres', OffreController);
+app.use('/offres', OfferController);
 app.use('/users', UserController);
 app.use('/companies', CompanyController);
 app.use('/select', SelectController);
