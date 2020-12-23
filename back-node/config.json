@@ -1,3 +1,4 @@
 {
-    "secret": "mysecret"
+    "secret": "mysecret",
+    "mongoUri": "mongodb+srv://admin0xp:mdpadmin0xp@0xp-aqxy3.mongodb.net/test?retryWrites=true&w=majority"
 }

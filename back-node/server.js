@@ -1,3 +1,4 @@
+const config = require('config.json');
 let express = require('express');
 let app = express();
 let http = require('http');
@@ -38,7 +39,7 @@ app.use(function (req, res) {
 
 // Handle 500
 app.use(function (err, req, res, next) {
-    console.log(err)
+    console.log(err, err.status)
     if (err.code == 11000) {
         res.status(400).json(err);
     } else {
@@ -51,7 +52,7 @@ app.use(function (err, req, res, next) {
 });
 
 //listen
-const uri = "mongodb+srv://admin0xp:mdpadmin0xp@0xp-aqxy3.mongodb.net/test?retryWrites=true&w=majority";
+const uri = config.mongoUri;
 const client = new MongoClient(uri, {
     useNewUrlParser: true
 });
