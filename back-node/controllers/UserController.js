@@ -1,7 +1,7 @@
 const config = require('../config.json');
-var express = require('express');
-var router = express.Router();
-var bodyParser = require('body-parser');
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -37,7 +37,7 @@ router.post('/register', function (req, res, next) {
     db.collection('users').insertOne(user)
       .then((results) => res.json({_id: results.insertedId}))
       .catch(err => {
-        if (err.code = 11000) err = {...err, message: "Le nom d'utilisateur est déjà utilisé", code: 400};
+        if (err.code === 11000) err = {...err, message: "Le nom d'utilisateur est déjà utilisé", code: 400};
           next(err);
       });
   } else {
@@ -47,7 +47,7 @@ router.post('/register', function (req, res, next) {
         db.collection('users').insertOne(user)
           .then((usersResults) => res.json({_id: usersResults.insertedId}))
           .catch(err => {
-            if (err.code = 11000){
+            if (err.code === 11000){
               db.collection('companies').findOneAndDelete({_id: company._id})
               .then(() => next({...err, message:"Le nom d'utilisateur est déjà utilisé", code: 400}))
               .catch(next)
@@ -55,7 +55,7 @@ router.post('/register', function (req, res, next) {
           });
       })
       .catch(err => {
-        if (err.code = 11000) err = {...err, message: "Le nom d'entreprise est déjà utilisé", code: 400};
+        if (err.code === 11000) err = {...err, message: "Le nom d'entreprise est déjà utilisé", code: 400};
         next(err);
       });
   }
@@ -66,7 +66,7 @@ router.put('/:id', function(req, res, next) {
   db.collection('users').updateOne({_id: ObjectId(req.params.id)}, {$set: {...req.body, _id: ObjectId(req.params.id)}})
       .then(() => res.json({_id: req.params.id}))
       .catch(err => {
-          if (err.code = 11000) err = {...err, message: "Le nom d'utilisateur est déjà utilisé", code: 400};
+          if (err.code === 11000) err = {...err, message: "Le nom d'utilisateur est déjà utilisé", code: 400};
           next(err);
       });
 });
@@ -93,6 +93,8 @@ router.post('/clearNotifications', function (req, res, next) {
   })
   res.json(req.body);
 });
+
+module.exports = router;
 
 async function toAuthenticate({username, password}) {
   let user = await db.collection('users').findOne({ username });
@@ -124,5 +126,3 @@ function splitUserCompany(body) {
   }
   return {user, company};
 }
-
-module.exports = router;

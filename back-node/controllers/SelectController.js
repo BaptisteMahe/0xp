@@ -1,6 +1,6 @@
-let express = require('express');
-let router = express.Router();
-let bodyParser = require('body-parser');
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 
 router.get('/softskills/', function (req, res, next) {
@@ -44,13 +44,13 @@ function formatCompaniesToSelectOption(jsonArray) {
             display: company.name
         });
     })
-    return selectOptions
+    return selectOptions;
 }
 
 function formatOffersToLocationSelectOption(jsonArray) {
     let selectOptions = [];
     jsonArray.forEach(offer =>{
-        let selectOption = {
+        const selectOption = {
             value: offer.location,
             display: offer.location
         };
@@ -58,5 +58,5 @@ function formatOffersToLocationSelectOption(jsonArray) {
             selectOptions.push(selectOption);
         }
     });
-    return selectOptions
+    return selectOptions;
 }

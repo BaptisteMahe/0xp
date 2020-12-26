@@ -1,8 +1,8 @@
-let express = require('express');
-let router = express.Router();
-let bodyParser = require('body-parser');
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
 router.use(bodyParser.json());
-let ObjectId = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;
 
 router.get('/', function (req, res, next) {
     db.collection('companies').find().toArray()
@@ -15,7 +15,7 @@ router.post('/', function (req, res, next) {
     db.collection('companies').insertOne(req.body)
         .then(() => res.json({_id: req.body._id}))
         .catch(err => {
-            if (err.code = 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
+            if (err.code === 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
             next(err);
         });
 });
@@ -36,7 +36,7 @@ router.put('/:id', function(req, res, next) {
     db.collection('companies').update({_id: ObjectId(req.params.id)}, {...req.body, _id: ObjectId(req.params.id)})
         .then(() => res.json({_id: req.params.id}))
         .catch(err => {
-            if (err.code = 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
+            if (err.code === 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
             next(err)
         });
 });

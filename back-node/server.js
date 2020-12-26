@@ -1,8 +1,8 @@
 const config = require('./config.json');
-let express = require('express');
-let app = express();
-let http = require('http');
-let PORT = process.argv[2] || 3000;
+const express = require('express');
+const app = express();
+const http = require('http');
+const PORT = process.argv[2] || 3000;
 
 const MongoClient = require('mongodb').MongoClient;
 
@@ -45,8 +45,7 @@ app.use(function (err, req, res) {
 });
 
 //listen
-const uri = config.mongoUri;
-const client = new MongoClient(uri, {
+const client = new MongoClient(config.mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

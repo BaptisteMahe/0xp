@@ -1,6 +1,6 @@
-let express = require('express');
-let router = express.Router();
-let bodyParser = require('body-parser');
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 const ObjectId = require('mongodb').ObjectId;
 
@@ -63,6 +63,8 @@ router.post('/filter', function (req, res, next) {
         .catch(next)
 });
 
+module.exports = router;
+
 function buildQuery(filter){
     let query = [];
 
@@ -123,5 +125,3 @@ function addPrimaryCriteriaToQuery(criteria, query, filter) {
         query.push({[criteria]: filter[criteria]});
     }
 }
-
-module.exports = router;
