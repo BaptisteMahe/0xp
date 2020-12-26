@@ -32,23 +32,17 @@ app.use('/avis', AvisController);
 app.use(function (req, res) {
     res.status(404).send({ 
         status: 404,
-        message: '404 Not Found',
-        type: 'client'
+        message: '404 Not Found'
     });
 });
 
 // Handle 500
 app.use(function (err, req, res, next) {
     console.log(err, err.status)
-    if (err.code == 11000) {
-        res.status(400).json(err);
-    } else {
-        res.status(500).json({
-            status: 500,
-            message: 'internal error',
-            type: 'internal'
-        });
-    }
+    res.status(500).json({
+        status: err.code || 500,
+        message: err.message || 'internal error'
+    })
 });
 
 //listen
