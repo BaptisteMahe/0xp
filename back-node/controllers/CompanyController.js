@@ -4,49 +4,40 @@ let bodyParser = require('body-parser');
 router.use(bodyParser.json());
 let ObjectId = require('mongodb').ObjectId;
 
-router.get('/', function (req, res) {
+router.get('/', function (req, res, next) {
     db.collection('companies').find().toArray()
-        .then(result => res.json(result))
-        .catch(err => {res.send(err)});
+        .then(results => res.json(results))
+        .catch(next);
 });
 
-router.post('/', function (req, res) {
+router.post('/', function (req, res, next) {
     req.body.creationDate = req.body.creationDate.substring(0,10);
     db.collection('companies').insertOne(req.body)
         .then(() => res.json({_id: req.body._id}))
         .catch(err => {
-            if (err.code = 11000) { // if there already exist a company in the company collection
-                res.status(400).json({...err,message: 'Le nom de l\'entreprise est déjà utilisé'});
-            } else {
-                res.send(err)
-            }
+            if (err.code = 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
+            next(err);
         });
 });
 
-router.get('/:id', function (req, res) {
-    const companyObjectId = new ObjectId(req.params.id)
-    db.collection('companies').findOne({_id: companyObjectId})
-        .then(company => company ? res.json(company) : res.sendStatus(404))
-        .catch(err => res.send(err));
+router.get('/:id', function (req, res, next) {
+    db.collection('companies').findOne({_id: ObjectId(req.params.id)})
+        .then(company => company ? res.json(company) : next({"message": "Company not found.", "code": 404}))
+        .catch(next);
 });
 
-router.delete('/:id', function (req, res) {
-    const companyObjectId = new ObjectId(req.params.id);
-    db.collection('companies').deleteOne({_id: companyObjectId})
-        .then(() => res.end())
-        .catch(err => {res.send(err)});
+router.delete('/:id', function (req, res, next) {
+    db.collection('companies').deleteOne({_id: ObjectId(req.params.id)})
+        .then(() => res.json({_id: req.params.id}))
+        .catch(next);
 });
 
-router.put('/:id', function(req, res) {
-    const companyObjectId = new ObjectId(req.params.id);
-    db.collection('companies').update({_id: companyObjectId}, {...req.body, _id: companyObjectId})
-        .then(() => res.end())
+router.put('/:id', function(req, res, next) {
+    db.collection('companies').update({_id: ObjectId(req.params.id)}, {...req.body, _id: ObjectId(req.params.id)})
+        .then(() => res.json({_id: req.params.id}))
         .catch(err => {
-            if (err.code = 11000) { // if there already exist a company in the company collection
-                res.status(400).json({...err,message: 'Le nom de l\'entreprise est déjà utilisé'});
-            } else {
-                res.send(err)
-            }
+            if (err.code = 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
+            next(err)
         });
 });
 
