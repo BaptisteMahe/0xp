@@ -9,25 +9,25 @@ AvisModel = {
             },
             noteGenerale: {
                 bsonType: "int",
-                minimum: 0,
+                minimum: 1,
                 maximum: 5,
                 description: "[required][int] Global note (over 5) of the avis."
             },
             noteAmbiance: {
                 bsonType: "int",
-                minimum: 0,
+                minimum: 1,
                 maximum: 5,
                 description: "[required][int] Note (over 5) of the ambiance."
             },
             noteInteret: {
                 bsonType: "int",
-                minimum: 0,
+                minimum: 1,
                 maximum: 5,
                 description: "[required][int] Note (over 5) of the interest."
             },
             noteEncadrt: {
                 bsonType: "int",
-                minimum: 0,
+                minimum: 1,
                 maximum: 5,
                 description: "[required][int] Note (over 5) of the coaching."
             },

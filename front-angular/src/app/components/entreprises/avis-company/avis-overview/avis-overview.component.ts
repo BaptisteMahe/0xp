@@ -14,10 +14,7 @@ export class AvisOverviewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.noteGlobal = parseInt(this.avis.noteGenerale, 10)
-      + parseInt(this.avis.noteInteret, 10)
-      + parseInt(this.avis.noteAmbiance, 10)
-      + parseInt(this.avis.noteEncadrt, 10);
+    this.noteGlobal = this.avis.noteGenerale + this.avis.noteAmbiance + this.avis.noteEncadrt + this.avis.noteInteret;
   }
 
 }

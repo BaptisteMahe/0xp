@@ -17,12 +17,13 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.get('/company/:id', function(req, res, next) {
-    db.collection('avis').find({idCompany : req.params.id}).toArray()
+    db.collection('avis').find({companyId : ObjectId(req.params.id)}).toArray()
         .then(results => res.json(results))
         .catch(next)
 });
 
 router.post('/', function(req, res, next) {
+    req.body.companyId = ObjectId(req.body.companyId);
     db.collection('avis').insertOne(req.body)
         .then(() => res.json({_id: req.body._id}))
         .catch(next)

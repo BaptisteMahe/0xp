@@ -10,8 +10,9 @@ const config = require('./config.json');
 
 const MongoClient = require('mongodb').MongoClient;
 
+let client;
 async function connect() {
-  const client = await MongoClient.connect(config.mongoUri, {
+  client = await MongoClient.connect(config.mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }).catch(err => {throw new Error(400)});
@@ -22,9 +23,9 @@ function applySingleSchema(db, collectionName, schema) {
   db.command({
     collMod: collectionName,
     validator: schema,
-    validationLevel: 'moderate'
+    validationLevel: 'strict'
   }).then(res => {
-    console.log(`Updated ${collectionName} collection with new schema :`);
+    console.log(`Updated ${collectionName} collection with schema :`);
     console.log(schema);
   }).catch(err => {
     console.log(err);
@@ -35,4 +36,5 @@ connect().then(db => {
   db.collection('companies').createIndex({ "name": 1 }, { unique: true });
   db.collection('users').createIndex({ "username": 1 }, { unique: true });
   applySingleSchema(db, 'avis', AvisModel);
+  //client.close();
 });

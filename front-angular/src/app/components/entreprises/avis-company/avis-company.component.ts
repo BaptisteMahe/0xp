@@ -14,7 +14,7 @@ import { Avis, User } from '../../../../models';
 })
 export class AvisCompanyComponent implements OnInit {
 
-  @Input() idCompany;
+  @Input() companyId;
 
   currentUser: User;
 
@@ -38,7 +38,7 @@ export class AvisCompanyComponent implements OnInit {
     });
 
     this.avisForm = this.formBuilder.group({
-      avis: ['', Validators.required],
+      description: ['', Validators.required],
       noteGenerale: ['', Validators.required],
       noteInteret: ['', Validators.required],
       noteAmbiance: ['', Validators.required],
@@ -52,7 +52,7 @@ export class AvisCompanyComponent implements OnInit {
       return;
     }
 
-    this.avisService.add(this.avisForm.controls, this.idCompany)
+    this.avisService.add(new Avis(this.avisForm, this.companyId))
       .pipe(first())
       .subscribe(
         data => {
@@ -77,9 +77,9 @@ export class AvisCompanyComponent implements OnInit {
   }
 
   loadAllAvis() {
-    this.avisService.getAllByCompanyId(this.idCompany).subscribe(
-      (value: Avis[]) => {
-        this.avisList = value;
+    this.avisService.getAllByCompanyId(this.companyId).subscribe(
+      (avisArray: Avis[]) => {
+        this.avisList = avisArray;
       },
       error => {
         console.log('Erreur ! : ' + error);
