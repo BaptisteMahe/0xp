@@ -22,7 +22,7 @@ router.post('/', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
     db.collection('companies').findOne({_id: ObjectId(req.params.id)})
-        .then(company => company ? res.json(company) : next({"message": "Company not found.", "code": 404}))
+        .then(company => company ? res.json(company) : next({message: "Company not found.", code: 404}))
         .catch(next);
 });
 
