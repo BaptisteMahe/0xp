@@ -15,19 +15,19 @@ router.get('/', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
   db.collection('users').findOne({_id: ObjectId(req.params.id)})
-    .then(user => user ? res.json(user) : res.sendStatus(404))
+    .then(user => user ? res.json(user) : next({message: "User not found.", code: 404}))
     .catch(next);
 });
 
 router.delete('/:id', function (req, res, next) {
   db.collection('users').findOneAndDelete({_id: ObjectId(req.params.id)})
-    .then(() => res.json({}))
+    .then(() => res.json({_id: req.params.id}))
     .catch(next)
 });
 
 router.post('/authenticate', function (req, res, next) {
   toAuthenticate(req.body)
-    .then(user => user ? res.json(user) : res.status(400).json({message: 'Username or password is incorrect'})) //TODO : handle username incorrect
+    .then(user => user ? res.json(user) : next({message: "password incorrect", code: 404}))
     .catch(next);
 })
 
@@ -35,10 +35,11 @@ router.post('/register', function (req, res, next) {
   let {user, company} = splitUserCompany(req.body);
   if (user.isStudent) {
     db.collection('users').insertOne(user)
-    .then((results) => res.json({_id: results.insertedId}))
-    .catch(err => {
-      next({...err, message: "Le nom d'utilisateur est déjà utilisé"})
-    });
+      .then((results) => res.json({_id: results.insertedId}))
+      .catch(err => {
+        if (err.code = 11000) err = {...err, message: "Le nom d'utilisateur est déjà utilisé", code: 400};
+          next(err);
+      });
   } else {
     db.collection('companies').insertOne(company)
       .then((companiesResult) => {
@@ -46,30 +47,29 @@ router.post('/register', function (req, res, next) {
         db.collection('users').insertOne(user)
           .then((usersResults) => res.json({_id: usersResults.insertedId}))
           .catch(err => {
-            db.collection('companies').findOneAndDelete({_id: company._id})
-              .then(() => next({... err, message:"Le nom d'utilisateur est déjà utilisé"}))
+            if (err.code = 11000){
+              db.collection('companies').findOneAndDelete({_id: company._id})
+              .then(() => next({...err, message:"Le nom d'utilisateur est déjà utilisé", code: 400}))
               .catch(next)
+            } else next(err);
           });
       })
       .catch(err => {
-        next({... err, message:"Le nom d'entreprise est déjà utilisé"})
+        if (err.code = 11000) err = {...err, message: "Le nom d'entreprise est déjà utilisé", code: 400};
+        next(err);
       });
   }
 });
 
 router.put('/:id', function(req, res, next) {
-  const userObjectId = new ObjectId(req.params.id);
   delete req.body.token;
-  db.collection('users').updateOne({_id: userObjectId}, {$set: {...req.body, _id: userObjectId}})
+  db.collection('users').updateOne({_id: ObjectId(req.params.id)}, {$set: {...req.body, _id: ObjectId(req.params.id)}})
       .then(() => res.json({_id: req.params.id}))
       .catch(err => {
-          if (err.code = 11000) { // if there already exist a company in the company collection
-            err.message = "Le nom d'utilisateur est déjà utilisé";
-          }
-          next(err)
+          if (err.code = 11000) err = {...err, message: "Le nom d'utilisateur est déjà utilisé", code: 400};
+          next(err);
       });
 });
-
 
 router.post('/addAlert', function (req, res, next) {
   db.collection('users').update({
@@ -91,11 +91,12 @@ router.post('/clearNotifications', function (req, res, next) {
       notifications: req.body["user"]["notifications"],
     }
   })
-  res.send(req.body);
+  res.json(req.body);
 });
 
 async function toAuthenticate({username, password}) {
   let user = await db.collection('users').findOne({ username });
+  if (!user) throw({message: "username incorrect", code: 400})
   if (!user.isStudent) {
     const company = await db.collection('companies').findOne({ _id: ObjectId(user.idCompany) });
     user = {...user, ...company}
