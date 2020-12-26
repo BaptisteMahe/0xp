@@ -37,10 +37,9 @@ app.use(function (req, res) {
 });
 
 // Handle 500
-app.use(function (err, req, res, next) {
-    console.log(err, err.status)
-    res.status(500).json({
-        status: err.code || 500,
+app.use(function (err, req, res) {
+    console.log("ERROR : \n", err, "\n")
+    res.status(err.code || 500).json({
         message: err.message || 'internal error'
     })
 });

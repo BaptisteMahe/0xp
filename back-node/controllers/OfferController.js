@@ -9,7 +9,7 @@ let notificationModule = require('../modules/notificationModule.js')
 router.get('/', function (req, res, next) {
     db.collection('offers').find().toArray()
         .then(results => res.json(results))
-        .catch(next);
+        .catch(next)
 });
 
 router.post('/', function (req, res, next) {
@@ -19,16 +19,16 @@ router.post('/', function (req, res, next) {
             db.collection('companies').findOne({ _id: req.body.id_company })
                 .then((company) => {
                     notificationModule.checkNotifForAllUsers(req.body, company);
-                    res.send(req.body)
+                    res.json({_id: req.params.id})
                 })
-                .catch(next);
+                .catch(next)
         })
         .catch(next)
 });
 
 router.get('/:id', function (req, res, next) {
     db.collection('offers').findOne({ _id: ObjectId(req.params.id) })
-        .then(offer => res.json(offer))
+        .then(offer => offer ? res.json(offer) : next({message: "Offer not found.", code: 404}))
         .catch(next)
 });
 
@@ -39,14 +39,14 @@ router.put('/:id', function (req, res, next) {
     db.collection('offers').update({ "_id": ObjectId(req.params.id) }, req.body)
         .then(() => {
             notificationModule.checkNotifForAllUsers(req.body)
-            res.json(req.body);
+            res.json({_id: req.params.id});
         })
         .catch(next)
 });
 
 router.delete('/:id', function (req, res, next) {
     db.collection('offers').remove({ _id: ObjectId(req.params.id) })
-        .then(() => res.send(req.body))
+        .then(() => res.json({_id: req.params.id}))
         .catch(next)
 });
 
@@ -60,7 +60,7 @@ router.post('/filter', function (req, res, next) {
     let query = buildQuery(req.body.filter);
     db.collection('offers').find(query).toArray()
         .then(results => res.json(results))
-        .catch(next);
+        .catch(next)
 });
 
 function buildQuery(filter){
