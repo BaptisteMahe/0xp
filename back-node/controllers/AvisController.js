@@ -1,40 +1,31 @@
-const config = require('../config.json');
 let express = require('express');
-let app = express();
 let router = express.Router();
 let bodyParser = require('body-parser');
 router.use(bodyParser.json());
-const Avis = require("./avis.model");
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 let ObjectId = require('mongodb').ObjectId
 
-const escapeStringRegexp = require('escape-string-regexp')
-
 router.get('/', function(req, res, next) {
-    db.collection('avis').find().toArray(function(err, results){
-        res.json(results)
-    })
+    db.collection('avis').find().toArray()
+        .then(result => res.json(result))
+        .catch(next)
 });
 
 router.get('/:id', function(req, res, next) {
-    const oid = new ObjectId(req.params.id)
-    db.collection('avis').findOne({_id : oid})
-        .then(company => company ? res.json(company) : res.sendStatus(404))
-        .catch(err => next(err));
+    db.collection('avis').findOne({_id : ObjectId(req.params.id)})
+        .then(avis => avis ? res.json(avis) : next({"message": "Avis not found.", "code": 404}))
+        .catch(next)
 });
 
 router.get('/company/:id', function(req, res, next) {
-    db.collection('avis').find({idCompany : req.params.id}).toArray(function(err, results){
-        res.json(results)
-    })
+    db.collection('avis').find({idCompany : req.params.id}).toArray()
+        .then(results => res.json(results))
+        .catch(next)
 });
 
-router.post('/', function(req, res, next) {    
-    db.collection('avis').insertOne(req.body).then(() => res.json({}))
-            .catch(err => next(err));
+router.post('/', function(req, res, next) {
+    db.collection('avis').insertOne(req.body)
+        .then(() => res.json({_id: req.body._id}))
+        .catch(next)
 });
-
-
 
 module.exports = router;

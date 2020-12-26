@@ -39,7 +39,7 @@ export class UserService {
   }
 
   update(user: any) {
-    this.http.put<any>(this.apiUrl + '/users/update', { user }).subscribe(
+    this.http.put<any>(this.apiUrl + '/users/' + user._id , user).subscribe(
       (response) => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUser = user;

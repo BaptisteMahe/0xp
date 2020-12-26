@@ -3,114 +3,72 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 router.use(bodyParser.json());
-const UserStudent = require("./userStudent.model");
-const UserCompany = require("./userCompany.model");
-const Company = require("./company.model");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const ObjectId = require('mongodb').ObjectId;
 
-
-const escapeStringRegexp = require('escape-string-regexp')
-
-router.get('/', function (req, res) {
-  db.collection('users').find().toArray(function (err, results) {
-    res.json(results);
-  })
-});
-
-router.post('/authenticate', authenticate);
-
-function authenticate(req, res, next) {
-  toAuthenticate(req.body)
-    .then(user => user ? res.json(user) : res.status(400).json({
-      message: 'Username or password is incorrect'
-    }))
-    .catch(err => next(err));
-}
-
-router.post('/register', function (req, res, next) {
-  db.collection('users').countDocuments({
-    username: req.body.username
-  }, function (error, countDocuments) {
-    if (countDocuments === 0) {
-      let user;
-      let company;
-      if (req.body.isStudent) {
-        req.body.dateBirth = req.body.dateBirth.substring(0,10); // TODO : refactor way handling dates FE and BE
-        user = new UserStudent(req.body);
-      } else {
-        req.body.creationDate = req.body.creationDate.substring(0,10); // TODO : refactor way handling dates FE and BE
-        user = new UserCompany(req.body)
-        company = new Company(req.body)
-      }
-      // hash password
-      if (req.body.password) {
-        user.hash = bcrypt.hashSync(req.body.password, 10);
-      }
-      // save user
-      if (!req.body.isStudent) {
-        db.collection('companies').insertOne(company, function (err) {
-          if (err) return;
-          // Object inserted successfully.
-          user.idCompany = new ObjectId(company._id);
-          db.collection('users').insertOne(user).then(() => res.json({}))
-            .catch(err => next(err));
-        })
-        //.then(() => res.json({}))
-        //.catch(err => next(err));
-
-      } else {
-        db.collection('users').insertOne(user).then(() => res.json({}))
-          .catch(err => next(err));;
-      }
-    } else {
-      res.status(400).json({
-        message: 'Le nom d\'utilisateur existe déjà'
-      })
-    }
-  })
-});
-
-router.get('/current', function (req, res, next) {
-  db.collection('users').findById(req.user.sub)
-    .then(user => user ? res.json(user) : res.sendStatus(404))
-    .catch(err => next(err));
+router.get('/', function (req, res, next) {
+  db.collection('users').find().toArray()
+    .then(results => res.json(results))
+    .catch(next)
 });
 
 router.get('/:id', function (req, res, next) {
-  db.collection('users').findOne({
-    _id: ObjectId(req.params.id)
-  })
-    .then(user => user ? res.json(user) : res.sendStatus(404))
-    .catch(err => next(err));
-});
-
-router.put('/:id', function (req, res, next) {
-  const user = db.collection('users').findOne({
-    _id: ObjectId(req.params.id)
-  });
-  // validate
-  if (!user) throw 'User not found';
-  if (user.username !== req.body.username && db.collection('users').findOne({
-    username: req.body.username
-  })) {
-    throw 'Username "' + req.body.username + '" is already taken';
-  }
-  // hash password if it was entered
-  if (req.body.password) {
-    req.body.hash = bcrypt.hashSync(req.body.password, 10);
-  }
-  // copy userParam properties to user
-  Object.assign(user, req.body);
-
-  user.save();
+  db.collection('users').findOne({_id: ObjectId(req.params.id)})
+    .then(user => user ? res.json(user) : next({message: "User not found.", code: 404}))
+    .catch(next);
 });
 
 router.delete('/:id', function (req, res, next) {
-  db.collection('users').findByIdAndRemove(req.params.id)
-    .then(() => res.json({}))
-    .catch(err => next(err));
+  db.collection('users').findOneAndDelete({_id: ObjectId(req.params.id)})
+    .then(() => res.json({_id: req.params.id}))
+    .catch(next)
+});
+
+router.post('/authenticate', function (req, res, next) {
+  toAuthenticate(req.body)
+    .then(user => user ? res.json(user) : next({message: "password incorrect", code: 404}))
+    .catch(next);
+})
+
+router.post('/register', function (req, res, next) {
+  let {user, company} = splitUserCompany(req.body);
+  if (user.isStudent) {
+    db.collection('users').insertOne(user)
+      .then((results) => res.json({_id: results.insertedId}))
+      .catch(err => {
+        if (err.code = 11000) err = {...err, message: "Le nom d'utilisateur est déjà utilisé", code: 400};
+          next(err);
+      });
+  } else {
+    db.collection('companies').insertOne(company)
+      .then((companiesResult) => {
+        user.idCompany = companiesResult.insertedId;
+        db.collection('users').insertOne(user)
+          .then((usersResults) => res.json({_id: usersResults.insertedId}))
+          .catch(err => {
+            if (err.code = 11000){
+              db.collection('companies').findOneAndDelete({_id: company._id})
+              .then(() => next({...err, message:"Le nom d'utilisateur est déjà utilisé", code: 400}))
+              .catch(next)
+            } else next(err);
+          });
+      })
+      .catch(err => {
+        if (err.code = 11000) err = {...err, message: "Le nom d'entreprise est déjà utilisé", code: 400};
+        next(err);
+      });
+  }
+});
+
+router.put('/:id', function(req, res, next) {
+  delete req.body.token;
+  db.collection('users').updateOne({_id: ObjectId(req.params.id)}, {$set: {...req.body, _id: ObjectId(req.params.id)}})
+      .then(() => res.json({_id: req.params.id}))
+      .catch(err => {
+          if (err.code = 11000) err = {...err, message: "Le nom d'utilisateur est déjà utilisé", code: 400};
+          next(err);
+      });
 });
 
 router.post('/addAlert', function (req, res, next) {
@@ -133,83 +91,38 @@ router.post('/clearNotifications', function (req, res, next) {
       notifications: req.body["user"]["notifications"],
     }
   })
-  res.send(req.body);
+  res.json(req.body);
 });
 
-router.put('/update', function (req, res, next) {
-  console.log("Request /users/update");
-  let user = new Object();
-  user = req.body["user"];
-  if (user["isStudent"]) {
-    db.collection('users').updateOne({
-      _id: ObjectId(user["_id"])
-    }, {
-      $set: {
-        "firstName": user["firstName"],
-        "name": user["name"],
-        "dateBirth": user["dateBirth"],
-        "location": user["location"],
-        "email": user["email"],
-        "telephone": user["telephone"],
-        "softSkills": user["softSkills"]
-      }
-    })
-  } else {
-    db.collection('users').updateOne({
-      _id: ObjectId(user["_id"])
-    }, {
-      $set: {
-        "name": user["name"],
-      }
-    })
-    db.collection('companies').updateOne({
-      _id: ObjectId(user["idCompany"])
-    }, {
-      $set: {
-        "name": user["name"],
-        "creationDate": user["creationDate"],
-        "description": user["description"],
-        "taille": user["taille"],
-        "location": user["location"],
-        "contact": user["contact"],
-      }
-    })
-  }
-});
-
-async function toAuthenticate({
-  username,
-  password
-}) {
-  let user = await db.collection('users').findOne({
-    username
-  });
+async function toAuthenticate({username, password}) {
+  let user = await db.collection('users').findOne({ username });
+  if (!user) throw({message: "username incorrect", code: 400})
   if (!user.isStudent) {
-    const oid = new ObjectId(user.idCompany)
-    const company = await db.collection('companies').findOne({
-      _id: oid
-    });
-    user.creationDate = company.creationDate;
-    user.description = company.description;
-    user.taille = company.taille;
-    user.contact = company.contact;
-    user.location = company.location;
-    user.srcImage = company.srcImage;
-    user.isPartner = company.isPartner;
+    const company = await db.collection('companies').findOne({ _id: ObjectId(user.idCompany) });
+    user = {...user, ...company}
   }
   if (user && bcrypt.compareSync(password, user.hash)) {
-    const {
-      hash,
-      ...userWithoutHash
-    } = user;
-    const token = jwt.sign({
-      sub: user.id
-    }, config.secret);
-    return {
-      ...userWithoutHash,
-      token
-    };
+    const { hash, ...userWithoutHash } = user;
+    const token = jwt.sign({ sub: user.id }, config.secret);
+    return { ...userWithoutHash, token };
   }
+}
+
+function splitUserCompany(body) {
+  let user, company = {};
+  const {firstName, name, username, password, dateBirth, email, creationDate, telephone, isStudent, description, taille, location, srcImage} = body;
+  user = {name, username, isStudent};
+  user.creationDate = Date.now();
+  console.log(password)
+  user.hash = bcrypt.hashSync(password, 10);
+  if (user.isStudent) {
+    user = {...user, firstName, email, telephone}
+    user.dateBirth = dateBirth.substring(0,10);
+  } else {
+    company = {name, description, taille, location, srcImage}
+    company.creationDate = creationDate.substring(0,10);
+  }
+  return {user, company};
 }
 
 module.exports = router;

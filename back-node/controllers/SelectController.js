@@ -3,36 +3,35 @@ let router = express.Router();
 let bodyParser = require('body-parser');
 router.use(bodyParser.json());
 
-router.get('/softskills/', function (req, res) {
-    db.collection('softskills').find().toArray(function (err, results) {
-        res.json(results);
-    })
+router.get('/softskills/', function (req, res, next) {
+    db.collection('softskills').find().toArray()
+        .then(results => res.json(results))
+        .catch(next)
 });
 
-router.get('/domaines/', function (req, res) {
-    db.collection('domaines').find().toArray(function (err, results) {
-        res.json(results);
-    })
+router.get('/domaines/', function (req, res, next) {
+    db.collection('domaines').find().toArray()
+        .then(results => res.json(results))
+        .catch(next)
 });
 
-router.get('/sectors/', function (req, res) {
-    db.collection('sectors').find().toArray(function (err, results) {
-        res.json(results);
-    })
+router.get('/sectors/', function (req, res, next) {
+    db.collection('sectors').find().toArray()
+        .then(results => res.json(results))
+        .catch(next)
 });
 
-router.get('/companies/', function (req, res) {
-    db.collection('companies').find().toArray(function (err, results) {
-        res.json(formatCompaniesToSelectOption(results));
-    });
+router.get('/companies/', function (req, res, next) {
+    db.collection('companies').find().toArray()
+        .then(results => res.json(formatCompaniesToSelectOption(results)))
+        .catch(next);
 });
 
-router.get('/locations/', function (req, res) {
-    db.collection('offers').find().toArray(function (err, results) {
-        res.json(formatOffersToLocationSelectOption(results));
-    });
+router.get('/locations/', function (req, res, next) {
+    db.collection('offers').find().toArray()
+        .then(results => res.json(formatOffersToLocationSelectOption(results)))
+        .catch(next);
 });
-
 
 module.exports = router;
 

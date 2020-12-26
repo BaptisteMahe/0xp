@@ -1,3 +1,4 @@
+const config = require('./config.json');
 let express = require('express');
 let app = express();
 let http = require('http');
@@ -14,14 +15,14 @@ app.use(function (req, res, next) {
 });
 
 // custom routes
-let OffreController = require('./controllers/OffreController');
+let OfferController = require('./controllers/OfferController');
 let UserController = require('./controllers/UserController');
 let CompanyController = require('./controllers/CompanyController');
 let SelectController = require('./controllers/SelectController');
 let AvisController = require('./controllers/AvisController');
 
 // Set our routes
-app.use('/offres', OffreController);
+app.use('/offres', OfferController);
 app.use('/users', UserController);
 app.use('/companies', CompanyController);
 app.use('/select', SelectController);
@@ -29,24 +30,22 @@ app.use('/avis', AvisController);
 
 // Handle 404
 app.use(function (req, res) {
-    res.status(404).send({
+    res.status(404).send({ 
         status: 404,
-        message: '404 Not Found',
-        type: 'client'
+        message: '404 Not Found'
     });
 });
 
 // Handle 500
-app.use(function (error, req, res, next) {
-    res.status(500).send({
-        status: 500,
-        message: 'internal error',
-        type: 'internal'
-    });
+app.use(function (err, req, res) {
+    console.log("ERROR : \n", err, "\n")
+    res.status(err.code || 500).json({
+        message: err.message || 'internal error'
+    })
 });
 
 //listen
-const uri = "mongodb+srv://admin0xp:mdpadmin0xp@0xp-aqxy3.mongodb.net/test?retryWrites=true&w=majority";
+const uri = config.mongoUri;
 const client = new MongoClient(uri, {
     useNewUrlParser: true
 });

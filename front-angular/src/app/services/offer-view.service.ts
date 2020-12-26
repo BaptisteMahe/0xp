@@ -70,23 +70,23 @@ export class OfferViewService {
   }
 
   getOfferById(id: string): Observable<Offer> {
-    return this.httpClient.get<Offer>(this.apiUrl + '/offres/byId/' + id);
+    return this.httpClient.get<Offer>(this.apiUrl + '/offres/' + id);
   }
 
   getAllOffersByCompanyId(companyId: string): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/offres/byCompanyId?id=' + companyId);
+    return this.httpClient.get<any[]>(this.apiUrl + '/offres/byCompanyId/' + companyId);
   }
 
   addOffer(offer: Offer): Observable<any> {
-    return this.httpClient.post<Offer>(this.apiUrl + '/offres/post', offer);
+    return this.httpClient.post<Offer>(this.apiUrl + '/offres/', offer);
   }
 
   deleteOffer(id: string): Observable<any> {
-    return this.httpClient.delete<string>(this.apiUrl + '/offres/deleteById/' + id);
+    return this.httpClient.delete<string>(this.apiUrl + '/offres/' + id);
   }
 
   editOffer(offer: Offer): Observable<any> {
-    return this.httpClient.put<Offer>(this.apiUrl + '/offres/update', offer);
+    return this.httpClient.put<Offer>(this.apiUrl + '/offres/' + offer.id, offer);
   }
 
   sortArray(array: Offer[], key: SortCategory) {
