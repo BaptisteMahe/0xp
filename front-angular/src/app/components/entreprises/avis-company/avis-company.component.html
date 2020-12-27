@@ -10,26 +10,26 @@
   <br />
   <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="form-element">
-      <mat-label for="noteGenerale">Impression générale</mat-label>
-      <mat-select type="text" formControlName="noteGenerale">
+      <mat-label>Impression générale</mat-label>
+      <mat-select formControlName="noteGenerale">
         <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="form-element">
-      <mat-label for="noteInteret">Intérêt de la mission</mat-label>
-      <mat-select type="text" formControlName="noteInteret">
+      <mat-label>Intérêt de la mission</mat-label>
+      <mat-select formControlName="noteInteret">
         <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="form-element">
-      <mat-label for="noteAmbiance">Ambiance de travail</mat-label>
-      <mat-select type="text" formControlName="noteAmbiance">
+      <mat-label>Ambiance de travail</mat-label>
+      <mat-select formControlName="noteAmbiance">
         <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="form-element">
-      <mat-label for="noteEncadrt">Encadrement</mat-label>
-      <mat-select type="text" formControlName="noteEncadrt">
+      <mat-label>Encadrement</mat-label>
+      <mat-select formControlName="noteEncadrt">
         <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
       </mat-select>
     </mat-form-field>
