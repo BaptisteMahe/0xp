@@ -1,5 +1,5 @@
 export class SelectOption {
-  id?: string;
-  value: string;
+  // tslint:disable-next-line:variable-name
+  _id: string;
   display: string;
 }

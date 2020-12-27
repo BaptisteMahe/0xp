@@ -39,8 +39,7 @@ function formatCompaniesToSelectOption(jsonArray) {
     let selectOptions = [];
     jsonArray.forEach(company => {
         selectOptions.push({
-            id: company._id,
-            value: company.name,
+            _id: company._id,
             display: company.name
         });
     })
@@ -51,10 +50,10 @@ function formatOffersToLocationSelectOption(jsonArray) {
     let selectOptions = [];
     jsonArray.forEach(offer =>{
         const selectOption = {
-            value: offer.location,
+            _id: offer.location,
             display: offer.location
         };
-        if (!selectOptions.includes(selectOption)) {
+        if (!selectOptions.some(element => element._id === selectOption._id)) {
             selectOptions.push(selectOption);
         }
     });
