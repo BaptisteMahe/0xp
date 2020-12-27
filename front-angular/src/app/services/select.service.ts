@@ -16,11 +16,11 @@ export class SelectService {
   }
 
   getSoftSkills(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/select/softskills');
+    return this.httpClient.get<any[]>(this.apiUrl + '/select/softSkills');
   }
 
   getDomains(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/select/domaines');
+    return this.httpClient.get<any[]>(this.apiUrl + '/select/domains');
   }
 
   getCompaniesForSelect(): Observable<any[]> {

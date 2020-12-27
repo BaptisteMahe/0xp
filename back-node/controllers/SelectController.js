@@ -3,14 +3,14 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 
-router.get('/softskills/', function (req, res, next) {
-    db.collection('softskills').find().toArray()
+router.get('/softSkills/', function (req, res, next) {
+    db.collection('softSkills').find().toArray()
         .then(results => res.json(results))
         .catch(next)
 });
 
-router.get('/domaines/', function (req, res, next) {
-    db.collection('domaines').find().toArray()
+router.get('/domains/', function (req, res, next) {
+    db.collection('domains').find().toArray()
         .then(results => res.json(results))
         .catch(next)
 });
