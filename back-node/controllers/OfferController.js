@@ -85,14 +85,14 @@ function buildQuery(filter){
     if (filter.location.length) {
         let locationQuery = {$or: []};
         filter.location.forEach(location => {
-            locationQuery.$or.push({location: location.value})
+            locationQuery.$or.push({location: location._id});
         });
         query.push(locationQuery);
     }
     if (filter.company.length) {
         let companyQuery = {$or: []};
         filter.company.forEach(company => {
-            companyQuery.$or.push({id_company: new ObjectId(company.id)})
+            companyQuery.$or.push({id_company: new ObjectId(company._id)});
         });
         query.push(companyQuery);
     }

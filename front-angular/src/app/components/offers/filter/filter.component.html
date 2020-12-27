@@ -33,7 +33,7 @@
       <mat-label>Secteur</mat-label>
       <mat-select [(value)]="currentFilter.sector">
         <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let sector of sectorList" [value]="sector.value">{{sector.display}}</mat-option>
+        <mat-option *ngFor="let sector of sectorList" [value]="sector.display">{{sector.display}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
@@ -101,7 +101,7 @@
         <p>Taux de matching minimum</p>
         <div class="flexRow slider-value">
           <p>0%</p>
-          <mat-slider max="100" z min="0" thumbLabel="thumbLabel" tickInterval="1"
+          <mat-slider max="100" min="0" thumbLabel="thumbLabel" tickInterval="1"
             [(ngModel)]="currentFilter.matchingMini">
           </mat-slider>
           <p>100%</p>

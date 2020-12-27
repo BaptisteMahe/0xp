@@ -1,10 +1,12 @@
+import { SelectOption } from './SelectOption';
+
 export class Filter {
   textInput = '';
   type = '';
   duration = '';
   sector = '';
-  location: string[] = [];
-  company: string[] = [];
+  location: SelectOption[] = [];
+  company: SelectOption[] = [];
   isPartner = false;
   publicationDate = '';
   companySize = '';
