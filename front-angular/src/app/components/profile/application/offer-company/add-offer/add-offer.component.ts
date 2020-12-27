@@ -14,7 +14,7 @@ import { default as _rollupMoment, Moment } from 'moment';
 const moment = _rollupMoment || _moment;
 
 import { UserService, CompanyService, OfferViewService, SelectService } from '../../../../../services';
-import { Offer, User, Company, SelectOption } from 'src/models';
+import { Offer, User, Company, SelectOption } from '../../../../../../models';
 
 export const MY_FORMATS = {
   parse: {
@@ -55,7 +55,7 @@ export class AddOfferComponent implements OnInit {
 
   typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
   timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
-  listCountries: string[] = ['France', 'Espagne', 'Angleterre', 'Inde', 'Chine'];
+  listCountries: string[] = ['France', 'Espagne', 'Angleterre', 'Inde', 'Chine']; // TODO : Get countries from https://github.com/apilayer/restcountries
 
   offerOnForm: Offer = new Offer();
   dateFromDate: Date = new Date();
@@ -100,8 +100,8 @@ export class AddOfferComponent implements OnInit {
     });
 
     this.companyService.getAll().subscribe(
-      value => {
-        this.companiesList = value;
+      companies => {
+        this.companiesList = companies;
       },
       error => {
         console.log('Erreur ! : ' + error);

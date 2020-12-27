@@ -40,7 +40,7 @@
       <mat-label>Secteur</mat-label>
       <mat-select [(value)]="offerOnForm.sector">
         <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let sector of sectorList" [value]="sector.value">{{sector.display}}</mat-option>
+        <mat-option *ngFor="let sector of sectorList" [value]="sector.display">{{sector.display}}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -94,7 +94,7 @@
       <mat-label>Soft Skills Recherchés</mat-label>
       <mat-select [(value)]="offerOnForm.softSkills" [multiple]='true'>
         <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let softskill of listSoftSkills" [value]="softskill">{{softskill.display}}
+        <mat-option *ngFor="let softSkill of listSoftSkills" [value]="softSkill.display">{{softSkill.display}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -103,13 +103,12 @@
       <mat-label>Domaines</mat-label>
       <mat-select [(value)]="offerOnForm.domains" [multiple]='true'>
         <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let domain of listDomains" [value]="domain">{{domain.display}}
+        <mat-option *ngFor="let domain of listDomains" [value]="domain.display">{{domain.display}}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
   <br />
 
-  <h3 class="button btn-success" *ngIf="!isEdition" (click)="addOrEditOffer()">Ajouter</h3>
-  <h3 class="button btn-success" *ngIf="isEdition" (click)="addOrEditOffer()">Modifier</h3>
+  <h3 class="button btn-success" (click)="addOrEditOffer()">{{isEdition ? 'Modifier' : 'Ajouter'}}</h3>
 </div>
