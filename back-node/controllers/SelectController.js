@@ -6,19 +6,19 @@ router.use(bodyParser.json());
 router.get('/softSkills/', function (req, res, next) {
     db.collection('softSkills').find().toArray()
         .then(results => res.json(results))
-        .catch(next)
+        .catch(next);
 });
 
 router.get('/domains/', function (req, res, next) {
     db.collection('domains').find().toArray()
         .then(results => res.json(results))
-        .catch(next)
+        .catch(next);
 });
 
 router.get('/sectors/', function (req, res, next) {
     db.collection('sectors').find().toArray()
         .then(results => res.json(results))
-        .catch(next)
+        .catch(next);
 });
 
 router.get('/companies/', function (req, res, next) {

@@ -37,7 +37,7 @@ router.put('/:id', function(req, res, next) {
         .then(() => res.json({_id: req.params.id}))
         .catch(err => {
             if (err.code === 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
-            next(err)
+            next(err);
         });
 });
 

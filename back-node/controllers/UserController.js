@@ -10,7 +10,7 @@ const ObjectId = require('mongodb').ObjectId;
 router.get('/', function (req, res, next) {
   db.collection('users').find().toArray()
     .then(results => res.json(results))
-    .catch(next)
+    .catch(next);
 });
 
 router.get('/:id', function (req, res, next) {
@@ -22,7 +22,7 @@ router.get('/:id', function (req, res, next) {
 router.delete('/:id', function (req, res, next) {
   db.collection('users').findOneAndDelete({_id: ObjectId(req.params.id)})
     .then(() => res.json({_id: req.params.id}))
-    .catch(next)
+    .catch(next);
 });
 
 router.post('/authenticate', function (req, res, next) {
@@ -50,7 +50,7 @@ router.post('/register', function (req, res, next) {
             if (err.code === 11000){
               db.collection('companies').findOneAndDelete({_id: company._id})
               .then(() => next({...err, message:"Le nom d'utilisateur est déjà utilisé", code: 400}))
-              .catch(next)
+              .catch(next);
             } else next(err);
           });
       })
@@ -78,7 +78,7 @@ router.post('/addAlert', function (req, res, next) {
     $set: {
       filterAlert: req.body["filter"],
     }
-  })
+  });
 });
 
 router.post('/clearNotifications', function (req, res, next) {
@@ -90,7 +90,7 @@ router.post('/clearNotifications', function (req, res, next) {
     $set: {
       notifications: req.body["user"]["notifications"],
     }
-  })
+  });
   res.json(req.body);
 });
 
@@ -98,10 +98,10 @@ module.exports = router;
 
 async function toAuthenticate({username, password}) {
   let user = await db.collection('users').findOne({ username });
-  if (!user) throw({message: "username incorrect", code: 400})
+  if (!user) throw({message: "username incorrect", code: 400});
   if (!user.isStudent) {
     const company = await db.collection('companies').findOne({ _id: ObjectId(user.idCompany) });
-    user = {...user, ...company}
+    user = {...user, ...company};
   }
   if (user && bcrypt.compareSync(password, user.hash)) {
     const { hash, ...userWithoutHash } = user;
@@ -115,13 +115,12 @@ function splitUserCompany(body) {
   const {firstName, name, username, password, dateBirth, email, creationDate, telephone, isStudent, description, taille, location, srcImage} = body;
   user = {name, username, isStudent};
   user.creationDate = Date.now();
-  console.log(password)
   user.hash = bcrypt.hashSync(password, 10);
   if (user.isStudent) {
-    user = {...user, firstName, email, telephone}
+    user = {...user, firstName, email, telephone};
     user.dateBirth = dateBirth.substring(0,10);
   } else {
-    company = {name, description, taille, location, srcImage}
+    company = {name, description, taille, location, srcImage};
     company.creationDate = creationDate.substring(0,10);
   }
   return {user, company};
