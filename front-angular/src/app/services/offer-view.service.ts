@@ -62,31 +62,31 @@ export class OfferViewService {
   }
 
   getFilteredOffer(filter: Filter): Observable<any[]> {
-    return this.httpClient.post<any>(this.apiUrl + '/offres/filter', { user: this.currentUser, filter });
+    return this.httpClient.post<any>(this.apiUrl + '/offers/filter', { user: this.currentUser, filter });
   }
 
   getAllOffers(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/offres');
+    return this.httpClient.get<any[]>(this.apiUrl + '/offers');
   }
 
   getOfferById(id: string): Observable<Offer> {
-    return this.httpClient.get<Offer>(this.apiUrl + '/offres/' + id);
+    return this.httpClient.get<Offer>(this.apiUrl + '/offers/' + id);
   }
 
   getAllOffersByCompanyId(companyId: string): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/offres/byCompanyId/' + companyId);
+    return this.httpClient.get<any[]>(this.apiUrl + '/offers/byCompanyId/' + companyId);
   }
 
   addOffer(offer: Offer): Observable<any> {
-    return this.httpClient.post<Offer>(this.apiUrl + '/offres/', offer);
+    return this.httpClient.post<Offer>(this.apiUrl + '/offers/', offer);
   }
 
   deleteOffer(id: string): Observable<any> {
-    return this.httpClient.delete<string>(this.apiUrl + '/offres/' + id);
+    return this.httpClient.delete<string>(this.apiUrl + '/offers/' + id);
   }
 
   editOffer(offer: Offer): Observable<any> {
-    return this.httpClient.put<Offer>(this.apiUrl + '/offres/' + offer.id, offer);
+    return this.httpClient.put<Offer>(this.apiUrl + '/offers/' + offer.id, offer);
   }
 
   sortArray(array: Offer[], key: SortCategory) {

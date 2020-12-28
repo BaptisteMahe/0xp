@@ -22,7 +22,7 @@ let SelectController = require('./controllers/SelectController');
 let AvisController = require('./controllers/AvisController');
 
 // Set our routes
-app.use('/offres', OfferController);
+app.use('/offers', OfferController);
 app.use('/users', UserController);
 app.use('/companies', CompanyController);
 app.use('/select', SelectController);
