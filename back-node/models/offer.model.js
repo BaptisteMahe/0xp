@@ -1,7 +1,7 @@
 OfferModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: [ "title", "type", "description", "location", "duration", "startDate", "domains", "softSkills", "sector", "company", "companyId", "createdDate"],
+        required: [ "title", "type", "description", "location", "duration", "startDate", "domains", "softSkills", "sector", "company", "createdDate"],
         properties: {
             title: {
                 bsonType: "string",
@@ -39,7 +39,7 @@ OfferModel = {
                     bsonType: "object",
                     required: [ "_id", "display"],
                     properties: {
-                        _id:{
+                        _id: {
                             bsonType: "objectId"
                         },
                         display: {
@@ -57,7 +57,7 @@ OfferModel = {
                     bsonType: "object",
                     required: [ "_id", "display"],
                     properties: {
-                        _id:{
+                        _id: {
                             bsonType: "objectId"
                         },
                         display: {
@@ -72,7 +72,7 @@ OfferModel = {
                 description: "[required][object] Sector of the company offering the offer.",
                 required: [ "_id", "display"],
                 properties: {
-                    _id:{
+                    _id: {
                         bsonType: "objectId"
                     },
                     display: {
@@ -81,17 +81,24 @@ OfferModel = {
                     }
                 }
             },
-            companyName: {
-                bsonType: "string",
-                description: "[required][string] Name of the company offering the offer."
-            },
-            companyId: {
-                bsonType: "objectId",
-                description: "[required][objectId] Id of the company offering the offer."
-            },
-            srcImgCompany: {
-                bsonType: "string",
-                description: "[optional][string] Link to the logo of the company offering the offer."
+            company: {
+                bsonType: "object",
+                description: "[required][string] Information about the company offering the offer.",
+                required: [ "_id", "display"],
+                properties: {
+                    _id: {
+                        bsonType: "objectId",
+                        description: "[required][string] Id of the company offering the offer."
+                    },
+                    display : {
+                        bsonType: "string",
+                        description: "[required][string] Name of the company offering the offer."
+                    },
+                    srcImgCompany: {
+                        bsonType: "string",
+                        description: "[optional][string] Link to the logo of the company offering the offer."
+                    }
+                }
             },
             createdDate: {
                 bsonType: "date",
