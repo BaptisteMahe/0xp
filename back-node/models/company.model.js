@@ -24,8 +24,8 @@ CompanyModel = {
                 description: "[required][string] Company's email contact."
             },
             size: {
-                enum: [],
-                description: "[required][enum] Company's size."
+                enum: ["1-10", "10-100", "100-1000", "1000+"],
+                description: "[required][enum] Company's size in number of employees between '0-10', '10-100', '100-1000' and '1000+'."
             },
             isPartner: {
                 bsonType: "bool",
