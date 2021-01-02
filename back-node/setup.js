@@ -40,5 +40,6 @@ connect().then(db => {
   applySingleSchema(db, 'sectors', SectorModel);
   applySingleSchema(db, 'softSkills', SoftSkillModel);
   applySingleSchema(db, 'offers', OfferModel);
+  applySingleSchema(db, 'companies', CompanyModel);
   // client.close();
 });

@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 
 import { CompanyService } from '../../../services';
-import { Company } from '../../../../models';
+import { Company, CompanySize } from '../../../../models';
 
 @Component({
   selector: 'app-add-company',
@@ -14,6 +14,7 @@ import { Company } from '../../../../models';
 export class AddCompanyComponent implements OnInit {
 
   registerForm: FormGroup;
+  sizeList = Object.values(CompanySize);
 
   constructor(@Inject(MAT_DIALOG_DATA) public companyToEdit: Company,
               private formBuilder: FormBuilder,
@@ -23,11 +24,12 @@ export class AddCompanyComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       name: [this.companyToEdit?.name, Validators.required],
       creationDate: [this.companyToEdit?.creationDate, Validators.required],
-      description: [this.companyToEdit?.description, Validators.required],
-      taille: [this.companyToEdit?.taille, Validators.required],
+      description: [this.companyToEdit?.description],
+      size: [this.companyToEdit?.size, Validators.required],
       location: [this.companyToEdit?.location, Validators.required],
       srcImage: [this.companyToEdit?.srcImage],
-      isPartner: []
+      isPartner: [this.companyToEdit?.isPartner || false],
+      contact: [this.companyToEdit?.contact, [Validators.required, Validators.email]]
     });
   }
 

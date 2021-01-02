@@ -1,11 +1,19 @@
 export class Company {
-  _id: string;
+  // tslint:disable-next-line:variable-name
+  _id?: string;
   name: string;
-  creationDate: Date;
   description: string;
-  taille: string;
-  contact: string;
   location: string;
   srcImage: string;
-  isPartner: string; //?
+  contact: string;
+  size: CompanySize;
+  isPartner: boolean;
+  creationDate: Date;
+}
+
+export enum CompanySize {
+  Small = '1-10',
+  Medium = '10-100',
+  Large = '100-1000',
+  Huge = '1000+'
 }

@@ -1,8 +1,7 @@
 <div class="add-company-container">
 
   <div class="modal-header-content">
-    <h1 *ngIf="!companyToEdit">Ajouter une entreprise</h1>
-    <h1 *ngIf="companyToEdit">Modifier une entreprise</h1>
+    <h1>{{companyToEdit ? 'Modifier' : 'Ajouter'}} une entreprise</h1>
   </div>
 
   <div class="modal-body">
@@ -32,13 +31,14 @@
 
       <mat-form-field class="add-company-field">
         <mat-label>Taille</mat-label>
-        <mat-select formControlName="taille">
-          <mat-option value="1-10">1-100</mat-option>
-          <mat-option value="11-100">11-100</mat-option>
-          <mat-option value="101-1 000">101-1 000</mat-option>
-          <mat-option value="1 001-10 000">1 001-10 000</mat-option>
-          <mat-option value="+10 000">+10 000</mat-option>
+        <mat-select formControlName="size">
+          <mat-option *ngFor="let size of sizeList" [value]=size >{{size}}</mat-option>
         </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="add-company-field">
+        <mat-label>Contact</mat-label>
+        <input matInput type="text" formControlName="contact">
       </mat-form-field>
 
       <mat-form-field class="add-company-field">
@@ -51,7 +51,7 @@
       <div class="form-buttons">
         <button mat-raised-button [mat-dialog-close]="onSubmit()" class="add-company-button" type="submit"
                 [disabled]="registerForm.invalid">
-          {{this.companyToEdit ? 'Modifier' : 'Ajouter'}}
+          {{companyToEdit ? 'Modifier' : 'Ajouter'}}
         </button>
         <button mat-raised-button mat-dialog-close class="reset-button" type="reset">
           Annuler
