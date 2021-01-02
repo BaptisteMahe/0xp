@@ -34,7 +34,7 @@ router.get('/:id', function (req, res, next) {
 
 router.put('/:id', function (req, res, next) {
     const offer = formatPropertiesTypes(req.body);
-    db.collection('offers').updateOne({ _id: offer._id },{$set: offer})
+    db.collection('offers').updateOne({ _id: offer._id }, {$set: offer})
         .then(() => {
             notificationModule.checkNotifForAllUsers(req.body);
             res.json({_id: req.params.id});
