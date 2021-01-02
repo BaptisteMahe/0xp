@@ -33,11 +33,12 @@ function applySingleSchema(db, collectionName, schema) {
 }
 
 connect().then(db => {
-  db.collection('companies').createIndex({ "name": 1 }, { unique: true });
-  db.collection('users').createIndex({ "username": 1 }, { unique: true });
+  db.collection('companies').createIndex({ 'name': 1 }, { unique: true });
+  db.collection('users').createIndex({ 'username': 1 }, { unique: true });
   applySingleSchema(db, 'avis', AvisModel);
   applySingleSchema(db, 'domains', DomainModel);
   applySingleSchema(db, 'sectors', SectorModel);
   applySingleSchema(db, 'softSkills', SoftSkillModel);
-  //client.close();
+  applySingleSchema(db, 'offers', OfferModel);
+  // client.close();
 });

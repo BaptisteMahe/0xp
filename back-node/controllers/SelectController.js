@@ -21,9 +21,9 @@ router.get('/sectors/', function (req, res, next) {
         .catch(next);
 });
 
-router.get('/companies/', function (req, res, next) {
+router.get('/companies/:isImgIncluded', function (req, res, next) {
     db.collection('companies').find().toArray()
-        .then(results => res.json(formatCompaniesToSelectOption(results)))
+        .then(results => res.json(formatCompaniesToSelectOption(results, (req.params.isImgIncluded === 'true'))))
         .catch(next);
 });
 
@@ -35,13 +35,21 @@ router.get('/locations/', function (req, res, next) {
 
 module.exports = router;
 
-function formatCompaniesToSelectOption(jsonArray) {
+function formatCompaniesToSelectOption(jsonArray, isImgIncluded) {
     let selectOptions = [];
     jsonArray.forEach(company => {
-        selectOptions.push({
-            _id: company._id,
-            display: company.name
-        });
+        if (isImgIncluded) {
+            selectOptions.push({
+                _id: company._id,
+                display: company.name,
+                srcImg: company.srcImage
+            });
+        } else {
+            selectOptions.push({
+                _id: company._id,
+                display: company.name
+            });
+        }
     })
     return selectOptions;
 }

@@ -20,7 +20,7 @@ OfferModel = {
                 description: "[required][string] Location where the experience will take place."
             },
             duration: {
-                enum: ["1-2 mois", "6 mois", "2 ans"],
+                enum: ["1-2 mois", "6 mois", "2 ans", "CDI"],
                 description: "[required][enum] Experience's time duration."
             },
             startDate: {
@@ -94,7 +94,7 @@ OfferModel = {
                         bsonType: "string",
                         description: "[required][string] Name of the company offering the offer."
                     },
-                    srcImgCompany: {
+                    srcImg: {
                         bsonType: "string",
                         description: "[optional][string] Link to the logo of the company offering the offer."
                     }

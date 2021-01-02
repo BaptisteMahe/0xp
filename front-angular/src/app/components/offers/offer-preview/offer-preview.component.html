@@ -1,14 +1,14 @@
-<mat-card class="card" [routerLink]="[offer.id]">
+<mat-card class="card" [routerLink]="[offer._id]">
   <mat-card-header class="header">
     <mat-card-title>{{ offer.title }}</mat-card-title>
-    <mat-card-subtitle>{{ offer.company }}</mat-card-subtitle>
-    <img class="logo-company" src="{{ offer.srcImgCompany }}" />
+    <mat-card-subtitle>{{ offer.company.display }}</mat-card-subtitle>
+    <img class="logo-company" src="{{ offer.company.srcImg }}" />
   </mat-card-header>
   <mat-card-footer class="footer">
     <div>{{ offer.location }}</div>
     <div>{{ offer.type }}</div>
     <div>{{ offer.duration }}</div>
-    <div>{{ offer.sector }}</div>
+    <div>{{ offer.sector.display }}</div>
     <div>{{ strDateCreated }}</div>
     <div *ngIf="offer.matchingScore>=0" class="matching-score" [style]="colorScore">{{ offer.matchingScore }}%</div>
     <div *ngIf="!(offer.matchingScore>=0)" class="matching-score">--%</div>

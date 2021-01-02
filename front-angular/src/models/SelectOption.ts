@@ -3,3 +3,7 @@ export class SelectOption {
   _id: string;
   display: string;
 }
+
+export class SelectOptionCompany extends SelectOption {
+  srcImg?: string;
+}

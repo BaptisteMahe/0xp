@@ -33,7 +33,7 @@
       <mat-label>Secteur</mat-label>
       <mat-select [(value)]="currentFilter.sector">
         <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let sector of sectorList" [value]="sector.display">{{sector.display}}</mat-option>
+        <mat-option *ngFor="let sector of sectorList" [value]="sector">{{sector.display}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
@@ -46,7 +46,7 @@
         <mat-label>Lieu</mat-label>
         <mat-select [(value)]="currentFilter.location" [multiple]='true'>
           <mat-option value="">--</mat-option>
-          <mat-option *ngFor="let location of listOfferLocation" [value]="location">{{location.display}}
+          <mat-option *ngFor="let location of offerLocationList" [value]="location">{{location.display}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -55,7 +55,7 @@
         <mat-label>Entreprise</mat-label>
         <mat-select [(value)]="currentFilter.company" [multiple]='true'>
           <mat-option value="">--</mat-option>
-          <mat-option *ngFor="let company of listOfferCompany" [value]="company">{{company.display}}
+          <mat-option *ngFor="let company of offerCompanyList" [value]="company">{{company.display}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -69,7 +69,7 @@
     <div class="form-line line-two">
       <mat-form-field class="filter-element">
         <mat-label>Date de publication</mat-label>
-        <mat-select [(value)]="currentFilter.publicationDate">
+        <mat-select [(value)]="currentFilter.createdDate">
           <mat-option value="">--</mat-option>
           <mat-option value="today">Aujourd'hui</mat-option>
           <mat-option value="week">Cette semaine</mat-option>

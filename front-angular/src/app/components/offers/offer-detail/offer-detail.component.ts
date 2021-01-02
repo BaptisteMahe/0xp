@@ -32,7 +32,7 @@ export class OfferDetailComponent implements OnInit {
       if (offer) {
         this.offer = offer;
         this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.offerViewService.defineColor(this.offer.matchingScore));
-        this.companyService.getById(this.offer.id_company).subscribe(
+        this.companyService.getById(this.offer.company._id).subscribe(
             company => {
               this.company = company;
             },

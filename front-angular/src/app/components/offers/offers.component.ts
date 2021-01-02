@@ -28,7 +28,7 @@ export class OffersComponent implements OnInit {
   ngOnInit() {
     this.isStudent = this.notificationsService.currentUser.isStudent;
 
-    this.offerViewService.getFullListOffer().subscribe(offerList => {
+    this.offerViewService.getAllOffers().subscribe(offerList => {
       this.offerList = offerList;
       this.isLoading = false;
     });
@@ -42,7 +42,7 @@ export class OffersComponent implements OnInit {
 
   onFilterEvent(filter: Filter) {
     this.isLoading = true;
-    this.offerViewService.getFilteredListOffer(filter).subscribe(filteredListOffer => {
+    this.offerViewService.getFilteredOffers(filter).subscribe(filteredListOffer => {
       this.offerList = filteredListOffer;
       this.isLoading = false;
     });

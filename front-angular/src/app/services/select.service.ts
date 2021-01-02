@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { SelectOption } from '../../models';
+import {SelectOption, SelectOptionCompany} from '../../models';
 
 @Injectable()
 export class SelectService {
@@ -24,8 +24,12 @@ export class SelectService {
     return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/domains');
   }
 
-  getCompaniesForSelect(): Observable<SelectOption[]> {
-    return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/companies');
+  getCompaniesForSelectWithImg(): Observable<SelectOptionCompany[]> {
+    return this.httpClient.get<SelectOptionCompany[]>(this.apiUrl + '/select/companies/true');
+  }
+
+  getCompaniesForSelectNoImg(): Observable<SelectOption[]> {
+    return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/companies/false');
   }
 
   getLocations(): Observable<SelectOption[]> {

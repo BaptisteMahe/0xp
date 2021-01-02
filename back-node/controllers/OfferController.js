@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 const ObjectId = require('mongodb').ObjectId;
 
-let notificationModule = require('../modules/notificationModule.js')
+const notificationModule = require('../modules/notificationModule.js')
 
 router.get('/', function (req, res, next) {
     db.collection('offers').find().toArray()
@@ -13,12 +13,12 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-    req.body.id_company = ObjectId(req.body.id_company);
-    db.collection('offers').insertOne(req.body)
+    const offer = formatPropertiesTypes(req.body);
+    db.collection('offers').insertOne(offer)
         .then(() => {
-            db.collection('companies').findOne({ _id: req.body.id_company })
+            db.collection('companies').findOne({ _id: offer.company._id })
                 .then((company) => {
-                    notificationModule.checkNotifForAllUsers(req.body, company);
+                    notificationModule.checkNotifForAllUsers(offer, company);
                     res.json({_id: req.params.id})
                 })
                 .catch(next);
@@ -33,25 +33,23 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.put('/:id', function (req, res, next) {
-    delete req.body.id;
-    delete req.body.matchingScore;
-    req.body.id_company = ObjectId(req.body.id_company)
-    db.collection('offers').update({ "_id": ObjectId(req.params.id) }, req.body)
+    const offer = formatPropertiesTypes(req.body);
+    db.collection('offers').updateOne({ _id: offer._id },{$set: offer})
         .then(() => {
-            notificationModule.checkNotifForAllUsers(req.body)
+            notificationModule.checkNotifForAllUsers(req.body);
             res.json({_id: req.params.id});
         })
         .catch(next);
 });
 
 router.delete('/:id', function (req, res, next) {
-    db.collection('offers').remove({ _id: ObjectId(req.params.id) })
+    db.collection('offers').findOneAndDelete({ _id: ObjectId(req.params.id) })
         .then(() => res.json({_id: req.params.id}))
         .catch(next);
 });
 
 router.get('/byCompanyId/:id', function (req, res, next) {
-    db.collection('offers').find({ "id_company":  ObjectId(req.params.id) }).toArray() 
+    db.collection('offers').find({ "company._id":  ObjectId(req.params.id) }).toArray()
         .then(results => res.json(results))
         .catch(next);
 });
@@ -65,11 +63,36 @@ router.post('/filter', function (req, res, next) {
 
 module.exports = router;
 
+function formatPropertiesTypes(offer) {
+    if (offer._id) {
+        offer._id = ObjectId(offer._id);
+    }
+    offer.company._id = ObjectId(offer.company._id);
+    offer.sector._id = ObjectId(offer.sector._id);
+    offer.softSkills.forEach((softSkill, index) => {
+        offer.softSkills[index]._id = ObjectId(softSkill._id);
+    });
+    offer.domains.forEach((domain, index) => {
+        offer.domains[index]._id = ObjectId(domain._id);
+    });
+
+    offer.startDate = new Date(offer.startDate);
+    offer.createdDate = new Date(offer.createdDate);
+
+    if(offer.remuneration) {
+        offer.remuneration = parseInt(offer.remuneration);
+    } else {
+        delete offer.remuneration;
+    }
+
+    return offer;
+}
+
 function buildQuery(filter){
     let query = [];
 
     if (filter.textInput) {
-        let textAttributeArray = ["title", "company", "location", "sector", "type", "description"];
+        let textAttributeArray = ["title", "company.display", "location", "sector.display", "type", "description"];
         let textInputQuery = { $or: []};
         textAttributeArray.forEach(textAttribute => {
             textInputQuery.$or.push({[textAttribute]: {$regex: `.*${filter.textInput}.*`, $options: 'i'}});
@@ -77,22 +100,26 @@ function buildQuery(filter){
         query.push(textInputQuery);
     }
 
-    let primaryCriteriaArray = ["type", "duration", "sector"];
+    let primaryCriteriaArray = ["type", "duration"];
     primaryCriteriaArray.forEach(criteria => {
         addPrimaryCriteriaToQuery(criteria, query, filter);
     });
 
-    if (filter.location.length) {
+    if (filter.sector) {
+        query.push({"sector._id": ObjectId(filter.sector._id)});
+    }
+
+    if (filter.location?.length) {
         let locationQuery = {$or: []};
         filter.location.forEach(location => {
             locationQuery.$or.push({location: location._id});
         });
         query.push(locationQuery);
     }
-    if (filter.company.length) {
+    if (filter.company?.length) {
         let companyQuery = {$or: []};
         filter.company.forEach(company => {
-            companyQuery.$or.push({id_company: new ObjectId(company._id)});
+            companyQuery.$or.push({"company._id": ObjectId(company._id)});
         });
         query.push(companyQuery);
     }

@@ -13,9 +13,8 @@
   <div *ngIf="currentUser.username == 'admin'" class="center">
     <mat-form-field class="center">
       <mat-label>Entreprise</mat-label>
-      <mat-select [(value)]="offerOnForm.id_company">
-        <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let company of companiesList" [value]="company._id">{{company.name}}</mat-option>
+      <mat-select [(value)]="offerOnForm.company">x
+        <mat-option *ngFor="let company of companiesList" [value]="company">{{company.display}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
@@ -31,24 +30,21 @@
     <mat-form-field class="center">
       <mat-label>Type d'expérience</mat-label>
       <mat-select [(value)]="offerOnForm.type">
-        <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let type of typeList" [value]="type">{{type}}</mat-option>
+        <mat-option *ngFor="let type of offerType" [value]="type">{{type}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field class="center">
       <mat-label>Secteur</mat-label>
-      <mat-select [(value)]="offerOnForm.sector">
-        <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let sector of sectorList" [value]="sector.display">{{sector.display}}</mat-option>
+      <mat-select [(value)]="selectedSectorId">
+        <mat-option *ngFor="let sector of sectorList" [value]="sector._id">{{sector.display}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field class="center">
       <mat-label>Durée</mat-label>
       <mat-select [(value)]="offerOnForm.duration">
-        <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let time of timeList" [value]="time">{{time}}</mat-option>
+        <mat-option *ngFor="let duration of offerDuration" [value]="duration">{{duration}}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -92,18 +88,16 @@
   <div class="center ligne">
     <mat-form-field>
       <mat-label>Soft Skills Recherchés</mat-label>
-      <mat-select [(value)]="offerOnForm.softSkills" [multiple]='true'>
-        <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let softSkill of listSoftSkills" [value]="softSkill.display">{{softSkill.display}}
+      <mat-select [(value)]="selectedSoftSkillIdList" [multiple]='true'>
+        <mat-option *ngFor="let softSkill of softSkillsList" [value]="softSkill._id">{{softSkill.display}}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Domaines</mat-label>
-      <mat-select [(value)]="offerOnForm.domains" [multiple]='true'>
-        <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let domain of listDomains" [value]="domain.display">{{domain.display}}
+      <mat-select [(value)]="selectedDomainsIdList" [multiple]='true'>
+        <mat-option *ngFor="let domain of domainsList" [value]="domain._id">{{domain.display}}
         </mat-option>
       </mat-select>
     </mat-form-field>

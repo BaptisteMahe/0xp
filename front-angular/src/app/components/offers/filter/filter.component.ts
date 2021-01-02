@@ -5,7 +5,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { NotificationsService, SelectService } from '../../../services';
-import { Filter, SelectOption } from '../../../../models';
+import { Filter, OfferType, OfferDuration, SelectOption } from '../../../../models';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
@@ -47,8 +47,8 @@ export class FilterComponent implements OnInit {
   currentFilter: Filter;
   @Output() filterEvent = new EventEmitter<Filter>();
 
-  typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
-  timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
+  typeList = Object.values(OfferType);
+  timeList = Object.values(OfferDuration);
   sectorList: SelectOption[];
 
   // Pour le filtre avancé
@@ -56,8 +56,8 @@ export class FilterComponent implements OnInit {
 
   isMoreFilterOpen = false;
 
-  listOfferLocation: SelectOption[] = [];
-  listOfferCompany: SelectOption[] = [];
+  offerLocationList: SelectOption[] = [];
+  offerCompanyList: SelectOption[] = [];
 
   dateFromDate: Date = new Date();
   dateStart = new FormControl(moment());
@@ -87,10 +87,7 @@ export class FilterComponent implements OnInit {
   }
 
   onFilterClick() {
-    this.currentFilter.start_date = this.dateFromDate.getTime();
-
     this.filterEvent.emit(this.currentFilter);
-    this.isMoreFilterOpen = false;
 
     this.isNotifAdded = false; // TODO : Should check if notif already exists
     this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
@@ -112,7 +109,6 @@ export class FilterComponent implements OnInit {
   }
 
   addNotif() {
-    this.currentFilter.start_date = this.dateFromDate.getTime();
     this.isNotifAdded = true;
     this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
     this.notificationsService.majFilterForNotif(this.currentFilter);
@@ -122,11 +118,11 @@ export class FilterComponent implements OnInit {
     this.selectService.getSectors().subscribe(sectors => {
       this.sectorList = sectors;
     });
-    this.selectService.getCompaniesForSelect().subscribe(companies => {
-      this.listOfferCompany = companies;
+    this.selectService.getCompaniesForSelectNoImg().subscribe(companies => {
+      this.offerCompanyList = companies;
     });
     this.selectService.getLocations().subscribe(locations => {
-      this.listOfferLocation = locations;
+      this.offerLocationList = locations;
     });
   }
 }

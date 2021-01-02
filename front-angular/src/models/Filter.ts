@@ -1,16 +1,17 @@
 import { SelectOption } from './SelectOption';
+import { OfferType, OfferDuration } from './Offer';
 
 export class Filter {
-  textInput = '';
-  type = '';
-  duration = '';
-  sector = '';
-  location: SelectOption[] = [];
-  company: SelectOption[] = [];
+  textInput: string;
+  type: OfferType;
+  duration: OfferDuration;
+  sector: SelectOption;
+  location: SelectOption[];
+  company: SelectOption[];
   isPartner = false;
-  publicationDate = '';
-  companySize = '';
-  start_date: number;
-  matchingMini = 0;
-  remunMini = 0;
+  createdDate: Date;
+  companySize: string;
+  startDate: Date;
+  matchingMini: number;
+  remunMini: number;
 }
