@@ -46,9 +46,9 @@ export class ListCompanyComponent implements OnInit {
 
   loadAllCompanies() {
     this.companyService.getAll().subscribe(
-        value => {
-          this.companiesList = value;
-          this.unfilteredCompaniesList = value;
+        companies => {
+          this.companiesList = companies;
+          this.unfilteredCompaniesList = companies;
         },
         error => {
           console.log('Erreur ! : ' + error);
