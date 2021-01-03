@@ -1,7 +1,7 @@
 UserStudentModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: [ "username", "hash", "type", "firstName", "name"],
+        required: [ "username", "hash", "type", "firstName", "name", "email"],
         properties: {
             username: {
                 bsonType: "string",
@@ -9,7 +9,7 @@ UserStudentModel = {
             },
             hash: {
                 bsonType: "string",
-                description: "[required][string] UUser's hash of the password."
+                description: "[required][string] User's hash of the password."
             },
             type: {
                 enum: ["student"],
@@ -41,13 +41,13 @@ UserStudentModel = {
                     }
                 }
             },
+            email: {
+                bsonType: "string",
+                description: "[required][string] User's email."
+            },
             telephone: {
                 bsonType: "string",
                 description: "[optional][string] User's telephone number."
-            },
-            email: {
-                bsonType: "string",
-                description: "[optional][string] User's email."
             }
         }
     }
@@ -56,7 +56,7 @@ UserStudentModel = {
 UserCompanyModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: [ "username", "hash", "type", "firstName", "name", "companyId"],
+        required: [ "username", "hash", "type", "firstName", "name", "companyId", "email"],
         properties: {
             username: {
                 bsonType: "string",
@@ -82,13 +82,13 @@ UserCompanyModel = {
                 bsonType: "objectId",
                 description: "[required][objectId] User's related company's id."
             },
+            email: {
+                bsonType: "string",
+                description: "[required][string] User's email."
+            },
             telephone: {
                 bsonType: "string",
                 description: "[optional][string] User's telephone number."
-            },
-            email: {
-                bsonType: "string",
-                description: "[optional][string] User's email."
             }
         }
     }

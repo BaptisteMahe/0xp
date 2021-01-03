@@ -1,24 +1,51 @@
+import { SelectOption } from './SelectOption';
+
 export interface User {
-  id: string;
-  idCompany?: string;
+  // tslint:disable-next-line:variable-name
+  _id: string;
   username: string;
-  password: string;
+  hash: string;
+  type: UserType;
+}
+
+export class UserAdmin implements User {
+  // tslint:disable-next-line:variable-name
+  _id: string;
+  username: string;
+  hash: string;
+  type: UserType;
+}
+
+export class UserCompany implements User {
+  // tslint:disable-next-line:variable-name
+  _id: string;
+  username: string;
+  hash: string;
+  type: UserType;
+
   firstName: string;
   name: string;
-  dateBirth: string;
-  email: string;
-  telephone: string;
-  location: string;
-  softSkills?: string[];
-  interestCompany?: string;
-  interestDomain?: string;
-  favoris?: string;
-  creationDate: string;
-  description: string;
-  taille: string;
-  contact: string;
-  token: string;
-  isStudent: boolean;
-  srcImage?: string;
-  notifications: any[];
+  companyId: string;
+  telephone?: string;
+  email?: string;
+}
+
+export class UserStudent implements User {
+  // tslint:disable-next-line:variable-name
+  _id: string;
+  username: string;
+  hash: string;
+  type: UserType;
+
+  firstName: string;
+  name: string;
+  softSkills: SelectOption[];
+  telephone?: string;
+  email?: string;
+}
+
+export enum UserType {
+  Admin = 'admin',
+  Student = 'student',
+  Company = 'company'
 }
