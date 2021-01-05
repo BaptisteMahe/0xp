@@ -1,7 +1,7 @@
 CompanyModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: ["name", "description", "location", "contact", "size", "isPartner"],
+        required: ["name", "contact", "isPartner"],
         properties: {
             name: {
                 bsonType: "string",
@@ -9,11 +9,11 @@ CompanyModel = {
             },
             description: {
                 bsonType: "string",
-                description: "[required][string] Company's description."
+                description: "[optional][string] Company's description."
             },
             location: {
                 bsonType: "string",
-                description: "[required][string] Company's location."
+                description: "[optional][string] Company's location."
             },
             srcImage: {
                 bsonType: "string",
@@ -25,7 +25,7 @@ CompanyModel = {
             },
             size: {
                 enum: ["1-10", "10-100", "100-1000", "1000+"],
-                description: "[required][enum] Company's size in number of employees between '0-10', '10-100', '100-1000' and '1000+'."
+                description: "[optional][enum] Company's size in number of employees between '0-10', '10-100', '100-1000' and '1000+'."
             },
             isPartner: {
                 bsonType: "bool",

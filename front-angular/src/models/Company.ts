@@ -2,13 +2,13 @@ export class Company {
   // tslint:disable-next-line:variable-name
   _id?: string;
   name: string;
-  description: string;
-  location: string;
-  srcImage: string;
+  description?: string;
+  location?: string;
+  srcImage?: string;
   contact: string;
-  size: CompanySize;
+  size?: CompanySize;
   isPartner: boolean;
-  creationDate: Date;
+  creationDate?: Date;
 }
 
 export enum CompanySize {

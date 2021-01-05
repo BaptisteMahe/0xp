@@ -55,6 +55,5 @@ function formatPropertiesTypes(company) {
         delete company.srcImage;
     }
 
-    console.log(company);
     return company;
 }
