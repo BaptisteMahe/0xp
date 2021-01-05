@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Offer, Filter } from '../../../models';
-import { OfferViewService, SortCategory, NotificationsService } from '../../services';
+import { OfferService, SortCategory, NotificationsService } from '../../services';
 
 @Component({
   selector: 'app-offers',
@@ -22,7 +22,7 @@ export class OffersComponent implements OnInit {
   isNotifAdded: boolean;
   isNotifAddedSubscription: Subscription;
 
-  constructor(private offerViewService: OfferViewService,
+  constructor(private offerViewService: OfferService,
               private notificationsService: NotificationsService) { }
 
   ngOnInit() {

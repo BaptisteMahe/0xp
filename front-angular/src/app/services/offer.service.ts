@@ -14,7 +14,7 @@ export enum SortCategory {
 }
 
 @Injectable()
-export class OfferViewService {
+export class OfferService {
 
   private apiUrl = environment.apiUrl;
   private currentUser: User;

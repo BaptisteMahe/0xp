@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 
 import { Offer, Company } from '../../../../models';
-import { OfferViewService, CompanyService } from '../../../services';
+import { OfferService, CompanyService } from '../../../services';
 
 @Component({
   selector: 'app-offer-detail',
@@ -20,7 +20,7 @@ export class OfferDetailComponent implements OnInit {
   isModalopen = false;
 
   constructor(private router: Router,
-              private offerViewService: OfferViewService,
+              private offerViewService: OfferService,
               private sanitizer: DomSanitizer,
               private companyService: CompanyService) { }
 

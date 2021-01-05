@@ -3,7 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Offer, User } from '../../../../../models';
-import { OfferViewService, UserService } from '../../../../services';
+import { OfferService, UserService } from '../../../../services';
 import { QuitEditionDialogContentComponent } from './add-offer/add-offer.component';
 
 @Component({
@@ -18,7 +18,7 @@ export class OfferCompanyComponent implements OnInit {
   offerToBeEdited: Offer;
   currentUser: User;
 
-  constructor(private offerViewService: OfferViewService,
+  constructor(private offerViewService: OfferService,
               private userService: UserService,
               private matDialog: MatDialog,
               private matSnackBar: MatSnackBar) { }

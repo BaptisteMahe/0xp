@@ -42,7 +42,7 @@ import { AddCompanyComponent } from './components/entreprises/add-company/add-co
 import { ListCompanyComponent, DeleteCompanyComponent } from './components/entreprises/list-company/list-company.component';
 import { AvisOverviewComponent } from './components/entreprises/avis-company/avis-overview/avis-overview.component';
 
-import { CompanyService, UserService, SelectService, OfferViewService, NotificationsService } from './services';
+import { CompanyService, UserService, SelectService, OfferService, NotificationsService } from './services';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
@@ -97,7 +97,7 @@ import { MaterialModule } from './modules/material.module';
     AddCompanyComponent
   ],
   exports: [OfferDetailComponent],
-  providers: [OfferViewService, CompanyService, UserService, NotificationsService, SelectService,
+  providers: [OfferService, CompanyService, UserService, NotificationsService, SelectService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'fr' }],

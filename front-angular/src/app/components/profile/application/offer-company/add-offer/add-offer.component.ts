@@ -13,7 +13,7 @@ import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 const moment = _rollupMoment || _moment;
 
-import { UserService, OfferViewService, SelectService } from '../../../../../services';
+import { UserService, OfferService, SelectService } from '../../../../../services';
 import { Offer, OfferType, OfferDuration, User, SelectOption, SelectOptionCompany } from '../../../../../../models';
 
 export const MY_FORMATS = {
@@ -75,7 +75,7 @@ export class AddOfferComponent implements OnInit {
 
   currentUser: User;
 
-  constructor(private offerViewService: OfferViewService,
+  constructor(private offerViewService: OfferService,
               private userService: UserService,
               private selectService: SelectService,
               private router: Router,
