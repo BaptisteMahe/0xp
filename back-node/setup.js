@@ -41,6 +41,9 @@ connect().then(db => {
   applySingleSchema(db, 'softSkills', SoftSkillModel);
   applySingleSchema(db, 'offers', OfferModel);
   applySingleSchema(db, 'companies', CompanyModel);
-  applySingleSchema(db, 'users', { anyOf: [UserModel.UserStudentModel, UserModel.UserCompanyModel, UserModel.UserCompanyModel]});
+  applySingleSchema(db, 'users', {
+    $jsonSchema: {
+      anyOf: [UserModel.UserStudentModel, UserModel.UserCompanyModel, UserModel.UserAdminModel]
+    }});
   // client.close();
 });

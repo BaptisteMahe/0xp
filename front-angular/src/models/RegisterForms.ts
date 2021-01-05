@@ -1,28 +1,24 @@
 import { Validators } from '@angular/forms';
+import { UserType } from './User';
 
 export const studentRegisterForm = {
-    firstName: ['', Validators.required],
-    name: ['', Validators.required],
     username: ['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(6)]],
-    dateBirth: ['', Validators.required],
-    email: [''],
+    firstName: ['', Validators.required],
+    name: ['', Validators.required],
+    softSkills: [[]],
+    email: ['', [Validators.required, Validators.email]],
     telephone: [''],
-    location: ['', Validators.required],
-    softSkills: [''],
-    interestCompany: [''],
-    interestDomain: [''],
-    isStudent: [true]
+    type: [UserType.Student]
 };
 
 export const companyRegisterForm = {
-    name: ['', Validators.required],
     username: ['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(6)]],
-    isStudent: [false],
-    creationDate: ['', Validators.required],
-    description: ['', Validators.required],
-    taille: ['', Validators.required],
-    location: ['', Validators.required],
-    srcImage: ['']
+    email: ['', Validators.required],
+    companyName: ['', Validators.required],
+    description: [''],
+    size: [''],
+    srcImage: [''],
+    type: [UserType.Company]
 };

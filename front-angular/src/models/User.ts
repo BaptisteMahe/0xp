@@ -4,7 +4,7 @@ export interface User {
   // tslint:disable-next-line:variable-name
   _id: string;
   username: string;
-  hash: string;
+  token: string;
   type: UserType;
 }
 
@@ -12,29 +12,15 @@ export class UserAdmin implements User {
   // tslint:disable-next-line:variable-name
   _id: string;
   username: string;
-  hash: string;
+  token: string;
   type: UserType;
-}
-
-export class UserCompany implements User {
-  // tslint:disable-next-line:variable-name
-  _id: string;
-  username: string;
-  hash: string;
-  type: UserType;
-
-  firstName: string;
-  name: string;
-  companyId: string;
-  telephone?: string;
-  email?: string;
 }
 
 export class UserStudent implements User {
   // tslint:disable-next-line:variable-name
   _id: string;
   username: string;
-  hash: string;
+  token: string;
   type: UserType;
 
   firstName: string;
@@ -42,6 +28,18 @@ export class UserStudent implements User {
   softSkills: SelectOption[];
   telephone?: string;
   email?: string;
+}
+
+export class UserCompany implements User {
+  // tslint:disable-next-line:variable-name
+  _id: string;
+  username: string;
+  token: string;
+  type: UserType;
+
+  companyId: string;
+  email: string;
+  telephone?: string;
 }
 
 export enum UserType {
