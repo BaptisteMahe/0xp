@@ -75,7 +75,7 @@ export class OfferCompanyComponent implements OnInit {
       (result) => {
         if (result) {
           this.isEditingOffer = false;
-          this.offerToBeEdited = new Offer();
+          this.offerToBeEdited = {} as Offer;
           this.getOfferList();
         }
       });

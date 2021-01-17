@@ -65,7 +65,7 @@ export class AddOfferComponent implements OnInit {
   listCountries: string[] = ['France', 'Espagne', 'Angleterre', 'Inde', 'Chine'];
   // TODO : Get countries otherwise, example: from https://github.com/apilayer/restcountries
 
-  offerOnForm: Offer = new Offer();
+  offerOnForm: Offer = {} as Offer;
   dateFromDate: Date = new Date();
   dateStart = new FormControl(moment());
   locationCountry: string;

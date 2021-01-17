@@ -1,4 +1,4 @@
-export class Company {
+export interface Company {
   // tslint:disable-next-line:variable-name
   _id?: string;
   name: string;

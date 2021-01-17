@@ -12,7 +12,7 @@ import { OfferService, CompanyService } from '../../../services';
 })
 export class OfferDetailComponent implements OnInit {
 
-  offer: Offer = new Offer();
+  offer: Offer = {} as Offer;
   company: Company;
 
   colorScore: SafeStyle;

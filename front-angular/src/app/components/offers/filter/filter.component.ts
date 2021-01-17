@@ -68,7 +68,7 @@ export class FilterComponent implements OnInit {
               private selectService: SelectService) { }
 
   ngOnInit() {
-    this.currentFilter = new Filter();
+    this.currentFilter = {isPartner: false} as Filter;
     this.dateFromDate.setDate(1);
 
     this.userService.getCurrentUserObs().subscribe((user: User) => {
