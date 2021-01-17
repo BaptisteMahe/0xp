@@ -34,18 +34,5 @@
 
   <div *ngIf="offerList?.length===0" class="noOffersDiv">
     <h4>Aucune offre ne semble correspondre à votre filtrage pour le moment...</h4>
-
-    <div *ngIf="isStudent">
-      <p style="text-align: center;">Vous pouvez ajouter une alerte qui vous notifiera si une offre correspondant
-        à ce filtrage est rajoutée</p>
-      <div class="button flexRow addNotif" *ngIf="!isNotifAdded" (click)="addAlert()">
-        <img src="https://image.flaticon.com/icons/svg/2489/2489081.svg" />
-        <p>Ajouter une alerte</p>
-      </div>
-
-      <div class="flexRow notifAdded" *ngIf="isNotifAdded">
-        <p>Alerte ajoutée</p>
-      </div>
-    </div>
   </div>
 </div>

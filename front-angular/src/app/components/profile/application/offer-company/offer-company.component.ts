@@ -52,12 +52,12 @@ export class OfferCompanyComponent implements OnInit {
   }
 
   getOfferList() {
-    if (this.currentUser.username === 'admin') {
+    if (this.currentUser.type === 'admin') {
       this.offerViewService.getAllOffers().subscribe((listOffer: Offer[]) => {
         this.listOffer = listOffer;
       });
-    } else {
-      this.offerViewService.getAllOffersByCompanyId(this.currentUser.idCompany).subscribe((listOffer: Offer[]) => {
+    } else if (this.currentUser.type === 'company') {
+      this.offerViewService.getAllOffersByCompanyId(this.currentUser.companyId).subscribe((listOffer: Offer[]) => {
         this.listOffer = listOffer;
       });
     }

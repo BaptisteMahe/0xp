@@ -11,7 +11,7 @@ import { User } from '../../../models';
 })
 export class ProfileComponent implements OnInit {
 
-    currentUser: User;
+  currentUser: User;
 
   constructor(private userService: UserService,
               private authenticationService: AuthenticationService,

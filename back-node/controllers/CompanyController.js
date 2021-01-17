@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     const company = formatPropertiesTypes(req.body);
     db.collection('companies').insertOne(company)
-        .then(() => res.json({_id: company._id}))
+        .then(result => res.json({_id: result.insertedId}))
         .catch(err => {
             if (err.code === 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
             next(err);

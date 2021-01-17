@@ -13,8 +13,8 @@
   <div *ngIf="currentUser.username == 'admin'" class="center">
     <mat-form-field class="center">
       <mat-label>Entreprise</mat-label>
-      <mat-select [(value)]="offerOnForm.company">x
-        <mat-option *ngFor="let company of companiesList" [value]="company">{{company.display}}</mat-option>
+      <mat-select [(value)]="offerOnForm.company._id">
+        <mat-option *ngFor="let company of companiesList" [value]="company._id">{{company.display}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>

@@ -37,7 +37,7 @@ router.post('/register', function (req, res, next) {
   if (user.type === 'student') {
 
     db.collection('users').insertOne(user)
-      .then((results) => res.json({_id: results.insertedId}))
+      .then(results => res.json({_id: results.insertedId}))
       .catch(err => {
         if (err.code === 11000) err = {...err, message: "Le nom d'utilisateur est déjà utilisé", code: 400};
           next(err);
@@ -70,8 +70,8 @@ router.post('/register', function (req, res, next) {
 });
 
 router.put('/:id', function(req, res, next) {
-  delete req.body.token;
-  db.collection('users').updateOne({_id: ObjectId(req.params.id)}, {$set: {...req.body, _id: ObjectId(req.params.id)}})
+  let user = formatPropertiesTypes(req.body);
+  db.collection('users').updateOne({_id: ObjectId(req.params.id)}, {$set: {...user, _id: ObjectId(req.params.id)}})
       .then(() => res.json({_id: req.params.id}))
       .catch(err => {
           if (err.code === 11000) err = {...err, message: "Le nom d'utilisateur est déjà utilisé", code: 400};
@@ -79,30 +79,21 @@ router.put('/:id', function(req, res, next) {
       });
 });
 
-router.post('/addAlert', function (req, res, next) {
-  db.collection('users').update({
-    _id: ObjectId(req.body["user"]["_id"])
-  }, {
-    $set: {
-      filterAlert: req.body["filter"],
-    }
-  });
-});
-
-router.post('/clearNotifications', function (req, res, next) {
-  console.log("Request /users/clearNotifications")
-  console.log(req.body["user"]["notifications"])
-  db.collection('users').update({
-    _id: ObjectId(req.body["user"]["_id"])
-  }, {
-    $set: {
-      notifications: req.body["user"]["notifications"],
-    }
-  });
-  res.json(req.body);
-});
-
 module.exports = router;
+
+function formatPropertiesTypes(user) {
+  delete user.token;
+
+  if (user.type === 'student') {
+    user.softSkills.forEach((softSkill, index) => {
+      user.softSkills[index]._id = ObjectId(softSkill._id);
+    });
+  } else if (user.type === 'company') {
+    user.companyId = ObjectId(user.companyId);
+  }
+
+  return user;
+}
 
 async function toAuthenticate({username, password}) {
   let user = await db.collection('users').findOne({ username });
@@ -139,7 +130,5 @@ function splitUserCompany(userReceived) {
     type: userReceived.type
   }
 
-  console.log(companyUser);
-  console.log(company);
   return {companyUser, company};
 }

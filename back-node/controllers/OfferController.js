@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 const ObjectId = require('mongodb').ObjectId;
 
-const notificationModule = require('../modules/notificationModule.js')
-
 router.get('/', function (req, res, next) {
     db.collection('offers').find().toArray()
         .then(results => res.json(results))
@@ -15,14 +13,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     const offer = formatPropertiesTypes(req.body);
     db.collection('offers').insertOne(offer)
-        .then(() => {
-            db.collection('companies').findOne({ _id: offer.company._id })
-                .then((company) => {
-                    notificationModule.checkNotifForAllUsers(offer, company);
-                    res.json({_id: req.params.id})
-                })
-                .catch(next);
-        })
+        .then(result => res.json({_id: result.insertedId}))
         .catch(next);
 });
 
@@ -35,10 +26,7 @@ router.get('/:id', function (req, res, next) {
 router.put('/:id', function (req, res, next) {
     const offer = formatPropertiesTypes(req.body);
     db.collection('offers').updateOne({ _id: offer._id }, {$set: offer})
-        .then(() => {
-            notificationModule.checkNotifForAllUsers(req.body);
-            res.json({_id: req.params.id});
-        })
+        .then(() => res.json({_id: offer._id}))
         .catch(next);
 });
 

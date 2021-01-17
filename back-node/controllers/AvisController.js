@@ -25,7 +25,7 @@ router.get('/company/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
     req.body.companyId = ObjectId(req.body.companyId);
     db.collection('avis').insertOne(req.body)
-        .then(() => res.json({_id: req.body._id}))
+        .then(result => res.json({_id: result.insertedId}))
         .catch(next);
 });
 

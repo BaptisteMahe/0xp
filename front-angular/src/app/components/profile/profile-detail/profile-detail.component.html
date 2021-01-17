@@ -2,24 +2,22 @@
   Editer le profil <mat-icon>edit</mat-icon>
 </button>
 
-<div *ngIf="currentUser.isStudent">
+<div *ngIf="currentUser?.type === 'student'">
 
   <div *ngIf="!isEdition">
     <div class="bloc">
       <h2>Informations Générales</h2>
-      <p><span class="label">Nom : </span>{{currentUser.firstName}} {{currentUser.name}}</p>
-      <p><span class="label">Date de naissance : </span>{{currentUser.dateBirth}}</p>
+      <p><span class="label">Nom : </span>{{currentUser?.firstName}} {{currentUser?.name}}</p>
     </div>
     <div class="bloc">
       <h2>Contact</h2>
-      <p><span class="label">Email : </span>{{currentUser.email}}</p>
-      <p><span class="label">Numéro de téléphone : </span>{{currentUser.telephone}}</p>
-      <p><span class="label">Localisation : </span>{{currentUser.location}}</p>
+      <p><span class="label">Email : </span>{{currentUser?.email}}</p>
+      <p><span class="label">Numéro de téléphone : </span>{{currentUser?.telephone}}</p>
     </div>
     <div class="bloc">
       <h2>Soft Skills</h2>
         <ul *ngFor="let skill of currentUser?.softSkills">
-          <li>{{skill}}</li>
+          <li>{{skill.display}}</li>
         </ul>
       <div *ngIf="currentUser?.softSkills?.length === 0" class="flexRow message-profil">
         <img src="https://image.flaticon.com/icons/svg/1636/1636062.svg" />
@@ -42,14 +40,6 @@
         <mat-form-field class="center">
           <input name="name-input" matInput placeholder="Nom" [(ngModel)]="currentUserEdit.name">
         </mat-form-field>
-        <mat-form-field class="center">
-          <input name="date-birth-input" type="date" matInput placeholder="Date de naissance" [(ngModel)]="currentUserEdit.dateBirth">
-        </mat-form-field>
-      </div>
-      <div class="center">
-        <mat-form-field class="center">
-          <input name="location-input" matInput placeholder="Localisation" [(ngModel)]="currentUserEdit.location">
-        </mat-form-field>
       </div>
     </div>
 
@@ -69,8 +59,8 @@
       <h3 class="center">Soft Skills</h3>
       <mat-form-field>
         <mat-label>Soft Skills</mat-label>
-        <mat-select [(ngModel)]="currentUserEdit.softSkills" multiple name="soft-skill-select">
-          <mat-option *ngFor="let skill of softSkillsList" [value]="skill.display">{{skill.display}}</mat-option>
+        <mat-select [(ngModel)]="selectedSoftSkillIdList" multiple name="soft-skill-select">
+          <mat-option *ngFor="let skill of softSkillList" [value]="skill._id">{{skill.display}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -78,19 +68,18 @@
   </div>
 </div>
 
-<div *ngIf="!currentUser.isStudent">
+<div *ngIf="currentUser?.type === 'company'">
   <div *ngIf="!isEdition">
     <div class="bloc">
       <h3>Informations générales</h3>
-      <p><span class="label">Nom de l'entreprise : </span>{{currentUser.name}}</p>
-      <p><span class="label">Date de création : </span>{{currentUser.creationDate}}</p>
-      <p><span class="label">Taille : </span>{{currentUser.taille}}</p>
-      <p><span class="label">Localisation : </span>{{currentUser.location}}</p>
+      <p><span class="label">Nom de l'entreprise : </span>{{currentCompany?.name}}</p>
+      <p><span class="label">Taille : </span>{{currentCompany?.size}}</p>
+      <p><span class="label">Localisation : </span>{{currentCompany?.location}}</p>
     </div>
     <div class="bloc">
       <h3>Informations complémentaires</h3>
-      <p><span class="label">Description : </span>{{currentUser.description}}</p>
-      <p><span class="label">Contact : </span>{{currentUser.contact}}</p>
+      <p><span class="label">Description : </span>{{currentCompany?.description}}</p>
+      <p><span class="label">Contact : </span>{{currentCompany?.contact}}</p>
     </div>
 
   </div>
@@ -108,19 +97,12 @@
       </div>
       <div class="center">
         <mat-form-field class="center">
-          <input type="date" matInput placeholder="Date de création" [(ngModel)]="currentUserEdit.creationDate">
-        </mat-form-field>
-        <mat-form-field class="center">
-          <mat-select matNativeControl [(ngModel)]="currentUserEdit.taille">
-            <mat-option value="1-10">1-10</mat-option>
-            <mat-option value="11-100">11-100</mat-option>
-            <mat-option value="101-1 000">101-1000</mat-option>
-            <mat-option value="1 001-1 0000">1001-10 000</mat-option>
-            <mat-option value="+10 000">+10 000</mat-option>
+          <mat-select matNativeControl [(ngModel)]="currentCompanyEdit.size">
+            <mat-option *ngFor="let size of sizeList" [value]=size >{{size}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="center">
-          <input matInput placeholder="Localisation" [(ngModel)]="currentUserEdit.location">
+          <input matInput placeholder="Localisation" [(ngModel)]="currentCompanyEdit.location">
         </mat-form-field>
       </div>
     </div>
@@ -129,12 +111,12 @@
       <br />
       <div class="center">
         <mat-form-field class="center desc">
-          <textarea matNativeControl placeholder="Description" [(ngModel)]="currentUserEdit.description"></textarea>
+          <textarea matNativeControl placeholder="Description" [(ngModel)]="currentCompanyEdit.description"></textarea>
         </mat-form-field>
       </div>
       <div class="center">
         <mat-form-field class="center title">
-          <input matInput placeholder="Contact" [(ngModel)]="currentUserEdit.contact">
+          <input matInput placeholder="Contact" [(ngModel)]="currentCompanyEdit.contact">
         </mat-form-field>
       </div>
     </div>

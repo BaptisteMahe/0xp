@@ -6,9 +6,7 @@
       <mat-icon>search</mat-icon>
     </button>
   </mat-form-field>
-  <button mat-icon-button *ngIf="isStudent" class="notification-button">
-    <mat-icon *ngIf="!isNotifAdded" (click)="addNotif()">add_alert</mat-icon>
-    <mat-icon *ngIf="isNotifAdded">notifications_active</mat-icon>
+  <button mat-icon-button *ngIf="currentUser?.type === 'student'" class="notification-button">
   </button>
 </div>
 

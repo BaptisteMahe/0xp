@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment';
-import { SelectOption, User } from '../../models';
+import { User } from '../../models';
 
 
 @Injectable({ providedIn: 'root' })

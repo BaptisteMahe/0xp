@@ -13,8 +13,16 @@ import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 const moment = _rollupMoment || _moment;
 
-import { UserService, OfferService, SelectService } from '../../../../../services';
-import { Offer, OfferType, OfferDuration, User, SelectOption, SelectOptionCompany } from '../../../../../../models';
+import { UserService, OfferService, SelectService, CompanyService } from '../../../../../services';
+import {
+  Offer,
+  OfferType,
+  OfferDuration,
+  User,
+  SelectOption,
+  SelectOptionCompany,
+  Company
+} from '../../../../../../models';
 
 export const MY_FORMATS = {
   parse: {
@@ -78,6 +86,7 @@ export class AddOfferComponent implements OnInit {
   constructor(private offerViewService: OfferService,
               private userService: UserService,
               private selectService: SelectService,
+              private companyService: CompanyService,
               private router: Router,
               private matSnackBar: MatSnackBar,
               private matDialog: MatDialog) {
@@ -100,20 +109,24 @@ export class AddOfferComponent implements OnInit {
     }
 
     this.getSelectOptions();
+
+    if (this.currentUser.type === 'company') {
+      this.companyService.getById(this.currentUser.companyId).subscribe((company: Company) => {
+        this.offerOnForm.company = {
+          _id : company._id,
+          display: company.name,
+          srcImg: company.srcImage
+        };
+      });
+    } else if (this.currentUser.type === 'admin' && !this.offerEdited) {
+      this.offerOnForm.company = { } as SelectOption;
+    }
   }
 
   // TODO : Refactor that function
   addOrEditOffer() {
-    this.fixSector();
+    this.fixSectorAndCompany();
     this.fixDomainsAndSoftSkills();
-
-    if (this.currentUser.username !== 'admin') {
-      this.offerOnForm.company = {
-        _id : this.currentUser.idCompany,
-        display: this.currentUser.name,
-        srcImg: this.currentUser.srcImage
-      };
-    }
 
     if (!this.isEdition) {
       this.offerOnForm.startDate = this.dateFromDate;
@@ -188,8 +201,11 @@ export class AddOfferComponent implements OnInit {
       });
   }
 
-  fixSector() {
+  fixSectorAndCompany() {
     this.offerOnForm.sector = this.sectorList.find(sector => sector._id === this.selectedSectorId);
+    if (this.currentUser.type === 'admin') {
+      this.offerOnForm.company = this.companiesList.find(company => company._id === this.offerOnForm.company._id);
+    }
   }
 
   fixDomainsAndSoftSkills() {
