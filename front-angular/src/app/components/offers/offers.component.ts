@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Offer, Filter } from '../../../models';
-import { OfferViewService, SortCategory, NotificationsService } from '../../services';
+import { Offer, Filter, User } from '../../../models';
+import { OfferService, SortCategory, UserService } from '../../services';
 
 @Component({
   selector: 'app-offers',
@@ -11,38 +11,32 @@ import { OfferViewService, SortCategory, NotificationsService } from '../../serv
 })
 export class OffersComponent implements OnInit {
 
+  currentUser: User;
+
   offerList: Offer[];
   isLoading = true;
-
-  isStudent: boolean;
 
   sortStatus: typeof SortCategory = SortCategory;
   sortedBy: SortCategory = SortCategory.matchingScore;
 
-  isNotifAdded: boolean;
-  isNotifAddedSubscription: Subscription;
-
-  constructor(private offerViewService: OfferViewService,
-              private notificationsService: NotificationsService) { }
+  constructor(private userService: UserService,
+              private offerViewService: OfferService) { }
 
   ngOnInit() {
-    this.isStudent = this.notificationsService.currentUser.isStudent;
 
-    this.offerViewService.getFullListOffer().subscribe(offerList => {
+    this.userService.getCurrentUserObs().subscribe((user: User) => {
+      this.currentUser = user;
+    });
+
+    this.offerViewService.getAllOffers().subscribe(offerList => {
       this.offerList = offerList;
       this.isLoading = false;
     });
-
-    this.isNotifAddedSubscription = this.notificationsService.isNotifAddedSubject.subscribe(
-      (isNotifAdded: boolean) => {
-        this.isNotifAdded = isNotifAdded;
-      }
-    );
   }
 
   onFilterEvent(filter: Filter) {
     this.isLoading = true;
-    this.offerViewService.getFilteredListOffer(filter).subscribe(filteredListOffer => {
+    this.offerViewService.getFilteredOffers(filter).subscribe(filteredListOffer => {
       this.offerList = filteredListOffer;
       this.isLoading = false;
     });
@@ -53,10 +47,5 @@ export class OffersComponent implements OnInit {
       this.offerViewService.sortArray(this.offerList, sortKey);
       this.sortedBy = sortKey;
     }
-  }
-
-  addAlert() {
-    this.isNotifAdded = true;
-    this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
   }
 }

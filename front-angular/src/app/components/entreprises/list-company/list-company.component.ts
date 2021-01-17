@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 
 import { Company } from '../../../../models';
-import { CompanyService, OfferViewService } from '../../../services';
+import { CompanyService, OfferService } from '../../../services';
 import { AddCompanyComponent } from '../add-company/add-company.component';
 
 
@@ -24,7 +24,7 @@ export class ListCompanyComponent implements OnInit {
   companyTextQuery: string;
 
   constructor(public companyService: CompanyService,
-              public offerViewService: OfferViewService,
+              public offerViewService: OfferService,
               public matDialog: MatDialog,
               private matSnackBar: MatSnackBar) { }
 
@@ -46,9 +46,9 @@ export class ListCompanyComponent implements OnInit {
 
   loadAllCompanies() {
     this.companyService.getAll().subscribe(
-        value => {
-          this.companiesList = value;
-          this.unfilteredCompaniesList = value;
+        companies => {
+          this.companiesList = companies;
+          this.unfilteredCompaniesList = companies;
         },
         error => {
           console.log('Erreur ! : ' + error);

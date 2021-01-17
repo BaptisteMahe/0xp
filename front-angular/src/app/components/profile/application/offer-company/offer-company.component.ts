@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Offer } from '../../../../../models';
-import { OfferViewService, UserService } from '../../../../services';
+import { Offer, User } from '../../../../../models';
+import { OfferService, UserService } from '../../../../services';
 import { QuitEditionDialogContentComponent } from './add-offer/add-offer.component';
 
 @Component({
@@ -15,24 +15,18 @@ export class OfferCompanyComponent implements OnInit {
 
   listOffer: Offer[] = [];
   isEditingOffer = false;
-  offreToBeEdited: Offer;
+  offerToBeEdited: Offer;
+  currentUser: User;
 
-  constructor(private offerViewService: OfferViewService,
+  constructor(private offerViewService: OfferService,
               private userService: UserService,
               private matDialog: MatDialog,
               private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.userService.getCurrentUserObs().subscribe(currentUser => {
-      if (currentUser.username === 'admin') {
-        this.offerViewService.getFullListOffer().subscribe(listOffer => {
-          this.listOffer = listOffer;
-        });
-      } else {
-        this.offerViewService.getListOfferByCompanyId(currentUser.idCompany).subscribe(listOffer => {
-          this.listOffer = listOffer;
-        });
-      }
+      this.currentUser = currentUser;
+      this.getOfferList();
     });
   }
 
@@ -48,19 +42,30 @@ export class OfferCompanyComponent implements OnInit {
   }
 
   deleteItem(offerToBeDeleted: Offer) {
-    const deleteOfferObs = this.offerViewService.deleteOffer(offerToBeDeleted.id);
-    deleteOfferObs.subscribe(
+    this.offerViewService.deleteOffer(offerToBeDeleted._id).subscribe(
       (response) => {
-        this.listOffer = this.listOffer.filter(offer => offer !== offerToBeDeleted);
+        this.getOfferList();
       }, (error) => {
-        this.matSnackBar.open('Error deleting the offer', null, { duration: 3000, panelClass: ['snack-bar-error'] });
+        this.matSnackBar.open('Error deleting the offer : ' + error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
       }
     );
   }
 
+  getOfferList() {
+    if (this.currentUser.type === 'admin') {
+      this.offerViewService.getAllOffers().subscribe((listOffer: Offer[]) => {
+        this.listOffer = listOffer;
+      });
+    } else if (this.currentUser.type === 'company') {
+      this.offerViewService.getAllOffersByCompanyId(this.currentUser.companyId).subscribe((listOffer: Offer[]) => {
+        this.listOffer = listOffer;
+      });
+    }
+  }
+
   onEditClick(offerToBeEdited: Offer) {
     this.isEditingOffer = true;
-    this.offreToBeEdited = offerToBeEdited;
+    this.offerToBeEdited = offerToBeEdited;
   }
 
   onCloseEditionClick() {
@@ -70,7 +75,8 @@ export class OfferCompanyComponent implements OnInit {
       (result) => {
         if (result) {
           this.isEditingOffer = false;
-          this.offreToBeEdited = new Offer();
+          this.offerToBeEdited = {} as Offer;
+          this.getOfferList();
         }
       });
   }

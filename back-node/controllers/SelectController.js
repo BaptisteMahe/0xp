@@ -1,29 +1,29 @@
-let express = require('express');
-let router = express.Router();
-let bodyParser = require('body-parser');
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 
-router.get('/softskills/', function (req, res, next) {
-    db.collection('softskills').find().toArray()
+router.get('/softSkills/', function (req, res, next) {
+    db.collection('softSkills').find().toArray()
         .then(results => res.json(results))
-        .catch(next)
+        .catch(next);
 });
 
-router.get('/domaines/', function (req, res, next) {
-    db.collection('domaines').find().toArray()
+router.get('/domains/', function (req, res, next) {
+    db.collection('domains').find().toArray()
         .then(results => res.json(results))
-        .catch(next)
+        .catch(next);
 });
 
 router.get('/sectors/', function (req, res, next) {
     db.collection('sectors').find().toArray()
         .then(results => res.json(results))
-        .catch(next)
+        .catch(next);
 });
 
-router.get('/companies/', function (req, res, next) {
+router.get('/companies/:isImgIncluded', function (req, res, next) {
     db.collection('companies').find().toArray()
-        .then(results => res.json(formatCompaniesToSelectOption(results)))
+        .then(results => res.json(formatCompaniesToSelectOption(results, (req.params.isImgIncluded === 'true'))))
         .catch(next);
 });
 
@@ -35,28 +35,35 @@ router.get('/locations/', function (req, res, next) {
 
 module.exports = router;
 
-function formatCompaniesToSelectOption(jsonArray) {
+function formatCompaniesToSelectOption(jsonArray, isImgIncluded) {
     let selectOptions = [];
     jsonArray.forEach(company => {
-        selectOptions.push({
-            id: company._id,
-            value: company.name,
-            display: company.name
-        });
+        if (isImgIncluded) {
+            selectOptions.push({
+                _id: company._id,
+                display: company.name,
+                srcImg: company.srcImage
+            });
+        } else {
+            selectOptions.push({
+                _id: company._id,
+                display: company.name
+            });
+        }
     })
-    return selectOptions
+    return selectOptions;
 }
 
 function formatOffersToLocationSelectOption(jsonArray) {
     let selectOptions = [];
     jsonArray.forEach(offer =>{
-        let selectOption = {
-            value: offer.location,
+        const selectOption = {
+            _id: offer.location,
             display: offer.location
         };
-        if (!selectOptions.includes(selectOption)) {
+        if (!selectOptions.some(element => element._id === selectOption._id)) {
             selectOptions.push(selectOption);
         }
     });
-    return selectOptions
+    return selectOptions;
 }

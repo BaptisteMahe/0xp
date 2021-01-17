@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment';
-import { SelectOption, User } from '../../models';
+import { User } from '../../models';
 
 
 @Injectable({ providedIn: 'root' })
@@ -22,19 +22,19 @@ export class UserService {
     });
   }
 
-  getAll() {
+  getAll(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl + '/users');
   }
 
-  getCurrentUserObs() {
+  getCurrentUserObs(): Observable<User> {
     return this.currentUserSub.asObservable();
   }
 
-  register(user: User) {
+  register(user): Observable<any> {
     return this.http.post(this.apiUrl + '/users/register', user);
   }
 
-  delete(id: string) {
+  delete(id: string): Observable<any> {
     return this.http.delete(this.apiUrl + '/users/' + id);
   }
 

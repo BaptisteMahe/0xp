@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UserService } from '../../../services';
-import { User, studentRegisterForm, companyRegisterForm } from '../../../../models';
+import {User, studentRegisterForm, companyRegisterForm, CompanySize} from '../../../../models';
 
 
 @Component({
@@ -18,6 +18,9 @@ export class RegisterFormComponent implements OnInit {
   activeRegisterForm: FormGroup;
   studentRegisterForm: FormGroup;
   companyRegisterForm: FormGroup;
+
+  sizeList = Object.values(CompanySize);
+
   loading = false;
 
   constructor(private formBuilder: FormBuilder,

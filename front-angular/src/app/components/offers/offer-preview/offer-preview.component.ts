@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 
 import { Offer } from '../../../../models';
-import { OfferViewService } from '../../../services';
+import { OfferService } from '../../../services';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class OfferPreviewComponent implements OnInit {
   strDateCreated: string;
 
   constructor(private sanitizer: DomSanitizer,
-              private offerViewService: OfferViewService) { }
+              private offerViewService: OfferService) { }
 
   ngOnInit() {
     this.defineStrDateCreated();
@@ -24,9 +24,10 @@ export class OfferPreviewComponent implements OnInit {
     this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.offerViewService.defineColor(this.offer.matchingScore));
   }
 
+  // TODO : Bofbof
   defineStrDateCreated() {
     this.strDateCreated = 'Aujourd\'hui';
-    const deltaTs = (new Date()).getTime() - +this.offer.created_date;
+    const deltaTs = (new Date()).getTime() - +this.offer.createdDate;
 
     if (deltaTs > 1000 * 60 * 60 * 24 * 635) {
       this.strDateCreated = 'Il y a ' + Math.floor(deltaTs / (1000 * 60 * 60 * 24 * 365)) + ' ans';

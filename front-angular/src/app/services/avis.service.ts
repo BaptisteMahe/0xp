@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { Avis } from '../../models';
@@ -11,27 +12,19 @@ export class AvisService {
 
   constructor(private http: HttpClient) { }
 
-  getAll() {
+  getAll(): Observable<Avis[]> {
     return this.http.get<Avis[]>(this.apiUrl + '/avis');
   }
 
-  // TODO : this function should only have an Avis in parameter
-  add(form: any, idCompany: string) {
-    const avis = new Avis();
-    avis.description = form.avis.value;
-    avis.idCompany = idCompany;
-    avis.noteGenerale = form.noteGenerale.value;
-    avis.noteInteret = form.noteInteret.value;
-    avis.noteAmbiance = form.noteAmbiance.value;
-    avis.noteEncadrt = form.noteEncadrt.value;
+  add(avis: Avis): Observable<any> {
     return this.http.post(this.apiUrl + '/avis', avis);
   }
 
-  getById(id: any) {
+  getById(id: string): Observable<Avis> {
     return this.http.get<Avis>(this.apiUrl + '/avis/' + id);
   }
 
-  getAllByCompanyId(id: any) {
+  getAllByCompanyId(id: string): Observable<Avis[]> {
     return this.http.get<Avis[]>(this.apiUrl + '/avis/company/' + id);
   }
 }

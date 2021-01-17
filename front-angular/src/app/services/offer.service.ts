@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { Offer, User, Filter } from '../../models';
 import { environment } from '../../environments/environment';
@@ -11,11 +10,11 @@ import { UserService } from './user.service';
 export enum SortCategory {
   matchingScore,
   remuneration,
-  created_date
+  createdDate
 }
 
 @Injectable()
-export class OfferViewService {
+export class OfferService {
 
   private apiUrl = environment.apiUrl;
   private currentUser: User;
@@ -27,66 +26,32 @@ export class OfferViewService {
     });
   }
 
-  getFullListOffer(): Observable<Offer[]> {
-    return this.getAllOffers().pipe(
-        map(listOfferJson => {
-          return this.getOfferListFromHashMap(listOfferJson);
-        })
-    );
+  getFilteredOffers(filter: Filter): Observable<Offer[]> {
+    return this.httpClient.post<Offer[]>(this.apiUrl + '/offers/filter', { user: this.currentUser, filter });
   }
 
-  getFilteredListOffer(filter: Filter): Observable<Offer[]> {
-    return this.getFilteredOffer(filter).pipe(
-        map(listOfferJson => {
-          return this.getOfferListFromHashMap(listOfferJson);
-        })
-    );
-  }
-
-  getListOfferByCompanyId(id: string): Observable<Offer[]> {
-    return this.getAllOffersByCompanyId(id).pipe(
-        map(listOfferJson => {
-          return this.getOfferListFromHashMap(listOfferJson);
-        })
-    );
-  }
-
-  getOfferListFromHashMap(listOfferJson): Offer[] {
-    const listOffer: Offer[] = [];
-    listOfferJson?.forEach(offerJson => {
-      const offer = new Offer();
-      offer.fromHashMap(offerJson);
-      listOffer.push(offer);
-    });
-    return listOffer;
-  }
-
-  getFilteredOffer(filter: Filter): Observable<any[]> {
-    return this.httpClient.post<any>(this.apiUrl + '/offres/filter', { user: this.currentUser, filter });
-  }
-
-  getAllOffers(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/offres');
+  getAllOffers(): Observable<Offer[]> {
+    return this.httpClient.get<Offer[]>(this.apiUrl + '/offers');
   }
 
   getOfferById(id: string): Observable<Offer> {
-    return this.httpClient.get<Offer>(this.apiUrl + '/offres/' + id);
+    return this.httpClient.get<Offer>(this.apiUrl + '/offers/' + id);
   }
 
-  getAllOffersByCompanyId(companyId: string): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/offres/byCompanyId/' + companyId);
+  getAllOffersByCompanyId(companyId: string): Observable<Offer[]> {
+    return this.httpClient.get<Offer[]>(this.apiUrl + '/offers/byCompanyId/' + companyId);
   }
 
   addOffer(offer: Offer): Observable<any> {
-    return this.httpClient.post<Offer>(this.apiUrl + '/offres/', offer);
+    return this.httpClient.post<Offer>(this.apiUrl + '/offers/', offer);
   }
 
-  deleteOffer(id: string): Observable<any> {
-    return this.httpClient.delete<string>(this.apiUrl + '/offres/' + id);
+  deleteOffer(id: string): Observable<string> {
+    return this.httpClient.delete<string>(this.apiUrl + '/offers/' + id);
   }
 
-  editOffer(offer: Offer): Observable<any> {
-    return this.httpClient.put<Offer>(this.apiUrl + '/offres/' + offer.id, offer);
+  editOffer(offer: Offer): Observable<Offer> {
+    return this.httpClient.put<Offer>(this.apiUrl + '/offers/' + offer._id, offer);
   }
 
   sortArray(array: Offer[], key: SortCategory) {
@@ -98,9 +63,9 @@ export class OfferViewService {
       array.sort((a: Offer, b: Offer) => {
         return +b.remuneration - +a.remuneration;
       });
-    } else if (key === SortCategory.created_date) {
+    } else if (key === SortCategory.createdDate) {
       array.sort((a: Offer, b: Offer) => {
-        return +b.created_date - +a.created_date;
+        return +b.createdDate - +a.createdDate;
       });
     }
   }

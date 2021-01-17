@@ -5,56 +5,40 @@
 
 </div>
 
-<div *ngIf="currentUser?.isStudent" class="form-avis">
+<div *ngIf="currentUser?.type === 'student'" class="form-avis">
   <h1>Donne ton avis</h1>
   <br />
   <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="form-element">
-      <mat-label for="noteGenerale">Impression générale</mat-label>
-      <mat-select type="text" formControlName="noteGenerale">
-        <mat-option value="1">1</mat-option>
-        <mat-option value="2">2</mat-option>
-        <mat-option value="3">3</mat-option>
-        <mat-option value="4">4</mat-option>
-        <mat-option value="5">5</mat-option>
+      <mat-label>Impression générale</mat-label>
+      <mat-select formControlName="noteGenerale">
+        <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="form-element">
-      <mat-label for="noteInteret">Intérêt de la mission</mat-label>
-      <mat-select type="text" formControlName="noteInteret">
-        <mat-option value="1">1</mat-option>
-        <mat-option value="2">2</mat-option>
-        <mat-option value="3">3</mat-option>
-        <mat-option value="4">4</mat-option>
-        <mat-option value="5">5</mat-option>
+      <mat-label>Intérêt de la mission</mat-label>
+      <mat-select formControlName="noteInteret">
+        <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="form-element">
-      <mat-label for="noteAmbiance">Ambiance de travail</mat-label>
-      <mat-select type="text" formControlName="noteAmbiance">
-        <mat-option value="1">1</mat-option>
-        <mat-option value="2">2</mat-option>
-        <mat-option value="3">3</mat-option>
-        <mat-option value="4">4</mat-option>
-        <mat-option value="5">5</mat-option>
+      <mat-label>Ambiance de travail</mat-label>
+      <mat-select formControlName="noteAmbiance">
+        <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="form-element">
-      <mat-label for="noteEncadrt">Encadrement</mat-label>
-      <mat-select type="text" formControlName="noteEncadrt">
-        <mat-option value="1">1</mat-option>
-        <mat-option value="2">2</mat-option>
-        <mat-option value="3">3</mat-option>
-        <mat-option value="4">4</mat-option>
-        <mat-option value="5">5</mat-option>
+      <mat-label>Encadrement</mat-label>
+      <mat-select formControlName="noteEncadrt">
+        <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
       </mat-select>
     </mat-form-field>
     <div class="form-group">
-      <textarea type="text" formControlName="avis" placeholder="Commentaire"
-        [ngClass]="{'is-invalid': avisForm.controls.avis.errors}">
+      <textarea type="text" formControlName="description" placeholder="Commentaire"
+        [ngClass]="{'is-invalid': avisForm.controls.description.errors}">
           </textarea>
-      <div *ngIf="avisForm.controls.avis.errors" class="invalid-feedback">
-        <div *ngIf="avisForm.controls.avis.errors.required">Le commentaire est requis !</div>
+      <div *ngIf="avisForm.controls.description.errors" class="invalid-feedback">
+        <div *ngIf="avisForm.controls.description.errors.required">Le commentaire est requis !</div>
       </div>
     </div>
 

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 
 import { Offer, Company } from '../../../../models';
-import { OfferViewService, CompanyService } from '../../../services';
+import { OfferService, CompanyService } from '../../../services';
 
 @Component({
   selector: 'app-offer-detail',
@@ -12,7 +12,7 @@ import { OfferViewService, CompanyService } from '../../../services';
 })
 export class OfferDetailComponent implements OnInit {
 
-  offer: Offer = new Offer();
+  offer: Offer = {} as Offer;
   company: Company;
 
   colorScore: SafeStyle;
@@ -20,7 +20,7 @@ export class OfferDetailComponent implements OnInit {
   isModalopen = false;
 
   constructor(private router: Router,
-              private offerViewService: OfferViewService,
+              private offerViewService: OfferService,
               private sanitizer: DomSanitizer,
               private companyService: CompanyService) { }
 
@@ -32,7 +32,7 @@ export class OfferDetailComponent implements OnInit {
       if (offer) {
         this.offer = offer;
         this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.offerViewService.defineColor(this.offer.matchingScore));
-        this.companyService.getById(this.offer.id_company).subscribe(
+        this.companyService.getById(this.offer.company._id).subscribe(
             company => {
               this.company = company;
             },

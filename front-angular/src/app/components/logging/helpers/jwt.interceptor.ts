@@ -7,9 +7,9 @@ import { User } from '../../../../models';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    
+
     private currentUser: User;
-    
+
     constructor(private userService: UserService) {
         this.userService.getCurrentUserObs().subscribe((user: User) => {
             this.currentUser = user;

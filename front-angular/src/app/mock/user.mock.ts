@@ -38,8 +38,7 @@ export const mockCompanyUser = {
   taille: '101-1 000',
   token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDI2MDIzMzJ9.-JxK7YbpFaA56kaP6Lc1G494b5j3DMWb_SA8arD_zu4',
   username: 'testCompany',
-  id: '5f734b7b42b67c276c2559d8',
-  notifications: []
+  id: '5f734b7b42b67c276c2559d8'
 } as User;
 
 export const mockAdminUser = {

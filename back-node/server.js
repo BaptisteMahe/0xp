@@ -1,8 +1,8 @@
 const config = require('./config.json');
-let express = require('express');
-let app = express();
-let http = require('http');
-let PORT = process.argv[2] || 3000;
+const express = require('express');
+const app = express();
+const http = require('http');
+const PORT = process.argv[2] || 3000;
 
 const MongoClient = require('mongodb').MongoClient;
 
@@ -22,7 +22,7 @@ let SelectController = require('./controllers/SelectController');
 let AvisController = require('./controllers/AvisController');
 
 // Set our routes
-app.use('/offres', OfferController);
+app.use('/offers', OfferController);
 app.use('/users', UserController);
 app.use('/companies', CompanyController);
 app.use('/select', SelectController);
@@ -45,9 +45,9 @@ app.use(function (err, req, res) {
 });
 
 //listen
-const uri = config.mongoUri;
-const client = new MongoClient(uri, {
-    useNewUrlParser: true
+const client = new MongoClient(config.mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 client.connect(err => {
     if (err) return console.log(err);

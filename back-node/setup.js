@@ -1,32 +1,49 @@
-let express = require('express');
-let app = express()
+const AvisModel = require('./models/avis.model');
+const CompanyModel = require('./models/company.model');
+const DomainModel = require('./models/domain.model');
+const OfferModel = require('./models/offer.model');
+const SectorModel = require('./models/sector.model');
+const SoftSkillModel = require('./models/softSkill.model');
+const UserModel = require('./models/user.model');
+
+const config = require('./config.json');
 
 const MongoClient = require('mongodb').MongoClient;
 
-//CORS Middleware
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT, DELETE");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next();
-});
-
-//listen
-const uri = "mongodb+srv://admin0xp:mdpadmin0xp@0xp-aqxy3.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, {
-    useNewUrlParser: true
-});
-client.connect(err => {
-    if (err) return console.log(err);
-    db = client.db('0xpDB');
-    setup(db)
-    console.log("done")
-});
-
-let setup = (db) => {
-    // TODO enter all the setup to generate the mongodb instance
-    // create collections
-    // apply validators
-    db.collection('companies').createIndex({"name": 1},{unique: true})
-    db.collection('users').createIndex({"username": 1},{unique: true})
+let client;
+async function connect() {
+  client = await MongoClient.connect(config.mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }).catch(err => {throw new Error(400)});
+  return client.db('0xpDB');
 }
+
+function applySingleSchema(db, collectionName, schema) {
+  db.command({
+    collMod: collectionName,
+    validator: schema,
+    validationLevel: 'strict'
+  }).then(res => {
+    console.log(`Updated ${collectionName} collection with schema :`);
+    console.log(schema);
+  }).catch(err => {
+    console.log(err);
+  });
+}
+
+connect().then(db => {
+  db.collection('companies').createIndex({ 'name': 1 }, { unique: true });
+  db.collection('users').createIndex({ 'username': 1 }, { unique: true });
+  applySingleSchema(db, 'avis', AvisModel);
+  applySingleSchema(db, 'domains', DomainModel);
+  applySingleSchema(db, 'sectors', SectorModel);
+  applySingleSchema(db, 'softSkills', SoftSkillModel);
+  applySingleSchema(db, 'offers', OfferModel);
+  applySingleSchema(db, 'companies', CompanyModel);
+  applySingleSchema(db, 'users', {
+    $jsonSchema: {
+      anyOf: [UserModel.UserStudentModel, UserModel.UserCompanyModel, UserModel.UserAdminModel]
+    }});
+  // client.close();
+});

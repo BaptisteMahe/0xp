@@ -13,8 +13,16 @@ import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 const moment = _rollupMoment || _moment;
 
-import { UserService, CompanyService, OfferViewService, SelectService } from '../../../../../services';
-import { Offer, User, Company, SelectOption } from 'src/models';
+import { UserService, OfferService, SelectService, CompanyService } from '../../../../../services';
+import {
+  Offer,
+  OfferType,
+  OfferDuration,
+  User,
+  SelectOption,
+  SelectOptionCompany,
+  Company
+} from '../../../../../../models';
 
 export const MY_FORMATS = {
   parse: {
@@ -44,35 +52,41 @@ export const MY_FORMATS = {
 })
 export class AddOfferComponent implements OnInit {
 
-  @Input() offreEdited: Offer;
+  @Input() offerEdited: Offer;
   isEdition = false;
 
   @Output() updatedEvent = new EventEmitter<any>();
 
   editor = ClassicEditor;
 
-  companiesList: Company[]; // TODO : Should be SelectOption and got from the SelectServices
+  offerType = Object.values(OfferType);
+  offerDuration = Object.values(OfferDuration);
 
-  typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
-  timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
   listCountries: string[] = ['France', 'Espagne', 'Angleterre', 'Inde', 'Chine'];
+  // TODO : Get countries otherwise, example: from https://github.com/apilayer/restcountries
 
-  offerOnForm: Offer = new Offer();
+  offerOnForm: Offer = {} as Offer;
   dateFromDate: Date = new Date();
   dateStart = new FormControl(moment());
   locationCountry: string;
   locationCity: string;
 
-  listSoftSkills: SelectOption[];
-  listDomains: SelectOption[];
   sectorList: SelectOption[];
+  selectedSectorId: string;
+
+  softSkillsList: SelectOption[];
+  selectedSoftSkillIdList = [];
+  domainsList: SelectOption[];
+  selectedDomainsIdList = [];
+
+  companiesList: SelectOptionCompany[];
 
   currentUser: User;
 
-  constructor(private offerViewService: OfferViewService,
+  constructor(private offerViewService: OfferService,
               private userService: UserService,
-              private companyService: CompanyService,
               private selectService: SelectService,
+              private companyService: CompanyService,
               private router: Router,
               private matSnackBar: MatSnackBar,
               private matDialog: MatDialog) {
@@ -82,77 +96,83 @@ export class AddOfferComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.offreEdited) {
-      this.offerOnForm = this.offreEdited;
+    if (this.offerEdited) {
+      this.offerOnForm = this.offerEdited;
       this.isEdition = true;
       this.locationCity = this.offerOnForm.location.split(',')[0];
       this.locationCountry = this.offerOnForm.location.split(',')[1].trim();
+      this.selectedDomainsIdList = this.offerOnForm.domains.map(domain => domain._id);
+      this.selectedSoftSkillIdList = this.offerOnForm.softSkills.map(softSkill => softSkill._id);
+      this.selectedSectorId = this.offerOnForm.sector._id;
+    } else {
+      this.offerOnForm.description = '';
     }
 
-    this.selectService.getSectors().subscribe(sectors => {
-      this.sectorList = sectors;
-    });
-    this.selectService.getSoftSkills().subscribe(softSkills => {
-      this.listSoftSkills = softSkills;
-    });
-    this.selectService.getDomains().subscribe(domains => {
-      this.listDomains = domains;
-    });
+    this.getSelectOptions();
 
-    this.companyService.getAll().subscribe(
-      value => {
-        this.companiesList = value;
-      },
-      error => {
-        console.log('Erreur ! : ' + error);
-      }
-    );
+    if (this.currentUser.type === 'company') {
+      this.companyService.getById(this.currentUser.companyId).subscribe((company: Company) => {
+        this.offerOnForm.company = {
+          _id : company._id,
+          display: company.name,
+          srcImg: company.srcImage
+        };
+      });
+    } else if (this.currentUser.type === 'admin' && !this.offerEdited) {
+      this.offerOnForm.company = { } as SelectOption;
+    }
   }
 
   // TODO : Refactor that function
   addOrEditOffer() {
-
-    if (this.currentUser.username !== 'admin') {
-      this.offerOnForm.company = this.currentUser.name;
-      this.offerOnForm.id_company = this.currentUser.idCompany;
-      this.offerOnForm.srcImgCompany = this.currentUser.srcImage;
-    } else {
-      const company = this.companiesList.find(x => x._id === this.offerOnForm.id_company);
-      this.offerOnForm.company = company.name;
-      this.offerOnForm.id_company = company._id;
-      this.offerOnForm.srcImgCompany = company.srcImage;
-    }
+    this.fixSectorAndCompany();
+    this.fixDomainsAndSoftSkills();
 
     if (!this.isEdition) {
-      this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
-      this.offerOnForm.created_date = '' + (new Date()).getTime(); // TODO : Changer les types pour que rien soit cassé même si ça fonctionne
+      this.offerOnForm.startDate = this.dateFromDate;
+      this.offerOnForm.createdDate = new Date();
       this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
-      if (!this.offerOnForm.isValid()) {
+      if (!this.checkCurrentOfferValidity()) {
         this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });
         return;
       }
       this.offerViewService.addOffer(this.offerOnForm).subscribe(
-          sucess => {
+          success => {
             this.router.navigate(['/profile']);
           }, error => {
             this.matSnackBar.open('Erreur avec le serveur : ' + error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
           }
       );
     } else {
-      this.offerOnForm.start_date = '' + this.dateFromDate.getTime();
+      this.offerOnForm.startDate = this.dateFromDate;
       this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
-      if (!this.offerOnForm.isValid()) {
+      if (!this.checkCurrentOfferValidity()) {
         this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });
         return;
       }
       this.offerViewService.editOffer(this.offerOnForm).subscribe(
-          sucess => {
+          success => {
             this.updatedEvent.emit();
           }, error => {
             this.matSnackBar.open('Erreur avec le serveur : ' + error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
           }
       );
     }
+  }
+
+  getSelectOptions() {
+    this.selectService.getSoftSkills().subscribe(softSkills => {
+      this.softSkillsList = softSkills;
+    });
+    this.selectService.getDomains().subscribe(domains => {
+      this.domainsList = domains;
+    });
+    this.selectService.getCompaniesForSelectWithImg().subscribe(companies => {
+      this.companiesList = companies;
+    });
+    this.selectService.getSectors().subscribe(sectors => {
+      this.sectorList = sectors;
+    });
   }
 
   chosenYearHandler(normalizedYear: Moment) {
@@ -179,6 +199,32 @@ export class AddOfferComponent implements OnInit {
           this.router.navigate(['/profile']);
         }
       });
+  }
+
+  fixSectorAndCompany() {
+    this.offerOnForm.sector = this.sectorList.find(sector => sector._id === this.selectedSectorId);
+    if (this.currentUser.type === 'admin') {
+      this.offerOnForm.company = this.companiesList.find(company => company._id === this.offerOnForm.company._id);
+    }
+  }
+
+  fixDomainsAndSoftSkills() {
+    this.offerOnForm.softSkills = [];
+    this.selectedSoftSkillIdList.forEach(selectedSoftSkillId => {
+      this.offerOnForm.softSkills.push(this.softSkillsList.find(softSkill => softSkill._id === selectedSoftSkillId));
+    });
+    this.offerOnForm.domains = [];
+    this.selectedDomainsIdList.forEach(selectedDomainId => {
+      this.offerOnForm.domains.push(this.domainsList.find(domain => domain._id === selectedDomainId));
+    });
+  }
+
+  checkCurrentOfferValidity(): boolean {
+    return !(this.offerOnForm.title === ''
+        || this.offerOnForm.sector === undefined
+        || this.offerOnForm.type === undefined
+        || this.offerOnForm.description === ''
+        || this.offerOnForm.location === '');
   }
 }
 

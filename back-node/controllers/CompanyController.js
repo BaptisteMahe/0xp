@@ -1,8 +1,8 @@
-let express = require('express');
-let router = express.Router();
-let bodyParser = require('body-parser');
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
 router.use(bodyParser.json());
-let ObjectId = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;
 
 router.get('/', function (req, res, next) {
     db.collection('companies').find().toArray()
@@ -11,11 +11,11 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-    req.body.creationDate = req.body.creationDate.substring(0,10);
-    db.collection('companies').insertOne(req.body)
-        .then(() => res.json({_id: req.body._id}))
+    const company = formatPropertiesTypes(req.body);
+    db.collection('companies').insertOne(company)
+        .then(result => res.json({_id: result.insertedId}))
         .catch(err => {
-            if (err.code = 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
+            if (err.code === 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
             next(err);
         });
 });
@@ -33,12 +33,27 @@ router.delete('/:id', function (req, res, next) {
 });
 
 router.put('/:id', function(req, res, next) {
-    db.collection('companies').update({_id: ObjectId(req.params.id)}, {...req.body, _id: ObjectId(req.params.id)})
+    const company = formatPropertiesTypes(req.body);
+    db.collection('companies').updateOne({_id: ObjectId(req.params.id)}, {$set: company})
         .then(() => res.json({_id: req.params.id}))
         .catch(err => {
-            if (err.code = 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
-            next(err)
+            if (err.code === 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
+            next(err);
         });
 });
 
 module.exports = router;
+
+function formatPropertiesTypes(company) {
+    if (company.creationDate) {
+        company.creationDate = new Date(company.creationDate);
+    }
+    if (company._id) {
+        company._id = ObjectId(company._id);
+    }
+    if (company.srcImage === null) {
+        delete company.srcImage;
+    }
+
+    return company;
+}

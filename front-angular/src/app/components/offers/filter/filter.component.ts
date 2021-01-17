@@ -4,8 +4,8 @@ import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-import { NotificationsService, SelectService } from '../../../services';
-import { Filter, SelectOption } from '../../../../models';
+import { SelectService, UserService } from '../../../services';
+import { Filter, OfferType, OfferDuration, SelectOption, User } from '../../../../models';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
@@ -44,11 +44,13 @@ export const MY_FORMATS = {
 })
 export class FilterComponent implements OnInit {
 
+  currentUser: User;
+
   currentFilter: Filter;
   @Output() filterEvent = new EventEmitter<Filter>();
 
-  typeList: string[] = ['Stage', 'Alternance', 'Premier emploi'];
-  timeList: string[] = ['1-2 mois', '6 mois', '2 ans'];
+  typeList = Object.values(OfferType);
+  timeList = Object.values(OfferDuration);
   sectorList: SelectOption[];
 
   // Pour le filtre avancé
@@ -56,44 +58,28 @@ export class FilterComponent implements OnInit {
 
   isMoreFilterOpen = false;
 
-  listOfferLocation: SelectOption[] = [];
-  listOfferCompany: SelectOption[] = [];
+  offerLocationList: SelectOption[] = [];
+  offerCompanyList: SelectOption[] = [];
 
   dateFromDate: Date = new Date();
   dateStart = new FormControl(moment());
 
-  isNotifAdded: boolean;
-  isNotifAddedSubscription: Subscription;
-  isStudent: boolean;
-
-  constructor(private notificationsService: NotificationsService,
+  constructor(private userService: UserService,
               private selectService: SelectService) { }
 
   ngOnInit() {
-    this.isStudent = this.notificationsService.currentUser.isStudent;
-    this.currentFilter = new Filter();
+    this.currentFilter = {isPartner: false} as Filter;
     this.dateFromDate.setDate(1);
 
-    this.isNotifAddedSubscription = this.notificationsService.isNotifAddedSubject.subscribe(
-      (isNotifAdded: boolean) => {
-        this.isNotifAdded = isNotifAdded;
-        if (this.isNotifAdded) {
-          this.notificationsService.majFilterForNotif(this.currentFilter);
-        }
-      }
-    );
+    this.userService.getCurrentUserObs().subscribe((user: User) => {
+      this.currentUser = user;
+    });
 
     this.getSelectOptions();
   }
 
   onFilterClick() {
-    this.currentFilter.start_date = this.dateFromDate.getTime();
-
     this.filterEvent.emit(this.currentFilter);
-    this.isMoreFilterOpen = false;
-
-    this.isNotifAdded = false; // TODO : Should check if notif already exists
-    this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
   }
 
   chosenYearHandler(normalizedYear: Moment) {
@@ -111,22 +97,15 @@ export class FilterComponent implements OnInit {
     this.dateFromDate.setMonth(this.dateStart.value._d.getMonth());
   }
 
-  addNotif() {
-    this.currentFilter.start_date = this.dateFromDate.getTime();
-    this.isNotifAdded = true;
-    this.notificationsService.switchIsNotifAdded(this.isNotifAdded);
-    this.notificationsService.majFilterForNotif(this.currentFilter);
-  }
-
   getSelectOptions() {
     this.selectService.getSectors().subscribe(sectors => {
       this.sectorList = sectors;
     });
-    this.selectService.getCompaniesForSelect().subscribe(companies => {
-      this.listOfferCompany = companies;
+    this.selectService.getCompaniesForSelectNoImg().subscribe(companies => {
+      this.offerCompanyList = companies;
     });
     this.selectService.getLocations().subscribe(locations => {
-      this.listOfferLocation = locations;
+      this.offerLocationList = locations;
     });
   }
 }

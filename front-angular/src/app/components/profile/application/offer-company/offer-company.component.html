@@ -9,7 +9,7 @@
         <h2>{{offer.title}}</h2>
         <p>{{offer.type}} • {{offer.duration}} • Il y a 2 heures</p>
       </div>
-      <p style="color:gray">{{offer.company}}</p>
+      <p style="color:gray">{{offer.company.display}}</p>
     </div>
     <button mat-icon-button (click)="onEditClick(offer)">
       <mat-icon>edit</mat-icon>
@@ -22,5 +22,5 @@
 
 <div *ngIf="isEditingOffer" class="modale-edition">
   <img class="button close-logo" (click)="onCloseEditionClick()" src="../../../../../assets/images/cross-light.svg">
-  <app-add-offer (updatedEvent)="isEditingOffer = false" [offreEdited]="offreToBeEdited"></app-add-offer>
+  <app-add-offer (updatedEvent)="isEditingOffer = false" [offerEdited]="offerToBeEdited"></app-add-offer>
 </div>

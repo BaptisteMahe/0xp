@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router , NavigationEnd  } from '@angular/router';
 
-import { UserService, NotificationsService} from '../../services';
+import { UserService} from '../../services';
 import { User } from '../../../models';
 
 @Component({
@@ -16,26 +16,15 @@ export class NavbarComponent implements OnInit {
 
   isProfilOpen: boolean;
 
-  nbrNotif: number;
-  nbrNotifSubscription: Subscription;
-
   @Output() toggleSidenavEvent = new EventEmitter<boolean>();
 
   constructor(private router: Router,
-              private userService: UserService,
-              private notificationsService: NotificationsService) { }
+              private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getCurrentUserObs().subscribe((user: User) => {
       this.currentUser = user;
     });
-
-    this.nbrNotif = this.notificationsService.nbrNotif;
-    this.nbrNotifSubscription = this.notificationsService.nbrNotifSubject.subscribe(
-      (nbrNotif: number) => {
-        this.nbrNotif = nbrNotif;
-      }
-    );
 
     this.router.events.subscribe(event => {
       if ( event instanceof NavigationEnd) {

@@ -6,34 +6,27 @@
         <form class="register-form" [formGroup]="studentRegisterForm">
 
           <mat-form-field class="register-field">
-            <mat-label>Prénom</mat-label>
+            <mat-label>Prénom*</mat-label>
             <input matInput type="text" formControlName="firstName">
           </mat-form-field>
 
           <mat-form-field class="register-field">
-            <mat-label>Nom</mat-label>
+            <mat-label>Nom*</mat-label>
             <input matInput type="text" formControlName="name">
           </mat-form-field>
 
           <mat-form-field class="register-field">
-            <mat-label>Utilisateur</mat-label>
+            <mat-label>Utilisateur*</mat-label>
             <input matInput type="text" formControlName="username">
           </mat-form-field>
 
           <mat-form-field class="register-field">
-            <mat-label>Mot de Passe</mat-label>
+            <mat-label>Mot de Passe*</mat-label>
             <input matInput type="password" formControlName="password">
           </mat-form-field>
 
           <mat-form-field class="register-field">
-            <mat-label>Date de naissance</mat-label>
-            <input matInput [matDatepicker]="birthDatePicker" formControlName="dateBirth">
-            <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #birthDatePicker></mat-datepicker>
-          </mat-form-field>
-
-          <mat-form-field class="register-field">
-            <mat-label>Email</mat-label>
+            <mat-label>Email*</mat-label>
             <input matInput type="email" formControlName="email">
           </mat-form-field>
 
@@ -42,36 +35,29 @@
             <input matInput type="tel" formControlName="telephone">
           </mat-form-field>
 
-          <mat-form-field class="register-field">
-            <mat-label>Localisation</mat-label>
-            <input matInput type="text" formControlName="location">
-          </mat-form-field>
-
         </form>
       </mat-tab>
       <mat-tab label="Entreprise">
         <form class="register-form" [formGroup]="companyRegisterForm">
 
           <mat-form-field class="register-field">
-            <mat-label>Nom de l'Entreprise</mat-label>
-            <input matInput type="text" formControlName="name">
+            <mat-label>Nom de l'Entreprise*</mat-label>
+            <input matInput type="text" formControlName="companyName">
           </mat-form-field>
 
           <mat-form-field class="register-field">
-            <mat-label>Utilisateur</mat-label>
+            <mat-label>Utilisateur*</mat-label>
             <input matInput type="text" formControlName="username">
           </mat-form-field>
 
           <mat-form-field class="register-field">
-            <mat-label>Mot de Passe</mat-label>
+            <mat-label>Mot de Passe*</mat-label>
             <input matInput type="password" formControlName="password">
           </mat-form-field>
 
           <mat-form-field class="register-field">
-            <mat-label>Date de Création</mat-label>
-            <input matInput [matDatepicker]="creationDatePicker" formControlName="creationDate">
-            <mat-datepicker-toggle matSuffix [for]="creationDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #creationDatePicker></mat-datepicker>
+            <mat-label>Email*</mat-label>
+            <input matInput type="text" formControlName="email">
           </mat-form-field>
 
           <mat-form-field class="register-field">
@@ -80,18 +66,9 @@
           </mat-form-field>
 
           <mat-form-field class="register-field">
-            <mat-label>Localisation</mat-label>
-            <input matInput type="text" formControlName="location">
-          </mat-form-field>
-
-          <mat-form-field class="register-field">
             <mat-label>Taille</mat-label>
-            <mat-select formControlName="taille">
-              <mat-option value="1-10">1-100</mat-option>
-              <mat-option value="11-100">11-100</mat-option>
-              <mat-option value="101-1 000">101-1 000</mat-option>
-              <mat-option value="1 001-10 000">1 001-10 000</mat-option>
-              <mat-option value="+10 000">+10 000</mat-option>
+            <mat-select formControlName="size">
+              <mat-option *ngFor="let size of sizeList" [value]="size">{{size}}</mat-option>
             </mat-select>
           </mat-form-field>
 

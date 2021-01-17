@@ -1,14 +1,17 @@
-export class Filter {
-  textInput = '';
-  type = '';
-  duration = '';
-  sector = '';
-  location: string[] = [];
-  company: string[] = [];
-  isPartner = false;
-  publicationDate = '';
-  companySize = '';
-  start_date: number;
-  matchingMini = 0;
-  remunMini = 0;
+import { SelectOption } from './SelectOption';
+import { OfferType, OfferDuration } from './Offer';
+
+export interface Filter {
+  textInput: string;
+  type: OfferType;
+  duration: OfferDuration;
+  sector: SelectOption;
+  location: SelectOption[];
+  company: SelectOption[];
+  isPartner: boolean;
+  createdDate: Date;
+  companySize: string;
+  startDate: Date;
+  matchingMini: number;
+  remunMini: number;
 }

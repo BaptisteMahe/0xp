@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
+import {SelectOption, SelectOptionCompany} from '../../models';
 
 @Injectable()
 export class SelectService {
@@ -11,23 +12,27 @@ export class SelectService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getSectors(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/select/sectors');
+  getSectors(): Observable<SelectOption[]> {
+    return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/sectors');
   }
 
-  getSoftSkills(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/select/softskills');
+  getSoftSkills(): Observable<SelectOption[]> {
+    return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/softSkills');
   }
 
-  getDomains(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/select/domaines');
+  getDomains(): Observable<SelectOption[]> {
+    return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/domains');
   }
 
-  getCompaniesForSelect(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/select/companies');
+  getCompaniesForSelectWithImg(): Observable<SelectOptionCompany[]> {
+    return this.httpClient.get<SelectOptionCompany[]>(this.apiUrl + '/select/companies/true');
   }
 
-  getLocations(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.apiUrl + '/select/locations');
+  getCompaniesForSelectNoImg(): Observable<SelectOption[]> {
+    return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/companies/false');
+  }
+
+  getLocations(): Observable<SelectOption[]> {
+    return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/locations');
   }
 }
