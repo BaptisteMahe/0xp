@@ -3,7 +3,6 @@ const CompanyModel = require('./models/company.model');
 const DomainModel = require('./models/domain.model');
 const OfferModel = require('./models/offer.model');
 const SectorModel = require('./models/sector.model');
-const SoftSkillModel = require('./models/softSkill.model');
 const UserModel = require('./models/user.model');
 
 const config = require('./config.json');
@@ -37,7 +36,6 @@ async function applyAllSchemas(db) {
   await applySingleSchema(db, 'avis', AvisModel);
   await applySingleSchema(db, 'domains', DomainModel);
   await applySingleSchema(db, 'sectors', SectorModel);
-  await applySingleSchema(db, 'softSkills', SoftSkillModel);
   await applySingleSchema(db, 'offers', OfferModel);
   await applySingleSchema(db, 'companies', CompanyModel);
   await applySingleSchema(db, 'users', {

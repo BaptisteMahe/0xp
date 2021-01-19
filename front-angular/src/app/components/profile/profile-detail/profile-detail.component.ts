@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-import { CompanyService, SelectService, UserService } from '../../../services';
-import { Company, CompanySize, SelectOption, User } from '../../../../models';
+import { CompanyService, UserService } from '../../../services';
+import { Company, CompanySize, User } from '../../../../models';
 
 @Component({
   selector: 'app-profile-detail',
@@ -20,27 +20,20 @@ export class ProfileDetailComponent implements OnInit {
   isEdition = false;
   editor = ClassicEditor;
 
-  softSkillList: SelectOption[];
-  selectedSoftSkillIdList = [];
-
   sizeList = Object.values(CompanySize);
 
   constructor(private userService: UserService,
-              private companyService: CompanyService,
-              private selectService: SelectService) { }
+              private companyService: CompanyService) { }
 
   ngOnInit() {
     this.userService.getCurrentUserObs().subscribe((user: User) => {
+
       this.currentUser = user;
+
       if (this.currentUser.type === 'company') {
         this.companyService.getById(this.currentUser.companyId).subscribe((company: Company) => {
           this.currentCompany = company;
         });
-      } else if (this.currentUser.type === 'student') {
-        this.selectService.getSoftSkills().subscribe((softSkillsList: SelectOption[]) => {
-          this.softSkillList = softSkillsList;
-        });
-        this.selectedSoftSkillIdList = this.currentUser.softSkills.map(softSkill => softSkill._id);
       }
     });
   }
@@ -64,11 +57,6 @@ export class ProfileDetailComponent implements OnInit {
       });
 
     } else if (this.currentUser.type === 'student') {
-      const softSkills = [];
-      this.selectedSoftSkillIdList.forEach(selectedSoftSkillId => {
-        softSkills.push(this.softSkillList.find(softSkill => softSkill._id === selectedSoftSkillId));
-      });
-      this.currentUser.softSkills = softSkills;
       this.userService.update(this.currentUser);
       this.ngOnInit();
     }

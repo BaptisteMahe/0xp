@@ -1,7 +1,7 @@
 OfferModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: [ "title", "type", "description", "location", "duration", "startDate", "domains", "softSkills", "sector", "company", "createdDate"],
+        required: [ "title", "type", "description", "location", "duration", "startDate", "domains", "sector", "company", "createdDate"],
         properties: {
             title: {
                 bsonType: "string",
@@ -45,24 +45,6 @@ OfferModel = {
                         display: {
                             bsonType: "string",
                             description: "[required][string] Displayed value representing the domain."
-                        }
-                    }
-                }
-            },
-            softSkills : {
-                bsonType: "array",
-                description: "[required][array] Array of softSkills required by the offer.",
-                uniqueItems: true,
-                items: {
-                    bsonType: "object",
-                    required: [ "_id", "display"],
-                    properties: {
-                        _id: {
-                            bsonType: "objectId"
-                        },
-                        display: {
-                            bsonType: "string",
-                            description: "[required][string] Displayed value representing the soft skill."
                         }
                     }
                 }

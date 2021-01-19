@@ -74,8 +74,6 @@ export class AddOfferComponent implements OnInit {
   sectorList: SelectOption[];
   selectedSectorId: string;
 
-  softSkillsList: SelectOption[];
-  selectedSoftSkillIdList = [];
   domainsList: SelectOption[];
   selectedDomainsIdList = [];
 
@@ -102,7 +100,6 @@ export class AddOfferComponent implements OnInit {
       this.locationCity = this.offerOnForm.location.split(',')[0];
       this.locationCountry = this.offerOnForm.location.split(',')[1].trim();
       this.selectedDomainsIdList = this.offerOnForm.domains.map(domain => domain._id);
-      this.selectedSoftSkillIdList = this.offerOnForm.softSkills.map(softSkill => softSkill._id);
       this.selectedSectorId = this.offerOnForm.sector._id;
     } else {
       this.offerOnForm.description = '';
@@ -126,7 +123,7 @@ export class AddOfferComponent implements OnInit {
   // TODO : Refactor that function
   addOrEditOffer() {
     this.fixSectorAndCompany();
-    this.fixDomainsAndSoftSkills();
+    this.fixDomains();
 
     if (!this.isEdition) {
       this.offerOnForm.startDate = this.dateFromDate;
@@ -161,9 +158,6 @@ export class AddOfferComponent implements OnInit {
   }
 
   getSelectOptions() {
-    this.selectService.getSoftSkills().subscribe(softSkills => {
-      this.softSkillsList = softSkills;
-    });
     this.selectService.getDomains().subscribe(domains => {
       this.domainsList = domains;
     });
@@ -208,11 +202,7 @@ export class AddOfferComponent implements OnInit {
     }
   }
 
-  fixDomainsAndSoftSkills() {
-    this.offerOnForm.softSkills = [];
-    this.selectedSoftSkillIdList.forEach(selectedSoftSkillId => {
-      this.offerOnForm.softSkills.push(this.softSkillsList.find(softSkill => softSkill._id === selectedSoftSkillId));
-    });
+  fixDomains() {
     this.offerOnForm.domains = [];
     this.selectedDomainsIdList.forEach(selectedDomainId => {
       this.offerOnForm.domains.push(this.domainsList.find(domain => domain._id === selectedDomainId));

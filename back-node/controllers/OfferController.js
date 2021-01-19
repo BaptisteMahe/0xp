@@ -57,9 +57,6 @@ function formatPropertiesTypes(offer) {
     }
     offer.company._id = ObjectId(offer.company._id);
     offer.sector._id = ObjectId(offer.sector._id);
-    offer.softSkills.forEach((softSkill, index) => {
-        offer.softSkills[index]._id = ObjectId(softSkill._id);
-    });
     offer.domains.forEach((domain, index) => {
         offer.domains[index]._id = ObjectId(domain._id);
     });

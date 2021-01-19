@@ -84,11 +84,7 @@ module.exports = router;
 function formatPropertiesTypes(user) {
   delete user.token;
 
-  if (user.type === 'student') {
-    user.softSkills.forEach((softSkill, index) => {
-      user.softSkills[index]._id = ObjectId(softSkill._id);
-    });
-  } else if (user.type === 'company') {
+  if (user.type === 'company') {
     user.companyId = ObjectId(user.companyId);
   }
 

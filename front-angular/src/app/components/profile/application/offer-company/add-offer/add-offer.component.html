@@ -87,14 +87,6 @@
 
   <div class="center ligne">
     <mat-form-field>
-      <mat-label>Soft Skills Recherchés</mat-label>
-      <mat-select [(value)]="selectedSoftSkillIdList" [multiple]='true'>
-        <mat-option *ngFor="let softSkill of softSkillsList" [value]="softSkill._id">{{softSkill.display}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
       <mat-label>Domaines</mat-label>
       <mat-select [(value)]="selectedDomainsIdList" [multiple]='true'>
         <mat-option *ngFor="let domain of domainsList" [value]="domain._id">{{domain.display}}

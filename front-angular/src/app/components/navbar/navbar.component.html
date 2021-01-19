@@ -12,11 +12,6 @@
   <div *ngIf="currentUser && !isProfilOpen" class="button profil-box" routerLink="/profile">
     <img src="../../../assets/images/0xpuser.png" alt="Profile logo">
     <!-- TODO: check for profile missing information -->
-    <div *ngIf="currentUser?.type === 'student' && currentUser?.softSkills?.length == 0">
-      <div class="notif-info">
-        <p>!</p>
-      </div>
-    </div>
   </div>
 
 </mat-toolbar>

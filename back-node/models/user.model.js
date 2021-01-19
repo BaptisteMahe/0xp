@@ -22,24 +22,6 @@ UserStudentModel = {
             bsonType: "string",
             description: "[required][string] User's last name."
         },
-        softSkills: {
-            bsonType: "array",
-            description: "[optional][object] Array of user's soft skills",
-            uniqueItems: true,
-            items: {
-                bsonType: "object",
-                required: [ "_id", "display"],
-                properties: {
-                    _id:{
-                        bsonType: "objectId"
-                    },
-                    display: {
-                        bsonType: "string",
-                        description: "[required][string] Displayed value representing the soft skill."
-                    }
-                }
-            }
-        },
         email: {
             bsonType: "string",
             description: "[required][string] User's email."

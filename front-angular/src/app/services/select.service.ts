@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import {SelectOption, SelectOptionCompany} from '../../models';
+import { SelectOption, SelectOptionCompany } from '../../models';
 
 @Injectable()
 export class SelectService {
@@ -14,10 +14,6 @@ export class SelectService {
 
   getSectors(): Observable<SelectOption[]> {
     return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/sectors');
-  }
-
-  getSoftSkills(): Observable<SelectOption[]> {
-    return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/softSkills');
   }
 
   getDomains(): Observable<SelectOption[]> {
