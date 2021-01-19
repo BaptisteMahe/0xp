@@ -8,15 +8,8 @@
     <form class="add-company-form" [formGroup]="registerForm">
 
       <mat-form-field class="add-company-field">
-        <mat-label>Nom de l'Entreprise</mat-label>
+        <mat-label>Nom de l'Entreprise*</mat-label>
         <input matInput type="text" formControlName="name">
-      </mat-form-field>
-
-      <mat-form-field class="add-company-field">
-        <mat-label>Date de Création</mat-label>
-        <input matInput [matDatepicker]="creationDatePicker" formControlName="creationDate">
-        <mat-datepicker-toggle matSuffix [for]="creationDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker #creationDatePicker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="add-company-field">
@@ -37,7 +30,7 @@
       </mat-form-field>
 
       <mat-form-field class="add-company-field">
-        <mat-label>Contact</mat-label>
+        <mat-label>Contact*</mat-label>
         <input matInput type="text" formControlName="contact">
       </mat-form-field>
 

@@ -8,7 +8,6 @@ export interface Company {
   contact: string;
   size?: CompanySize;
   isPartner: boolean;
-  creationDate?: Date;
 }
 
 export enum CompanySize {
