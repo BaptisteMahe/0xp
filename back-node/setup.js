@@ -20,7 +20,7 @@ async function connect() {
 }
 
 function applySingleSchema(db, collectionName, schema) {
-  db.command({
+  return db.command({
     collMod: collectionName,
     validator: schema,
     validationLevel: 'strict'
@@ -31,19 +31,23 @@ function applySingleSchema(db, collectionName, schema) {
     console.log(err);
   });
 }
-
-connect().then(db => {
-  db.collection('companies').createIndex({ 'name': 1 }, { unique: true });
-  db.collection('users').createIndex({ 'username': 1 }, { unique: true });
-  applySingleSchema(db, 'avis', AvisModel);
-  applySingleSchema(db, 'domains', DomainModel);
-  applySingleSchema(db, 'sectors', SectorModel);
-  applySingleSchema(db, 'softSkills', SoftSkillModel);
-  applySingleSchema(db, 'offers', OfferModel);
-  applySingleSchema(db, 'companies', CompanyModel);
-  applySingleSchema(db, 'users', {
+async function applyAllSchemas(db) {
+  await db.collection('companies').createIndex({ 'name': 1 }, { unique: true });
+  await db.collection('users').createIndex({ 'username': 1 }, { unique: true });
+  await applySingleSchema(db, 'avis', AvisModel);
+  await applySingleSchema(db, 'domains', DomainModel);
+  await applySingleSchema(db, 'sectors', SectorModel);
+  await applySingleSchema(db, 'softSkills', SoftSkillModel);
+  await applySingleSchema(db, 'offers', OfferModel);
+  await applySingleSchema(db, 'companies', CompanyModel);
+  await applySingleSchema(db, 'users', {
     $jsonSchema: {
       anyOf: [UserModel.UserStudentModel, UserModel.UserCompanyModel, UserModel.UserAdminModel]
     }});
-  // client.close();
+}
+
+connect().then(db => {
+  applyAllSchemas(db).then(() => {
+    client.close();
+  })
 });

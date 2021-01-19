@@ -25,6 +25,7 @@ jobs:
         uses: webfactory/ssh-agent@v0.4.1
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY_MARCEAU }}
+
       - name: Add server to known_hosts
         run: ssh -o StrictHostKeyChecking=no github@marceauclavel.com
 
