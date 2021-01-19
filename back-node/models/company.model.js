@@ -30,10 +30,6 @@ CompanyModel = {
             isPartner: {
                 bsonType: "bool",
                 description: "[required][bool] Boolean representing if the company is partner with ECM or not."
-            },
-            creationDate: {
-                bsonType: "date",
-                description: "[optional][date] Company's date of creation."
             }
         }
     }
