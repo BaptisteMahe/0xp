@@ -45,11 +45,15 @@ router.put('/:id', function(req, res, next) {
 module.exports = router;
 
 function formatPropertiesTypes(company) {
+
+    Object.keys(company).forEach(property => {
+        if (company[property] === null) {
+            delete company[property];
+        }
+    });
+
     if (company._id) {
         company._id = ObjectId(company._id);
-    }
-    if (company.srcImage === null) {
-        delete company.srcImage;
     }
 
     return company;
