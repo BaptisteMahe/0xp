@@ -38,4 +38,4 @@ jobs:
         run : cd back-node && npm install mongodb && npm run setup
 
       - name: Deploy BackeEnd
-        run: npm run deploy
+        run: cd back-node && npm run deploy
