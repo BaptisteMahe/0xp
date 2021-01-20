@@ -1,8 +1,12 @@
 AvisModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: [ "companyId", "noteGenerale", "noteAmbiance", "noteInteret", "noteEncadrt", "description"],
+        required: ["_id", "companyId", "noteGenerale", "noteAmbiance", "noteInteret", "noteEncadrt", "description"],
+        additionalProperties: false,
         properties: {
+            _id: {
+                bsonType: "objectId",
+            },
             companyId: {
                 bsonType: "objectId",
                 description: "[required][objectId] Id of the company the avis is about."

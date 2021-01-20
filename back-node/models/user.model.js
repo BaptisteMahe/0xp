@@ -1,7 +1,11 @@
 UserStudentModel = {
     bsonType: "object",
-    required: [ "username", "hash", "type", "firstName", "name", "email"],
+    required: ["_id", "username", "hash", "type", "firstName", "name", "email"],
+    additionalProperties: false,
     properties: {
+        _id: {
+            bsonType: "objectId",
+        },
         username: {
             bsonType: "string",
             description: "[required][string] User's username."
@@ -35,8 +39,12 @@ UserStudentModel = {
 
 UserCompanyModel = {
     bsonType: "object",
-    required: [ "username", "hash", "type", "companyId", "email"],
+    required: ["_id", "username", "hash", "type", "companyId", "email"],
+    additionalProperties: false,
     properties: {
+        _id: {
+            bsonType: "objectId",
+        },
         username: {
             bsonType: "string",
             description: "[required][string] User's username."
@@ -66,8 +74,12 @@ UserCompanyModel = {
 
 UserAdminModel = {
     bsonType: "object",
-    required: [ "username", "hash", "type"],
+    required: ["_id", "username", "hash", "type"],
+    additionalProperties: false,
     properties: {
+        _id: {
+            bsonType: "objectId",
+        },
         username: {
             bsonType: "string",
             description: "[required][string] User's username."

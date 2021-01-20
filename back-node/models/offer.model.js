@@ -1,8 +1,12 @@
 OfferModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: [ "title", "type", "description", "location", "duration", "startDate", "domains", "sector", "company", "createdDate"],
+        required: ["_id", "title", "type", "description", "location", "duration", "startDate", "domains", "sector", "company", "createdDate"],
+        additionalProperties: false,
         properties: {
+            _id: {
+                bsonType: "objectId",
+            },
             title: {
                 bsonType: "string",
                 description: "[required][string] Offer's title."
@@ -38,6 +42,7 @@ OfferModel = {
                 items: {
                     bsonType: "object",
                     required: [ "_id", "display"],
+                    additionalProperties: false,
                     properties: {
                         _id: {
                             bsonType: "objectId"
@@ -53,6 +58,7 @@ OfferModel = {
                 bsonType: "object",
                 description: "[required][object] Sector of the company offering the offer.",
                 required: [ "_id", "display"],
+                additionalProperties: false,
                 properties: {
                     _id: {
                         bsonType: "objectId"
@@ -67,6 +73,7 @@ OfferModel = {
                 bsonType: "object",
                 description: "[required][string] Information about the company offering the offer.",
                 required: [ "_id", "display"],
+                additionalProperties: false,
                 properties: {
                     _id: {
                         bsonType: "objectId",
