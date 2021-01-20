@@ -49,4 +49,3 @@ connect().then(db => {
     client.close();
   })
 });
-
