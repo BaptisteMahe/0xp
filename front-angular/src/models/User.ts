@@ -1,5 +1,3 @@
-import { SelectOption } from './SelectOption';
-
 export type User = UserAdmin | UserStudent | UserCompany;
 
 export interface UserAdmin extends BaseUser {
@@ -10,7 +8,6 @@ export interface UserStudent extends BaseUser {
   type: UserType.Student;
   firstName: string;
   name: string;
-  softSkills: SelectOption[];
   telephone?: string;
   email: string;
 }

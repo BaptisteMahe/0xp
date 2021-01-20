@@ -11,7 +11,6 @@ export interface Offer {
   startDate: Date;
   remuneration: number;
   domains: SelectOption[];
-  softSkills: SelectOption[];
   sector: SelectOption;
   company: SelectOptionCompany;
   createdDate: Date;

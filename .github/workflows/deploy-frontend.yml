@@ -25,6 +25,7 @@ jobs:
         uses: webfactory/ssh-agent@v0.4.1
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+
       - name: Add OVH to known_hosts
         run: ssh -o StrictHostKeyChecking=no persil@${{ secrets.HOST }}
 

@@ -1,8 +1,12 @@
 CompanyModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: ["name", "contact", "isPartner"],
+        required: ["_id", "name", "contact", "isPartner"],
+        additionalProperties: false,
         properties: {
+            _id: {
+                bsonType: "objectId",
+            },
             name: {
                 bsonType: "string",
                 description: "[required][string] Company's name."

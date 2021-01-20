@@ -1,8 +1,12 @@
 OfferModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: [ "title", "type", "description", "location", "duration", "startDate", "domains", "softSkills", "sector", "company", "createdDate"],
+        required: ["_id", "title", "type", "description", "location", "duration", "startDate", "domains", "sector", "company", "createdDate"],
+        additionalProperties: false,
         properties: {
+            _id: {
+                bsonType: "objectId",
+            },
             title: {
                 bsonType: "string",
                 description: "[required][string] Offer's title."
@@ -38,6 +42,7 @@ OfferModel = {
                 items: {
                     bsonType: "object",
                     required: [ "_id", "display"],
+                    additionalProperties: false,
                     properties: {
                         _id: {
                             bsonType: "objectId"
@@ -49,28 +54,11 @@ OfferModel = {
                     }
                 }
             },
-            softSkills : {
-                bsonType: "array",
-                description: "[required][array] Array of softSkills required by the offer.",
-                uniqueItems: true,
-                items: {
-                    bsonType: "object",
-                    required: [ "_id", "display"],
-                    properties: {
-                        _id: {
-                            bsonType: "objectId"
-                        },
-                        display: {
-                            bsonType: "string",
-                            description: "[required][string] Displayed value representing the soft skill."
-                        }
-                    }
-                }
-            },
             sector: {
                 bsonType: "object",
                 description: "[required][object] Sector of the company offering the offer.",
                 required: [ "_id", "display"],
+                additionalProperties: false,
                 properties: {
                     _id: {
                         bsonType: "objectId"
@@ -85,6 +73,7 @@ OfferModel = {
                 bsonType: "object",
                 description: "[required][string] Information about the company offering the offer.",
                 required: [ "_id", "display"],
+                additionalProperties: false,
                 properties: {
                     _id: {
                         bsonType: "objectId",

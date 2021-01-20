@@ -6,7 +6,6 @@ export const studentRegisterForm = {
     password: ['', [Validators.required, Validators.minLength(6)]],
     firstName: ['', Validators.required],
     name: ['', Validators.required],
-    softSkills: [[]],
     email: ['', [Validators.required, Validators.email]],
     telephone: [''],
     type: [UserType.Student]

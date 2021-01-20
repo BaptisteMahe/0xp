@@ -1,7 +1,11 @@
 UserStudentModel = {
     bsonType: "object",
-    required: [ "username", "hash", "type", "firstName", "name", "email"],
+    required: ["_id", "username", "hash", "type", "firstName", "name", "email"],
+    additionalProperties: false,
     properties: {
+        _id: {
+            bsonType: "objectId",
+        },
         username: {
             bsonType: "string",
             description: "[required][string] User's username."
@@ -22,24 +26,6 @@ UserStudentModel = {
             bsonType: "string",
             description: "[required][string] User's last name."
         },
-        softSkills: {
-            bsonType: "array",
-            description: "[optional][object] Array of user's soft skills",
-            uniqueItems: true,
-            items: {
-                bsonType: "object",
-                required: [ "_id", "display"],
-                properties: {
-                    _id:{
-                        bsonType: "objectId"
-                    },
-                    display: {
-                        bsonType: "string",
-                        description: "[required][string] Displayed value representing the soft skill."
-                    }
-                }
-            }
-        },
         email: {
             bsonType: "string",
             description: "[required][string] User's email."
@@ -53,8 +39,12 @@ UserStudentModel = {
 
 UserCompanyModel = {
     bsonType: "object",
-    required: [ "username", "hash", "type", "companyId", "email"],
+    required: ["_id", "username", "hash", "type", "companyId", "email"],
+    additionalProperties: false,
     properties: {
+        _id: {
+            bsonType: "objectId",
+        },
         username: {
             bsonType: "string",
             description: "[required][string] User's username."
@@ -84,8 +74,12 @@ UserCompanyModel = {
 
 UserAdminModel = {
     bsonType: "object",
-    required: [ "username", "hash", "type"],
+    required: ["_id", "username", "hash", "type"],
+    additionalProperties: false,
     properties: {
+        _id: {
+            bsonType: "objectId",
+        },
         username: {
             bsonType: "string",
             description: "[required][string] User's username."

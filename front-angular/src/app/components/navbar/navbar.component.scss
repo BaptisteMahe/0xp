@@ -28,35 +28,6 @@ a {
     }
 }
 
-.notif-info, .notif-alert {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    right: 5px;
-    top: 45px;
-    border-radius: 100%;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-
-    p {
-        width: 100%;
-        margin: 0px;
-        color: white;
-        font-weight: 700;
-        text-align: center;
-        font-size: smaller;
-    }
-}
-
-.notif-info {
-    background-color: orange;
-}
-
-.notif-alert {
-    background-color: red;
-}
-
 .mat-toolbar {
     height: 10vh;
     background-color: #3e4259;
