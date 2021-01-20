@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js 3000",
-    "setup": "npm install mongodb && node setup.js",
+    "setup": "node setup.js",
     "prod": "node server.js 10411",
     "deploy": "bash ../scripts/deploy_backend.sh"
   },
