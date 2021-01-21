@@ -34,10 +34,9 @@
         <input matInput type="text" formControlName="contact">
       </mat-form-field>
 
-      <mat-form-field class="add-company-field">
-        <mat-label>Logo Url</mat-label>
-        <input matInput type="text" formControlName="srcImage">
-      </mat-form-field>
+      <div class="add-company-field">
+        <app-add-logo [logoAsBase64]="this.companyToEdit?.srcImage" (logoReadyEvent)="onLogoReady($event)"></app-add-logo>
+      </div>
 
       <mat-checkbox class="add-company-field" formControlName="isPartner">Entreprise partenaire</mat-checkbox>
 

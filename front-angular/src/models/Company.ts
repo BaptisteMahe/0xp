@@ -16,3 +16,8 @@ export enum CompanySize {
   Large = '100-1000',
   Huge = '1000+'
 }
+
+export const ImageSize = {
+  MaxWidth: 256,
+  MaxHeight: 256
+};

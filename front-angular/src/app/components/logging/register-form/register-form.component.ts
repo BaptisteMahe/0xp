@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { first } from 'rxjs/operators';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 
 import { UserService } from '../../../services';
-import {User, studentRegisterForm, companyRegisterForm, CompanySize} from '../../../../models';
+import { User, studentRegisterForm, companyRegisterForm, CompanySize, ImageSize } from '../../../../models';
 
 
 @Component({
@@ -23,10 +24,14 @@ export class RegisterFormComponent implements OnInit {
 
   loading = false;
 
+  logoAsBase64: string;
+  fileReader = new FileReader();
+
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private userService: UserService,
-              private matSnackBar: MatSnackBar) { }
+              private matSnackBar: MatSnackBar,
+              private ng2ImgMaxService: Ng2ImgMaxService) { }
 
   ngOnInit() {
     this.userService.getCurrentUserObs().subscribe((user: User) => {
@@ -53,7 +58,8 @@ export class RegisterFormComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.userService.register(this.activeRegisterForm.value)
+
+    this.userService.register({...this.activeRegisterForm.value, srcImage: this.logoAsBase64})
       .pipe(first())
       .subscribe(
         data => {
@@ -64,5 +70,9 @@ export class RegisterFormComponent implements OnInit {
           this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
           this.loading = false;
         });
+  }
+
+  onLogoReady(event) {
+    this.logoAsBase64 = event;
   }
 }

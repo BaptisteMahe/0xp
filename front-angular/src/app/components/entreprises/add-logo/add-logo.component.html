@@ -1,0 +1,13 @@
+<div class="logo-upload-container">
+    <label for="logo-upload" class="logo-upload">
+        <a *ngIf="!logoAsBase64" mat-raised-button >Choisir le logo</a>
+        <div *ngIf="logoAsBase64" class="logo-preview">
+            <a mat-icon-button class="logo-edit-button">
+                <mat-icon>cached</mat-icon>
+            </a>
+            <img [src]="logoAsBase64">
+        </div>
+    </label>
+    <input id="logo-upload" type="file" (change)="onImgChange($event)">
+</div>
+

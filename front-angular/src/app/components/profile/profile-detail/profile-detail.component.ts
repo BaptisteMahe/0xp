@@ -22,17 +22,19 @@ export class ProfileDetailComponent implements OnInit {
 
   sizeList = Object.values(CompanySize);
 
+  logoAsBase64: string;
+
   constructor(private userService: UserService,
               private companyService: CompanyService) { }
 
   ngOnInit() {
     this.userService.getCurrentUserObs().subscribe((user: User) => {
-
       this.currentUser = user;
 
       if (this.currentUser.type === 'company') {
         this.companyService.getById(this.currentUser.companyId).subscribe((company: Company) => {
           this.currentCompany = company;
+          this.logoAsBase64 = this.currentCompany.srcImage;
         });
       }
     });
@@ -51,7 +53,7 @@ export class ProfileDetailComponent implements OnInit {
 
     if (this.currentUser.type === 'company') {
       this.userService.update(this.currentUser);
-      this.currentCompany = Object.assign({}, this.currentCompanyEdit);
+      this.currentCompany = Object.assign({}, {...this.currentCompanyEdit, srcImage: this.logoAsBase64});
       this.companyService.editCompany(this.currentCompany).subscribe(() => {
         this.ngOnInit();
       });
@@ -64,7 +66,12 @@ export class ProfileDetailComponent implements OnInit {
     this.disableEdition();
   }
 
+  onLogoReady(event) {
+    this.logoAsBase64 = event;
+  }
+
   disableEdition() {
+    this.logoAsBase64 = this.currentCompany?.srcImage;
     this.isEdition = false;
   }
 }

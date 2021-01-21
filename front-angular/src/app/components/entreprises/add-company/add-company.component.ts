@@ -16,6 +16,8 @@ export class AddCompanyComponent implements OnInit {
   registerForm: FormGroup;
   sizeList = Object.values(CompanySize);
 
+  logoAsBase64: string;
+
   constructor(@Inject(MAT_DIALOG_DATA) public companyToEdit: Company,
               private formBuilder: FormBuilder,
               private companyService: CompanyService) { }
@@ -26,18 +28,28 @@ export class AddCompanyComponent implements OnInit {
       description: [this.companyToEdit?.description],
       size: [this.companyToEdit?.size],
       location: [this.companyToEdit?.location],
-      srcImage: [this.companyToEdit?.srcImage],
       isPartner: [this.companyToEdit?.isPartner || false],
       contact: [this.companyToEdit?.contact, [Validators.required, Validators.email]]
     });
+
+    this.logoAsBase64 = this.companyToEdit?.srcImage;
   }
 
   onSubmit() {
+    this.registerForm.value.srcImage = this?.logoAsBase64;
     if (this.companyToEdit) {
-      return this.companyService.editCompany({... this.registerForm.value, _id: this.companyToEdit._id}).pipe(first());
+      return this.companyService.editCompany({
+        ...this.registerForm.value,
+        srcImage: this.logoAsBase64,
+        _id: this.companyToEdit._id
+      }).pipe(first());
     } else {
       return this.companyService.addCompany(this.registerForm.value).pipe(first());
     }
+  }
+
+  onLogoReady(event) {
+    this.logoAsBase64 = event;
   }
 
 }

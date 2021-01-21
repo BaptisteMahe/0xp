@@ -1,0 +1,25 @@
+.logo-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-preview {
+  cursor: pointer;
+  position: relative;
+}
+
+.logo-edit-button {
+  position: absolute;
+  right: -40px;
+}
+
+.logo-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#logo-upload {
+  display: none;
+}

@@ -35,7 +35,16 @@ router.delete('/:id', function (req, res, next) {
 router.put('/:id', function(req, res, next) {
     const company = formatPropertiesTypes(req.body);
     db.collection('companies').updateOne({_id: ObjectId(req.params.id)}, {$set: company})
-        .then(() => res.json({_id: req.params.id}))
+        .then(() => {
+            db.collection('offers').updateMany({'company._id': ObjectId(req.params.id)}, {
+                $set: {
+                    'company.srcImg': company.srcImage,
+                    'company.display': company.name
+                }
+            })
+                .then(() => res.json({_id: req.params.id}))
+                .catch(next);
+        })
         .catch(err => {
             if (err.code === 11000) err = {...err, message: "Le nom de l'entreprise est déjà utilisé", code: 400};
             next(err);
@@ -47,7 +56,7 @@ module.exports = router;
 function formatPropertiesTypes(company) {
 
     Object.keys(company).forEach(property => {
-        if (company[property] === null) {
+        if (company[property] === null || company[property] === undefined) {
             delete company[property];
         }
     });

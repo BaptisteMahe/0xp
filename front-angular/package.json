@@ -33,6 +33,7 @@
     "choices.js": "^9.0.1",
     "core-js": "^2.6.12",
     "moment": "^2.29.1",
+    "ng2-img-max": "^2.2.4",
     "rxjs": "6.6.3",
     "rxjs-compat": "^6.6.3",
     "tslib": "^2.1.0",

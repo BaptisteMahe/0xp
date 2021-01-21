@@ -72,10 +72,9 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="register-field">
-            <mat-label>Logo Url</mat-label>
-            <input matInput type="text" formControlName="srcImage">
-          </mat-form-field>
+          <div class="register-field">
+            <app-add-logo (logoReadyEvent)="onLogoReady($event)"></app-add-logo>
+          </div>
 
         </form>
       </mat-tab>
@@ -83,7 +82,7 @@
 
 
     <div class="form-buttons">
-      <button mat-raised-button class="register-button form-button" (click)="onSubmit()" [disabled]="loading">
+      <button mat-raised-button class="register-button form-button" (click)="onSubmit()" [disabled]="loading || activeRegisterForm.invalid">
         S'enregistrer
       </button>
       <button mat-raised-button type="reset" class="cancel-button form-button" routerLink="/login" >
