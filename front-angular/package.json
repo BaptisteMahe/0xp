@@ -30,6 +30,7 @@
     "@ckeditor/ckeditor5-build-classic": "^16.0.0",
     "@ng-bootstrap/ng-bootstrap": "^5.3.1",
     "bootstrap": "^4.5.3",
+    "canvg": "^3.0.7",
     "choices.js": "^9.0.1",
     "core-js": "^2.6.12",
     "moment": "^2.29.1",

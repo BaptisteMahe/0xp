@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Ng2ImgMaxService } from 'ng2-img-max';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Canvg, presets } from 'canvg';
 import { ImageSize } from '../../../../models';
 
 @Component({
@@ -23,10 +23,6 @@ export class AddLogoComponent implements OnInit {
               private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.fileReader.onload = () => {
-      this.logoAsBase64 = this.fileReader.result.toString();
-      this.logoReadyEvent.emit(this.fileReader.result.toString());
-    };
     this.fileReader.onerror = (error) => {
       this.matSnackBar.open('An error occurred with your image', null, { duration: 3000, panelClass: ['snack-bar-error'] });
       console.log(error);
@@ -34,15 +30,45 @@ export class AddLogoComponent implements OnInit {
   }
 
   onImgChange(event) {
-    if (event.target.files[0]) {
-      this.ng2ImgMaxService.resizeImage(event.target.files[0], ImageSize.MaxWidth, ImageSize.MaxHeight).subscribe(
-          result => {
-            this.fileReader.readAsDataURL(result);
-          }, error => {
-            this.matSnackBar.open(error.reason, null, { duration: 3000, panelClass: ['snack-bar-error'] });
-            console.log(error);
-          }
-      );
+    const file = event.target.files[0];
+
+    if (file) {
+
+      if (file.type.includes('svg')) {
+
+        const canvas = new OffscreenCanvas(ImageSize.MaxHeight, ImageSize.MaxWidth);
+        const ctx = canvas.getContext('2d');
+
+        this.fileReader.readAsText(file);
+        this.fileReader.onload = () => {
+          Canvg.from(ctx, this.fileReader.result.toString(), presets.offscreen()).then((result) => {
+            result.render().then(() => {
+              canvas.convertToBlob().then((blob) => {
+                this.resizeAndConvertToBase64(blob as File);
+              });
+            });
+          });
+        };
+
+      } else {
+        this.resizeAndConvertToBase64(file);
+      }
     }
+  }
+
+  resizeAndConvertToBase64(file: File) {
+    this.ng2ImgMaxService.resizeImage(file, ImageSize.MaxWidth, ImageSize.MaxHeight).subscribe(
+        result => {
+          this.fileReader.readAsDataURL(result);
+
+          this.fileReader.onload = () => {
+            this.logoAsBase64 = this.fileReader.result.toString();
+            this.logoReadyEvent.emit(this.fileReader.result.toString());
+          };
+        }, error => {
+          this.matSnackBar.open(error.reason, null, { duration: 3000, panelClass: ['snack-bar-error'] });
+          console.log(error);
+        }
+    );
   }
 }
