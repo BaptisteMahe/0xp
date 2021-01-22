@@ -15,13 +15,6 @@
 **What is the new behaviour?**
 
 
-**Does this PR introduce a breaking change?** (check one with "x")
-
-> - [ ] Yes
-> - [ ] No
-Explain how we can fix that change :
-
-
 **Link to open Jira ticket**:
 
 
