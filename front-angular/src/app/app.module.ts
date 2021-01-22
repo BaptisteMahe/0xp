@@ -11,6 +11,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { Ng2ImgMaxModule } from 'ng2-img-max';
 
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+
 import { HomeComponent } from './components/home/home.component';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -50,6 +52,7 @@ import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
 
 import { MaterialModule } from './modules/material.module';
+import { AddPdfComponent } from './components/entreprises/add-pdf/add-pdf.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +83,8 @@ import { MaterialModule } from './modules/material.module';
     DeleteDialogContentComponent,
     QuitEditionDialogContentComponent,
     AvisOverviewComponent,
-    AddLogoComponent
+    AddLogoComponent,
+    AddPdfComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +95,8 @@ import { MaterialModule } from './modules/material.module';
     ReactiveFormsModule,
     HttpClientModule,
     CKEditorModule,
-    Ng2ImgMaxModule
+    Ng2ImgMaxModule,
+    NgxExtendedPdfViewerModule
   ],
   entryComponents: [
     DeleteDialogContentComponent,
