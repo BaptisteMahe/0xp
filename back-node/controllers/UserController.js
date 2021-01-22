@@ -26,8 +26,8 @@ router.delete('/:id', function (req, res, next) {
 });
 
 router.post('/authenticate', function (req, res, next) {
-  toAuthenticate(req.body)
-    .then(user => user ? res.json(user) : next({message: "password incorrect", code: 404}))
+  toAuthenticate(req.body, next)
+    .then(user => user ? res.json(user) : next({message: "Mot de passe incorrect", code: 404}))
     .catch(next);
 })
 
@@ -55,8 +55,8 @@ router.post('/register', function (req, res, next) {
           .catch(err => {
             if (err.code === 11000){
               db.collection('companies').findOneAndDelete({_id: company._id})
-              .then(() => next({...err, message:"Le nom d'utilisateur est déjà utilisé", code: 400}))
-              .catch(next);
+                  .then(() => next({...err, message:"Le nom d'utilisateur est déjà utilisé", code: 400}))
+                  .catch(next);
             } else next(err);
           });
       })
@@ -91,13 +91,15 @@ function formatPropertiesTypes(user) {
   return user;
 }
 
-async function toAuthenticate({username, password}) {
+async function toAuthenticate({username, password}, next) {
   let user = await db.collection('users').findOne({ username });
-  if (!user) throw({message: "username incorrect", code: 400});
+  if (!user) next({message: "Nom d'utilisateur incorrect", code: 400});
   if (user && bcrypt.compareSync(password, user.hash)) {
     const { hash, ...userWithoutHash } = user;
     const token = jwt.sign({ sub: user._id }, config.secret);
     return { ...userWithoutHash, token };
+  } else {
+    return null;
   }
 }
 
