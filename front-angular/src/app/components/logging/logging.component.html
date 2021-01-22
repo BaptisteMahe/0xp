@@ -15,7 +15,7 @@
     </mat-form-field>
 
     <div class="form-buttons">
-      <button mat-raised-button class="login-button form-button" type="submit">
+      <button mat-raised-button class="login-button form-button" type="submit" [disabled]="loginForm.invalid">
         Se connecter
       </button>
       <button mat-raised-button routerLink="/register" type="reset" class="register-button form-button">

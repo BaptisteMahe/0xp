@@ -14,7 +14,7 @@ export const studentRegisterForm = {
 export const companyRegisterForm = {
     username: ['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(6)]],
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     companyName: ['', Validators.required],
     description: [''],
     size: [''],

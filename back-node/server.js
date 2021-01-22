@@ -1,10 +1,16 @@
-const config = require('./config.json');
+const http = require('http');
+const MongoClient = require('mongodb').MongoClient;
 const express = require('express');
 const app = express();
-const http = require('http');
+
+let OfferController = require('./controllers/OfferController');
+let UserController = require('./controllers/UserController');
+let CompanyController = require('./controllers/CompanyController');
+let SelectController = require('./controllers/SelectController');
+let AvisController = require('./controllers/AvisController');
+const config = require('./config.json');
 const PORT = process.argv[2] || 3000;
 
-const MongoClient = require('mongodb').MongoClient;
 
 //CORS Middleware
 app.use(function (req, res, next) {
@@ -14,12 +20,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-// custom routes
-let OfferController = require('./controllers/OfferController');
-let UserController = require('./controllers/UserController');
-let CompanyController = require('./controllers/CompanyController');
-let SelectController = require('./controllers/SelectController');
-let AvisController = require('./controllers/AvisController');
 
 // Set our routes
 app.use('/offers', OfferController);
@@ -37,12 +37,13 @@ app.use(function (req, res) {
 });
 
 // Handle 500
-app.use(function (err, req, res) {
-    console.log("ERROR : \n", err, "\n")
+app.use(function (err, req, res, next) {
+    console.log("ERROR : \n", err, "\n");
     res.status(err.code || 500).json({
         message: err.message || 'internal error'
-    })
+    });
 });
+
 
 //listen
 const client = new MongoClient(config.mongoUri, {
