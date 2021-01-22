@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { first } from 'rxjs/operators';
-import { Ng2ImgMaxService } from 'ng2-img-max';
 
 import { UserService } from '../../../services';
 import { User, studentRegisterForm, companyRegisterForm, CompanySize, ImageSize } from '../../../../models';
@@ -30,8 +29,7 @@ export class RegisterFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private userService: UserService,
-              private matSnackBar: MatSnackBar,
-              private ng2ImgMaxService: Ng2ImgMaxService) { }
+              private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.userService.getCurrentUserObs().subscribe((user: User) => {
