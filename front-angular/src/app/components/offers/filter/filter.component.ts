@@ -4,7 +4,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { SelectService, UserService } from '../../../services';
-import { Filter, OfferType, OfferDuration, SelectOption, User } from '../../../../models';
+import { Filter, OfferType, OfferDuration, SelectOption, User, CompanyCategories } from '../../../../models';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
@@ -62,6 +62,8 @@ export class FilterComponent implements OnInit {
 
   dateFromDate: Date = new Date();
   dateStart = new FormControl(moment());
+
+  companyCategories = CompanyCategories;
 
   constructor(private userService: UserService,
               private selectService: SelectService) { }

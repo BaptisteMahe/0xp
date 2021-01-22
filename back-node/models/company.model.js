@@ -27,9 +27,9 @@ CompanyModel = {
                 bsonType: "string",
                 description: "[required][string] Company's email contact."
             },
-            size: {
-                enum: ["1-10", "10-100", "100-1000", "1000+"],
-                description: "[optional][enum] Company's size in number of employees between '0-10', '10-100', '100-1000' and '1000+'."
+            category: {
+                enum: ["TPE", "PME", "ETI", "GE"],
+                description: "[optional][enum] Company's category between 'TPE', 'PME', 'ETI' and 'GE'."
             },
             isPartner: {
                 bsonType: "bool",

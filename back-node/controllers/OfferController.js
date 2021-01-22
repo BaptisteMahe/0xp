@@ -117,7 +117,7 @@ function buildQuery(filter){
         // TODO: Remake Publication Date management
     }
 
-    if (filter.companySize) {
+    if (filter.companyCategory) {
         // TODO: Find a way to check size of company proposing offer
     }
 

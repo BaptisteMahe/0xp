@@ -51,10 +51,10 @@
   <div *ngIf="!isEdition">
     <div class="bloc">
       <div class="logo-display">
-        <img [src]="currentCompany.srcImage">
+        <img [src]="currentCompany?.srcImage">
       </div>
       <p><span class="label">Nom de l'entreprise : </span>{{currentCompany?.name}}</p>
-      <p><span class="label">Taille : </span>{{currentCompany?.size}}</p>
+      <p><span class="label">Catégorie : </span>{{currentCategoryDisplay}}</p>
       <p><span class="label">Localisation : </span>{{currentCompany?.location}}</p>
     </div>
     <div class="bloc">
@@ -77,8 +77,8 @@
       </div>
       <div class="center">
         <mat-form-field class="center">
-          <mat-select matNativeControl [(ngModel)]="currentCompanyEdit.size">
-            <mat-option *ngFor="let size of sizeList" [value]=size >{{size}}</mat-option>
+          <mat-select matNativeControl [(ngModel)]="currentCompanyEdit.category">
+            <mat-option *ngFor="let category of companyCategories" [value]="category._id" >{{category.display}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="center">
