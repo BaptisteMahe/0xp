@@ -110,15 +110,15 @@ function hashUserPassword(user) {
 function splitUserCompany(userReceived) {
   let company = {
     name : userReceived.companyName,
-    description: userReceived.description,
-    srcImage: userReceived.srcImage,
+    description: userReceived.description || '',
+    srcImage: userReceived.srcImage || '',
     contact: userReceived.email,
     isPartner: false
   }
+
   if (userReceived.size) {
     company.size = userReceived.size
   }
-
   let companyUser = {
     username: userReceived.username,
     hash: userReceived.hash,

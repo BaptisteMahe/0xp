@@ -18,6 +18,5 @@ export const companyRegisterForm = {
     companyName: ['', Validators.required],
     description: [''],
     size: [''],
-    srcImage: [''],
     type: [UserType.Company]
 };

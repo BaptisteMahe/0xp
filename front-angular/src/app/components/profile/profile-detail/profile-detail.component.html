@@ -6,7 +6,6 @@
 
   <div *ngIf="!isEdition">
     <div class="bloc">
-      <h2>Informations Générales</h2>
       <p><span class="label">Nom : </span>{{currentUser?.firstName}} {{currentUser?.name}}</p>
     </div>
     <div class="bloc">
@@ -22,7 +21,6 @@
     <h1 class="center profile-edition">Edition du Profil</h1>
     <br />
     <div class="bloc">
-      <h3 class="center">Informations générales</h3>
       <div class="center">
         <mat-form-field class="center">
           <input name="first-name-input" matInput placeholder="Prénom" [(ngModel)]="currentUserEdit.firstName">
@@ -45,14 +43,16 @@
       </div>
       <br />
     </div>
-    <h3 class="button btn-success" (click)="updateProfile()" routerLink="/profile">Modifier</h3>
+    <h3 class="button btn-success" (click)="updateProfile()">Modifier</h3>
   </div>
 </div>
 
 <div *ngIf="currentUser?.type === 'company'">
   <div *ngIf="!isEdition">
     <div class="bloc">
-      <h3>Informations générales</h3>
+      <div class="logo-display">
+        <img [src]="currentCompany.srcImage">
+      </div>
       <p><span class="label">Nom de l'entreprise : </span>{{currentCompany?.name}}</p>
       <p><span class="label">Taille : </span>{{currentCompany?.size}}</p>
       <p><span class="label">Localisation : </span>{{currentCompany?.location}}</p>
@@ -69,11 +69,10 @@
     <h1 class="center">Edition du Profil</h1>
     <br />
     <div class="bloc">
-      <h3 class="center">Informations générales</h3>
-      <br />
+      <app-add-logo [logoAsBase64]="logoAsBase64" (logoReadyEvent)="onLogoReady($event)"></app-add-logo>
       <div class="center">
         <mat-form-field class="center title">
-          <input matInput placeholder="Nom de l'Entreprise" [(ngModel)]="currentUserEdit.name">
+          <input matInput placeholder="Nom de l'Entreprise" [(ngModel)]="currentCompanyEdit.name">
         </mat-form-field>
       </div>
       <div class="center">
@@ -102,6 +101,6 @@
       </div>
     </div>
 
-    <h3 class="button btn-success" (click)="updateProfile()" routerLink="/profile">Modifier</h3>
+    <h3 class="button btn-success" (click)="updateProfile()">Modifier</h3>
   </div>
 </div>

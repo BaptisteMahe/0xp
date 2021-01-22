@@ -9,6 +9,8 @@ registerLocaleData(localeFr, 'fr');
 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+
 import { HomeComponent } from './components/home/home.component';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -40,6 +42,7 @@ import { AvisCompanyComponent } from './components/entreprises/avis-company/avis
 import { AddCompanyComponent } from './components/entreprises/add-company/add-company.component';
 import { ListCompanyComponent, DeleteCompanyComponent } from './components/entreprises/list-company/list-company.component';
 import { AvisOverviewComponent } from './components/entreprises/avis-company/avis-overview/avis-overview.component';
+import { AddLogoComponent } from './components/entreprises/add-logo/add-logo.component';
 
 import { CompanyService, UserService, SelectService, OfferService } from './services';
 
@@ -76,7 +79,8 @@ import { MaterialModule } from './modules/material.module';
     DeleteCompanyComponent,
     DeleteDialogContentComponent,
     QuitEditionDialogContentComponent,
-    AvisOverviewComponent
+    AvisOverviewComponent,
+    AddLogoComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +90,8 @@ import { MaterialModule } from './modules/material.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CKEditorModule
+    CKEditorModule,
+    Ng2ImgMaxModule
   ],
   entryComponents: [
     DeleteDialogContentComponent,
