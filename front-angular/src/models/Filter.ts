@@ -1,5 +1,6 @@
 import { SelectOption } from './SelectOption';
 import { OfferType, OfferDuration } from './Offer';
+import { CompanyCategoryValue } from './Company';
 
 export interface Filter {
   textInput: string;
@@ -10,7 +11,7 @@ export interface Filter {
   company: SelectOption[];
   isPartner: boolean;
   createdDate: Date;
-  companySize: string;
+  companyCategory: CompanyCategoryValue;
   startDate: Date;
   matchingMini: number;
   remunMini: number;

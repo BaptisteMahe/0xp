@@ -17,6 +17,6 @@ export const companyRegisterForm = {
     email: ['', [Validators.required, Validators.email]],
     companyName: ['', Validators.required],
     description: [''],
-    size: [''],
+    category: [''],
     type: [UserType.Company]
 };
