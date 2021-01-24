@@ -47,5 +47,5 @@ async function applyAllSchemas(db) {
 connect().then(db => {
   applyAllSchemas(db).then(() => {
     client.close();
-  })
+  });
 });

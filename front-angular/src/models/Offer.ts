@@ -14,6 +14,7 @@ export interface Offer {
   sector: SelectOption;
   company: SelectOptionCompany;
   createdDate: Date;
+  pdfId?: string;
   matchingScore?: number;
 }
 

@@ -2,10 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.pdf-preview {
-  font-size: 1em;
+  justify-content: center;
 }
 
 .pdf-upload {
@@ -13,6 +10,16 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 5px;
+}
+
+.pdf-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdf-name {
+  margin-top: 5px;
 }
 
 #pdf-upload {

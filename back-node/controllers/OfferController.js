@@ -55,6 +55,9 @@ function formatPropertiesTypes(offer) {
     if (offer._id) {
         offer._id = ObjectId(offer._id);
     }
+    if (offer.pdfId) {
+        offer.pdfId = ObjectId(offer.pdfId);
+    }
     offer.company._id = ObjectId(offer.company._id);
     offer.sector._id = ObjectId(offer.sector._id);
     offer.domains.forEach((domain, index) => {

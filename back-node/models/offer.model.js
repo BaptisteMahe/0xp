@@ -35,6 +35,10 @@ OfferModel = {
                 bsonType: "int",
                 description: "[optional][int] The date when the experience start."
             },
+            pdfId: {
+                bsonType: "objectId",
+                description: "[optional][objectId] The Id referring to PDF's offer."
+            },
             domains : {
                 bsonType: "array",
                 description: "[required][array] Array of domains concerning the offer.",

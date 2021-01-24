@@ -1,13 +1,15 @@
 const http = require('http');
 const MongoClient = require('mongodb').MongoClient;
+const GridFSBucket = require('mongodb').GridFSBucket;
 const express = require('express');
 const app = express();
 
-let OfferController = require('./controllers/OfferController');
-let UserController = require('./controllers/UserController');
-let CompanyController = require('./controllers/CompanyController');
-let SelectController = require('./controllers/SelectController');
-let AvisController = require('./controllers/AvisController');
+const OfferController = require('./controllers/OfferController');
+const UserController = require('./controllers/UserController');
+const CompanyController = require('./controllers/CompanyController');
+const SelectController = require('./controllers/SelectController');
+const AvisController = require('./controllers/AvisController');
+const DocumentController = require('./controllers/DocumentController');
 const config = require('./config.json');
 const PORT = process.argv[2] || 3000;
 
@@ -27,6 +29,7 @@ app.use('/users', UserController);
 app.use('/companies', CompanyController);
 app.use('/select', SelectController);
 app.use('/avis', AvisController);
+app.use('/documents', DocumentController);
 
 // Handle 404
 app.use(function (req, res) {
@@ -53,6 +56,7 @@ const client = new MongoClient(config.mongoUri, {
 client.connect(err => {
     if (err) return console.log(err);
     db = client.db('0xpDB');
+    gridFSBucket = new GridFSBucket(client.db("0xpDB"));
     let httpServer = http.createServer(app);
     httpServer.listen(PORT, () => console.log(`API running on localhost:${PORT}`));
 });

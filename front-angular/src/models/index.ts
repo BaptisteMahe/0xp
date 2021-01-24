@@ -5,3 +5,4 @@ export * from './Avis';
 export * from './Offer';
 export * from './Filter';
 export * from './RegisterForms';
+export * from './Document';
