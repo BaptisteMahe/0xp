@@ -45,6 +45,7 @@ export class OfferDetailComponent implements OnInit {
         if (this.offer.pdfId) {
           this.documentService.getById(this.offer.pdfId).subscribe((pdf) => {
             this.offerPdf = pdf;
+            // TODO: Find why is it needed. (and doesn't work properly)
             window.scroll(0, 0);
           });
         } else {
