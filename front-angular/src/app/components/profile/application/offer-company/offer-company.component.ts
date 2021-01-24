@@ -3,7 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Offer, User } from '../../../../../models';
-import { OfferService, UserService } from '../../../../services';
+import { DocumentService, OfferService, UserService } from '../../../../services';
 import { QuitEditionDialogContentComponent } from './add-offer/add-offer.component';
 
 @Component({
@@ -20,6 +20,7 @@ export class OfferCompanyComponent implements OnInit {
 
   constructor(private offerViewService: OfferService,
               private userService: UserService,
+              private documentService: DocumentService,
               private matDialog: MatDialog,
               private matSnackBar: MatSnackBar) { }
 
@@ -44,7 +45,15 @@ export class OfferCompanyComponent implements OnInit {
   deleteItem(offerToBeDeleted: Offer) {
     this.offerViewService.deleteOffer(offerToBeDeleted._id).subscribe(
       (response) => {
-        this.getOfferList();
+        if (offerToBeDeleted.pdfId) {
+          this.documentService.deleteById(offerToBeDeleted.pdfId).subscribe(
+              () => {
+                this.getOfferList();
+              }, (error) => {
+                this.matSnackBar.open('Error deleting the offer\'s pdf : ' + error,
+                    null, { duration: 3000, panelClass: ['snack-bar-error'] });
+              });
+        }
       }, (error) => {
         this.matSnackBar.open('Error deleting the offer : ' + error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
       }

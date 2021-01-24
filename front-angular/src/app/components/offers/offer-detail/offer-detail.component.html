@@ -31,18 +31,18 @@
 <!-- TODO: Update this-->
 <div class="bg">
   <img *ngIf="offer.sector?._id=='5e53bcf91c9d4400004cf2b6'" class="img-bg"
-    src="https://ktechgmbh.com/wp-content/uploads/2019/05/code_banner.jpg" alt="banner" />
+       src="https://ktechgmbh.com/wp-content/uploads/2019/05/code_banner.jpg" alt="banner" />
 
   <img *ngIf="offer.sector?._id=='5e66234a1c9d440000ec953a'" class="img-bg"
-    src="https://www.vo.eu/fr/wp-content/uploads/sites/3/2018/06/Chemie-banner.jpg" alt="banner" />
+       src="https://www.vo.eu/fr/wp-content/uploads/sites/3/2018/06/Chemie-banner.jpg" alt="banner" />
 
   <img *ngIf="offer.sector?._id=='5e6645e41c9d440000c5514a'" class="img-bg"
-    src="https://lh3.googleusercontent.com/proxy/h8bbmC6L7_1rwpyt39nIIC6kY7g7ESf55tQQZUtofVs96SHOeiDSY69IYO9xH98QNK7fe4oVh4qP9OReydVR21F4dTTyMfdOqLcKMGbbjsCW1cjGIq-_he5_ydeZGlE"
-    alt="banner" />
+       src="https://lh3.googleusercontent.com/proxy/h8bbmC6L7_1rwpyt39nIIC6kY7g7ESf55tQQZUtofVs96SHOeiDSY69IYO9xH98QNK7fe4oVh4qP9OReydVR21F4dTTyMfdOqLcKMGbbjsCW1cjGIq-_he5_ydeZGlE"
+       alt="banner" />
 
   <img *ngIf="offer.sector?._id=='5e6644681c9d440000c55143'" class="img-bg"
-    src="https://www.maherrichardson.ie/wp-content/uploads/2017/05/Commercial_insurance_Dublin-banner.jpg"
-    alt="banner" />
+       src="https://www.maherrichardson.ie/wp-content/uploads/2017/05/Commercial_insurance_Dublin-banner.jpg"
+       alt="banner" />
 </div>
 
 <div class="offer-sheet">
@@ -53,7 +53,6 @@
     <h1 *ngIf="offer.matchingScore < 0">--</h1>
     <h4 *ngIf="offer.matchingScore < 0">%</h4>
   </div>
-  <br />
 
   <ul class="main_infos">
     <li>{{ offer.location }}</li>
@@ -62,18 +61,21 @@
     <li *ngIf="!!(offer.remuneration)">{{ offer.remuneration }} €</li>
   </ul>
 
-  <br />
-
   <div *ngIf="offer.domains?.length > 0">
     <h1>Mots clés</h1>
     <ul>
       <li *ngFor="let domain of offer.domains">{{ domain.display }}</li>
     </ul>
-    <br />
   </div>
 
   <h1>Description du poste</h1>
   <p [innerHTML]="offer.description"></p>
-  <br />
+
+  <div *ngIf="offerPdf">
+    <pdf-viewer
+            [src]="offerPdf.base64Data"
+            [show-borders]="true">
+    </pdf-viewer>
+  </div>
 
 </div>

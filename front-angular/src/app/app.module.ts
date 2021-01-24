@@ -10,6 +10,7 @@ registerLocaleData(localeFr, 'fr');
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { HomeComponent } from './components/home/home.component';
 
@@ -35,6 +36,7 @@ import { ProfileDetailComponent } from './components/profile/profile-detail/prof
 import { OfferSquareComponent } from './components/profile/application/offer-square/offer-square.component';
 import { OfferCompanyComponent, DeleteDialogContentComponent } from './components/profile/application/offer-company/offer-company.component';
 import { AddOfferComponent, QuitEditionDialogContentComponent } from './components/profile/application/offer-company/add-offer/add-offer.component';
+import { AddPdfComponent, PdfPreviewComponent } from './components/entreprises/add-pdf/add-pdf.component';
 
 import { EntreprisesComponent } from './components/entreprises/entreprises.component';
 import { DetailCompanyComponent } from './components/entreprises/detail-company/detail-company.component';
@@ -44,7 +46,7 @@ import { ListCompanyComponent, DeleteCompanyComponent } from './components/entre
 import { AvisOverviewComponent } from './components/entreprises/avis-company/avis-overview/avis-overview.component';
 import { AddLogoComponent } from './components/entreprises/add-logo/add-logo.component';
 
-import { CompanyService, UserService, SelectService, OfferService } from './services';
+import { CompanyService, UserService, SelectService, OfferService, DocumentService } from './services';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
@@ -80,7 +82,9 @@ import { MaterialModule } from './modules/material.module';
     DeleteDialogContentComponent,
     QuitEditionDialogContentComponent,
     AvisOverviewComponent,
-    AddLogoComponent
+    AddLogoComponent,
+    AddPdfComponent,
+    PdfPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -91,16 +95,18 @@ import { MaterialModule } from './modules/material.module';
     ReactiveFormsModule,
     HttpClientModule,
     CKEditorModule,
-    Ng2ImgMaxModule
+    Ng2ImgMaxModule,
+    PdfViewerModule
   ],
   entryComponents: [
     DeleteDialogContentComponent,
     QuitEditionDialogContentComponent,
     DeleteCompanyComponent,
-    AddCompanyComponent
+    AddCompanyComponent,
+    PdfPreviewComponent
   ],
   exports: [OfferDetailComponent],
-  providers: [OfferService, CompanyService, UserService, SelectService,
+  providers: [OfferService, CompanyService, UserService, SelectService, DocumentService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'fr' }],

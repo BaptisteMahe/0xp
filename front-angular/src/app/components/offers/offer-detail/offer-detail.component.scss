@@ -105,7 +105,7 @@ h4 {
   position: relative;
   align-items: center;
   overflow: hidden;
-  z-index: -50;
+  z-index: -10;
 }
 
 .matching {
@@ -147,9 +147,7 @@ p {
 .offer-sheet {
   background-color: white;
   padding: 3% 10%;
-  margin: 10%;
-  margin-top: 2%;
-  margin-bottom: 2%;
+  margin: 2% 10%;
   box-shadow: #0000047a 0px 0px 10px;
   text-align: justify;
 }

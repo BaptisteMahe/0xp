@@ -7,13 +7,14 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { Observable } from 'rxjs';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
 const moment = _rollupMoment || _moment;
 
-import { UserService, OfferService, SelectService, CompanyService } from '../../../../../services';
+import { UserService, OfferService, SelectService, CompanyService, DocumentService } from '../../../../../services';
 import {
   Offer,
   OfferType,
@@ -21,7 +22,8 @@ import {
   User,
   SelectOption,
   SelectOptionCompany,
-  Company
+  Company,
+  Document
 } from '../../../../../../models';
 
 export const MY_FORMATS = {
@@ -55,6 +57,8 @@ export class AddOfferComponent implements OnInit {
   @Input() offerEdited: Offer;
   isEdition = false;
 
+  loading = false;
+
   @Output() updatedEvent = new EventEmitter<any>();
 
   editor = ClassicEditor;
@@ -79,12 +83,16 @@ export class AddOfferComponent implements OnInit {
 
   companiesList: SelectOptionCompany[];
 
+  oldOfferPdf: Document;
+  newOfferPdf: Document;
+
   currentUser: User;
 
   constructor(private offerViewService: OfferService,
               private userService: UserService,
               private selectService: SelectService,
               private companyService: CompanyService,
+              private documentService: DocumentService,
               private router: Router,
               private matSnackBar: MatSnackBar,
               private matDialog: MatDialog) {
@@ -101,6 +109,11 @@ export class AddOfferComponent implements OnInit {
       this.locationCountry = this.offerOnForm.location.split(',')[1].trim();
       this.selectedDomainsIdList = this.offerOnForm.domains.map(domain => domain._id);
       this.selectedSectorId = this.offerOnForm.sector._id;
+      if (this.offerOnForm.pdfId) {
+        this.documentService.getById(this.offerOnForm.pdfId).subscribe((pdf: Document) => {
+          this.oldOfferPdf = pdf;
+        });
+      }
     } else {
       this.offerOnForm.description = '';
     }
@@ -120,19 +133,37 @@ export class AddOfferComponent implements OnInit {
     }
   }
 
-  // TODO : Refactor that function
-  addOrEditOffer() {
+  onSubmit() {
+    this.loading = true;
     this.fixSectorAndCompany();
     this.fixDomains();
 
-    if (!this.isEdition) {
-      this.offerOnForm.startDate = this.dateFromDate;
-      this.offerOnForm.createdDate = new Date();
-      this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
-      if (!this.checkCurrentOfferValidity()) {
-        this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });
-        return;
+    this.offerOnForm.startDate = this.dateFromDate;
+    this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
+
+    if (this.checkCurrentOfferValidity()) {
+      const updatePdfObs = this.updatePdf();
+      if (updatePdfObs) {
+        updatePdfObs.subscribe(newPdfId => {
+          if (newPdfId === null){
+          } else {
+            this.offerOnForm.pdfId = newPdfId;
+          }
+          this.addOrEditOffer();
+          }, error => {
+          this.matSnackBar.open('Il y a eu une erreur avec le pdf', null, { duration: 3000, panelClass: ['snack-bar-error'] });
+        });
+      } else {
+        this.addOrEditOffer();
       }
+    } else {
+      this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });
+    }
+  }
+
+  addOrEditOffer() {
+    if (!this.isEdition) {
+      this.offerOnForm.createdDate = new Date();
       this.offerViewService.addOffer(this.offerOnForm).subscribe(
           success => {
             this.router.navigate(['/profile']);
@@ -141,12 +172,6 @@ export class AddOfferComponent implements OnInit {
           }
       );
     } else {
-      this.offerOnForm.startDate = this.dateFromDate;
-      this.offerOnForm.location = this.locationCity + ', ' + this.locationCountry;
-      if (!this.checkCurrentOfferValidity()) {
-        this.matSnackBar.open('Certaines informations sont incorrectes', null, { duration: 3000, panelClass: ['snack-bar-error'] });
-        return;
-      }
       this.offerViewService.editOffer(this.offerOnForm).subscribe(
           success => {
             this.updatedEvent.emit();
@@ -154,6 +179,21 @@ export class AddOfferComponent implements OnInit {
             this.matSnackBar.open('Erreur avec le serveur : ' + error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
           }
       );
+    }
+  }
+
+  updatePdf(): Observable<string> {
+    if (this.newOfferPdf) {
+      if (this.newOfferPdf._id === 'delete' && this.oldOfferPdf?._id) {
+        delete this.offerOnForm.pdfId;
+        return this.documentService.deleteById(this.oldOfferPdf._id);
+      } else if (this.oldOfferPdf?._id) {
+        return this.documentService.update({...this.newOfferPdf, _id: this.oldOfferPdf._id});
+      } else {
+        return this.documentService.add(this.newOfferPdf);
+      }
+    } else {
+      return null;
     }
   }
 
@@ -215,6 +255,15 @@ export class AddOfferComponent implements OnInit {
         || this.offerOnForm.type === undefined
         || this.offerOnForm.description === ''
         || this.offerOnForm.location === '');
+  }
+
+  onPdfReady(event: Document) {
+    this.loading = false;
+    this.newOfferPdf = event;
+  }
+
+  onPdfLoading(){
+    this.loading = true;
   }
 }
 

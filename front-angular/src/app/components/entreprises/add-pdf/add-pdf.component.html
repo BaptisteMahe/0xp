@@ -1,0 +1,12 @@
+<div class="pdf-upload-container">
+    <label for="pdf-upload" class="pdf-upload">
+        <a mat-raised-button >{{currentPdf?.base64Data ? 'Changer le PDF' : 'Choisir un PDF'}}</a>
+    </label>
+    <input #pdfInput id="pdf-upload" type="file" (change)="onPdfChange($event)">
+
+    <div *ngIf="currentPdf?.base64Data" class="pdf-info-container">
+        <button mat-icon-button (click)="onDelete(pdfInput)"><mat-icon>delete</mat-icon></button>
+        <div class="pdf-name">{{currentPdf.name}}</div>
+        <button mat-icon-button (click)="onPreviewClick()"><mat-icon>visibility</mat-icon></button>
+    </div>
+</div>
