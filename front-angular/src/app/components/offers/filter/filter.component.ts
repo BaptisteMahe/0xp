@@ -4,7 +4,15 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { SelectService, UserService } from '../../../services';
-import { Filter, OfferType, OfferDuration, SelectOption, User, CompanyCategories } from '../../../../models';
+import {
+  Filter,
+  OfferType,
+  OfferDuration,
+  SelectOption,
+  User,
+  StudentTypes,
+  OfferResearchType, getKeyFromValue, OfferResearchToFilters
+} from '../../../../models';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
@@ -50,27 +58,21 @@ export class FilterComponent implements OnInit {
 
   typeList = Object.values(OfferType);
   timeList = Object.values(OfferDuration);
+  studentTypes = StudentTypes;
+  offerResearchTypes = Object.values(OfferResearchType);
+  selectedChip: OfferResearchType;
   sectorList: SelectOption[];
-
-  // Pour le filtre avancé
-  salaireMax: number;
+  offerLocationList: SelectOption[] = [];
 
   isMoreFilterOpen = false;
 
-  offerLocationList: SelectOption[] = [];
-  offerCompanyList: SelectOption[] = [];
-
-  dateFromDate: Date = new Date();
   dateStart = new FormControl(moment());
-
-  companyCategories = CompanyCategories;
 
   constructor(private userService: UserService,
               private selectService: SelectService) { }
 
   ngOnInit() {
-    this.currentFilter = {isPartner: false} as Filter;
-    this.dateFromDate.setDate(1);
+    this.currentFilter = { } as Filter;
 
     this.userService.getCurrentUserObs().subscribe((user: User) => {
       this.currentUser = user;
@@ -80,6 +82,13 @@ export class FilterComponent implements OnInit {
   }
 
   onFilterClick() {
+    this.selectedChip = null;
+    this.filterEvent.emit(this.currentFilter);
+  }
+
+  onChipClick(selectedChip: OfferResearchType) {
+    this.selectedChip = selectedChip;
+    this.currentFilter = {...this.currentFilter, ...OfferResearchToFilters[getKeyFromValue(this.selectedChip)]};
     this.filterEvent.emit(this.currentFilter);
   }
 
@@ -87,23 +96,18 @@ export class FilterComponent implements OnInit {
     const ctrlValue = this.dateStart.value;
     ctrlValue.year(normalizedYear.year());
     this.dateStart.setValue(ctrlValue);
-    this.dateFromDate.setUTCFullYear(this.dateStart.value._d.getUTCFullYear());
   }
 
-  chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+  chosenMonthHandler(normalizedMonth: Moment, datepicker) {
     const ctrlValue = this.dateStart.value;
     ctrlValue.month(normalizedMonth.month());
     this.dateStart.setValue(ctrlValue);
     datepicker.close();
-    this.dateFromDate.setMonth(this.dateStart.value._d.getMonth());
   }
 
   getSelectOptions() {
     this.selectService.getSectors().subscribe(sectors => {
       this.sectorList = sectors;
-    });
-    this.selectService.getCompaniesForSelectNoImg().subscribe(companies => {
-      this.offerCompanyList = companies;
     });
     this.selectService.getLocations().subscribe(locations => {
       this.offerLocationList = locations;

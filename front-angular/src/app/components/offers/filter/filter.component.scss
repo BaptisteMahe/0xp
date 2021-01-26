@@ -13,8 +13,20 @@ img {
   display: flex;
 }
 
-.notification-button {
-  margin-left: 10px;
+.chip-list-container {
+  display: flex;
+  justify-content: center;
+
+  mat-chip {
+    font-family: MadeRegular, Calibri;
+    box-shadow: #00000447 0px 2px 3px;
+  }
+}
+
+.selected-mat-chip {
+  background-color: var(--color-blue-medium);
+  color: #fafafa;
+  opacity: 1;
 }
 
 .box-mandatory {
@@ -61,8 +73,7 @@ img {
   width: 90%;
   display: flex;
   justify-content: space-around;
-  margin: 6vh auto -2vh auto;
-  margin-bottom: 60px;
+  margin: 3vh auto;
 }
 
 .filter-element {
