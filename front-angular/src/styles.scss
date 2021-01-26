@@ -169,3 +169,7 @@ input {
 .mat-drawer-backdrop{
   margin-top: 10vh;
 }
+
+.mat-chip.mat-standard-chip::after {
+  background: #fff;
+}

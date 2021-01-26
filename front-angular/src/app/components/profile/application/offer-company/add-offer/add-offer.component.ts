@@ -23,7 +23,8 @@ import {
   SelectOption,
   SelectOptionCompany,
   Company,
-  Document
+  Document,
+  StudentTypes
 } from '../../../../../../models';
 
 export const MY_FORMATS = {
@@ -65,6 +66,7 @@ export class AddOfferComponent implements OnInit {
 
   offerType = Object.values(OfferType);
   offerDuration = Object.values(OfferDuration);
+  offerStudentTypes = StudentTypes;
 
   listCountries: string[] = ['France', 'Espagne', 'Angleterre', 'Inde', 'Chine'];
   // TODO : Get countries otherwise, example: from https://github.com/apilayer/restcountries

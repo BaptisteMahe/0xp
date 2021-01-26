@@ -35,9 +35,9 @@
     </mat-form-field>
 
     <mat-form-field class="center">
-      <mat-label>Secteur</mat-label>
-      <mat-select [(value)]="selectedSectorId">
-        <mat-option *ngFor="let sector of sectorList" [value]="sector._id">{{sector.display}}</mat-option>
+      <mat-label>Profil recherché</mat-label>
+      <mat-select [(value)]="offerOnForm.studentTypes" [multiple]="true">
+        <mat-option *ngFor="let studentType of offerStudentTypes" [value]="studentType._id">{{studentType.display}}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -45,6 +45,13 @@
       <mat-label>Durée</mat-label>
       <mat-select [(value)]="offerOnForm.duration">
         <mat-option *ngFor="let duration of offerDuration" [value]="duration">{{duration}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="center">
+      <mat-label>Secteur</mat-label>
+      <mat-select [(value)]="selectedSectorId">
+        <mat-option *ngFor="let sector of sectorList" [value]="sector._id">{{sector.display}}</mat-option>
       </mat-select>
     </mat-form-field>
 

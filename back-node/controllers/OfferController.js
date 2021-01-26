@@ -13,26 +13,26 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     const offer = formatPropertiesTypes(req.body);
     db.collection('offers').insertOne(offer)
-        .then(result => res.json({_id: result.insertedId}))
+        .then(result => res.json({ _id: result.insertedId }))
         .catch(next);
 });
 
 router.get('/:id', function (req, res, next) {
     db.collection('offers').findOne({ _id: ObjectId(req.params.id) })
-        .then(offer => offer ? res.json(offer) : next({message: "Offer not found.", code: 404}))
+        .then(offer => offer ? res.json(offer) : next({ message: "Offer not found.", code: 404 }))
         .catch(next);
 });
 
 router.put('/:id', function (req, res, next) {
     const offer = formatPropertiesTypes(req.body);
-    db.collection('offers').updateOne({ _id: offer._id }, {$set: offer})
-        .then(() => res.json({_id: offer._id}))
+    db.collection('offers').updateOne({ _id: offer._id }, { $set: offer })
+        .then(() => res.json({ _id: offer._id }))
         .catch(next);
 });
 
 router.delete('/:id', function (req, res, next) {
     db.collection('offers').findOneAndDelete({ _id: ObjectId(req.params.id) })
-        .then(() => res.json({_id: req.params.id}))
+        .then(() => res.json({ _id: req.params.id }))
         .catch(next);
 });
 
@@ -81,9 +81,9 @@ function buildQuery(filter){
 
     if (filter.textInput) {
         let textAttributeArray = ["title", "company.display", "location", "sector.display", "type", "description"];
-        let textInputQuery = { $or: []};
+        let textInputQuery = { $or: [] };
         textAttributeArray.forEach(textAttribute => {
-            textInputQuery.$or.push({[textAttribute]: {$regex: `.*${filter.textInput}.*`, $options: 'i'}});
+            textInputQuery.$or.push({ [textAttribute]: { $regex: `.*${filter.textInput}.*`, $options: 'i' }});
         })
         query.push(textInputQuery);
     }
@@ -94,34 +94,19 @@ function buildQuery(filter){
     });
 
     if (filter.sector) {
-        query.push({"sector._id": ObjectId(filter.sector._id)});
+        query.push({ "sector._id": ObjectId(filter.sector._id) });
+    }
+
+    if (filter.studentType) {
+        query.push({ studentTypes: {$all: [filter.studentType]} });
     }
 
     if (filter.location && filter.location.length) {
-        let locationQuery = {$or: []};
+        let locationQuery = { $or: [] };
         filter.location.forEach(location => {
-            locationQuery.$or.push({location: location._id});
+            locationQuery.$or.push({ location: location._id });
         });
         query.push(locationQuery);
-    }
-    if (filter.company && filter.company.length) {
-        let companyQuery = {$or: []};
-        filter.company.forEach(company => {
-            companyQuery.$or.push({"company._id": ObjectId(company._id)});
-        });
-        query.push(companyQuery);
-    }
-
-    if (filter.isPartner) {
-        // TODO: Find a way to check partnership of company proposing offer
-    }
-
-    if (filter.publicationDate) {
-        // TODO: Remake Publication Date management
-    }
-
-    if (filter.companyCategory) {
-        // TODO: Find a way to check size of company proposing offer
     }
 
     if (filter.matchingMini) {
@@ -129,14 +114,14 @@ function buildQuery(filter){
     }
 
     if (filter.remunMini) {
-        query.push({remuneration: {$gte: filter.remunMini}});
+        query.push({remuneration: { $gte: filter.remunMini }});
     }
 
-    return query.length ? {$and: query} : {};
+    return query.length ? { $and: query } : { };
 }
 
 function addPrimaryCriteriaToQuery(criteria, query, filter) {
     if (filter[criteria]) {
-        query.push({[criteria]: filter[criteria]});
+        query.push({ [criteria]: filter[criteria] });
     }
 }
