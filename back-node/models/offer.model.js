@@ -1,7 +1,7 @@
 OfferModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: ["_id", "title", "type", "description", "location", "duration", "startDate", "domains", "sector", "company", "createdDate"],
+        required: ["_id", "title", "type", "description", "location", "duration", "studentTypes", "startDate", "domains", "sector", "company", "createdDate"],
         additionalProperties: false,
         properties: {
             _id: {
@@ -12,8 +12,8 @@ OfferModel = {
                 description: "[required][string] Offer's title."
             },
             type: {
-                enum: ["Stage", "Alternance", "Premier Emploi"],
-                description: "[required][enum] Offer's type between 'Stage', 'Alternance' and 'Premier Emploi'."
+                enum: ["Stage", "Alternance", "VIE", "CDI", "CDD"],
+                description: "[required][enum] Offer's type between 'Stage', 'Alternance', 'VIE', 'CDI', 'CDD'."
             },
             description: {
                 bsonType: "string",
@@ -24,8 +24,17 @@ OfferModel = {
                 description: "[required][string] Location where the experience will take place."
             },
             duration: {
-                enum: ["1-2 mois", "6 mois", "2 ans", "CDI"],
+                enum: ["1-2 mois", "2-3 mois", "4-6 mois", "1-2 ans", "CDI"],
                 description: "[required][enum] Experience's time duration."
+            },
+            studentTypes:{
+                bsonType: "array",
+                description: "[required][array] Array student profile desired for the offer.",
+                uniqueItems: true,
+                items: {
+                    enum: ["1A", "2A", "3A", "3A+"],
+                    description: "[required][enum] String describing student's profile between '1A', '2A', '3A' and '3A+'."
+                }
             },
             startDate: {
                 bsonType: "date",
