@@ -1,11 +1,11 @@
 <div class="avis-preview">
   <div *ngFor="let avis of avisList" class="avis-box">
-    <app-avis-overview [avis]="avis"></app-avis-overview>
+    <app-avis-overview (deleteEvent)="onDeleteEvent($event)" [isAdmin]="currentUser?.type === 'admin'" [avis]="avis"></app-avis-overview>
   </div>
 
 </div>
 
-<div *ngIf="currentUser?.type === 'student'" class="form-avis">
+<div *ngIf="currentUser?.type === 'student' || currentUser?.type === 'admin'" class="form-avis">
   <h1>Donne ton avis</h1>
   <br />
   <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">

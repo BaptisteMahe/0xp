@@ -40,7 +40,7 @@ import { AddPdfComponent, PdfPreviewComponent } from './components/entreprises/a
 
 import { EntreprisesComponent } from './components/entreprises/entreprises.component';
 import { DetailCompanyComponent } from './components/entreprises/detail-company/detail-company.component';
-import { AvisCompanyComponent } from './components/entreprises/avis-company/avis-company.component';
+import { AvisCompanyComponent, DeleteAvisComponent } from './components/entreprises/avis-company/avis-company.component';
 import { AddCompanyComponent } from './components/entreprises/add-company/add-company.component';
 import { ListCompanyComponent, DeleteCompanyComponent } from './components/entreprises/list-company/list-company.component';
 import { AvisOverviewComponent } from './components/entreprises/avis-company/avis-overview/avis-overview.component';
@@ -84,7 +84,8 @@ import { MaterialModule } from './modules/material.module';
     AvisOverviewComponent,
     AddLogoComponent,
     AddPdfComponent,
-    PdfPreviewComponent
+    PdfPreviewComponent,
+    DeleteAvisComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +104,8 @@ import { MaterialModule } from './modules/material.module';
     QuitEditionDialogContentComponent,
     DeleteCompanyComponent,
     AddCompanyComponent,
-    PdfPreviewComponent
+    PdfPreviewComponent,
+    DeleteAvisComponent
   ],
   exports: [OfferDetailComponent],
   providers: [OfferService, CompanyService, UserService, SelectService, DocumentService,

@@ -27,4 +27,8 @@ export class AvisService {
   getAllByCompanyId(id: string): Observable<Avis[]> {
     return this.httpClient.get<Avis[]>(this.apiUrl + '/avis/company/' + id);
   }
+
+  deleteById(id: string): Observable<string> {
+    return this.httpClient.delete<string>(this.apiUrl + '/avis/' + id);
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { first } from 'rxjs/operators';
 
@@ -24,12 +25,12 @@ export class AvisCompanyComponent implements OnInit {
 
   loading = false;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private matSnackBar: MatSnackBar,
-    private avisService: AvisService,
-    private userService: UserService) { }
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
+              private matSnackBar: MatSnackBar,
+              private matDialog: MatDialog,
+              private avisService: AvisService,
+              private userService: UserService) { }
 
   // TODO : étoiles au lieu de l'input, ou au moins un select plus propre.
   ngOnInit() {
@@ -87,4 +88,40 @@ export class AvisCompanyComponent implements OnInit {
     );
   }
 
+  onDeleteEvent(avisId) {
+    const dialogRef = this.matDialog.open(DeleteAvisComponent);
+
+    dialogRef.afterClosed().subscribe(
+        result => {
+          if (result) {
+            this.avisService.deleteById(avisId).subscribe(
+                _ => {
+                  this.loadAllAvis();
+                  this.matSnackBar.open('Avis supprimé avec succès', null, { duration: 3000, panelClass: ['snack-bar-success'] });
+                },
+                error => {
+                  this.matSnackBar.open('Une erreur est survenue lors de la suppression de l\'avis',
+                      null, { duration: 3000, panelClass: ['snack-bar-error'] });
+                }
+            );
+          }
+        }
+    );
+  }
 }
+
+@Component({
+  selector: 'app-delete-avis-dialog',
+  template: `
+  <h3 mat-dialog-title>Voulez-vous vraiment supprimer cette avis ?</h3>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true">Supprimer</button>
+    <button mat-button mat-dialog-close>Retour</button>
+  </div>
+  `,
+})
+export class DeleteAvisComponent {
+
+  constructor() { }
+}
+
