@@ -5,7 +5,7 @@ router.use(bodyParser.json());
 const ObjectId = require('mongodb').ObjectId;
 
 router.get('/', function (req, res, next) {
-    db.collection('offers').find().toArray()
+    db.collection('offers').find({ isValidated: req.query.isValidated == 'true'}).toArray()
         .then(results => res.json(results))
         .catch(next);
 });

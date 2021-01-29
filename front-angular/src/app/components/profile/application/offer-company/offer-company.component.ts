@@ -65,7 +65,7 @@ export class OfferCompanyComponent implements OnInit {
 
   getOfferList() {
     if (this.currentUser?.type === 'admin') {
-      this.offerViewService.getAllOffers().subscribe((listOffer: Offer[]) => {
+      this.offerViewService.getAllOffers(!this.validationPanel).subscribe((listOffer: Offer[]) => {
         this.listOffer = listOffer;
       });
     } else if (this.currentUser?.type === 'company') {
