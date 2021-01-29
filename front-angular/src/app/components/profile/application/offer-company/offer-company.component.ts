@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -12,6 +12,8 @@ import { QuitEditionDialogContentComponent } from './add-offer/add-offer.compone
   styleUrls: ['./offer-company.component.scss']
 })
 export class OfferCompanyComponent implements OnInit {
+
+  @Input() validationPanel: boolean = false;
 
   listOffer: Offer[] = [];
   isEditingOffer = false;
@@ -29,6 +31,7 @@ export class OfferCompanyComponent implements OnInit {
       this.currentUser = currentUser;
       this.getOfferList();
     });
+    console.log(this.validationPanel)
   }
 
   onDeleteClick(offerToBeDeleted: Offer) {
