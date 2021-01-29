@@ -1,7 +1,7 @@
 OfferModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: ["_id", "title", "type", "description", "location", "duration", "studentTypes", "startDate", "domains", "sector", "company", "createdDate"],
+        required: ["_id", "title", "type", "description", "location", "duration", "studentTypes", "startDate", "domains", "sector", "company", "createdDate", "isValidated"],
         additionalProperties: false,
         properties: {
             _id: {
@@ -109,6 +109,10 @@ OfferModel = {
             createdDate: {
                 bsonType: "date",
                 description: "[required][date] Date when the offer was published."
+            },
+            isValidated: {
+                bsonType: "bool",
+                description: "[required][boolean] If the offer has been validated by admin"
             }
         }
     }
