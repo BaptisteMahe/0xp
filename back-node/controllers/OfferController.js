@@ -36,6 +36,12 @@ router.delete('/:id', function (req, res, next) {
         .catch(next);
 });
 
+router.get('/validate/:id', function (req, res, next) {
+    db.collection('offers').updateOne({ _id: ObjectId(req.params.id) }, { $set: {isValidated: true} })
+        .then(() => res.json({ _id: req.params.id }))
+        .catch(next);
+});
+
 router.get('/byCompanyId/:id', function (req, res, next) {
     db.collection('offers').find({ "company._id":  ObjectId(req.params.id) }).toArray()
         .then(results => res.json(results))
