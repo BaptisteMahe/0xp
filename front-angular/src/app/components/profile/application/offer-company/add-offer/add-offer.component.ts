@@ -127,11 +127,12 @@ export class AddOfferComponent implements OnInit {
         this.offerOnForm.company = {
           _id : company._id,
           display: company.name,
-          srcImg: company.srcImage
+          srcImg: company.srcImage,
+          isPartner: company.isPartner
         };
       });
     } else if (this.currentUser.type === 'admin' && !this.offerEdited) {
-      this.offerOnForm.company = { } as SelectOption;
+      this.offerOnForm.company = { } as SelectOptionCompany;
     }
   }
 
@@ -203,7 +204,7 @@ export class AddOfferComponent implements OnInit {
     this.selectService.getDomains().subscribe(domains => {
       this.domainsList = domains;
     });
-    this.selectService.getCompaniesForSelectWithImg().subscribe(companies => {
+    this.selectService.getCompaniesForSelect().subscribe(companies => {
       this.companiesList = companies;
     });
     this.selectService.getSectors().subscribe(sectors => {

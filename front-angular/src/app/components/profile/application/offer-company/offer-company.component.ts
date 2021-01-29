@@ -61,11 +61,11 @@ export class OfferCompanyComponent implements OnInit {
   }
 
   getOfferList() {
-    if (this.currentUser.type === 'admin') {
+    if (this.currentUser?.type === 'admin') {
       this.offerViewService.getAllOffers().subscribe((listOffer: Offer[]) => {
         this.listOffer = listOffer;
       });
-    } else if (this.currentUser.type === 'company') {
+    } else if (this.currentUser?.type === 'company') {
       this.offerViewService.getAllOffersByCompanyId(this.currentUser.companyId).subscribe((listOffer: Offer[]) => {
         this.listOffer = listOffer;
       });

@@ -5,5 +5,6 @@ export interface SelectOption {
 }
 
 export interface SelectOptionCompany extends SelectOption {
+  isPartner: boolean;
   srcImg?: string;
 }
