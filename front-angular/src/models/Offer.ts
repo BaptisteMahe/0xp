@@ -17,6 +17,7 @@ export interface Offer {
   studentTypes: StudentTypeValue[];
   pdfId?: string;
   matchingScore?: number;
+  isValidated: boolean;
 }
 
 export enum OfferType {
