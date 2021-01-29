@@ -46,6 +46,10 @@ export class OfferService {
     return this.httpClient.post<Offer>(this.apiUrl + '/offers/', offer);
   }
 
+  validateOffer(id: string): Observable<string> {
+    return this.httpClient.get<string>(this.apiUrl + '/offers/validate/' + id);
+  }
+
   deleteOffer(id: string): Observable<string> {
     return this.httpClient.delete<string>(this.apiUrl + '/offers/' + id);
   }

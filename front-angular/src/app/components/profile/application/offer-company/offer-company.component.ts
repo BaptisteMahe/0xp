@@ -65,8 +65,11 @@ export class OfferCompanyComponent implements OnInit {
 
   onValidateClick(offerToBeValidated: Offer) {
     console.log('validating', offerToBeValidated)
+    this.offerViewService.validateOffer(offerToBeValidated._id).subscribe(() => {
+      this.getOfferList();
+    })
   }
-  
+
   onEditClick(offerToBeEdited: Offer) {
     this.isEditingOffer = true;
     this.offerToBeEdited = offerToBeEdited;
