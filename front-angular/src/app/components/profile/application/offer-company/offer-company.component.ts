@@ -63,25 +63,13 @@ export class OfferCompanyComponent implements OnInit {
     );
   }
 
-  getOfferList() {
-    if (this.currentUser?.type === 'admin') {
-      this.offerViewService.getAllOffers(!this.validationPanel).subscribe((listOffer: Offer[]) => {
-        this.listOffer = listOffer;
-      });
-    } else if (this.currentUser?.type === 'company') {
-      this.offerViewService.getAllOffersByCompanyId(this.currentUser.companyId).subscribe((listOffer: Offer[]) => {
-        this.listOffer = listOffer;
-      });
-    }
+  onValidateClick(offerToBeValidated: Offer) {
+    console.log('validating', offerToBeValidated)
   }
-
+  
   onEditClick(offerToBeEdited: Offer) {
     this.isEditingOffer = true;
     this.offerToBeEdited = offerToBeEdited;
-  }
-
-  onValidateClick(offerToBeDeleted: Offer) {
-    console.log("validate the offer", offerToBeDeleted)
   }
 
   onCloseEditionClick() {
@@ -96,6 +84,19 @@ export class OfferCompanyComponent implements OnInit {
         }
       });
   }
+
+  getOfferList() {
+    if (this.currentUser?.type === 'admin') {
+      this.offerViewService.getAllOffers(!this.validationPanel).subscribe((listOffer: Offer[]) => {
+        this.listOffer = listOffer;
+      });
+    } else if (this.currentUser?.type === 'company') {
+      this.offerViewService.getAllOffersByCompanyId(this.currentUser.companyId).subscribe((listOffer: Offer[]) => {
+        this.listOffer = listOffer;
+      });
+    }
+  }
+
 }
 
 @Component({
@@ -110,6 +111,5 @@ export class OfferCompanyComponent implements OnInit {
   `,
 })
 export class DeleteDialogContentComponent {
-
   constructor(@Inject(MAT_DIALOG_DATA) public offer: Offer) { }
 }
