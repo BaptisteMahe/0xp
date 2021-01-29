@@ -14,6 +14,9 @@
     <button mat-icon-button (click)="onEditClick(offer)">
       <mat-icon>edit</mat-icon>
     </button>
+    <button *ngIf="this.validationPanel" mat-icon-button (click)="onValidateClick(offer)">
+      <mat-icon>check_circle</mat-icon>
+    </button>
     <button mat-icon-button (click)="onDeleteClick(offer)">
       <mat-icon>delete</mat-icon>
     </button>

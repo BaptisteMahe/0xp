@@ -80,6 +80,10 @@ export class OfferCompanyComponent implements OnInit {
     this.offerToBeEdited = offerToBeEdited;
   }
 
+  onValidateClick(offerToBeDeleted: Offer) {
+    console.log("validate the offer", offerToBeDeleted)
+  }
+
   onCloseEditionClick() {
     const dialogRef = this.matDialog.open(QuitEditionDialogContentComponent);
 
