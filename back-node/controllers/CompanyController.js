@@ -39,7 +39,8 @@ router.put('/:id', function(req, res, next) {
             db.collection('offers').updateMany({'company._id': ObjectId(req.params.id)}, {
                 $set: {
                     'company.srcImg': company.srcImage,
-                    'company.display': company.name
+                    'company.display': company.name,
+                    'company.isPartner': company.isPartner
                 }
             })
                 .then(() => res.json({_id: req.params.id}))

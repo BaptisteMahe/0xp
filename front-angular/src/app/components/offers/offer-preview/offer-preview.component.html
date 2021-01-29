@@ -1,7 +1,7 @@
-<mat-card class="card" [routerLink]="[offer._id]">
+<mat-card class="card" [routerLink]="[offer._id]" [ngClass]="{'partner-company': offer.company.isPartner}">
   <mat-card-header class="header">
     <mat-card-title>{{ offer.title }}</mat-card-title>
-    <mat-card-subtitle>{{ offer.company.display }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ offer.company.display }} {{offer.company.isPartner ? ' - Partenaire ECM' : ''}}</mat-card-subtitle>
     <img class="logo-company" src="{{ offer.company.srcImg }}" />
   </mat-card-header>
   <mat-card-footer class="footer">

@@ -85,16 +85,20 @@ OfferModel = {
             company: {
                 bsonType: "object",
                 description: "[required][string] Information about the company offering the offer.",
-                required: [ "_id", "display"],
+                required: [ "_id", "display", "isPartner"],
                 additionalProperties: false,
                 properties: {
                     _id: {
                         bsonType: "objectId",
                         description: "[required][string] Id of the company offering the offer."
                     },
-                    display : {
+                    display: {
                         bsonType: "string",
                         description: "[required][string] Name of the company offering the offer."
+                    },
+                    isPartner: {
+                        bsonType: "bool",
+                        description: "[required][boolean] If the company offering the offer is partner with ECM or not"
                     },
                     srcImg: {
                         bsonType: "string",

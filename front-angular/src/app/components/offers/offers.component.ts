@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 import { Offer, Filter, User } from '../../../models';
 import { OfferService, SortCategory, UserService } from '../../services';

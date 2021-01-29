@@ -20,12 +20,8 @@ export class SelectService {
     return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/domains');
   }
 
-  getCompaniesForSelectWithImg(): Observable<SelectOptionCompany[]> {
+  getCompaniesForSelect(): Observable<SelectOptionCompany[]> {
     return this.httpClient.get<SelectOptionCompany[]>(this.apiUrl + '/select/companies/true');
-  }
-
-  getCompaniesForSelectNoImg(): Observable<SelectOption[]> {
-    return this.httpClient.get<SelectOption[]>(this.apiUrl + '/select/companies/false');
   }
 
   getLocations(): Observable<SelectOption[]> {

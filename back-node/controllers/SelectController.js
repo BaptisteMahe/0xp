@@ -36,11 +36,13 @@ function formatCompaniesToSelectOption(jsonArray, isImgIncluded) {
             selectOptions.push({
                 _id: company._id,
                 display: company.name,
+                isPartner: company.isPartner,
                 srcImg: company.srcImage
             });
         } else {
             selectOptions.push({
                 _id: company._id,
+                isPartner: company.isPartner,
                 display: company.name
             });
         }
