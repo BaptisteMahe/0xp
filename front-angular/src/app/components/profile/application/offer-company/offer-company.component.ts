@@ -31,7 +31,6 @@ export class OfferCompanyComponent implements OnInit {
       this.currentUser = currentUser;
       this.getOfferList();
     });
-    console.log(this.validationPanel)
   }
 
   onDeleteClick(offerToBeDeleted: Offer) {
@@ -64,7 +63,6 @@ export class OfferCompanyComponent implements OnInit {
   }
 
   onValidateClick(offerToBeValidated: Offer) {
-    console.log('validating', offerToBeValidated)
     this.offerViewService.validateOffer(offerToBeValidated._id).subscribe(() => {
       this.getOfferList();
     })
