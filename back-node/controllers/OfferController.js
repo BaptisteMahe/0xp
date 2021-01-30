@@ -5,7 +5,7 @@ router.use(bodyParser.json());
 const ObjectId = require('mongodb').ObjectId;
 
 router.get('/', function (req, res, next) {
-    db.collection('offers').find({ isValidated: req.query.isValidated == 'true'}).toArray()
+    db.collection('offers').find({ isValidated: req.query.isValidated === 'true'}).toArray()
         .then(results => res.json(results))
         .catch(next);
 });
@@ -56,10 +56,10 @@ router.post('/filter', function (req, res, next) {
 });
 
 router.get('/addView/:id', function(req, res, next) {
-    db.collection('offers').updateOne({ _id: ObjectId(req.params._id) }, {
+    db.collection('offers').updateOne({ _id: ObjectId(req.params.id) }, {
         $inc: { views: 1 }
     })
-        .then(() => res.json({ _id: req.params._id }))
+        .then(() => res.json({ _id: req.params.id }))
         .catch(next);
 });
 

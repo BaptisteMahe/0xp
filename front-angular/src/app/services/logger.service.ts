@@ -14,8 +14,7 @@ export class LoggerService {
     ).subscribe((event: NavigationStart) => {
       if (event.url.startsWith('/offers/')) {
         const offerId = event.url.replace('/offers/', '');
-        // this.offerService.addSingleView(offerId).subscribe();
-        console.log(offerId);
+        this.offerService.addSingleView(offerId).subscribe(_ => {}, console.log);
       }
     });
   }
