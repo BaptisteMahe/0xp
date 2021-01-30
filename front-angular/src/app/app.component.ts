@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 
+import { LoggerService } from './services';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,7 +14,7 @@ export class AppComponent implements OnInit {
 
   toggleSidenavSubject = new Subject<void>();
 
-  constructor() { }
+  constructor(private loggerService: LoggerService) { }
 
   ngOnInit() {
   }

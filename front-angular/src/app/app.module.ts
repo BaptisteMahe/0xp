@@ -46,7 +46,7 @@ import { ListCompanyComponent, DeleteCompanyComponent } from './components/entre
 import { AvisOverviewComponent } from './components/entreprises/avis-company/avis-overview/avis-overview.component';
 import { AddLogoComponent } from './components/entreprises/add-logo/add-logo.component';
 
-import { CompanyService, UserService, SelectService, OfferService, DocumentService } from './services';
+import { CompanyService, UserService, SelectService, OfferService, DocumentService, LoggerService } from './services';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
@@ -108,7 +108,7 @@ import { MaterialModule } from './modules/material.module';
     DeleteAvisComponent
   ],
   exports: [OfferDetailComponent],
-  providers: [OfferService, CompanyService, UserService, SelectService, DocumentService,
+  providers: [OfferService, CompanyService, UserService, SelectService, DocumentService, LoggerService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'fr' }],

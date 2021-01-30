@@ -55,6 +55,14 @@ router.post('/filter', function (req, res, next) {
         .catch(next);
 });
 
+router.get('/addView/:id', function(req, res, next) {
+    db.collection('offers').updateOne({ _id: ObjectId(req.params._id) }, {
+        $inc: { views: 1 }
+    })
+        .then(() => res.json({ _id: req.params._id }))
+        .catch(next);
+});
+
 module.exports = router;
 
 function formatPropertiesTypes(offer) {
