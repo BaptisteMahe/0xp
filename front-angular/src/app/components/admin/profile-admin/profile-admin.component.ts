@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTab, matTabsAnimations } from '@angular/material/tabs';
 import { OfferCompanyComponent } from '../../profile/application/offer-company/offer-company.component';
 
 @Component({
@@ -14,7 +13,7 @@ export class ProfileAdminComponent implements OnInit {
   ngOnInit() {
   }
 
-  onTabChanged(event, ...tabs) {
+  onTabChanged(event, ...tabs: OfferCompanyComponent[]) {
     tabs[event.index - 1]?.getOfferList();
   }
 }
