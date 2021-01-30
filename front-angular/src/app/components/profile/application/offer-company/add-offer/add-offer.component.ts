@@ -165,6 +165,7 @@ export class AddOfferComponent implements OnInit {
   }
 
   addOrEditOffer() {
+    this.offerOnForm.isValidated = this.currentUser.type === 'admin';
     if (!this.isEdition) {
       this.offerOnForm.createdDate = new Date();
       this.offerViewService.addOffer(this.offerOnForm).subscribe(
@@ -256,7 +257,6 @@ export class AddOfferComponent implements OnInit {
     return !(this.offerOnForm.title === ''
         || this.offerOnForm.sector === undefined
         || this.offerOnForm.type === undefined
-        || this.offerOnForm.description === ''
         || this.offerOnForm.location === '');
   }
 

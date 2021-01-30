@@ -1,11 +1,18 @@
 <div class="profile-container">
-    <mat-tab-group mat-stretch-tabs class="profile-tab-group">
+    <mat-tab-group mat-stretch-tabs class="profile-tab-group" (selectedTabChange)="onTabChanged($event, managementPanel, validationPanel)">
         <mat-tab label = "Gestion des entreprises">
-            <app-list-company [modifyEnabled]="true"></app-list-company>
+            <div style="margin:4vh">
+                <app-list-company [modifyEnabled]="true"></app-list-company>
+            </div>
         </mat-tab>
         <mat-tab label="Gestion des offres">
             <div style="margin:4vh">
-                <app-offer-company></app-offer-company>
+                <app-offer-company #managementPanel ></app-offer-company>
+            </div>
+        </mat-tab>
+        <mat-tab label="Validation des offres">
+            <div style="margin:4vh">
+                <app-offer-company #validationPanel [validationPanel]="true"></app-offer-company>
             </div>
         </mat-tab>
     </mat-tab-group>

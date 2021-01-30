@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -12,6 +12,8 @@ import { QuitEditionDialogContentComponent } from './add-offer/add-offer.compone
   styleUrls: ['./offer-company.component.scss']
 })
 export class OfferCompanyComponent implements OnInit {
+
+  @Input() validationPanel: boolean = false;
 
   listOffer: Offer[] = [];
   isEditingOffer = false;
@@ -60,16 +62,10 @@ export class OfferCompanyComponent implements OnInit {
     );
   }
 
-  getOfferList() {
-    if (this.currentUser?.type === 'admin') {
-      this.offerViewService.getAllOffers().subscribe((listOffer: Offer[]) => {
-        this.listOffer = listOffer;
-      });
-    } else if (this.currentUser?.type === 'company') {
-      this.offerViewService.getAllOffersByCompanyId(this.currentUser.companyId).subscribe((listOffer: Offer[]) => {
-        this.listOffer = listOffer;
-      });
-    }
+  onValidateClick(offerToBeValidated: Offer) {
+    this.offerViewService.validateOffer(offerToBeValidated._id).subscribe(() => {
+      this.getOfferList();
+    })
   }
 
   onEditClick(offerToBeEdited: Offer) {
@@ -89,6 +85,19 @@ export class OfferCompanyComponent implements OnInit {
         }
       });
   }
+
+  getOfferList() {
+    if (this.currentUser?.type === 'admin') {
+      this.offerViewService.getAllOffers(!this.validationPanel).subscribe((listOffer: Offer[]) => {
+        this.listOffer = listOffer;
+      });
+    } else if (this.currentUser?.type === 'company') {
+      this.offerViewService.getAllOffersByCompanyId(this.currentUser.companyId).subscribe((listOffer: Offer[]) => {
+        this.listOffer = listOffer;
+      });
+    }
+  }
+
 }
 
 @Component({
@@ -103,6 +112,5 @@ export class OfferCompanyComponent implements OnInit {
   `,
 })
 export class DeleteDialogContentComponent {
-
   constructor(@Inject(MAT_DIALOG_DATA) public offer: Offer) { }
 }

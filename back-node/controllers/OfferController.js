@@ -5,7 +5,7 @@ router.use(bodyParser.json());
 const ObjectId = require('mongodb').ObjectId;
 
 router.get('/', function (req, res, next) {
-    db.collection('offers').find().toArray()
+    db.collection('offers').find({ isValidated: req.query.isValidated == 'true'}).toArray()
         .then(results => res.json(results))
         .catch(next);
 });
@@ -32,6 +32,12 @@ router.put('/:id', function (req, res, next) {
 
 router.delete('/:id', function (req, res, next) {
     db.collection('offers').findOneAndDelete({ _id: ObjectId(req.params.id) })
+        .then(() => res.json({ _id: req.params.id }))
+        .catch(next);
+});
+
+router.get('/validate/:id', function (req, res, next) {
+    db.collection('offers').updateOne({ _id: ObjectId(req.params.id) }, { $set: {isValidated: true} })
         .then(() => res.json({ _id: req.params.id }))
         .catch(next);
 });

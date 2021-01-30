@@ -30,8 +30,8 @@ export class OfferService {
     return this.httpClient.post<Offer[]>(this.apiUrl + '/offers/filter', { user: this.currentUser, filter });
   }
 
-  getAllOffers(): Observable<Offer[]> {
-    return this.httpClient.get<Offer[]>(this.apiUrl + '/offers');
+  getAllOffers(isValidated: boolean = true): Observable<Offer[]> {
+    return this.httpClient.get<Offer[]>(this.apiUrl + '/offers?isValidated=' + isValidated );
   }
 
   getOfferById(id: string): Observable<Offer> {
@@ -44,6 +44,10 @@ export class OfferService {
 
   addOffer(offer: Offer): Observable<any> {
     return this.httpClient.post<Offer>(this.apiUrl + '/offers/', offer);
+  }
+
+  validateOffer(id: string): Observable<string> {
+    return this.httpClient.get<string>(this.apiUrl + '/offers/validate/' + id);
   }
 
   deleteOffer(id: string): Observable<string> {
