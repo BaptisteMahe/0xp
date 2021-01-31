@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   constructor(private loggerService: LoggerService) { }
 
   ngOnInit() {
+    this.loggerService.setOfferViewListener();
   }
 
   onToggle() {

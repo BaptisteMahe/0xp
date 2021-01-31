@@ -9,6 +9,9 @@ export class LoggerService {
 
   constructor(private router: Router,
               private offerService: OfferService) {
+  }
+
+  setOfferViewListener() {
     this.router.events.pipe(
         filter((event: RouterEvent) => event instanceof NavigationStart)
     ).subscribe((event: NavigationStart) => {
