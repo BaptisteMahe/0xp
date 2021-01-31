@@ -13,14 +13,17 @@ import { QuitEditionDialogContentComponent } from './add-offer/add-offer.compone
 })
 export class OfferCompanyComponent implements OnInit {
 
-  @Input() validationPanel: boolean = false;
+  @Input()
+  validationPanel = false;
+
+  csvDownloadLink: string;
 
   listOffer: Offer[] = [];
   isEditingOffer = false;
   offerToBeEdited: Offer;
   currentUser: User;
 
-  constructor(private offerViewService: OfferService,
+  constructor(private offerService: OfferService,
               private userService: UserService,
               private documentService: DocumentService,
               private matDialog: MatDialog,
@@ -31,6 +34,7 @@ export class OfferCompanyComponent implements OnInit {
       this.currentUser = currentUser;
       this.getOfferList();
     });
+    this.csvDownloadLink = this.offerService.getCsvDownloadLink();
   }
 
   onDeleteClick(offerToBeDeleted: Offer) {
@@ -45,7 +49,7 @@ export class OfferCompanyComponent implements OnInit {
   }
 
   deleteItem(offerToBeDeleted: Offer) {
-    this.offerViewService.deleteOffer(offerToBeDeleted._id).subscribe(
+    this.offerService.deleteOffer(offerToBeDeleted._id).subscribe(
       (response) => {
         if (offerToBeDeleted.pdfId) {
           this.documentService.deleteById(offerToBeDeleted.pdfId).subscribe(
@@ -63,9 +67,9 @@ export class OfferCompanyComponent implements OnInit {
   }
 
   onValidateClick(offerToBeValidated: Offer) {
-    this.offerViewService.validateOffer(offerToBeValidated._id).subscribe(() => {
+    this.offerService.validateOffer(offerToBeValidated._id).subscribe(() => {
       this.getOfferList();
-    })
+    });
   }
 
   onEditClick(offerToBeEdited: Offer) {
@@ -88,11 +92,11 @@ export class OfferCompanyComponent implements OnInit {
 
   getOfferList() {
     if (this.currentUser?.type === 'admin') {
-      this.offerViewService.getAllOffers(!this.validationPanel).subscribe((listOffer: Offer[]) => {
+      this.offerService.getAllOffers(!this.validationPanel).subscribe((listOffer: Offer[]) => {
         this.listOffer = listOffer;
       });
     } else if (this.currentUser?.type === 'company') {
-      this.offerViewService.getAllOffersByCompanyId(this.currentUser.companyId).subscribe((listOffer: Offer[]) => {
+      this.offerService.getAllOffersByCompanyId(this.currentUser.companyId).subscribe((listOffer: Offer[]) => {
         this.listOffer = listOffer;
       });
     }

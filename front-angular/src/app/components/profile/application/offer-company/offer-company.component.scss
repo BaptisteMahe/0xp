@@ -47,8 +47,12 @@ h2,h3, h4, p {padding:0;margin:0;}
     justify-items: center;
 }
 
-.add-offer-button {
+.top-offer-button-container {
   display: flex;
+  justify-content: space-evenly;
+}
+
+.top-offer-button {
   margin: 15px auto;
   padding: 5px 15px;
 
