@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const { Parser } = require('json2csv');
 router.use(bodyParser.json());
 const ObjectId = require('mongodb').ObjectId;
 
 router.get('/', function (req, res, next) {
-    db.collection('offers').find({ isValidated: req.query.isValidated == 'true'}).toArray()
+    db.collection('offers').find({ isValidated: req.query.isValidated === 'true'}).toArray()
         .then(results => res.json(results))
         .catch(next);
 });
@@ -14,6 +15,17 @@ router.post('/', function (req, res, next) {
     const offer = formatPropertiesTypes(req.body);
     db.collection('offers').insertOne(offer)
         .then(result => res.json({ _id: result.insertedId }))
+        .catch(next);
+});
+
+router.get('/exportAsCsv/', function (req, res, next) {
+    db.collection('offers').find().toArray()
+        .then(results => {
+            const { csv, fileName } = exportOffersAsCsv(results);
+            res.header('Content-Type', 'text/csv');
+            res.attachment(fileName);
+            res.send(csv);
+        })
         .catch(next);
 });
 
@@ -37,7 +49,7 @@ router.delete('/:id', function (req, res, next) {
 });
 
 router.get('/validate/:id', function (req, res, next) {
-    db.collection('offers').updateOne({ _id: ObjectId(req.params.id) }, { $set: {isValidated: true} })
+    db.collection('offers').updateOne({ _id: ObjectId(req.params.id) }, { $set: { isValidated: true }})
         .then(() => res.json({ _id: req.params.id }))
         .catch(next);
 });
@@ -52,6 +64,14 @@ router.post('/filter', function (req, res, next) {
     let query = buildQuery(req.body.filter);
     db.collection('offers').find(query).toArray()
         .then(results => res.json(results))
+        .catch(next);
+});
+
+router.get('/addView/:id', function(req, res, next) {
+    db.collection('offers').updateOne({ _id: ObjectId(req.params.id) }, {
+        $inc: { views: 1 }
+    })
+        .then(() => res.json({ _id: req.params.id }))
         .catch(next);
 });
 
@@ -130,4 +150,26 @@ function addPrimaryCriteriaToQuery(criteria, query, filter) {
     if (filter[criteria]) {
         query.push({ [criteria]: filter[criteria] });
     }
+}
+
+function exportOffersAsCsv(offerData) {
+    const currentDate = new Date().toISOString().replace(/:/g, '-');
+
+    const fields = ['Identifiant', 'Titre', 'Date de création', 'Entreprise', 'Vues', 'Type', 'Durée', 'Statut'];
+    const parser = new Parser({ fields: fields, withBOM: true, delimiter: ';' });
+
+    const data = [];
+    offerData.forEach((offer) => {
+        data.push({ 'Identifiant': offer._id,
+            'Titre': offer.title,
+            'Date de création': offer.createdDate.toISOString(),
+            'Entreprise': offer.company.display,
+            'Vues': offer.views,
+            'Type': offer.type,
+            'Durée': offer.duration,
+            'Statut': offer.isValidated ? 'Validée' : 'Non validée'
+        });
+    });
+
+    return { csv: parser.parse(data), fileName: `offres_ECM_${currentDate}.csv` };
 }

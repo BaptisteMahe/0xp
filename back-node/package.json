@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
     "express-list-endpoints": "^5.0.0",
+    "json2csv": "^5.0.5",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.12"
   },

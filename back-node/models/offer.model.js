@@ -110,6 +110,10 @@ OfferModel = {
                 bsonType: "date",
                 description: "[required][date] Date when the offer was published."
             },
+            views: {
+                bsonType: "int",
+                description: "[required][int] The number of times this offer has been viewed."
+            },
             isValidated: {
                 bsonType: "bool",
                 description: "[required][boolean] If the offer has been validated by admin"

@@ -58,6 +58,14 @@ export class OfferService {
     return this.httpClient.put<Offer>(this.apiUrl + '/offers/' + offer._id, offer);
   }
 
+  addSingleView(id: string): Observable<string> {
+    return this.httpClient.get<string>(this.apiUrl + '/offers/addView/' + id);
+  }
+
+  getCsvDownloadLink(): string {
+    return this.apiUrl + '/offers/exportAsCsv/';
+  }
+
   sortArray(array: Offer[], key: SortCategory) {
     if (key === SortCategory.matchingScore) {
       array.sort((a: Offer, b: Offer) => {
