@@ -2,7 +2,7 @@
   <button mat-raised-button class="top-offer-button" routerLink="/addOffer">
     Ajouter une offre <mat-icon>add_circle</mat-icon>
   </button>
-  <a [href]="csvDownloadLink" class="top-offer-button"  target="_blank" mat-raised-button>
+  <a *ngIf="currentUser.type === 'admin'" [href]="csvDownloadLink" class="top-offer-button"  target="_blank" mat-raised-button>
     Exporter les offres en CSV <mat-icon>cloud_download</mat-icon>
   </a>
 </div>
