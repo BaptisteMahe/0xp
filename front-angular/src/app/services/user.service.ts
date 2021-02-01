@@ -38,10 +38,11 @@ export class UserService {
     return this.http.delete(this.apiUrl + '/users/' + id);
   }
 
-  update(user: any) {
-    this.http.put<any>(this.apiUrl + '/users/' + user._id , user).subscribe(
+  update(user: any): Observable<any> {
+    const updateRequest = this.http.put<any>(this.apiUrl + '/users/' + user._id , user)
+    updateRequest.subscribe(
       (response) => {
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('currentUser', JSON.stringify(user as User));
         this.currentUser = user;
         this.currentUserSub.next(user);
       },
@@ -49,5 +50,6 @@ export class UserService {
         console.log('Erreur ! : ' + error);
       }
     );
+    return updateRequest;
   }
 }

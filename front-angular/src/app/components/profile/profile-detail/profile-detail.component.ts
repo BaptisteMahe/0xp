@@ -54,15 +54,21 @@ export class ProfileDetailComponent implements OnInit {
     this.currentUser = Object.assign({}, this.currentUserEdit);
 
     if (this.currentUser.type === 'company') {
-      this.userService.update(this.currentUser);
-      this.currentCompany = Object.assign({}, {...this.currentCompanyEdit, srcImage: this.logoAsBase64});
-      this.companyService.editCompany(this.currentCompany).subscribe(() => {
-        this.ngOnInit();
-      });
+      this.userService.update(this.currentUser).subscribe(
+          _ => {
+            this.currentCompany = Object.assign({}, {...this.currentCompanyEdit, srcImage: this.logoAsBase64});
+            this.companyService.editCompany(this.currentCompany).subscribe(() => {
+              this.ngOnInit();
+            });
+          }
+      );
 
     } else if (this.currentUser.type === 'student') {
-      this.userService.update(this.currentUser);
-      this.ngOnInit();
+      this.userService.update(this.currentUser).subscribe(
+          _ => {
+            this.ngOnInit();
+          }
+      );
     }
 
     this.disableEdition();
