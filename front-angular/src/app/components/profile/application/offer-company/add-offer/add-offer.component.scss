@@ -1,21 +1,19 @@
 .bg {
-    width:100%;
+    width: 100%;
     display: block;
     position: fixed;
-    top:0;
+    top: 0;
     overflow: hidden;
     align-items: center;
-    z-index:-10;
+    z-index: -10;
 }
 
 .offer-sheet {
     background-color: white;
     padding: 5%;
-    margin: 10%;
-    margin-bottom: 5vh;
-    box-shadow:#0000047a 0px 0px 10px; 
+    margin: 10% 10% 5vh;
+    box-shadow:#0000047a 0 0 10px;
     text-align: justify;
-    display: block;
     position: relative;
 
     .closeLogo {
@@ -34,9 +32,9 @@ p {
 
 .center {
     text-align: center;
-    padding-left:3vh;
-    padding-right:3vh;
-    margin:1vh;
+    padding-left: 3vh;
+    padding-right: 3vh;
+    margin: 1vh;
 }
 
 .title {
@@ -48,15 +46,11 @@ p {
     justify-content: space-evenly;
 }
 
-.qcm {
-    width:30vw;
-}
-
-
 .btn-success {
     color: white;
-    background-color:#03C9D3;
-    margin:auto;
+    background-color: #03C9D3;
+    padding: 0 20px;
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;

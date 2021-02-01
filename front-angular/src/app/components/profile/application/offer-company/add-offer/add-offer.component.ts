@@ -170,7 +170,8 @@ export class AddOfferComponent implements OnInit {
       this.offerOnForm.createdDate = new Date();
       this.offerViewService.addOffer(this.offerOnForm).subscribe(
           success => {
-            this.router.navigate(['/profile']);
+            this.matSnackBar.open('Offre ajoutée avec succés', null, { duration: 3000, panelClass: ['snack-bar-success'] });
+            this.router.navigate(['/profile'], {});
           }, error => {
             this.matSnackBar.open('Erreur avec le serveur : ' + error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
           }
@@ -178,6 +179,7 @@ export class AddOfferComponent implements OnInit {
     } else {
       this.offerViewService.editOffer(this.offerOnForm).subscribe(
           success => {
+            this.matSnackBar.open('Offre modifiée avec succés', null, { duration: 3000, panelClass: ['snack-bar-success'] });
             this.updatedEvent.emit();
           }, error => {
             this.matSnackBar.open('Erreur avec le serveur : ' + error, null, { duration: 3000, panelClass: ['snack-bar-error'] });

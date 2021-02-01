@@ -56,12 +56,15 @@ export class OfferCompanyComponent implements OnInit {
               () => {
                 this.getOfferList();
               }, (error) => {
-                this.matSnackBar.open('Error deleting the offer\'s pdf : ' + error,
+                this.matSnackBar.open('Erreur lors de la suppression du PDF de l\'offre' + error,
                     null, { duration: 3000, panelClass: ['snack-bar-error'] });
               });
+        } else {
+          this.getOfferList();
         }
       }, (error) => {
-        this.matSnackBar.open('Error deleting the offer : ' + error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
+        this.matSnackBar.open('Erreur lors de la suppression de l\'offre' + error,
+            null, { duration: 3000, panelClass: ['snack-bar-error'] });
       }
     );
   }

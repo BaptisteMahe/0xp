@@ -59,6 +59,7 @@ export class AvisCompanyComponent implements OnInit {
         data => {
           this.loadAllAvis();
           this.resetForm();
+          this.matSnackBar.open('Avis ajouté avec succès', null, { duration: 3000, panelClass: ['snack-bar-success'] });
         },
         error => {
           this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
@@ -83,7 +84,7 @@ export class AvisCompanyComponent implements OnInit {
         this.avisList = avisArray;
       },
       error => {
-        console.log('Erreur ! : ' + error);
+        this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
       }
     );
   }
@@ -100,8 +101,7 @@ export class AvisCompanyComponent implements OnInit {
                   this.matSnackBar.open('Avis supprimé avec succès', null, { duration: 3000, panelClass: ['snack-bar-success'] });
                 },
                 error => {
-                  this.matSnackBar.open('Une erreur est survenue lors de la suppression de l\'avis',
-                      null, { duration: 3000, panelClass: ['snack-bar-error'] });
+                  this.matSnackBar.open(error, null, { duration: 3000, panelClass: ['snack-bar-error'] });
                 }
             );
           }

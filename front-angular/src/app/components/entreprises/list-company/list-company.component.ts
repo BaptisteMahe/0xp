@@ -61,7 +61,7 @@ export class ListCompanyComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
         result => {
-          this.handleModifyResult(result, 'Registration');
+          this.handleModifyResult(result, 'Entreprise enregistrée avec succés');
         }
     );
   }
@@ -75,7 +75,7 @@ export class ListCompanyComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
         result => {
-          this.handleModifyResult(result, 'Modification');
+          this.handleModifyResult(result, 'Entreprise modifiée avec succés');
         }
     );
   }
@@ -98,11 +98,11 @@ export class ListCompanyComponent implements OnInit {
     });
   }
 
-  handleModifyResult(result: Observable<any>, type: string) {
+  handleModifyResult(result: Observable<any>, msg: string) {
     if (result) {
       result.subscribe(
           data => {
-            this.matSnackBar.open(type + ' successful', null, {
+            this.matSnackBar.open(msg, null, {
               duration: 3000,
               panelClass: ['snack-bar-success']
             });

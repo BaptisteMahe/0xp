@@ -173,3 +173,8 @@ input {
 .mat-chip.mat-standard-chip::after {
   background: #fff;
 }
+
+//  TODO: Check why is needed for add-offer to be scrollable
+.mat-drawer-content {
+  position: initial !important;
+}
