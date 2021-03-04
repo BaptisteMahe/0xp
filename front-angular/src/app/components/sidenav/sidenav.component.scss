@@ -1,21 +1,21 @@
 a {
     text-decoration: none;
-    color: #FBFEF9;
+    color: var(--color-gray-blue);
+    font-weight: bold;
+    padding: 10px 10px;
+    display: block;
 
     &:hover {
-        color: var(--color-blue-medium);
+        color: var(--color-main-blue);
         cursor: pointer;
     }
 }
 
-.mat-drawer {
-    background-color: #3e4259;
+.sidenav {
     padding: 20px;
-
-    a {
-        padding: 10px 10px;
-        display: block
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .mat-drawer-container {
@@ -23,5 +23,5 @@ a {
 }
 
 .logo-image {
-    width: 25vw
+    width: 30vw;
 }

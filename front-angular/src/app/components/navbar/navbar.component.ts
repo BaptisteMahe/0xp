@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { Router , NavigationEnd  } from '@angular/router';
 
 import { UserService} from '../../services';
@@ -14,7 +13,7 @@ export class NavbarComponent implements OnInit {
 
   currentUser: User;
 
-  isProfilOpen: boolean;
+  currentTab: string;
 
   @Output() toggleSidenavEvent = new EventEmitter<boolean>();
 
@@ -27,8 +26,8 @@ export class NavbarComponent implements OnInit {
     });
 
     this.router.events.subscribe(event => {
-      if ( event instanceof NavigationEnd) {
-        this.isProfilOpen = event.url === '/profile';
+      if (event instanceof NavigationEnd) {
+        this.currentTab = event.url.split('/')[1];
       }
     });
   }

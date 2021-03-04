@@ -1,17 +1,42 @@
 <mat-toolbar>
 
-  <mat-icon class="menu-logo" (click)="toggleSidenav()">menu</mat-icon>
-  <a class="link" routerLink="/" >ACCUEIL</a>
-  <a class="link" routerLink="/offers" *ngIf="currentUser">LES OFFRES</a>
-  <a class="link" routerLink="/companies" *ngIf="currentUser?.type === 'student' || currentUser?.type === 'admin'" >DONNER SON AVIS</a>
-  <a class="link" routerLink="/faq">FAQ</a>
+  <img class="logo" routerLink="/" src="assets/images/logo-ecm.png"/>
+  <a class="link-home" routerLink="/" >Site des stages</a>
 
   <span class="navbar-spacer"></span>
-
-  <a routerLink="/login" *ngIf="!currentUser">Se connecter</a>
-  <div *ngIf="currentUser && !isProfilOpen" class="button profil-box" routerLink="/profile">
-    <img src="../../../assets/images/0xpuser.png" alt="Profile logo">
-    <!-- TODO: check for profile missing information -->
-  </div>
+  <mat-icon class="menu-logo" (click)="toggleSidenav()">menu</mat-icon>
+  <a class="link"
+     [class.selected]="currentTab === 'offers'"
+     routerLink="/offers"
+     *ngIf="currentUser">
+    <div class="blue-style-block"></div>
+    Les offres
+  </a>
+  <a class="link"
+     [class.selected]="currentTab === 'companies'"
+     routerLink="/companies"
+     *ngIf="currentUser?.type === 'student' || currentUser?.type === 'admin'" >
+    <div class="blue-style-block"></div>
+    Donner son avis
+  </a>
+  <a class="link"
+     [class.selected]="currentTab === 'faq'"
+     routerLink="/faq">
+    <div class="blue-style-block"></div>
+    FAQ
+  </a>
+  <a class="link"
+     [class.selected]="currentTab === 'login' || currentTab === 'register'"
+     routerLink="/login"
+     *ngIf="!currentUser">
+    <div class="blue-style-block"></div>
+    Se connecter
+  </a>
+  <a class="link"
+     [class.selected]="currentTab === 'profile'"
+     routerLink="/profile" *ngIf="currentUser">
+    <div class="blue-style-block"></div>
+    Mon profil
+  </a>
 
 </mat-toolbar>
