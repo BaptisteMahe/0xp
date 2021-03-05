@@ -46,6 +46,8 @@ import { ListCompanyComponent, DeleteCompanyComponent } from './components/entre
 import { AvisOverviewComponent } from './components/entreprises/avis-company/avis-overview/avis-overview.component';
 import { AddLogoComponent } from './components/entreprises/add-logo/add-logo.component';
 
+import { FooterComponent } from './components/footer/footer.component';
+
 import { CompanyService, UserService, SelectService, OfferService, DocumentService, LoggerService } from './services';
 
 import { AppRoutingModule } from './modules/app-routing.module';
@@ -85,7 +87,8 @@ import { MaterialModule } from './modules/material.module';
     AddLogoComponent,
     AddPdfComponent,
     PdfPreviewComponent,
-    DeleteAvisComponent
+    DeleteAvisComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

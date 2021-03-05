@@ -1,0 +1,24 @@
+.footer-container {
+  background-color: var(--color-main-blue);
+
+  padding: 20px;
+
+  display: flex;
+
+  img {
+    height: 100px;
+    margin: 0 25px;
+  }
+
+  .ecm-info {
+    color: #ffffff;
+    font-size: 14px;
+
+    display: flex;
+    flex-direction: column;
+
+    .last-info {
+      margin-top: auto;
+    }
+  }
+}

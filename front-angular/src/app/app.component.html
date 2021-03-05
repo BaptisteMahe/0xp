@@ -4,5 +4,6 @@
   <app-sidenav [toggleSidenavObs]="toggleSidenavSubject.asObservable()">
     <app-navbar (toggleSidenavEvent)="onToggle()"></app-navbar>
     <router-outlet></router-outlet>
+    <app-footer></app-footer>
   </app-sidenav>
 </div>
