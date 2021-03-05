@@ -22,3 +22,10 @@
     }
   }
 }
+
+@media (max-width: 767px) {
+  .footer-container img {
+    height: 50px;
+    margin: 0 20px 0 0;
+  }
+}
