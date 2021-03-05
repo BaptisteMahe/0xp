@@ -5,11 +5,15 @@
 }
 
 .add-company-modal-button {
+  background-color: var(--color-main-blue);
+  color: #ffffff;
+
   display: flex;
   margin: 15px auto;
   padding: 5px 15px;
 
   mat-icon {
+    color: #ffffff;
     margin-left: 8px;
     height: 26px;
   }
@@ -40,10 +44,12 @@ mat-card-header {
 }
 
 .edit-company-button {
+  color: var(--color-main-blue);
   margin: -17px 0 0 auto;
 }
 
 .remove-company-button {
+  color: var(--color-main-blue);
   margin: -17px -8px 0 0;
 }
 

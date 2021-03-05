@@ -1,4 +1,4 @@
-<div *ngIf="!this.validationPanel" class="top-offer-button-container">
+<div *ngIf="!validationPanel" class="top-offer-button-container">
   <button mat-raised-button class="top-offer-button" routerLink="/addOffer">
     Ajouter une offre <mat-icon>add_circle</mat-icon>
   </button>
@@ -17,13 +17,13 @@
       </div>
       <p style="color:gray">{{offer.company.display}}</p>
     </div>
-    <button mat-icon-button (click)="onEditClick(offer)">
+    <button class="offer-icon-action" mat-icon-button (click)="onEditClick(offer)">
       <mat-icon>edit</mat-icon>
     </button>
-    <button *ngIf="this.validationPanel" mat-icon-button (click)="onValidateClick(offer)">
+    <button class="offer-icon-action" *ngIf="validationPanel" mat-icon-button (click)="onValidateClick(offer)">
       <mat-icon>check_circle</mat-icon>
     </button>
-    <button mat-icon-button (click)="onDeleteClick(offer)">
+    <button class="offer-icon-action" mat-icon-button (click)="onDeleteClick(offer)">
       <mat-icon>delete</mat-icon>
     </button>
   </div>

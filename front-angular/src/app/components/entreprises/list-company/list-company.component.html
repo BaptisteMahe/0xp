@@ -1,4 +1,4 @@
-<div class="header-company">
+<div [ngClass]="{'header-company': !modifyEnabled}">
   <button *ngIf="modifyEnabled" mat-raised-button class="add-company-modal-button" (click)="onAddCompanyClick()">
     Ajouter une entreprise <mat-icon>add_circle</mat-icon>
   </button>

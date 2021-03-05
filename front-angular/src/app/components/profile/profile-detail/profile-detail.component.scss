@@ -3,6 +3,9 @@
 }
 
 .edit-profile-button {
+  background-color: var(--color-main-blue);
+  color: #ffffff;
+
   display: flex;
   margin: 15px auto;
   padding: 5px 15px;
@@ -10,6 +13,7 @@
   mat-icon {
     margin-left: 8px;
     height: 30px;
+    color: #ffffff;
   }
 }
 
@@ -22,11 +26,10 @@
 .bloc {
   background-color: white;
   padding: 2vh 2vw;
-  box-shadow: #00000448 0px 0px 4px;
+  box-shadow: #00000448 0 0 4px;
   border-radius: 1vw;
   width: 80%;
-  margin: auto;
-  margin-bottom: 2vh;
+  margin: auto auto 2vh;
 }
 
 .center {
@@ -51,17 +54,12 @@
   right: 16vw;
 }
 
-.btn-success {
-  color: white;
-  background-color: #03c9d3;
-  border-color: transparent;
-  box-shadow: #0000047a 0px 0px 5px;
-  margin: auto;
-  height: 5vh;
-  width: 10vw;
+.button-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  border-radius: 5vh;
-  border-color: transparent;
+
+  .btn-success {
+    color: white;
+    background-color: var(--color-main-blue);
+  }
 }
