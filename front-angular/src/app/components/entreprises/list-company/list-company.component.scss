@@ -1,3 +1,9 @@
+.header-company {
+  background-color: var(--color-light-gray);
+  border-bottom: 3px solid var(--color-main-blue);
+  padding-bottom: 20px;
+}
+
 .add-company-modal-button {
   display: flex;
   margin: 15px auto;
@@ -21,30 +27,34 @@
   margin-top: 20px;
 }
 
+mat-card-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .company-name {
-  text-align: center;
+  color: var(--color-main-blue);
+  flex-shrink: 0;
+  font-weight: bold;
 }
 
 .edit-company-button {
-  position: absolute;
-  top: 0;
-  right: 40px;
+  margin: -17px 0 0 auto;
 }
 
 .remove-company-button {
-  position: absolute;
-  top: 0;
-  right: 0;
+  margin: -17px -8px 0 0;
 }
 
 .company-card {
   width: 20%;
   margin: 10px 0;
+  border-radius: 0;
+  box-shadow: 0 4px 4px 0 rgba(0,0,0, .25);
 
   &:hover {
-    box-shadow: 0 1px 5px -1px rgba(0,0,0,.5), 
-    0 1px 1px 0 rgba(0,0,0,.3), 
-    0 1px 3px 0 rgba(0,0,0,.3);
+    box-shadow: 0 4px 4px 0 rgba(0,0,0, .5);
   }
 }
 
@@ -58,4 +68,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  border: 1px solid rgba(128,128,128, 0.2);
+  border-radius: 10px;
+}
+
+@media (max-width: 767px) {
+  .company-card {
+    width: 40%;
+  }
 }
