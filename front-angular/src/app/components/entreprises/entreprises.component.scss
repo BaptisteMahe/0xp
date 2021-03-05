@@ -1,16 +1,8 @@
-.logo{
-    width:10vw;
-    margin:auto;
-    display: block;
-}
-
-.slogan{
+h1 {
     text-align:center;
-    color:gray;
-}
-
-h1{
-    text-align: center;
+    color:var(--color-main-blue);
+    background-color: var(--color-light-gray);
     font-size: x-large;
-    color:var(--color-blue-medium);
+    margin: 0;
+    padding: 1em;
 }

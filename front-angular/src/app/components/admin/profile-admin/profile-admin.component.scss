@@ -10,4 +10,11 @@
     box-shadow: #00000424 0 0 5px;
     padding: 20px;
     margin-top: 10px;
+    background-color: #ffffff;
+}
+
+@media (max-width: 767px) {
+    .profile-tab-group {
+        width: 100%;
+    }
 }

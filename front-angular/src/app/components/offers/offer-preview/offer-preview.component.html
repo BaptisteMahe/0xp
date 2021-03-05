@@ -1,16 +1,24 @@
-<mat-card class="card" [routerLink]="[offer._id]" [ngClass]="{'partner-company': offer.company.isPartner}">
-  <mat-card-header class="header">
-    <mat-card-title>{{ offer.title }}</mat-card-title>
-    <mat-card-subtitle>{{ offer.company.display }} {{offer.company.isPartner ? ' - Partenaire ECM' : ''}}</mat-card-subtitle>
-    <img class="logo-company" src="{{ offer.company.srcImg }}" />
-  </mat-card-header>
-  <mat-card-footer class="footer">
-    <div>{{ offer.location }}</div>
+<mat-card class="card" [routerLink]="[offer._id]">
+
+  <div class="logo-container">
+    <img class="logo-company" src="{{ offer.company.srcImg }}"/>
+  </div>
+
+  <div class="card-content">
+    <div class="card-title">
+      <div class="title">{{ offer.title }}</div>
+      <div class="subtitle">{{ offer.company.display }} {{offer.company.isPartner ? ' - Partenaire ECM' : ''}}</div>
+    </div>
+
+    <div class="card-info">
+      <pre>{{ [offer.location, offer.duration, offer.sector.display, strDateCreated].join('   |   ') }}</pre>
+    </div>
+  </div>
+
+  <div class="card-footer">
     <div>{{ offer.type }}</div>
-    <div>{{ offer.duration }}</div>
-    <div>{{ offer.sector.display }}</div>
-    <div>{{ strDateCreated }}</div>
     <div *ngIf="offer.matchingScore>=0" class="matching-score" [style]="colorScore">{{ offer.matchingScore }}%</div>
     <div *ngIf="!(offer.matchingScore>=0)" class="matching-score">--%</div>
-  </mat-card-footer>
+  </div>
+
 </mat-card>

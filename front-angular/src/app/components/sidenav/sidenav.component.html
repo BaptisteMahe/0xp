@@ -1,9 +1,11 @@
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer [autoFocus]="false" #drawer class="example-sidenav" mode="over">
-    <a routerLink="/"><img class="logo-image" src="../../../assets/images/logo_blue.svg" /></a>
-    <a routerLink="/offers" *ngIf="!!currentUser">LES OFFRES</a>
-    <a routerLink="/companies" *ngIf="currentUser?.type === 'student' || currentUser?.type === 'admin'" >DONNER SON AVIS</a>
-    <a routerLink="/faq">FAQ</a>
+<mat-drawer-container autosize>
+
+  <mat-drawer [autoFocus]="false" #drawer class="sidenav" mode="over">
+    <a routerLink="/"><img class="logo-image" src="../../../assets/images/logo-ecm.png" /></a>
+    <a routerLink="/profile" *ngIf="currentUser">Mon profil</a>
+    <a routerLink="/offers" *ngIf="!!currentUser">Les offres</a>
+    <a routerLink="/companies" *ngIf="currentUser?.type === 'student' || currentUser?.type === 'admin'" >Donner son avis</a>
+    <a routerLink="/faq">Faq</a>
   </mat-drawer>
 
   <div>

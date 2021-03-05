@@ -1,24 +1,19 @@
-h1 {
-    text-align: center;
-    font-size: x-large;
-    color: var(--color-blue-medium);
-}
-
 .sort-menu-item {
   display: flex;
   align-items: center;
 }
 
-.listOffers {
+.list-offers {
     width: 75vw;
-    margin: auto;
+    margin: 10px auto;
     position: relative;
 
-    .logoSort {
+    .logo-sort {
         align-self: flex-end;
+        color: var(--color-main-blue);
     }
 
-    .oneOffer {
+    .one-offer {
         margin-bottom: 2vh;
 
         &:focus,
@@ -31,11 +26,11 @@ h1 {
     }
 }
 
-.loadingScreen {
+.loading-screen {
     margin-top: 10vh;
 
     .loader {
-        animation: spinningColor 1.5s ease-in-out infinite;
+        animation: spinning-color 1.5s ease-in-out infinite;
         margin: 50px auto;
         border: 5px double #f0eff5;
         border-radius: 50%;
@@ -43,40 +38,46 @@ h1 {
         height: 50px;
     }
 
-    @keyframes spinningColor {
+    @keyframes spinning-color {
         0% {
             transform: rotate(360deg);
-            border-top: 5px dashed var(--color-orange);
-            border-bottom: 5px dashed var(--color-blue-medium);
+            border-top: 5px dashed var(--color-gray-blue);
+            border-bottom: 5px dashed var(--color-main-blue);
         }
 
         25% {
-            border-top: 5px dashed var(-color-orange);
-            border-bottom: 5px dashed var(--color-blue-medium);
+            border-top: 5px dashed var(--color-gray-blue);
+            border-bottom: 5px dashed var(--color-main-blue);
         }
 
         50% {
-            border-top: 5px dashed var(-color-orange);
-            border-bottom: 5px dashed var(--color-blue-medium);
+            border-top: 5px dashed var(--color-gray-blue);
+            border-bottom: 5px dashed var(--color-main-blue);
         }
 
         75% {
-            border-top: 5px dashed var(-color-orange);
-            border-bottom: 5px dashed var(--color-blue-medium);
+            border-top: 5px dashed var(--color-gray-blue);
+            border-bottom: 5px dashed var(--color-main-blue);
         }
 
         100% {
-            border-top: 5px dashed var(-color-orange);
-            border-bottom: 5px dashed var(--color-blue-medium);
+            border-top: 5px dashed var(--color-gray-blue);
+            border-bottom: 5px dashed var(--color-main-blue);
         }
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--color-main-blue);
     }
 }
 
-.noOffersDiv {
+.no-offer-div {
     margin: 3vh auto 10vh auto;
     text-align: center;
-    h4,p {
-        color:gray;
+
+    h3,p {
+        color: var(--color-main-blue);
     }
 }
 
@@ -84,42 +85,4 @@ h1 {
     width: 10vw;
     margin: auto;
     display: block;
-}
-
-.slogan {
-    text-align: center;
-    color: gray;
-}
-
-.addNotif,
-.notifAdded {
-    border: 1px solid black;
-    width: 10vw;
-    padding: 1vh 2vw;
-    margin: auto;
-    justify-content: space-between;
-    text-align: center;
-    border-radius: 0.43em;
-    align-content: center;
-
-    p {
-        margin: 0px;
-    }
-}
-
-.addNotif {
-    background-color: #fcffc8;
-
-    img {
-        width: 1vw;
-        display: block;
-    }
-}
-
-.notifAdded {
-    background-color: #c8ffcd;
-
-    p {
-        width: 100%;
-    }
 }

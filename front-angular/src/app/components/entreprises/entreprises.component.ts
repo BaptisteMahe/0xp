@@ -10,7 +10,5 @@ export class EntreprisesComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }
