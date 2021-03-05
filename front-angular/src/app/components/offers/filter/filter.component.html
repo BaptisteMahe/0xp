@@ -1,113 +1,120 @@
-<div class="main-filter-container">
-  <mat-form-field class="main-filter-text">
-    <mat-label>Rechercher une offre</mat-label>
-    <input matInput type="text" placeholder="" (keyup.enter)="onFilterClick()" [(ngModel)]="currentFilter.textInput" />
-    <button matSuffix mat-icon-button (click)="onFilterClick()">
-      <mat-icon>search</mat-icon>
+<div class="filter-container">
+  <h1 class="slogan">Naviguez parmi les offres et trouvez celle qui vous correspond !</h1>
+
+  <div class="main-filter-container">
+    <mat-form-field class="main-filter-text">
+      <mat-label>Rechercher une offre</mat-label>
+      <input matInput type="text" placeholder="" (keyup.enter)="onFilterClick()" [(ngModel)]="currentFilter.textInput" />
+      <button matSuffix mat-icon-button (click)="onFilterClick()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-icon-button *ngIf="currentUser?.type === 'student'" class="notification-button">
     </button>
-  </mat-form-field>
-  <button mat-icon-button *ngIf="currentUser?.type === 'student'" class="notification-button">
-  </button>
-</div>
-
-<div class="box-mandatory">
-  <h3 class="color-blue-medium">Je cherche un ...</h3>
-  <div class="chip-list-container">
-    <mat-chip-list [multiple]="false">
-      <mat-chip *ngFor="let researchType of offerResearchTypes"
-                [ngClass]="{'selected-mat-chip': selectedChip === researchType}"
-                (click)="onChipClick(researchType)">
-        {{researchType}}
-      </mat-chip>
-    </mat-chip-list>
   </div>
 
-  <div class="list-select">
-    <mat-form-field class="filter-element">
-      <mat-label>Type d'expérience</mat-label>
-      <mat-select [(value)]="currentFilter.type">
-        <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let type of typeList" [value]="type">{{type}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="box-mandatory">
 
-    <mat-form-field class="filter-element">
-      <mat-label>Durée</mat-label>
-      <mat-select [(value)]="currentFilter.duration">
-        <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let time of timeList" [value]="time">{{time}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <h3>Je cherche un ...</h3>
 
-    <mat-form-field class="filter-element">
-      <mat-label>Niveau d'expérience</mat-label>
-      <mat-select [(value)]="currentFilter.studentType">
-        <mat-option value="">--</mat-option>
-        <mat-option *ngFor="let type of studentTypes" [value]="type._id">{{type.display}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <div class="chip-list-container">
+      <mat-chip-list [multiple]="false">
+        <mat-chip *ngFor="let researchType of offerResearchTypes"
+                  [ngClass]="{'selected-mat-chip': selectedChip === researchType}"
+                  (click)="onChipClick(researchType)">
+          {{researchType}}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
 
-  <div *ngIf="isMoreFilterOpen" class="more-filter-div">
-    <h3 class="color-blue-medium">Critères supplémentaires</h3>
+    <h3>Mes critères :</h3>
 
-    <div class="form-line">
+    <div class="list-select">
       <mat-form-field class="filter-element">
-        <mat-label>Secteur</mat-label>
-        <mat-select [(value)]="currentFilter.sector">
+        <mat-label>Type d'expérience</mat-label>
+        <mat-select [(value)]="currentFilter.type">
           <mat-option value="">--</mat-option>
-          <mat-option *ngFor="let sector of sectorList" [value]="sector">{{sector.display}}</mat-option>
+          <mat-option *ngFor="let type of typeList" [value]="type">{{type}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="filter-element">
-        <mat-label>Lieu</mat-label>
-        <mat-select [(value)]="currentFilter.location" [multiple]='true'>
+        <mat-label>Durée</mat-label>
+        <mat-select [(value)]="currentFilter.duration">
           <mat-option value="">--</mat-option>
-          <mat-option *ngFor="let location of offerLocationList" [value]="location">{{location.display}}
-          </mat-option>
+          <mat-option *ngFor="let time of timeList" [value]="time">{{time}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="filter-element">
-        <input matInput [matDatepicker]="dp" placeholder="Date de début souhaitée" [formControl]="dateStart">
-        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-        <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
-                        (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
-        </mat-datepicker>
+        <mat-label>Niveau d'expérience</mat-label>
+        <mat-select [(value)]="currentFilter.studentType">
+          <mat-option value="">--</mat-option>
+          <mat-option *ngFor="let type of studentTypes" [value]="type._id">{{type.display}}</mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
-    <div class="form-line">
-      <div>
-        <p>Taux de matching minimum</p>
-        <div class="flexRow slider-value">
-          <p>0%</p>
-          <mat-slider max="100" min="0" thumbLabel="thumbLabel" tickInterval="1"
-            [(ngModel)]="currentFilter.matchingMini">
-          </mat-slider>
-          <p>100%</p>
-        </div>
+    <div *ngIf="isMoreFilterOpen" class="more-filter-div">
+
+      <div class="form-line">
+        <mat-form-field class="filter-element">
+          <mat-label>Secteur</mat-label>
+          <mat-select [(value)]="currentFilter.sector">
+            <mat-option value="">--</mat-option>
+            <mat-option *ngFor="let sector of sectorList" [value]="sector">{{sector.display}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="filter-element">
+          <mat-label>Lieu</mat-label>
+          <mat-select [(value)]="currentFilter.location" [multiple]='true'>
+            <mat-option value="">--</mat-option>
+            <mat-option *ngFor="let location of offerLocationList" [value]="location">{{location.display}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="filter-element">
+          <input matInput [matDatepicker]="dp" placeholder="Date de début souhaitée" [formControl]="dateStart">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+                          (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+          </mat-datepicker>
+        </mat-form-field>
       </div>
-      <div>
-        <p>Rémunération minimum</p>
-        <div class="flexRow slider-value">
-          <p>0€</p>
-          <mat-slider max="1461" min="0" thumbLabel="thumbLabel" tickInterval="1" [(ngModel)]="currentFilter.remunMini">
-          </mat-slider>
-          <p>€</p>
+
+      <div class="form-line">
+        <div class="slider-container">
+          <p>Taux de matching minimum</p>
+          <div class="flexRow slider-value">
+            <p>0%</p>
+            <mat-slider class="slider" min="0" max="100" thumbLabel="thumbLabel" tickInterval="1"
+                        [(ngModel)]="currentFilter.matchingMini">
+            </mat-slider>
+            <p>100%</p>
+          </div>
+        </div>
+        <div class="slider-container">
+          <p>Rémunération minimum</p>
+          <div class="flexRow slider-value">
+            <p>0€</p>
+            <mat-slider class="slider" min="0" max="2000" thumbLabel="thumbLabel" tickInterval="1" [(ngModel)]="currentFilter.remunMini">
+            </mat-slider>
+            <p>2000€</p>
+          </div>
         </div>
       </div>
     </div>
+
+    <button class="mat-raised-button filter-button" (click)="onFilterClick()">Rechercher</button>
   </div>
 
-  <h4 class="button filter-button" (click)="onFilterClick()">Rechercher</h4>
-
-  <p *ngIf="!isMoreFilterOpen" class="noSpace text-open-more-criteria">Plus de critères</p>
-  <p *ngIf="isMoreFilterOpen" class="noSpace text-open-more-criteria">Moins de critères</p>
-</div>
-
-<div>
-  <img class="logo-show-more-criteria button" [ngClass]="{'more-filter-openImg':isMoreFilterOpen}"
-       (click)="this.isMoreFilterOpen=!this.isMoreFilterOpen" src="../../../../assets/images/icon_arrowFilter.svg" />
+  <div class="more-criteria-container">
+    <div class="text-open-more-criteria">{{isMoreFilterOpen ? 'Moins' : 'Plus'}} de critères</div>
+    <mat-icon class="logo-show-more-criteria button" [ngClass]="{'more-filter-openImg':isMoreFilterOpen}"
+              (click)="this.isMoreFilterOpen=!this.isMoreFilterOpen">
+      navigate_next
+    </mat-icon>
+  </div>
 </div>

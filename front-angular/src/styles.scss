@@ -114,18 +114,10 @@ body::-webkit-scrollbar-thumb {
   color: var(--color-blue-medium);
 }
 
-.color-main-blue {
-  color: var(--color-main-blue);
-}
-
-.color-gray-blue {
-  color: var(--color-gray-blue);
-}
-
 //Materials
 
 input {
-  border: 0px;
+  border: 0;
 
   &:focus {
     outline: none;
@@ -157,10 +149,14 @@ input {
 }
 
 .mat-chip.mat-standard-chip::after {
-  background: #fff;
+  background: #ffffff;
 }
 
 //  TODO: Check why is needed for add-offer to be scrollable
 .mat-drawer-content {
   position: initial !important;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 1em !important;
 }
