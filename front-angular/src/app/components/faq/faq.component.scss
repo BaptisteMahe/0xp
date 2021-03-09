@@ -1,20 +1,68 @@
-.texte {
-    width: 80vw;
-    margin: auto;
+.paragraph {
+    padding: 5vh 30vh;
+
+    display: flex;
+    flex-direction: column;
+
+    font-size: 1.2em;
+
+    p, app-faq-question {
+        color: var(--color-main-blue);
+        margin-left: 30px;
+    }
 }
 
-h1 {
-    margin: 5vh auto 5vh auto;
-    color: var(--color-blue-medium);
+.gray-bg {
+    background-color: var(--color-light-gray);
 }
 
-h2 {margin-top: 4vw;}
+.white-bg {
+    background-color: #ffffff;
+}
 
-table 
-{
-    border-collapse: collapse;
-    margin:auto;
-    margin-bottom: 5vh;
+.title {
+    color: #ffffff;
+    background-color: var(--color-main-blue);
+
+    margin: 5vh 0;
+    padding: 0 20px 0 40px;
+    width: fit-content;
+}
+.no-space {
+    margin: 10px 0;
+
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+table {
+    border: none;
+    border-spacing: 0;
+    margin: 5vh auto;
+    box-shadow: 0 4px 4px 0 rgba(0,0,0, 0.2);
+
+    td {
+        border: none;
+    }
+
+    .first-col {
+        background-color: var(--color-main-blue);
+        color: #ffffff;
+    }
+
+    .first-line {
+        font-weight: bold;
+
+        & > .first-col::after {
+            content: "";
+            position: relative;
+            left: -47px;
+            padding: 0 30px 8px;
+            border-bottom: 1px solid #ffffff;
+        }
+    }
 }
 
 td {
@@ -22,23 +70,24 @@ td {
     padding: 10px;
 }
 
-.btn
-{
-    display:block;
-    border-radius: 25px;
-    width:20vw;
-    text-align: center;
-    padding: 2vh 1vw 2vh 1vw;
-    margin:auto;
-    margin-top: 5vh;
-    background-color: var(--color-blue-medium);
-    box-shadow: #00000447 0px 2px 3px;
-    color:white;
-    text-decoration: none;
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+        color: #ffffff;
+        background-color: var(--color-main-blue);
+        font-weight: bold;
+
+        padding: 9px 18px;
+        text-decoration: none;
+        border-radius: 4px;
+    }
 }
 
-.questions {
-    margin:auto;
-    margin-bottom: 15vh;
-    width: 80vw;
+@media (max-width: 767px) {
+    .paragraph {
+        padding: 5vh 30px;
+    }
 }
