@@ -1,1 +1,7 @@
-<p>caroussel works !</p>
+<div class="carousel-container">
+    <img
+        *ngFor="let company of partnerCompaniesList"
+        class="carousel-item moving"
+        src="{{company.srcImage}}"
+    >
+</div>

@@ -1,0 +1,31 @@
+.carousel-container {
+    background-color: white;
+    padding: 10px 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.carousel-item {
+    margin: 0 20px;
+    position: relative;
+    width: 100px;
+    left: -10px;
+}
+
+.moving {
+    animation-duration: 3s;
+    animation-name: slidein;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes slidein {
+    from {
+        left: -700px;
+    }
+    to {
+        left: 0%
+    }
+}
