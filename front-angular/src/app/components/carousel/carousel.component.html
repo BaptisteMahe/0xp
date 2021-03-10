@@ -1,7 +1,7 @@
 <div class="carousel-container">
     <img
-        *ngFor="let company of partnerCompaniesList"
+        *ngFor="let index of indexes"
         class="carousel-item moving"
-        src="{{company.srcImage}}"
+        src="{{partnerCompaniesList[index].srcImage}}"
     >
 </div>

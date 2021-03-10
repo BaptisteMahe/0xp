@@ -13,19 +13,3 @@
     width: 100px;
     left: -10px;
 }
-
-.moving {
-    animation-duration: 3s;
-    animation-name: slidein;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-@keyframes slidein {
-    from {
-        left: -700px;
-    }
-    to {
-        left: 0%
-    }
-}
