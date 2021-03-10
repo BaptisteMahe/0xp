@@ -106,7 +106,7 @@ function buildQuery(filter){
     let query = [];
 
     if (filter.textInput) {
-        let textAttributeArray = ["title", "company.display", "location", "sector.display", "type", "description"];
+        let textAttributeArray = ["title", "company.display", "location", "sector.display", "type", "description", "profileDescription"];
         let textInputQuery = { $or: [] };
         textAttributeArray.forEach(textAttribute => {
             textInputQuery.$or.push({ [textAttribute]: { $regex: `.*${filter.textInput}.*`, $options: 'i' }});

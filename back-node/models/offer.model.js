@@ -1,7 +1,7 @@
 OfferModel = {
     $jsonSchema: {
         bsonType: "object",
-        required: ["_id", "title", "type", "description", "location", "duration", "studentTypes", "startDate", "domains", "sector", "company", "createdDate", "isValidated"],
+        required: ["_id", "title", "type", "location", "duration", "studentTypes", "startDate", "domains", "sector", "company", "createdDate", "isValidated"],
         additionalProperties: false,
         properties: {
             _id: {
@@ -17,7 +17,11 @@ OfferModel = {
             },
             description: {
                 bsonType: "string",
-                description: "[required][string] Offer's description."
+                description: "[optional][string] Offer's description."
+            },
+            profileDescription: {
+                bsonType: "string",
+                description: "[optional][string] Offer's researched profile description."
             },
             location: {
                 bsonType: "string",
