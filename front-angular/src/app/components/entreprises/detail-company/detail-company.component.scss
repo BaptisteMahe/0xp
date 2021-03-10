@@ -1,57 +1,70 @@
-h1 {
-  text-align: center;
-}
-
-img {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-
-.banner h2,
-h4 {
-  padding: 0;
-  margin: 0;
-  color: #fbfef9;
-  font-size: 48px;
-  text-shadow: #000004 0px 0px 4px;
-  text-align: center;
-}
-
-.banner h4 {
-  font-size: 24px;
-}
-
 .banner {
-  display: block;
-  height: 50vh;
-  text-align: center;
-  filter: drop-shadow(#0000047a 0px 0px 4px);
-  z-index: 2;
-}
-
-.company-img {
-  max-width: 15vw;
-  max-height: 15vw;
-}
-
-.background-img {
-  width: 100%;
-  height: 67vh;
-  margin-top: -72vh;
-  display: block;
-  position: relative;
+  display: flex;
   align-items: center;
-  overflow: hidden;
-  z-index: -50;
+
+  color: var(--color-main-blue);
+  background-color: var(--color-light-gray);
+  border-bottom: 3px solid var(--color-main-blue);
+  padding: 20px;
 }
 
-.offer-sheet {
-  background-color: white;
-  padding: 3%;
-  margin: 10%;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  box-shadow: #0000047a 0px 0px 10px;
-  text-align: justify;
+.img-container {
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  padding: 10px;
+  margin: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .img-border {
+    border-radius: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    padding: 10px;
+
+    img {
+      max-width: 200px;
+      max-height: 200px;
+    }
+
+  }
+}
+
+.info-sheet {
+
+  h1 {
+    font-size: 3em;
+    margin: 0 0 15px;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 1.3em;
+    margin: 0;
+  }
+
+  .label {
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .img-container {
+    margin: 15px;
+
+    .img-border {
+      img {
+        max-width: 100px;
+        max-height: 100px;
+      }
+    }
+  }
+
+  .info-sheet {
+    p {
+      font-size: 1em;
+    }
+  }
 }
