@@ -1,7 +1,10 @@
 <div class="carousel-container">
-    <img
-        *ngFor="let index of indexes"
-        class="carousel-item moving"
-        src="{{partnerCompaniesList[index].srcImage}}"
+    <a
+    *ngFor="let index of indexes"
+    href="http://www.centrale-marseille.fr"
+    target="_blank"
+    class="carousel-item moving"
     >
+        <img class="carousel-image" src="{{partnerCompaniesList[index].srcImage}}">
+    </a>
 </div>

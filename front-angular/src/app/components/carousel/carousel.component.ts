@@ -15,7 +15,7 @@ export class CarouselComponent implements AfterContentInit{
   indexes: number[];
   nRep: number;
   containerWidth: number;
-  imageWidth: number = 140;
+  imageWidth: number = 120;
 
   constructor(public companyService: CompanyService) {}
 
@@ -27,7 +27,8 @@ export class CarouselComponent implements AfterContentInit{
   loadPartnerCompanies() {
     this.companyService.getAll().subscribe(
       companies => {
-        this.partnerCompaniesList = companies;
+        this.partnerCompaniesList = companies.filter(company => company.isPartner);
+        this.shuffleArray(this.partnerCompaniesList)
         this.nPartnerCompanies = this.partnerCompaniesList.length;
         this.initIndexes();
         this.initAnimation();
@@ -53,4 +54,11 @@ export class CarouselComponent implements AfterContentInit{
     style.sheet.insertRule(".moving {animation: " + 3 * this.nPartnerCompanies + "s move linear infinite}", 0);
   }
   
+  shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
 }
