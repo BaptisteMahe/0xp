@@ -1,70 +1,108 @@
-<div class="logo-header">
-  <img class="logo-image" src="../../../assets/images/logo_blue.svg" />
-  <h1>
-    Simplifiez votre première fois !
-  </h1>
-  <button class="redirect-button" type="button">
-    <a *ngIf="currentUser" routerLink="/offers">Découvrir les offres</a>
-    <a *ngIf="!currentUser" routerLink="/login">Connectez vous pour découvrir les offres</a>
-  </button>
-</div>
-
-<div class="grid-container">
-  <h1 class="grid-title">Vous êtes étudiant ?</h1>
-  <div class="grid">
-    <div class="grid-item">
-      <h2 class="item">Trouvez des offres qui vous correspondent</h2>
-      <img class="illustration" src="https://image.flaticon.com/icons/svg/501/501406.svg" />
-      <p class="item">Naviguez intuitivement à travers le site pour découvrir les offres qui y sont proposées.
-        L'algorithme calculera un taux de matching pour chacune des offres en fonction de vos critères de recherche et
-        de vos aptitudes, afin que vous trouviez celle qui vous correspond le mieux. </p>
-    </div>
-    <div class="grid-item">
-      <h2 class="item">Orientez vos choix grâce aux retours de vos prédécesseurs</h2>
-      <img class="illustration" src="https://image.flaticon.com/icons/svg/1256/1256650.svg" />
-      <p class="item">D'autres élèves sont passés par les mêmes difficultés que vous et par les entreprises qui vous
-        accueilleront peut-être. Leur avis ont été recueillis pour que vous puissiez bénéficier de leurs expériences et
-        orienter vos choix en fonction.</p>
-    </div>
-    <div class="grid-item">
-      <h2 class="item">Des réponses à toutes vos questions</h2>
-      <img class="illustration" src="https://image.flaticon.com/icons/svg/544/544570.svg" />
-      <p class="item">Vous trouverez également une foire aux questions regroupant toutes les informations dont vous
-        aurez besoin pour valider votre temps en entreprise. Cherchez en toute simplicité la réponse à vos questions,
-        quelle que soit votre situation au sein de l'école.</p>
+<div class="banner">
+  <div class="banner-border">
+    <div class="banner-content-container">
+      <div class="banner-title">
+        <h1>LE SITE</h1>
+        <h1>DES STAGES ET EMPLOIS DE</h1>
+        <div class="centrale-marseille">
+          <h1 class="centrale">CENTRALE &nbsp;</h1>
+          <h1 class="marseille">MARSEILLE</h1>
+        </div>
+      </div>
+      <img src="assets/images/0xp-logo-white.svg" />
     </div>
   </div>
 </div>
 
 <div class="grid-container">
-  <h1 class="grid-title">Vous êtes une entreprise ?</h1>
-  <div class="grid">
-    <div class="grid-item">
-      <h2 class="item">Donnez de la visibilité à vos offres</h2>
-      <img class="illustration" src="https://image.flaticon.com/icons/svg/1661/1661853.svg" />
-      <p class="item">En mettant vos offres de stage, emploi ou autre sur 0xp, vous êtes garantis de gagner en
-        visibilité et de toucher le type de profils qui vous intéresse le plus, directement au cœur des Centraliens de
-        Marseille.</p>
-    </div>
-    <div class="grid-item">
-      <h2 class="item">Gérez vos offres en toute simplicité</h2>
-      <img class="illustration" src="https://image.flaticon.com/icons/svg/501/501437.svg" />
-      <p class="item">Depuis votre profil entreprise, vous pourrez ajouter, modifier et supprimer des offres comme bon
-        vous semble, le tout pour une gestion efficace et simplifiée de vos annonces.</p>
-    </div>
-    <div class="grid-item">
-      <h2 class="item">Obtenez les meilleurs candidats pour vous</h2>
-      <img class="illustration" src="https://image.flaticon.com/icons/svg/1256/1256646.svg" />
-      <p class="item">Grâce au taux de matching calculé par l'algorithme entre étudiants et annonces de postes, vos
-        offres seront d'autant plus visibles pour les étudiants qui correspondent le mieux à vos attentes. Par
-        conséquent, la perle rare viendra à vous d'elle-même.</p>
+
+  <div class="section actu">
+    <h2>ACTUALITÉS</h2>
+
+    <div class="section-content">
+      <div class="text">
+        <h3>COVID-19</h3>
+        <p>Informations</p>
+        <p>Importantes</p>
+      </div>
+      <img src="assets/images/image-actu.png" />
     </div>
   </div>
-</div>
 
-<div class="footer">
-  <a *ngIf="currentUser" class="redirect-button" routerLink="/offers">Lancez-vous !</a>
-  <a *ngIf="!currentUser" class="redirect-button" routerLink="/login">Lancez-vous !</a>
+  <div class="section table">
+    <h2>CALENDRIER DES STAGES</h2>
+
+    <table>
+      <tr class="first-line">
+        <td class="first-col">Élèves</td>
+        <td>Début</td>
+        <td>Durée</td>
+        <td>Intitulé</td>
+      </tr>
+      <tr>
+        <td class="first-col">1ère année</td>
+        <td>Juillet</td>
+        <td>4 semaines minimum</td>
+        <td>Stage découverte de l'entreprise</td>
+      </tr>
+      <tr>
+        <td class="first-col">2ème année</td>
+        <td>Juin</td>
+        <td>8 semaines minimum</td>
+        <td>Stage découverte du métier d'ingénieur</td>
+      </tr>
+      <tr>
+        <td class="first-col">3ème année</td>
+        <td>Avril</td>
+        <td>16 semaines minimum</td>
+        <td>Travail de Fin d'Etude</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section management">
+    <h2>GESTION DES STAGES</h2>
+
+    <div class="section-content">
+      <div class="text">
+        <h3>Stages</h3>
+        <p>Tout savoir</p>
+        <p>sur la</p>
+        <p>gestion</p>
+        <p>des stages</p>
+      </div>
+      <img src="assets/images/image-gestion.png" />
+    </div>
+  </div>
+
+  <div class="section parts">
+    <h2>DEVENIR PARTENAIRE</h2>
+
+    <div class="section-content">
+      <div class="text">
+        <h3>Part.</h3>
+        <p>Tout savoir</p>
+        <p>sur les</p>
+        <p>Partenariats</p>
+      </div>
+      <img src="assets/images/image-part.png" />
+    </div>
+  </div>
+
+  <div class="section parts-map">
+    <h2>CARTE DES PARTENAIRES</h2>
+
+    <div class="section-content">
+      <div class="text">
+        <h3>Carte</h3>
+        <p>Découvrir</p>
+        <p>la carte des</p>
+        <p>partenaires</p>
+      </div>
+      <img src="assets/images/image-map-part.png" />
+    </div>
+  </div>
+
 </div>
 
 <app-carousel></app-carousel>
