@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 
-import { Offer, Company, Document } from '../../../../models';
-import { OfferService, CompanyService, DocumentService } from '../../../services';
+import { Offer, Company, Document, Filter } from '../../../../models';
+import { OfferService, CompanyService, DocumentService, FilterService } from '../../../services';
+import { PdfPreviewComponent } from '../../entreprises/add-pdf/add-pdf.component';
 
 @Component({
   selector: 'app-offer-detail',
@@ -19,16 +21,21 @@ export class OfferDetailComponent implements OnInit {
 
   offerPdf: Document;
 
-  isModalopen = false;
+  currentFilter: Filter;
+  filterKeys: string[];
 
   constructor(private router: Router,
               private offerViewService: OfferService,
               private sanitizer: DomSanitizer,
               private companyService: CompanyService,
-              private documentService: DocumentService) { }
+              private documentService: DocumentService,
+              private filterService: FilterService,
+              private matDialog: MatDialog) { }
 
   ngOnInit() {
     const idOffer = this.router.url.replace('/offers/', '');
+    this.currentFilter = this.filterService.getCurrentFilter();
+    this.filterKeys = Object.keys(this.currentFilter);
 
     this.offerViewService.getOfferById(idOffer).subscribe(offer => {
       if (offer) {
@@ -57,8 +64,9 @@ export class OfferDetailComponent implements OnInit {
     });
   }
 
-  openOrClose() {
-    this.isModalopen = !this.isModalopen;
+  onPdfPreviewClick() {
+    this.matDialog.open(PdfPreviewComponent, {
+      data: this.offerPdf
+    });
   }
-
 }

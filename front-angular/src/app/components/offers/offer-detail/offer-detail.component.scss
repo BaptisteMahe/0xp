@@ -1,182 +1,104 @@
-.modal {
-  position: absolute;
-  width: 76%;
-  margin: auto 12%;
-  height: auto;
-  background-color: white;
-  z-index: 3;
-  border-radius: 10px;
-  box-shadow: #0000047a 0 0 10px;
-}
+.filter-banner {
+  background-color: var(--color-light-gray);
+  border-bottom: 3px solid var(--color-main-blue);
+  padding: 20px 20px 20px 10vw;
 
-.cancel {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 22px;
-  width: 22px;
-  margin: 10px;
-  z-index: 5;
-}
-
-.logo-company {
-  filter: drop-shadow(#0000047a 0px 0px 4px);
-  margin-top: 40px;
-  margin-bottom: 40px;
-  max-width: 20vw;
-}
-
-.modal-header-content {
-  text-align: center;
-}
-
-.modal-header-content h1 {
-  font-size: 28px;
-  margin: 0;
-}
-
-.modal-header-content h4 {
-  font-size: 18px;
-  margin-top: 0;
-  margin-bottom: 20px;
-}
-
-.modal-body {
-  width: 90%;
-  margin: auto;
-  text-align: justify;
-}
-
-#location {
-  text-align: right;
-}
-
-.modal-footer {
-  text-align: center;
-  margin: 25px;
-}
-
-button {
-  color: white;
-  border: none;
-  border-radius: 20px;
-  background-color: var(--color-blue-medium);
-  padding: 10px 20px;
-  width: fit-content;
-  margin: auto;
-}
-
-.button:hover {
-  text-decoration: underline;
-}
-
-.banner h2,
-h4 {
-  padding: 0;
-  margin: 0;
-  color: #fbfef9;
-  font-size: 2.5em;
-  text-shadow: #000004 0 0 4px;
-  text-align: center;
-}
-
-.banner h4 {
-  font-size: 24px;
-}
-
-.banner {
-  display: block;
-  height: 30vh;
-  text-align: center;
-  filter: drop-shadow(#0000047a 0px 0px 4px);
-  z-index: 2;
-}
-
-.img-bg {
-  width: 100%;
-  height: 100%;
-}
-
-.bg {
-  width: 100%;
-  height: 85vh;
-  margin-top: -72vh;
-  display: block;
-  position: relative;
-  align-items: center;
-  overflow: hidden;
-  z-index: -10;
-}
-
-.matching {
-  width: 10vw;
-  height: 10vw;
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: -10%;
   display: flex;
-  color: #000004;
-  background-color: white;
-  border-radius: 100%;
-  justify-content: center;
-  align-items: center;
-  box-shadow: #0000047a 0px 0px 10px;
-  z-index: 1;
+  flex-direction: column;
+
+
+  h1 {
+    color: var(--color-main-blue);
+    margin-top: 0;
+  }
+
+  mat-chip {
+    box-shadow: #00000447 0 2px 3px;
+    background-color: #ffffff;
+    border-radius: 7px;
+    margin: 4px 7px;
+  }
+
+  .return-button {
+    color: #ffffff;
+    background-color: var(--color-main-blue);
+    margin-left: auto;
+  }
 }
 
-.matching h1 {
-  font-size: 2.5em;
-}
-
-.matching h4 {
-  padding: 0;
-  margin: 0;
-  color: #000004;
-  text-shadow: none;
-  font-size: 2em;
-}
-
-h1 {
-  font-size: 24px;
-}
-
-p {
-  font-size: 20px;
-}
-
-.offer-sheet {
-  background-color: white;
-  padding: 3% 10%;
-  margin: 2% 10%;
-  box-shadow: #0000047a 0px 0px 10px;
-  text-align: justify;
-}
-
-ul li {
-  font-size: 18px;
-}
-
-.main_infos {
+.offer-overview {
+  margin: 20px;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  list-style-type: none;
+
+  .img-container {
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 0 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .img-border {
+      border-radius: 10px;
+      border: 1px solid rgba(128, 128, 128, 0.2);
+      padding: 10px;
+
+      img {
+        max-width: 120px;
+        max-height: 120px;
+      }
+    }
+  }
+
+  .info-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+      color: var(--color-main-blue);
+      margin: 10px 0;
+      font-size: 2.7em;
+    }
+
+    pre {
+      margin: 0;
+    }
+  }
+
+  .pdf-button {
+    margin: 0 10vw 0 auto;
+    align-self: flex-end;
+  }
 }
 
-.btn-success {
-  color: white;
-  background-color: #03c9d3;
-  border-color: transparent;
-  box-shadow: #0000047a 0px 0px 5px;
-  margin-left: 42%;
-  margin-right: 42%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 2vh;
-  border-color: transparent;
+.section {
+  margin: 20px 10vw;
+
+  .section-title {
+    color: #ffffff;
+    background-color: var(--color-main-blue);
+
+    margin: 5vh 0;
+    padding: 0 20px 0 40px;
+    width: fit-content;
+  }
+
+  .section-content {
+    margin-left: 40px;
+  }
 }
 
-.btn-success:hover {
-  background-color: rgb(6, 173, 182);
+@media (max-width: 767px) {
+  .filter-banner {
+    padding: 20px;
+  }
+
+  .offer-sheet {
+    .section {
+      margin: 20px;
+    }
+  }
 }
