@@ -6,3 +6,4 @@ export * from './offer.service';
 export * from './select.service';
 export * from './document.service';
 export * from './logger.service';
+export * from './filter.service';

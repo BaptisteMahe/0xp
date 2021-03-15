@@ -1,9 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-import { SelectService, UserService } from '../../../services';
+import { FilterService, SelectService, UserService } from '../../../services';
 import {
   Filter,
   OfferType,
@@ -54,7 +54,6 @@ export class FilterComponent implements OnInit {
   currentUser: User;
 
   currentFilter: Filter;
-  @Output() filterEvent = new EventEmitter<Filter>();
 
   typeList = Object.values(OfferType);
   timeList = Object.values(OfferDuration);
@@ -69,10 +68,11 @@ export class FilterComponent implements OnInit {
   dateStart = new FormControl(moment());
 
   constructor(private userService: UserService,
+              private filterService: FilterService,
               private selectService: SelectService) { }
 
   ngOnInit() {
-    this.currentFilter = { } as Filter;
+    this.currentFilter = this.filterService.getCurrentFilter();
 
     this.userService.getCurrentUserObs().subscribe((user: User) => {
       this.currentUser = user;
@@ -83,13 +83,13 @@ export class FilterComponent implements OnInit {
 
   onFilterClick() {
     this.selectedChip = null;
-    this.filterEvent.emit(this.currentFilter);
+    this.filterService.setCurrentFilter(this.currentFilter);
   }
 
   onChipClick(selectedChip: OfferResearchType) {
     this.selectedChip = selectedChip;
     this.currentFilter = {...this.currentFilter, ...OfferResearchToFilters[getKeyFromValue(this.selectedChip)]};
-    this.filterEvent.emit(this.currentFilter);
+    this.filterService.setCurrentFilter(this.currentFilter);
   }
 
   chosenYearHandler(normalizedYear: Moment) {

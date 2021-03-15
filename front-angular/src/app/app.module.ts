@@ -48,7 +48,7 @@ import { AddLogoComponent } from './components/entreprises/add-logo/add-logo.com
 
 import { FooterComponent } from './components/footer/footer.component';
 
-import { CompanyService, UserService, SelectService, OfferService, DocumentService, LoggerService } from './services';
+import { CompanyService, UserService, SelectService, OfferService, DocumentService, LoggerService, FilterService } from './services';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
@@ -113,7 +113,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     DeleteAvisComponent
   ],
   exports: [OfferDetailComponent],
-  providers: [OfferService, CompanyService, UserService, SelectService, DocumentService, LoggerService,
+  providers: [OfferService, CompanyService, UserService, SelectService, DocumentService, LoggerService, FilterService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'fr' }],

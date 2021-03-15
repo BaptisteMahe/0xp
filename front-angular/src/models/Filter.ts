@@ -6,8 +6,8 @@ export interface Filter {
   type: OfferType;
   duration: OfferDuration;
   studentType: StudentTypeValue;
-  sector: SelectOption;
-  location: SelectOption[];
+  sector: string;
+  location: string[];
   startDate: Date;
   matchingMini: number;
   remunMini: number;

@@ -120,7 +120,7 @@ function buildQuery(filter){
     });
 
     if (filter.sector) {
-        query.push({ "sector._id": ObjectId(filter.sector._id) });
+        query.push({ "sector._id": ObjectId(filter.sector) });
     }
 
     if (filter.studentType) {
@@ -130,7 +130,7 @@ function buildQuery(filter){
     if (filter.location && filter.location.length) {
         let locationQuery = { $or: [] };
         filter.location.forEach(location => {
-            locationQuery.$or.push({ location: location._id });
+            locationQuery.$or.push({ location: location });
         });
         query.push(locationQuery);
     }

@@ -62,7 +62,7 @@
           <mat-label>Secteur</mat-label>
           <mat-select [(value)]="currentFilter.sector">
             <mat-option value="">--</mat-option>
-            <mat-option *ngFor="let sector of sectorList" [value]="sector">{{sector.display}}</mat-option>
+            <mat-option *ngFor="let sector of sectorList" [value]="sector._id">{{sector.display}}</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -70,7 +70,7 @@
           <mat-label>Lieu</mat-label>
           <mat-select [(value)]="currentFilter.location" [multiple]='true'>
             <mat-option value="">--</mat-option>
-            <mat-option *ngFor="let location of offerLocationList" [value]="location">{{location.display}}
+            <mat-option *ngFor="let location of offerLocationList" [value]="location._id">{{location.display}}
             </mat-option>
           </mat-select>
         </mat-form-field>
