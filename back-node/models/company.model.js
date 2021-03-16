@@ -34,6 +34,10 @@ CompanyModel = {
             isPartner: {
                 bsonType: "bool",
                 description: "[required][bool] Boolean representing if the company is partner with ECM or not."
+            },
+            websiteUrl: {
+                bsonType: "string",
+                description: "[optional][string] Company's website url."
             }
         }
     }
