@@ -30,6 +30,11 @@
   border-radius: 1vw;
   width: 80%;
   margin: auto auto 2vh;
+
+  a {
+    text-decoration: none;
+    color: var(--color-main-blue);
+  }
 }
 
 .center {
