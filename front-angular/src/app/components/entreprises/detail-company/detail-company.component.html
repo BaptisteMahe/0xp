@@ -1,20 +1,17 @@
-<div>
-  <div class="banner">
-    <h2><img class="company-img" src="{{company?.srcImage}}" alt="logo company" /></h2>
-    <h2>{{company?.name}}</h2><br />
+<div class="banner">
+  <div class="img-container">
+    <div class="img-border">
+      <img src="{{company?.srcImage}}" alt="logo company" />
+    </div>
   </div>
-  <div class="background-img">
-    <img style="width:100%;" src="../../../../assets/images/background-test.jpg" alt="banner" />
-  </div>
-  <div class="offer-sheet">
+  <div class="info-sheet">
+    <h1>{{company?.name}}</h1>
     <p><span class="label">Localisation : </span>{{company?.location}}</p>
     <p><span class="label">Catégorie de l'entreprise : </span>{{currentCategoryDisplay}}</p>
     <p><span class="label">Description : </span>{{company?.description}}</p>
     <p><span class="label">Contact : </span>{{company?.contact}}</p>
+    <p *ngIf="!!company?.websiteUrl"><span class="label">Site Web : </span><a [href]="company.websiteUrl" target="_blank">{{company.websiteUrl}}</a></p>
   </div>
 </div>
 
-<div class="avis">
-  <h1>Avis</h1>
-  <app-avis-company [companyId]="companyId"></app-avis-company>
-</div>
+<app-avis-company [companyId]="companyId"></app-avis-company>

@@ -1,0 +1,38 @@
+.parts-container {
+  padding: 3vh 15vw;
+
+  p {
+    color: var(--color-main-blue);
+    margin-left: 30px;
+    font-size: 1.2em;
+  }
+
+  .no-space {
+    margin: 10px 0;
+
+    p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    :first-child {
+      font-weight: bold;
+    }
+  }
+}
+
+.title {
+  color: #ffffff;
+  background-color: var(--color-main-blue);
+
+  margin: 5vh 0;
+  padding: 0 20px 0 40px;
+  width: fit-content;
+}
+
+
+@media (max-width: 767px) {
+  .parts-container {
+    padding: 3vh 30px;
+  }
+}

@@ -1,4 +1,26 @@
+mat-card {
+  color: var(--color-main-blue);
+}
+
 .avis-title {
   display: flex;
   justify-content: space-between;
+}
+
+h1 {
+  margin: 0;
+  font-size: 3em;
+}
+
+h3 {
+  font-size: 2em;
+}
+
+ul {
+  padding-left: 10px;
+  font-size: 1.5em;
+
+  li {
+    list-style: none;
+  }
 }

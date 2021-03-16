@@ -6,6 +6,7 @@ export interface Offer {
   title: string;
   type: OfferType;
   description: string;
+  profileDescription: string;
   location: string;
   duration: OfferDuration;
   startDate: Date;

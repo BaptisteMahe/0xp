@@ -46,9 +46,15 @@ import { ListCompanyComponent, DeleteCompanyComponent } from './components/entre
 import { AvisOverviewComponent } from './components/entreprises/avis-company/avis-overview/avis-overview.component';
 import { AddLogoComponent } from './components/entreprises/add-logo/add-logo.component';
 
+import { ActuComponent } from './components/actu/actu.component';
+
+import { PartsComponent } from './components/parts/parts.component';
+
+import { PartsMapComponent } from './components/parts-map/parts-map.component';
+
 import { FooterComponent } from './components/footer/footer.component';
 
-import { CompanyService, UserService, SelectService, OfferService, DocumentService, LoggerService } from './services';
+import { CompanyService, UserService, SelectService, OfferService, DocumentService, LoggerService, FilterService } from './services';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
@@ -90,7 +96,10 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     PdfPreviewComponent,
     DeleteAvisComponent,
     FooterComponent,
-    CarouselComponent
+    CarouselComponent,
+    ActuComponent,
+    PartsComponent,
+    PartsMapComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +122,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     DeleteAvisComponent
   ],
   exports: [OfferDetailComponent],
-  providers: [OfferService, CompanyService, UserService, SelectService, DocumentService, LoggerService,
+  providers: [OfferService, CompanyService, UserService, SelectService, DocumentService, LoggerService, FilterService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'fr' }],

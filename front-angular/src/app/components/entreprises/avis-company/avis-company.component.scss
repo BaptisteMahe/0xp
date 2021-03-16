@@ -1,43 +1,111 @@
-.form-element {
-  padding: 10px;
-  text-align: left;
+.title {
+    color: #ffffff;
+    background-color: var(--color-main-blue);
+
+    margin: 5vh 0;
+    padding: 0 20px 0 40px;
+    width: fit-content;
 }
 
 .avis-preview {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 5vh 8vw 0 8vw;
+  background-color: #ffffff;
+  padding: 5vh 8vw;
 }
 
-.avis-box {
-  width: 20%;
+.avis-list-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.avis-container {
+  min-width: 20%;
   margin: 2vw;
 }
 
-.form-avis {
+.empty-avis {
+  color: var(--color-main-blue);
   text-align: center;
-  height: max-content;
-  padding: 1vh 3vw;
-  margin: auto auto 5vh;
-  box-shadow: #00000447 0px 2px 3px;
-  overflow: hidden;
-  border-radius: 10px;
+  font-size: 1.3em;
+  margin-bottom: 20px;
+}
+
+.form-section {
+  background-color: var(--color-light-gray);
+  padding: 5vh 8vw;
+}
+
+.form-container {
+  display: flex;
   align-items: center;
-  border: 0.5px #00000052 solid;
-  position: relative;
-  width: max-content;
-  border-top: 2vh;
+  justify-content: center;
+}
+
+.form-avis {
+  background-color: #ffffff;
+
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 30px 70px;
+
+    .form-element {
+      width: 100%;
+    }
+  }
 }
 
 button {
-  padding: 1vh 1.5vw;
-  background-color: var(--color-blue-medium);
-  color: white;
-  margin: 2vh;
-  font-size: 16px;
+  color: #ffffff;
+  background-color: var(--color-main-blue);
+  margin: 20px;
 }
 
 textarea {
-  min-height: 20vh;
-  min-width: 30vw;
+  min-height: 15vh;
+  min-width: 20vw;
+  margin-bottom: 5px;
+
+  border: none;
+  border-radius: 2px;
+  resize: none;
+  box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
+}
+
+@media (max-width: 767px) {
+
+  .avis-preview {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .avis-container {
+    min-width: 70%;
+    margin: 2vw;
+  }
+
+  .avis-list-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-section {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .form-avis {
+    form {
+      padding: 30px 30px;
+    }
+  }
+
+  textarea {
+    min-width: 50vw;
+  }
 }

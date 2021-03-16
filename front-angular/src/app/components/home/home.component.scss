@@ -1,78 +1,164 @@
-* {
-  text-align: center;
-  margin: auto;
-}
+.banner {
+  background-color: rgb(169,163,163);
+  border-bottom: 3px solid var(--color-main-blue);
+  padding: 10px;
 
-h1,
-h2 {
-  color: gray;
-}
+  .banner-border {
+    background-color: rgb(181,176,176);
+    padding: 10px;
+    border-radius: 10px;
 
-.logo-header {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10vh;
-}
+    .banner-content-container {
+      background-color: rgb(193,190,190);
+      padding: 20px;
+      border-radius: 10px;
 
-.logo-image {
-  width: 330px;
-}
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
 
-.redirect-button {
-  border: none;
-  border-radius: 25px;
-  padding: 10px 20px;
-  margin-top: 5vh;
-  background-color: var(--color-blue-medium);
-  box-shadow: #00000447 0px 2px 3px;
-  color: white;
-  cursor: pointer;
-}
+      .banner-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
 
-button a,
-.footer a {
-  text-decoration: none;
-  color: white;
-  font-size: large;
+        h1 {
+          margin: 10px 0;
+        }
+
+        .centrale-marseille {
+          display: flex;
+
+          .centrale {
+            color: var(--color-gray-blue);
+          }
+          .marseille {
+            color: var(--color-main-blue);
+          }
+        }
+      }
+    }
+  }
 }
 
 .grid-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin-bottom: 12vh;
+  padding: 20px 17vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: start;
+
+  .table {
+    grid-column: 2 / 4;
+
+    table {
+      border: none;
+      border-spacing: 0;
+      font-size: 1.2em;
+      margin: 5vh auto;
+      box-shadow: 0 4px 4px 0 rgba(0,0,0, 0.2);
+
+      td {
+        border: none;
+        padding: 15px;
+      }
+
+      .first-col {
+        background-color: var(--color-main-blue);
+        color: #ffffff;
+      }
+
+      .first-line {
+        font-weight: bold;
+
+        & > .first-col::after {
+          content: "";
+          position: relative;
+          left: -47px;
+          padding: 0 30px 8px;
+          border-bottom: 1px solid #ffffff;
+        }
+      }
+    }
+
+    td {
+      border: 0.5px #00000052 solid;
+      padding: 10px;
+    }
+  }
+
+  .section {
+    h2 {
+      color: var(--color-main-blue);
+    }
+
+    .section-content {
+      display: flex;
+      cursor: pointer;
+      box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 20%);
+
+      .text {
+        background-color: var(--color-main-blue);
+        color: #ffffff;
+        padding: 5px;
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .actu h3::after {
+    content: "";
+    position: relative;
+    left: -65px;
+    padding: 0 20px 8px;
+    border-bottom: 1px solid #ffffff;
+  }
+
+  .management h3::after {
+    content: "";
+    position: relative;
+    left: -50px;
+    padding: 0 20px 8px;
+    border-bottom: 1px solid #ffffff;
+  }
+
+  .parts h3::after {
+    content: "";
+    position: relative;
+    left: -36px;
+    padding: 0 20px 8px;
+    border-bottom: 1px solid #ffffff;
+  }
+
+  .parts-map h3::after {
+    content: "";
+    position: relative;
+    left: -39px;
+    padding: 0 20px 8px;
+    border-bottom: 1px solid #ffffff;
+  }
 }
 
-.grid-title {
-  color: var(--color-blue-medium);
-}
+@media (max-width: 767px) {
+  .banner {
+    .banner-border {
+      .banner-content-container {
+        flex-direction: column;
+      }
+    }
+  }
 
-.grid {
-  display: flex;
-  justify-content: space-around;
-  width: 75vw;
-  margin-top: 5vh;
-}
+  .grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-.grid-item {
-  max-width: 22vw;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-}
-
-.item {
-  margin: 0;
-}
-
-.illustration {
-  height: 20vh;
-  margin: 3vh;
-}
-
-.footer {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin-bottom: 7vh;
+    .section {
+      margin: auto;
+    }
+  }
 }

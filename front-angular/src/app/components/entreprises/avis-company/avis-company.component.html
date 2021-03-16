@@ -1,47 +1,63 @@
 <div class="avis-preview">
-  <div *ngFor="let avis of avisList" class="avis-box">
-    <app-avis-overview (deleteEvent)="onDeleteEvent($event)" [isAdmin]="currentUser?.type === 'admin'" [avis]="avis"></app-avis-overview>
+
+  <h1 class="title">Avis</h1>
+
+  <div class="avis-list-container">
+    <div *ngFor="let avis of avisList" class="avis-container">
+      <app-avis-overview (deleteEvent)="onDeleteEvent($event)" [isAdmin]="currentUser?.type === 'admin'" [avis]="avis"></app-avis-overview>
+    </div>
+  </div>
+
+  <div class="empty-avis" *ngIf="avisList.length === 0">Sois le premier à donner ton avis !</div>
+
+</div>
+<div class="form-section">
+  <h1 class="title">Donne ton avis</h1>
+
+  <div class="form-container">
+    <div *ngIf="currentUser?.type === 'student' || currentUser?.type === 'admin'" class="form-avis">
+
+      <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">
+
+        <mat-form-field class="form-element">
+          <mat-label>Impression générale</mat-label>
+          <mat-select formControlName="noteGenerale">
+            <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+          <mat-label>Intérêt de la mission</mat-label>
+          <mat-select formControlName="noteInteret">
+            <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+          <mat-label>Ambiance de travail</mat-label>
+          <mat-select formControlName="noteAmbiance">
+            <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+          <mat-label>Encadrement</mat-label>
+          <mat-select formControlName="noteEncadrt">
+            <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <textarea type="text" formControlName="description" placeholder="Commentaire"
+              [ngClass]="{'is-invalid': avisForm.controls.description.errors}">
+        </textarea>
+        <div *ngIf="avisForm.controls.description.errors" class="invalid-feedback">
+          <div *ngIf="avisForm.controls.description.errors.required">Le commentaire est requis !</div>
+        </div>
+
+        <button mat-raised-button>Ajouter un avis</button>
+      </form>
+    </div>
   </div>
 
 </div>
 
-<div *ngIf="currentUser?.type === 'student' || currentUser?.type === 'admin'" class="form-avis">
-  <h1>Donne ton avis</h1>
-  <br />
-  <form [formGroup]="avisForm" (ngSubmit)="onSubmit()">
-    <mat-form-field class="form-element">
-      <mat-label>Impression générale</mat-label>
-      <mat-select formControlName="noteGenerale">
-        <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="form-element">
-      <mat-label>Intérêt de la mission</mat-label>
-      <mat-select formControlName="noteInteret">
-        <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="form-element">
-      <mat-label>Ambiance de travail</mat-label>
-      <mat-select formControlName="noteAmbiance">
-        <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="form-element">
-      <mat-label>Encadrement</mat-label>
-      <mat-select formControlName="noteEncadrt">
-        <mat-option *ngFor="let note of [1, 2, 3, 4, 5]" [value]=note>{{note}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div class="form-group">
-      <textarea type="text" formControlName="description" placeholder="Commentaire"
-        [ngClass]="{'is-invalid': avisForm.controls.description.errors}">
-          </textarea>
-      <div *ngIf="avisForm.controls.description.errors" class="invalid-feedback">
-        <div *ngIf="avisForm.controls.description.errors.required">Le commentaire est requis !</div>
-      </div>
-    </div>
-
-    <button mat-raised-button>Ajouter un avis</button>
-  </form>
-</div>

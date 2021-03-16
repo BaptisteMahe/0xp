@@ -5,6 +5,10 @@
     margin: 0 50px;
 }
 
+.modal-header-content {
+    color: var(--color-main-blue);
+}
+
 .modal-body {
     text-align: justify;
 }
@@ -27,7 +31,7 @@
 
 .add-company-button {
     color: white;
-    background-color: var(--color-orange);
+    background-color: var(--color-main-blue);
     margin: 10px;
 }
 

@@ -118,6 +118,7 @@ export class AddOfferComponent implements OnInit {
       }
     } else {
       this.offerOnForm.description = '';
+      this.offerOnForm.profileDescription = '';
     }
 
     this.getSelectOptions();
