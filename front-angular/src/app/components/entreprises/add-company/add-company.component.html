@@ -34,6 +34,11 @@
         <input matInput type="text" formControlName="contact">
       </mat-form-field>
 
+      <mat-form-field class="add-company-field">
+        <mat-label>Site web</mat-label>
+        <input matInput type="text" formControlName="websiteUrl">
+      </mat-form-field>
+
       <div class="add-company-field">
         <app-add-logo [logoAsBase64]="this.companyToEdit?.srcImage" (logoReadyEvent)="onLogoReady($event)"></app-add-logo>
       </div>

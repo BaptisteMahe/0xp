@@ -30,7 +30,8 @@ export class AddCompanyComponent implements OnInit {
       category: [this.companyToEdit?.category],
       location: [this.companyToEdit?.location],
       isPartner: [this.companyToEdit?.isPartner || false],
-      contact: [this.companyToEdit?.contact, [Validators.required, Validators.email]]
+      contact: [this.companyToEdit?.contact, [Validators.required, Validators.email]],
+      websiteUrl: [this.companyToEdit?.websiteUrl]
     });
 
     this.logoAsBase64 = this.companyToEdit?.srcImage;
