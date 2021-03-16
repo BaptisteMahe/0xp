@@ -64,6 +64,7 @@
       <h3>Informations complémentaires</h3>
       <p><span class="label">Description : </span>{{currentCompany?.description}}</p>
       <p><span class="label">Contact : </span>{{currentCompany?.contact}}</p>
+      <p><span class="label">Site Web : </span><a [href]="currentCompany?.websiteUrl" target="_blank">{{currentCompany?.websiteUrl}}</a></p>
     </div>
 
   </div>
@@ -100,6 +101,11 @@
       <div class="center">
         <mat-form-field class="center title">
           <input matInput placeholder="Contact" [(ngModel)]="currentCompanyEdit.contact">
+        </mat-form-field>
+      </div>
+      <div class="center">
+        <mat-form-field class="center title">
+          <input matInput placeholder="Site Web" [(ngModel)]="currentCompanyEdit.websiteUrl">
         </mat-form-field>
       </div>
     </div>

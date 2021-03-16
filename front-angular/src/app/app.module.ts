@@ -54,6 +54,7 @@ import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
 
 import { MaterialModule } from './modules/material.module';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { MaterialModule } from './modules/material.module';
     AddPdfComponent,
     PdfPreviewComponent,
     DeleteAvisComponent,
-    FooterComponent
+    FooterComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,

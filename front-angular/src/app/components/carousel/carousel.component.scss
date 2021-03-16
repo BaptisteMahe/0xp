@@ -1,0 +1,17 @@
+.carousel-container {
+    background-color: white;
+    padding: 10px 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.carousel-image {
+    width: 80px;
+}
+
+.carousel-item {
+    position: relative;
+    margin: 0 20px;
+}

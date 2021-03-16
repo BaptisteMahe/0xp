@@ -10,6 +10,7 @@ export interface Company {
   contact: string;
   category?: CompanyCategoryValue;
   isPartner: boolean;
+  websiteUrl?: string;
 }
 
 export enum CompanyCategoryValue {
