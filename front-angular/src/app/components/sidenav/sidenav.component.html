@@ -2,7 +2,8 @@
 
   <mat-drawer [autoFocus]="false" #drawer class="sidenav" mode="over">
     <a routerLink="/"><img class="logo-image" src="../../../assets/images/logo-ecm.png" /></a>
-    <a routerLink="/profile" *ngIf="currentUser">Mon profil</a>
+    <a routerLink="/login" *ngIf="!currentUser">Me connecter</a>
+    <a routerLink="/profile" *ngIf="!!currentUser">Mon profil</a>
     <a routerLink="/offers" *ngIf="!!currentUser">Les offres</a>
     <a routerLink="/companies" *ngIf="currentUser?.type === 'student' || currentUser?.type === 'admin'" >Donner son avis</a>
     <a routerLink="/faq">Faq</a>
