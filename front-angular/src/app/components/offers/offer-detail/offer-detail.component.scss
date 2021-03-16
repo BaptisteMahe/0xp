@@ -66,6 +66,12 @@
     pre {
       margin: 0;
     }
+
+    a {
+      margin-top: 10px;
+      text-decoration: none;
+      color: var(--color-main-blue);
+    }
   }
 
   .pdf-button {
@@ -75,7 +81,7 @@
 }
 
 .section {
-  margin: 20px 10vw;
+  margin: 20px 14vw;
 
   .section-title {
     color: #ffffff;

@@ -47,6 +47,11 @@
   .label {
     font-weight: bold;
   }
+
+  a {
+    text-decoration: none;
+    color: var(--color-main-blue);
+  }
 }
 
 @media (max-width: 767px) {
