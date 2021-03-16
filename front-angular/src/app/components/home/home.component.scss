@@ -10,7 +10,7 @@
 
     .banner-content-container {
       background-color: rgb(193,190,190);
-      padding: 10px;
+      padding: 20px;
       border-radius: 10px;
 
       display: flex;
@@ -23,6 +23,10 @@
         align-items: center;
         justify-content: center;
         color: #ffffff;
+
+        h1 {
+          margin: 10px 0;
+        }
 
         .centrale-marseille {
           display: flex;
@@ -40,7 +44,7 @@
 }
 
 .grid-container {
-  padding: 20px 15vw;
+  padding: 20px 17vw;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: start;
@@ -91,6 +95,7 @@
 
     .section-content {
       display: flex;
+      cursor: pointer;
       box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 20%);
 
       .text {

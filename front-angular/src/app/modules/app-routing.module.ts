@@ -11,6 +11,9 @@ import { OffersComponent } from '../components/offers/offers.component';
 import { ProfileComponent } from '../components/profile/profile.component';
 import { OfferDetailComponent } from '../components/offers/offer-detail/offer-detail.component';
 import { AddOfferComponent } from '../components/profile/application/offer-company/add-offer/add-offer.component';
+import { ActuComponent } from '../components/actu/actu.component';
+import { PartsComponent } from '../components/parts/parts.component';
+import { PartsMapComponent } from '../components/parts-map/parts-map.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -21,9 +24,12 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'addOffer', component: AddOfferComponent },
-  { path: 'companies', component: EntreprisesComponent},
-  { path: 'companies/:id', component: DetailCompanyComponent},
-  { path: '**', redirectTo: ''}
+  { path: 'companies', component: EntreprisesComponent },
+  { path: 'companies/:id', component: DetailCompanyComponent },
+  { path: 'actu', component: ActuComponent },
+  { path: 'parts', component: PartsComponent },
+  { path: 'parts-map', component: PartsMapComponent },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
