@@ -42,9 +42,12 @@
     }
   }
 }
-
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+}
 .grid-container {
-  padding: 20px 17vw;
+  padding: 20px 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: start;
@@ -102,6 +105,7 @@
         background-color: var(--color-main-blue);
         color: #ffffff;
         padding: 5px;
+        width: 110px;
 
         p {
           margin: 0;

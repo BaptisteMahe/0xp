@@ -22,10 +22,10 @@
   </div>
 
   <div class="info-content">
-    <div>{{offer.sector.display}}</div>
-    <h1>{{offer.title}}</h1>
-    <pre>{{ [offer.location, offer.duration, offer.sector.display].join('   |   ') }}</pre>
-    <div>Publiée il y a {{this.offerService.computeOfferTimeSinceCreation(offer.createdDate)}}</div>
+    <div>{{offer?.sector?.display}}</div>
+    <h1>{{offer?.title}}</h1>
+    <pre>{{ [offer?.location, offer?.duration, offer?.sector?.display].join('   |   ') }}</pre>
+    <div>Publiée il y a {{this.offerService.computeOfferTimeSinceCreation(offer?.createdDate)}}</div>
     <a [href]="company?.websiteUrl" target="_blank">{{company?.websiteUrl}}</a>
   </div>
 
@@ -34,15 +34,15 @@
 
 <div class="section" *ngIf="company?.description">
   <h1 class="section-title">À propos de l'entreprise</h1>
-  <p class="section-content" [innerHTML]="company.description"></p>
+  <p class="section-content" [innerHTML]="company?.description"></p>
 </div>
 
 <div class="section" *ngIf="offer?.description">
   <h1 class="section-title">Descriptif du poste</h1>
-  <p class="section-content" [innerHTML]="offer.description"></p>
+  <p class="section-content" [innerHTML]="offer?.description"></p>
 </div>
 
 <div class="section" *ngIf="offer?.profileDescription">
   <h1 class="section-title">Descriptif du poste</h1>
-  <p class="section-content" [innerHTML]="offer.profileDescription"></p>
+  <p class="section-content" [innerHTML]="offer?.profileDescription"></p>
 </div>

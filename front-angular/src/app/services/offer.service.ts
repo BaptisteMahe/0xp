@@ -26,22 +26,6 @@ export class OfferService {
     });
   }
 
-  computeOfferTimeSinceCreation(offerDate) {
-    const diffInMilisec = this.currentDate.getTime() - new Date(offerDate).getTime();
-    // tslint:disable-next-line:forin
-    for (const key in TimeFromMilliseconds) {
-      // @ts-ignore
-      const time = Math.floor(diffInMilisec / TimeFromMilliseconds[key]);
-      if (time > 0) {
-        if (key !== 'mois') {
-          return `${time} ${(time > 1) ? key + 's' : key}`;
-        } else {
-          return `${time} ${key}`;
-        }
-      }
-    }
-  }
-
   getFilteredOffers(filter: Filter): Observable<Offer[]> {
     return this.httpClient.post<Offer[]>(this.apiUrl + '/offers/filter', { user: this.currentUser, filter });
   }
@@ -80,6 +64,22 @@ export class OfferService {
 
   getCsvDownloadLink(): string {
     return this.apiUrl + '/offers/exportAsCsv/';
+  }
+
+  computeOfferTimeSinceCreation(offerDate): string {
+    const diffInMilisec = this.currentDate.getTime() - new Date(offerDate).getTime();
+    // tslint:disable-next-line:forin
+    for (const key in TimeFromMilliseconds) {
+      // @ts-ignore
+      const timeSpan = Math.floor(diffInMilisec / TimeFromMilliseconds[key]);
+      if (timeSpan > 0) {
+        if (key !== 'mois') {
+          return `${timeSpan} ${(timeSpan > 1) ? key + 's' : key}`;
+        } else {
+          return `${timeSpan} ${key}`;
+        }
+      }
+    }
   }
 
   sortArray(array: Offer[], key: SortCategory) {
