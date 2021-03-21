@@ -19,6 +19,7 @@ export interface Offer {
   pdfId?: string;
   matchingScore?: number;
   isValidated: boolean;
+  views: number;
 }
 
 export enum OfferType {
@@ -50,3 +51,11 @@ export const StudentTypes: SelectOption[] = [
   { _id: StudentTypeValue['3A'], display: 'Élève en 3ème année' },
   { _id: StudentTypeValue['3A+'], display: 'Élève diplomé' }
 ];
+
+export enum TimeFromMilliseconds {
+  an = 1000 * 60 * 60 * 24 * 365,
+  mois = 1000 * 60 * 60 * 24 * 30,
+  jour = 1000 * 60 * 60 * 24,
+  heure = 1000 * 60 * 60,
+  minute = 1000 * 60
+}

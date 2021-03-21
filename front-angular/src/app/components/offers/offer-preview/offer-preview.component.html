@@ -11,7 +11,7 @@
     </div>
 
     <div class="card-info">
-      <pre>{{ [offer.location, offer.duration, offer.sector.display, strDateCreated].join('   |   ') }}</pre>
+      <pre>{{ [offer.location, offer.duration, offer.sector.display, 'Il y a ' + this.offerService.computeOfferTimeSinceCreation(offer.createdDate)].join('   |   ') }}</pre>
     </div>
   </div>
 

@@ -25,6 +25,7 @@
     <div>{{offer.sector.display}}</div>
     <h1>{{offer.title}}</h1>
     <pre>{{ [offer.location, offer.duration, offer.sector.display].join('   |   ') }}</pre>
+    <div>Publiée il y a {{this.offerService.computeOfferTimeSinceCreation(offer.createdDate)}}</div>
     <a [href]="company?.websiteUrl" target="_blank">{{company?.websiteUrl}}</a>
   </div>
 

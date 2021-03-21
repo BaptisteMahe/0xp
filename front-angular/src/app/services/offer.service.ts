@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Offer, User, Filter } from '../../models';
+import { Offer, User, Filter, TimeFromMilliseconds } from '../../models';
 import { environment } from '../../environments/environment';
 import { UserService } from './user.service';
-
 
 export enum SortCategory {
   matchingScore,
@@ -18,12 +17,29 @@ export class OfferService {
 
   private apiUrl = environment.apiUrl;
   private currentUser: User;
+  private currentDate = new Date();
 
   constructor(private httpClient: HttpClient,
               private userService: UserService) {
     this.userService.getCurrentUserObs().subscribe((user: User) => {
       this.currentUser = user;
     });
+  }
+
+  computeOfferTimeSinceCreation(offerDate) {
+    const diffInMilisec = this.currentDate.getTime() - new Date(offerDate).getTime();
+    // tslint:disable-next-line:forin
+    for (const key in TimeFromMilliseconds) {
+      // @ts-ignore
+      const time = Math.floor(diffInMilisec / TimeFromMilliseconds[key]);
+      if (time > 0) {
+        if (key !== 'mois') {
+          return `${time} ${(time > 1) ? key + 's' : key}`;
+        } else {
+          return `${time} ${key}`;
+        }
+      }
+    }
   }
 
   getFilteredOffers(filter: Filter): Observable<Offer[]> {

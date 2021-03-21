@@ -22,8 +22,9 @@ export class OfferCompanyComponent implements OnInit {
   isEditingOffer = false;
   offerToBeEdited: Offer;
   currentUser: User;
+  currentDate = new Date();
 
-  constructor(private offerService: OfferService,
+  constructor(public offerService: OfferService,
               private userService: UserService,
               private documentService: DocumentService,
               private matDialog: MatDialog,
@@ -104,6 +105,8 @@ export class OfferCompanyComponent implements OnInit {
       });
     }
   }
+
+
 
 }
 

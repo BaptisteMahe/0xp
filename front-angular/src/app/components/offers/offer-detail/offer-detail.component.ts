@@ -25,7 +25,7 @@ export class OfferDetailComponent implements OnInit {
   filterKeys: string[];
 
   constructor(private router: Router,
-              private offerViewService: OfferService,
+              public offerService: OfferService,
               private sanitizer: DomSanitizer,
               private companyService: CompanyService,
               private documentService: DocumentService,
@@ -37,10 +37,10 @@ export class OfferDetailComponent implements OnInit {
     this.currentFilter = this.filterService.getCurrentFilter();
     this.filterKeys = Object.keys(this.currentFilter);
 
-    this.offerViewService.getOfferById(idOffer).subscribe(offer => {
+    this.offerService.getOfferById(idOffer).subscribe(offer => {
       if (offer) {
         this.offer = offer;
-        this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.offerViewService.defineColor(this.offer.matchingScore));
+        this.colorScore = this.sanitizer.bypassSecurityTrustStyle('color:' + this.offerService.defineColor(this.offer.matchingScore));
         this.companyService.getById(this.offer.company._id).subscribe(
             company => {
               this.company = company;

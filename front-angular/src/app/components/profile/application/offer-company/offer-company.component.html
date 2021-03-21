@@ -13,7 +13,7 @@
     <div class="infos">
       <div class="title">
         <h2>{{offer.title}}</h2>
-        <p>{{offer.type}} • {{offer.duration}} • Il y a 2 heures</p>
+        <p>{{offer.type}} • {{offer.duration}} • Il y a {{this.offerService.computeOfferTimeSinceCreation(offer.createdDate)}}</p>
       </div>
       <p style="color:gray">{{offer.company.display}}</p>
     </div>
