@@ -17,6 +17,18 @@
 <div class="main-wrapper">
   <div class="grid-container">
 
+    <div class="section offer-link" *ngIf="currentUser.type == 'company'">
+      <h2>VENEZ PUBLIER VOS OFFRES</h2>
+
+      <div class="section-content" routerLink="/profile" [state]="{ tab: 'offer' }">
+        <div class="text">
+          <h3>VOS OFFRES</h3>
+          <p>Cliquez ici pour accéder à votre profil et publier vos offres d'emplois et de stages à l'École Centrale Marseille</p>
+        </div>
+        <img src="assets/images/offer-link-image-shorten.jpg" />
+      </div>
+    </div>
+
     <div class="section actu">
       <h2>ACTUALITÉS</h2>
 

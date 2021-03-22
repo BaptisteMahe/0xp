@@ -25,7 +25,7 @@
 
 <div class="profile-box" *ngIf="currentUser?.type === 'company'">
   <div class="square-sections">
-    <mat-tab-group mat-stretch-tabs>
+    <mat-tab-group mat-stretch-tabs [(selectedIndex)]="tabIndex">
       <mat-tab label="Mon Profil">
         <app-profile-detail></app-profile-detail>
       </mat-tab>

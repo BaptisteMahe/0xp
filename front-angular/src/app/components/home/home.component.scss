@@ -52,6 +52,23 @@
   grid-template-columns: repeat(3, 1fr);
   justify-items: start;
 
+  .offer-link {
+    grid-column: 1 / 4;
+
+    img {
+      width: 56vw;
+    }
+
+    h3::after {
+      content: "";
+      position: relative;
+      left: -90px;
+      padding: 0 20px 8px;
+      border-bottom: 1px solid #ffffff;
+    }
+
+  }
+
   .table {
     grid-column: 2 / 4;
 
