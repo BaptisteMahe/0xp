@@ -43,8 +43,9 @@
   }
 }
 .main-wrapper {
-  display: flex;
-  justify-content: center;
+  //display: flex;
+  //justify-content: center;
+  padding: 0 20vw;
 }
 .grid-container {
   padding: 20px 0;
@@ -56,7 +57,7 @@
     grid-column: 1 / 4;
 
     img {
-      width: 56vw;
+      width: 48vw;
     }
 
     h3::after {
@@ -75,8 +76,8 @@
     table {
       border: none;
       border-spacing: 0;
-      font-size: 1.2em;
       height: 234px;
+      width: 670px;
       box-shadow: 0 4px 4px 0 rgba(0,0,0, 0.2);
 
       td {
