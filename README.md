@@ -2,6 +2,11 @@
 
 Site Live at http://persil.ovh1.ec-m.fr/zero-xp
 
+## Prérequis
+
+* [Git](https://git-scm.com/)
+* Dernière version de [Node.js](https://nodejs.org/en/)\
+
 ## Installation
 copier le repo
 ~~~shell
