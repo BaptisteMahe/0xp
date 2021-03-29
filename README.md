@@ -5,7 +5,8 @@ Site Live at http://persil.ovh1.ec-m.fr/zero-xp
 ## Prérequis
 
 * [Git](https://git-scm.com/)
-* Dernière version de [Node.js](https://nodejs.org/en/)\
+* Dernière version de [Node.js](https://nodejs.org/en/)
+* Dernière version de [Angular](https://www.lucidchart.com/techblog/2016/12/12/installing-angular-2-and-other-dependencies/)
 
 ## Installation
 copier le repo
