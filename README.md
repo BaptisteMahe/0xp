@@ -8,6 +8,7 @@ copier le repo
 git clone https://github.com/BaptisteMahe/0xp.git
 ~~~
 
+### Exécuter le Backend
 ~~~shell
 cd 0xp/back-node
 ~~~
@@ -17,11 +18,12 @@ npm install
 npm run dev
 ~~~
 
+### Exécuter le FrontEnd
 Dans une autre console
 ~~~shell
 cd 0xp/front-angular
 ~~~
-Installer les packages et serve le fron
+Installer les packages et exécuter le server angular de dev
 ~~~shell
 npm install
 ng serve --open
@@ -32,10 +34,3 @@ On va toujours préférer rebase plutôt que simplement pull les branch pour cel
 ~~~shell
 git config --global pull.rebase merges
 ~~~
-Code for Centrale's option "Digital.e" : 0xp website, find your first xp
-
-## Bien nommer ses branches et ses commits
-
-Pour une modification en relation au ticket ZXP-XX \
-nom de la branche **monprenom-ZXP-XX** \
-message de commit **ZXP-XX monmessagedecommit**
