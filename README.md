@@ -2,6 +2,8 @@
 
 Site Live at http://persil.ovh1.ec-m.fr/zero-xp
 
+Check the wiki at https://github.com/BaptisteMahe/0xp/wiki
+
 ## Prérequis
 
 * [Git](https://git-scm.com/)
